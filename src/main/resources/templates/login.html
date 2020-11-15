@@ -35,25 +35,8 @@
                 <div class="login-logo">
                     <h2><a href="./event.html">自家発補給 電力使用自動連絡</a></h2>
                 </div>
-                <script type="text/javascript">
-                    function check(){
-                        if (loginform.account.value != "" && loginform.passkey.value != ""){
-                            if (loginform.account.value == "ais1234" && loginform.passkey.value == "ais123456"){
-                            	return true;
-                            }else if (loginform.account.value == "ais9876" && loginform.passkey.value == "ais654321"){
-                            	return true;
-                            }else{
-                            	alert("アカウントまたはパスワードが違います");
-                                loginform.account.value = "";
-                                loginform.passkey.value = "";
-                                return false;
-                            }
-                        }
-
-                    }
-                </script>
                 <div class="login-form">
-                    <form th:action="@{/event/}" name="loginform" method="post">
+                    <form th:action="@{/event/}" name="loginForm" id="loginForm" method="post">
                         <div class="form-group" style="margin-bottom: 10px;">
                             <label>アカウント</label>
                             <input type="text" class="form-control" placeholder="Account" id="account" name="account" required>
@@ -62,8 +45,9 @@
                              <label>パスワード</label>
                              <input type="password" class="form-control" placeholder="Password" id="passkey" name="passkey" required>
                         </div>
+						<div id="errDiv" style="font-size: 1.25em; text-align: center; padding-bottom: 10px; display: none;"><span style="color:red;">アカウントまたはパスワードが違います</span></div>
 
-                        <button type="submit" id="login_post" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="return check();">ログイン</button>
+                        <button type="button" id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30">ログイン</button>
                         <!-- ログイン処理エラーメッセージ出力部分 -->
                         <!-- div class="social-login-content"></div -->
                     </form>
@@ -75,6 +59,46 @@
     <script src="static/vendors/jquery/dist/jquery.min.js"></script>
     <script src="static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="static/assets/js/main.js"></script>
+    <script src="static/assets/js/datetimepicker/jquery.js"></script>
+
+
+<script>
+$(function(){
+	$('#loginBtn').on('click', function() {
+
+		 var account = $('#account').val();
+		 var passwd = $('#passkey').val();
+		 if(account == "ais1234"){
+			 if(passwd == "ais123456"){
+				 $('#errDiv').hide();
+				 $('#loginForm').submit();
+			 }else{
+				 $('#account').val('');
+				 $('#passkey').val('');
+		         $('#errDiv').show();
+		         return false;
+			 }
+		 }else if(account == "ais9876"){
+			 if(passkey == "ais654321"){
+				 $('#errDiv').hide();
+				 $('#loginForm').submit();
+			 }else{
+				 $('#account').val('');
+				 $('#passkey').val('');
+		         $('#errDiv').show();
+		         return false;
+			 }
+		 }else{
+			 $('#account').val('');
+			 $('#passkey').val('');
+	         $('#errDiv').show();
+	         return false;
+		 }
+	});
+});
+
+</script>
+
 
 </body>
 </html>
