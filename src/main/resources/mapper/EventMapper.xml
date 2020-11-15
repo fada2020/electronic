@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.info.ais.ops.mapper.EventMapper">
+
+    <select id="selectEventList" parameterType="jp.co.info.ais.ops.domain.EventList" resultType="jp.co.info.ais.ops.domain.EventList">
+			SELECT occurtime, customer , mailid, upoaid , status, upoaname
+			  FROM  public.tbl_jikahoeventlist
+            ORDER BY eventid DESC
+	 </select>
+
+    <select id="selectEventTotalCount" parameterType="jp.co.info.ais.ops.domain.EventList" resultType="Integer">
+		SELECT
+			COUNT(*)
+		FROM
+			tbl_jikahoeventlist
+	</select>
+
+	<select id="selectSearchData" parameterType="map" resultType="jp.co.info.ais.ops.domain.EventList">
+		SELECT tl.occurtime AS occurtime,
+		       tl.customer AS customer ,
+		       tl.mailid AS mailid,
+		       tl.upoaid AS upoaid,
+		       tl.status AS status,
+		       tl.upoaname AS upoaname,
+		       te.eventname AS eventname,
+    	       te.eventkind AS eventkind,
+		       tm.mailtext AS mailtext
+		FROM tbl_jikahoeventid te, tbl_jikahoeventlist tl, tbl_jikahomaillist tm
+		WHERE te.eventid = tl.eventid
+		  AND tl.mailid = tm.mailid
+		<if test="fromDate != null">
+		  AND tl.occurtime BETWEEN to_timestamp(#{fromDate}, 'yyyy-mm-dd hh24:mi:ss') AND to_timestamp(#{toDate}, 'yyyy-mm-dd hh24:mi:ss')
+		</if>
+		ORDER BY tl.occurtime DESC
+	</select>
+
+	<select id="selectMailList" parameterType="String" resultType="jp.co.info.ais.ops.domain.MailList">
+			select mailid, mailkind, maildatetime, mailsubject, mailfrom, mailto, mailcc, mailtext
+			FROM  public.tbl_jikahomaillist
+            where mailid = #{mailid}
+	 </select>
+
+	<select id="selectEventAndId" parameterType="jp.co.info.ais.ops.domain.EventAndId" resultType="jp.co.info.ais.ops.domain.EventAndId">
+			SELECT elist.occurtime,
+			       elist.customer ,
+			       eid.eventname,
+			       eid.eventkind ,
+                   elist.status,
+                   elist.upoaname
+			  FROM  public.tbl_jikahoeventlist elist
+			        FULL OUTER JOIN public.tbl_jikahoeventid eid ON
+			elist.eventid = eid.eventid
+	 </select>
+ </mapper>

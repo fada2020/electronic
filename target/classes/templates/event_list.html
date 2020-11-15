@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OPS:Event</title>
+    <meta name="description" content="OPS">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/vendors/themify-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../static/vendors/flag-icon-css/css/flag-icon.min.css">
+    <link rel="stylesheet" href="../static/vendors/selectFX/css/cs-skin-elastic.css">
+    <link rel="stylesheet" href="../static/assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- datetimepicker -->
+	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
+	<!-- dataTable -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+
+</head>
+ <body>
+    <!-- Left Panel -->
+	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
+    <!-- Left Panel -->
+    <!-- Right Panel -->
+    <div id="right-panel" class="right-panel">
+        <!-- Header-->
+		<div th:insert="fragments/top_nav :: top_nav" th:remove="tag"></div>
+        <!-- Header-->
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>自家補連絡イベントリスト</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <div class="col-sm-12 col-lg-12">
+            	<div class="card">
+            		<div class="card-body pb-0">
+						<div class="col-7" style="float: left; text-align: left;">
+	                        <div class="form-group" style="margin-bottom: 0.5rem !important;">
+	                            <label class="form-control-label" style="font-size: 1.25em; margin-bottom: 0; padding-bottom: 0;">発生日時</label>
+	                        </div>
+	                        <div class="form-group form-inline">
+	                            <div class="input-group">
+	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
+	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}">
+	                            </div>
+	                            <span style="padding: 5px; font-size: medium;">時 ～　</span>
+	                            <div class="input-group">
+	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
+	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}">
+	                            </div>
+	                            <span style="padding: 5px; padding-right: 10px; font-size: medium;">時</span>
+	                            <button type="button" class="btn btn-primary btn-sm" id="searchBtn"><i class="fa fa-search"></i> 検索</button>
+							</div><!-- /.form-inline -->
+						</div><!-- /.col-9-->
+						<div class="col-5" style="float: right; text-align: right; margin-top: 20px;">
+                            <button type="button" id="executeBtn" class="btn btn-sm btn-primary" style="padding-right: 20px;"><i class="fa fa-refresh"></i> 自動更新</button>
+							<button type="button" id="excelBtn" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
+						</div><!-- /.col-sm-3-->
+            		</div><!-- /.card-body -->
+            	</div><!-- /.card -->
+			</div><!--/.col-->
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div id="2-checkbox" class="store-select">
+                                <label class="checkbox-inline">
+                                    <input class="checkbox-input" name="status" id="status" value="1"type="checkbox" checked><span> 正常終了</span>
+                                  </label>
+                                  <label class="checkbox-inline" style="padding-left:10px;">
+                                    <input class="checkbox-input" name="status" id="status" value="2"type="checkbox" checked><span> 失敗</span>
+                                  </label>
+                                  <label class="checkbox-inline" style="padding-left:10px;">
+                                    <input class="checkbox-input" name="kind" id="kind" value="1"type="checkbox" checked><span> メール</span>
+                                  </label>
+                                  <label class="checkbox-inline" style="padding-left:10px;">
+                                    <input class="checkbox-input" name="kind" id="kind" value="2"type="checkbox" checked><span> 電話</span>
+                                  </label>
+                                  <label class="checkbox-inline" style="padding-left:10px;">
+                                    <input class="checkbox-input" name="kind" id="kind" value="3"type="checkbox" checked><span> 判定</span>
+                                  </label>
+                              </div>
+                        </div>
+					<form action="mailcheck" method="get">
+                        <div class="card-body" id="store-data">
+                            <table id="eventList" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;" class="active">
+                                        <th style="text-align:center;">発生時刻</th>
+                                        <th style="text-align:center;">施設名</th>
+                                        <th style="text-align:center;">イベント名称</th>
+                                        <th style="text-align:center;">区分</th>
+                                        <th style="text-align:center;">状態</th>
+                                        <th style="text-align:center;">補足</th>
+                                        <th style="text-align:center;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr th:each="list : ${list}">
+                                        <td style="text-align:center;" th:text="${list.occurtime}"></td>
+                                        <td th:text="${list.customer}"></td>
+                                        <td th:text="${list.eventname}" th:style="${list.eventkind == '4'}
+                                        									    ? 'color: red;'
+                                        									    : (${list.eventkind == '2'}
+                                        									    ? 'color: blue;'
+                                        									    : 'color: black;')"></td>
+                                        <td style="text-align:center;" th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
+                                        									    ? 'color: red;'
+                                        									    : (${list.eventkind == '2'}
+                                        									    ? 'color: blue;'
+                                        									    : 'color: black;')">
+                                        <span th:case == "1">メール</span>
+          								<span th:case == "2">電話</span>
+          								<span th:case == '3'>判定</span>
+          								<span th:case == '4'>操作</span>
+ 										</td>
+                                        <td style="text-align:center;" th:switch="${list.status}">
+                                        <span th:case == "0">なし</span>
+          								<span th:case == "1">正常終了</span>
+          								<span th:case == '2'>失敗</span>
+                                        </td>
+                                        <td th:text="${list.upoaname}"></td>
+                                        <td style="text-align:center;" th:value="${list.customer}" id="mailid">
+                                          <button type="button" class="btn btn-sm btn-success"
+                                            data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                        </td>
+                                    </tr>
+                                    	<tr th:unless="${not #lists.isEmpty( list )}">
+									<td colspan="7">検索リストが存在しません</td>
+									</tr>
+                                </tbody>
+                            </table>
+                        </div>
+					</form>
+                    </div>
+                </div>
+
+
+            </div>
+            <!--/.col-->
+
+
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+
+<!-- Modal -->
+ <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="top: -20px;">
+  <div class="modal-dialog modal-dialog-scrollable" role="document">
+    <div class="modal-content"style="width: 700px; margin: auto; right: 70px; padding-right: 25px; padding-bottom: 10px;">
+     <div class="modal-header" style="padding: 0.3rem; margin: auto; border-bottom:none;">
+        <h5 class="modal-title" id="exampleModalScrollableTitle">メール確認</h5>
+      </div>
+      <div class="modal-body" style="padding: 0.5rem; left:15px;">
+      <table>
+     	<thead>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px;">メールID</th>
+  	    	  <td>$$$$</td>
+      		</tr>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px;">送信時間</th>
+  	    	  <td>2020/05/03 06:45:22</td>
+      		</tr>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px;">送信者</th>
+  	    	  <td>*******@helionet21.jp</td>
+      		</tr>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px;">件  名</th>
+  	    	  <td>【自家捕使用開始】シマダヤ関東株式会社</td>
+      		</tr>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px;">宛先 (To)</th>
+  	    	  <td>jikaho@ennet.co,jp</td>
+      		</tr>
+      		<tr style="height:40px;">
+    		  <th style="width: 120px; padding-top: 10px; padding-bottom: 50px;">宛先 (CC)</th>
+  	    	   <td>***@shimadaya.co.jp; ***@shimadaya.co,jp;<br/>
+          	    ***@shimadaya.co.jp; ***@tokyogas-se.co.jp; <br/>
+              ***@tokyogas-se.co.jp; ***@tokyogas-se.co.jp;</td>
+		</thead>
+		<tbody>
+
+      			<tr style="height:25px;">
+
+    		  <td colspan="2"> <textarea name="board_content" cols="89" rows="23" disabled="disabled" ></textarea></td>
+			</tr>
+		</tbody>
+      </table>
+
+      </div>
+
+      <div class="modal-footer" style="padding: 0.2rem; border-top:none;">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" style="margin: auto; width: 150px;">閉じる</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal -->
+
+    <!-- Right Panel -->
+
+    <script src="../static/vendors/jquery/dist/jquery.min.js"></script>
+    <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+
+	<!-- datetimepicker -->
+    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
+    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<!-- dataTable -->
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+
+<form th:action="@{/event/}" name="hidSearchForm" id="hidSearchForm" method="post">
+	<input type="hidden" id="fromDateTime" name="fromDateTime">
+	<input type="hidden" id="toDateTime" name="toDateTime">
+	<input type="hidden" id="chkStatus" name="chkStatus">
+	<input type="hidden" id="chkKind" name="chkKind">
+</form>
+
+
+<script>
+$(function(){
+    $.datetimepicker.setLocale("ja");
+ 	$('#fromDate').datetimepicker({
+ 	    lang:'ja'
+ 	});
+ 	$('#toDate').datetimepicker({
+ 	    lang:'ja'
+ 	});
+	//DataTable Option設定
+ 	$('#eventList').DataTable( {
+ 	    fixedHeader: true,
+ 	    scrollY: 500,
+ 	    searching: false,
+ 	    lengthMenu: [ 50, 100, 500 ],
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        }
+ 	} );
+});
+
+//検索処理を行う。
+$('#searchBtn').on('click', function() {
+ 	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+ 	 $('#fromDateTime').val(fDateTime);
+ 	 $('#toDateTime').val(tDateTime);
+ 	 var checkVal = '';
+	 $('input[name=status]').each(function(index,item){
+		if(index!=0){
+		 checkVal += ',';
+		}
+		checkVal += $(this).val();
+	 });
+ 	 $('#chkStatus').val(checkVal);
+
+ 	 var checkKind = '';
+	 $('input[name=kind]').each(function(index,item){
+		if(index!=0){
+		 checkKind += ',';
+		}
+		checkKind += $(this).val();
+	 });
+ 	 $('#chkKind').val(checkKind);
+	 $('#hidSearchForm').submit();
+});
+//自動実行処理を行う。
+$('#executeBtn').on('click', function() {
+	  alert("executeBtnクリックされました");
+});
+//エクセルファイル出力処理を行う。
+$('#excelBtn').on('click', function() {
+	  alert("excelBtnクリックされました");
+});
+</script>
+
+
+
+</body>
+</html>

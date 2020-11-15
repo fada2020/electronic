@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: jp.co.info.ais.ops.OpsApplicationTests
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 2.119 s - in jp.co.info.ais.ops.OpsApplicationTests

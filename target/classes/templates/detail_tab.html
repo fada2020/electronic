@@ -1,0 +1,1252 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OPS:詳細設定</title>
+    <meta name="description" content="OPS">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="favicon.ico">
+
+    <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../static/assets/css/style.css">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+    <!-- Left Panel -->
+	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
+    <!-- Left Panel -->
+    <div id="right-panel" class="right-panel">
+
+        <!-- Header-->
+		<div th:insert="fragments/top_nav :: top_nav" th:remove="tag"></div>
+        <!-- Header-->
+
+        <div class="breadcrumbs">
+            <div class="col-sm-4">
+                <div class="page-header float-left">
+                    <div class="page-title">
+                        <h1>詳細設定</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content mt-3">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#layer-1" role="tab" aria-controls="item1" aria-selected="true"><span style="font-size: 14px;">基本情報</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#layer-2" role="tab" aria-controls="item2" aria-selected="false"><span style="font-size: 14px;">開始判定条件・連絡</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#layer-3" role="tab" aria-controls="item3" aria-selected="false"><span style="font-size: 14px;">終了判定条件・連絡</span></a>
+                </li>
+            </ul>
+            <div class="tab-content pl-3 p-1" id="myTabContent">
+                <div class="tab-pane fade show active" id="layer-1" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="col-6">
+                        <!-- 基本情報 -->
+                        <h5>サイト選択</h5>
+                        <div class="card card-body">
+                            <div class="row form-group form-group-sm">
+                                <div class="col-2">
+                                    <button type="button" id="modeEditBtn" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
+                                    <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm" style="display: none;"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
+                                </div>
+                                <div class="col-6">
+                                    <div class="col-5"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button></div>
+                                    <div class="col-7"><input type="text" class="form-control input-sm"></div>
+                                    <div class="col-5">住所 ${Address}</div>
+                                    <div class="col-7"><input type="text" class="form-control input-sm"></div>
+                                </div>
+                                <div class="col-4">
+                                    <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal"><i class="fa fa-save"></i>&nbsp; 保存</button>
+                                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+                                </div>
+                            </div>
+                        </div>
+                        <h5>指定電力超過のお知らせメール 記載情報</h5>
+                        <div class="card card-body">
+                            <div class="row form-group">
+                                <div class="col-8">
+                                    <label class="checkbox-inline" style="padding-left:10px;">
+                                    <input type="checkbox" checked data-toggle="modal" data-target="#checkModal"><span> 有効</span>
+                                    未入力項目がある場合、チェック不可
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-4">【お知らせ番号】</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="row form-group">
+                                <div class="col-4">【施設名】${Customer}</div>
+                                <div class="col-8">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h5>責任者</h5>
+                        <div class="card card-body">
+                            <!-- 責任者 -->
+                           <div class="row form-group form-group-sm">
+                               <div class="col-3"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                               </div>
+                               <div class="col-9">
+                                   <div class="col-3">
+                                       <label for="" class="control-label mb-1">名称</label>
+                                       <input type="text" class="form-control input-sm">
+                                   </div>
+                                   <div class="col-3">
+                                       <label for="" class="control-label mb-1">電話番号</label>
+                                       <input type="text" class="form-control input-sm">
+                                   </div>
+                                   <div class="col-6">
+                                       <label for="" class="control-label mb-1">メールアドレス</label>
+                                       <input type="text" class="form-control input-sm">
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                    </div>
+                    <div class="col-6">
+                        <h5>最終更新日時・更新者</h5>
+                        <div class="card card-body">
+                            <!-- 連絡先マスタ -->
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#masterModal"><i class="fa fa-list-alt"></i>&nbsp; 連絡先マスタ</button></div>
+                                <div class="col-9">
+                                    <div class="col-6">
+                                            <label for="" class="control-label mb-1">最終更新日時</label>
+                                            <input type="text" class="form-control input-sm">
+                                    </div>
+                                    <div class="col-6">
+                                            <label for="" class="control-label mb-1">最終更新者</label>
+                                            <input type="text" class="form-control input-sm">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <!-- メール送付先 -->
+                        <h5>メール送付先</h5>
+                        <div class="card card-body">
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3">社外アドレス<br>連絡メールのみ</div>
+                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
+                            </div>
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3">社内ユーザー<br><br>
+                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                </div>
+                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="layer-2" role="layer-2" aria-labelledby="profile-tab">
+                    <div class="col-6">
+                        <h5>開始連絡</h5>
+                        <div class="card card-body">
+                            <!-- 開始連絡　-->
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3">
+                                    連絡先
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    電話番号　音声ファイル
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 300px;">
+                                    <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
+                                    <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    電話番号　リトライ回数
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
+                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <span style="margin-left: 10px; font-size: 14px;">回</span>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    メール タイトル
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3" style="vertical-align: top;">
+                                    メール 本文
+                                </div>
+                                <div class="col-9">
+                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%;"　placeholder="" class="form-control"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h5>開始判定条件</h5>
+                        <div class="card card-body">
+                            <!-- 開始判定条件 -->
+                            <div class="row form-group form-group-sm">
+                                <div class="col-6">
+                                    <textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm">
+                                <div class="col-9">
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                        <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 計算式設定</button>
+                                </div>
+                                <div class="col-9">
+                                    <label for="" class="control-label mb-1">接点タグ</label>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">監視端末</th>
+                                                <th scope="col">タグ名称</th>
+                                                <th scope="col">ON/OFF</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">A</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>1号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">B</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>1号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">C</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>1号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">D</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>2号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">E</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>2号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">F</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>2号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">G</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>3号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">H</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>3号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">I</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>3号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">J</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>4号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="tab-pane fade" id="layer-3" role="layer-3" aria-labelledby="contact-tab">
+                    <div class="col-6">
+                        <h5>終了連絡</h5>
+                        <div class="card card-body">
+                            <!-- 終了連絡　-->
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3">
+                                    連絡先
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm">
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    電話番号　音声ファイル
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 300px;">
+                                    <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
+                                    <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    電話番号　リトライ回数
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
+                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <span style="margin-left: 10px; font-size: 14px;">回</span>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3">
+                                    メール タイトル
+                                </div>
+                                <div class="col-9">
+                                    <input type="text" class="form-control input-sm" style="width: 100%;">
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm form-inline">
+                                <div class="col-3" style="vertical-align: top;">
+                                    メール 本文
+                                </div>
+                                <div class="col-9">
+                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%;"　placeholder="" class="form-control"></textarea>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <h5>終了判定条件</h5>
+                        <div class="card card-body">
+                            <!-- 終了判定条件 -->
+                            <div class="row form-group form-group-sm">
+                                <div class="col-6">
+                                    <textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                </div>
+                                <div class="col-2" style="text-align: center; vertical-align: text-bottom; font-size: medium;">
+                                    <span>AND</span>
+                                </div>
+                                <div class="col-4">
+                                    <textarea style="background-color:white;" name="textarea-input" id="ikitiZ_input" rows="2" class="form-control" disabled=true></textarea>
+                                </div>
+                            </div>
+                            <div class="row form-group form-group-sm">
+                                <div class="col-9">
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                        <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 計算式設定</button>
+                                </div>
+                                <div class="col-9">
+                                    <label for="" class="control-label mb-1">接点タグ</label>
+                                    <table class="table table-bordered" id="tagTable">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">監視端末</th>
+                                                <th scope="col">タグ名称</th>
+                                                <th scope="col">ON/OFF</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">A</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>1号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">B</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>1号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">C</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>1号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">D</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>2号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">E</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>2号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">F</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>2号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">G</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>3号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">H</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>3号準備</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">I</th>
+                                                <td>大手町タワー#3</td>
+                                                <td>3号開始</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th scope="row">J</th>
+                                                <td>大手町タワー#1</td>
+                                                <td>4号停止</td>
+                                                <td>
+                                                    <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <label for="" class="control-label mb-1">アナログタグ</label>
+                                    <table class="table table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">No</th>
+                                                <th scope="col">監視端末</th>
+                                                <th scope="col">タグ名称</th>
+                                                <th scope="col">間値</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <th scope="row">Z</th>
+                                                <td>大手町タワー#2</td>
+                                                <td>受電電力</td>
+                                                <td><input type=text id="ikitiZ" placeholder=4.000></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<!-- Site Search Modal Start-->
+<div class="modal fade" id="siteSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">サイト設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">キーワード</label>
+                                <input type="text" placeholder="" class="form-control input-sm">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> 検索</button>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
+                                        <th style="text-align:center;width: 90%; font-size: 14px;">サイト名称</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">1</th>
+                                        <td style="font-size: 12px;">サイトA</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">２</th>
+                                        <td style="font-size: 12px;">サイトB</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">３</th>
+                                        <td style="font-size: 12px;">サイトC</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Site Search Modal End-->
+
+<!-- Cal Modal Start-->
+<div class="modal fade" id="calModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">計算式設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">計算式</label>
+                                <textarea style="background-color:lightyellow;" name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control" disabled=true>( A OR B ) AND C</textarea>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 10%; font-size: 14px;">NO</th>
+                                        <th colspan="4" style="text-align:center;width: 90%; font-size: 14px;">演算子 (       )</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">1</th>
+                                        <td style="width: 10%; font-size: 12px;">
+
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo1"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">2</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo2"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">3</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo3"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">4</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo4"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">5</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo5"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">6</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo6"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">7</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo7"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">8</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo8"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">9</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo9"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">10</th>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>( </option><option> )</option></select>
+                                        </td>
+                                        <td style="width: 60%; font-size: 12px;">
+                                            <select id="tagNo10"></select>
+                                        </td>
+                                        <td style="width: 10%; font-size: 12px;">
+                                            <select><option> </option><option>) </option><option> (</option></select>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">コメント</label>
+                                <textarea name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control"></textarea>
+                            </div><!--/.form-group -->
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">反映</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cal Modal End-->
+
+<!-- 連絡先マスタ Modal Start -->
+<div class="modal fade" id="masterModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">連絡先マスター</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline" style="float: right; padding-top: 20px;">
+                                <button type="button" class="btn btn-info" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 10%; font-size: 12px;">NO</th>
+                                        <th style="text-align:center;width: 20%; font-size: 12px;">名称</th>
+                                        <th style="text-align:center;width: 25%; font-size: 12px;">メールアドレス</th>
+                                        <th style="text-align:center;width: 20%; font-size: 12px;">電話番号</th>
+                                        <th style="text-align:center;width: 25%; font-size: 12px;"></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">1</th>
+                                        <td style="font-size: 0.9em;">〇〇〇〇〇〇〇〇〇</td>
+                                        <td style="font-size: 0.9em;">＃＃＃＃＃＃＃＃＃</td>
+                                        <td style="font-size: 0.9em;">XXX-XXXX-XXXX</td>
+                                        <td style="text-align:center;">
+	                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 5px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
+	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">2</th>
+                                        <td style="font-size: 0.9em;">〇〇〇〇〇〇〇〇〇</td>
+                                        <td style="font-size: 0.9em;">＃＃＃＃＃＃＃＃＃</td>
+                                        <td style="font-size: 0.9em;">XXX-XXXX-XXXX</td>
+                                        <td style="text-align:center;">
+	                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 5px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
+	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">3</th>
+                                        <td style="font-size: 0.9em;">〇〇〇〇〇〇〇〇〇</td>
+                                        <td style="font-size: 0.9em;">＃＃＃＃＃＃＃＃＃</td>
+                                        <td style="font-size: 0.9em;">XXX-XXXX-XXXX</td>
+                                        <td style="text-align:center;">
+	                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 5px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
+	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">4</th>
+                                        <td style="font-size: 0.9em;">〇〇〇〇〇〇〇〇〇</td>
+                                        <td style="font-size: 0.9em;">＃＃＃＃＃＃＃＃＃</td>
+                                        <td style="font-size: 0.9em;">XXX-XXXX-XXXX</td>
+                                        <td style="text-align:center;">
+	                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 5px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
+	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;">5</th>
+                                        <td style="font-size: 0.9em;">〇〇〇〇〇〇〇〇〇</td>
+                                        <td style="font-size: 0.9em;">＃＃＃＃＃＃＃＃＃</td>
+                                        <td style="font-size: 0.9em;">XXX-XXXX-XXXX</td>
+                                        <td style="text-align:center;">
+	                                        <button type="button" class="btn btn-sm btn-primary" style="margin-right: 5px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
+	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
+                                        </td>
+                                    </tr>
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">登録</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- 連絡先マスタ Modal End -->
+
+<!-- Master Add Modal Part Start-->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">名称</label>
+                    <input type="text" placeholder="" style="width: 290px" class="form-control input-sm">
+                </div><!--/.form-group -->
+                <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">電話番号</label>
+                    <input type="text" placeholder="" style="width: 290px;" class="form-control input-sm">
+                </div><!--/.form-group -->
+                <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">メールアドレス</label>
+                    <input type="text" placeholder="" style="width: 290px;" class="form-control input-sm">
+                </div><!--/.form-group -->
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">保存</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Master Add Modal Part End-->
+
+<!-- Tag Modal Start-->
+<div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">タグ一覧</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline">
+                                <input type="text" placeholder="大手町プレイスウエストタワー" class="form-control input-sm">
+                            </div><!--/.form-group -->
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">顧客</label>
+                                <select name="select" id="select" class="form-control">
+                                    <option value="0">大手町PWタワー#1</option>
+                                    <option value="1">大手町PWタワー#2</option>
+                                </select>
+                                <input type="text" placeholder="" class="form-control input-sm">
+                                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i>検索</button>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 20%; font-size: 14px;">タグNO</th>
+                                        <th style="text-align:center;width: 50%; font-size: 14px;">タグ名称</th>
+                                        <th style="text-align:center;width: 30%; font-size: 14px;">単位</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di1</th>
+                                        <td style="font-size: 12px;">1号機開始動中</td>
+                                        <td style="font-size: 12px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di2</th>
+                                        <td style="font-size: 12px;">1号機開始動中</td>
+                                        <td style="font-size: 12px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di3</th>
+                                        <td style="font-size: 12px;">1号機開始動中</td>
+                                        <td style="font-size: 12px;"></td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di4</th>
+                                        <td style="font-size: 12px;">1号機開始動中</td>
+                                        <td style="font-size: 12px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">選択タグ</label>
+                                <input type="text" placeholder="1号機開始動中" class="form-control input-sm">
+                            </div><!--/.form-group -->
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">設定</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tag Modal End-->
+
+<!-- User Select Modal Start-->
+<div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">ユーザー選択</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">対象者</label>
+                                <select name="select" id="select" class="form-control">
+                                    <option value="0">産業ES</option>
+                                    <option value="1">産業AA</option>
+                                </select>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 10%; font-size: 14px;"></th>
+                                        <th style="text-align:center;width: 30%; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center;width: 60%; font-size: 14px;">メールアドレス</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                        </th>
+                                        <td style="font-size: 12px;">テスト　太郎1</td>
+                                        <td style="font-size: 12px;">test1@test.co.jp</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                        </th>
+                                        <td style="font-size: 12px;">テスト　太郎2</td>
+                                        <td style="font-size: 12px;">test2@test.co.jp</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                        </th>
+                                        <td style="font-size: 12px;">テスト　太郎3</td>
+                                        <td style="font-size: 12px;">test3@test.co.jp</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                        </th>
+                                        <td style="font-size: 12px;">テスト　太郎4</td>
+                                        <td style="font-size: 12px;">test4@test.co.jp</td>
+                                    </tr>
+                                    <tr>
+                                        <th scope="row" style="text-align:center;padding-left: 10px;">
+                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                        </th>
+                                        <td style="font-size: 12px;">テスト　太郎5</td>
+                                        <td style="font-size: 12px;">test5@test.co.jp</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- User Select Modal End-->
+
+<!-- Modal Part Start-->
+<div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    データを保存します。
+                    <div class="row form-group">
+                        <div class="col-4" style="margin-top: 10px;"><span style="font-size: 12px;">アカウント</span></div>
+                        <div class="col-8">
+                            <input type="text" placeholder="" class="form-control input-sm">
+                        </div>
+                    </div>
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Part End-->
+
+<!-- Tag Delete Modal Part Start-->
+<div class="modal fade" id="tagDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    選択されたタグを削除します。<br>よろしいですか？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Tag Delete Modal Part End-->
+
+<!-- Cancel Modal Part Start-->
+<div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    データを保存せずに終了しました。<br>よろしいですか？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cancel Modal Part End-->
+
+<!-- Check Modal Part Start-->
+<div class="modal fade" id="checkModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    未入力項目があるため保存できません。<br>一時保存する場合は、有効チェックを外してください。
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Check Modal Part End-->
+
+<!-- Delete1 Modal Part Start-->
+<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    選択されたデータを削除します。<br>よろしいですか？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Cancel Modal Part End-->
+
+        </div> <!-- .content -->
+    </div><!-- /#right-panel -->
+
+    <!-- Right Panel -->
+
+    <script src="../static/vendors/jquery/dist/jquery.js"></script>
+    <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
+    <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="../static/assets/js/main.js"></script>
+
+
+<script th:inline="javascript">
+jQuery(function($){
+	$('#ikitiZ').change(function() {
+        var ikiti = $(this).val();
+        if(ikiti != ""){
+        	document.getElementById('ikitiZ_input').innerHTML = "Z < " + ikiti;
+        }else{
+        	document.getElementById('ikitiZ_input').innerHTML = "";
+        }
+
+    });
+    $('#ikitiZ').keyup(function() {
+        var ikiti = $(this).val();
+        if(ikiti != ""){
+        	document.getElementById('ikitiZ_input').innerHTML = "Z < " + ikiti;
+        }else{
+        	document.getElementById('ikitiZ_input').innerHTML = "";
+        }
+    });
+	$('#calModal').on('show.bs.modal', function (event) {
+		var modal = $(this);
+		var itemIDs = [];
+		$('#tagTable tr').map(function () {
+		itemIDs.push($(this).children('th:first').text());
+		});
+
+		for (i = 1; i < itemIDs.length; i++) {
+			modal.find('.card-body select#tagNo' + i +' option').remove();
+			for (j = 1; j < itemIDs.length; j++) {
+				var option = document.createElement('option');
+				option.setAttribute('value', itemIDs[j]);
+				if(i == j){
+					option.setAttribute('selected', true);
+				}
+				option.innerHTML = itemIDs[j];
+				modal.find('.card-body select#tagNo'+ i).append(option);
+			}
+		}
+
+	});
+
+    $('#modeEditBtn').on('click', function() {
+        $('#modeEditBtn').hide();
+        $('#modeViewBtn').show();
+    });
+    $('#modeViewBtn').on('click', function() {
+        $('#modeViewBtn').hide();
+        $('#modeEditBtn').show();
+    });
+})
+</script>
+
+</body>
+
+</html>
