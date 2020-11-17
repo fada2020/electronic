@@ -1,5 +1,6 @@
 package jp.co.info.ais.ops.controller;
 
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -20,13 +21,20 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.fasterxml.jackson.databind.JsonMappingException;
 
 import jp.co.info.ais.ops.domain.EventList;
 import jp.co.info.ais.ops.service.EventService;
@@ -90,7 +98,6 @@ public class EventController {
 			model.addAttribute("fromDate", fromDate);
 			model.addAttribute("toDate", toDate);
 			model.addAttribute("list", list);
-			model.addAttribute("status0Check", true);
 			model.addAttribute("status1Check", true);
 			model.addAttribute("status2Check", true);
 			model.addAttribute("kind1Check", true);
@@ -98,8 +105,7 @@ public class EventController {
 			model.addAttribute("kind3Check", true);
 
 		}catch (Exception e) {
-			System.out.println(e.getMessage());
-			//logger.debug(e.getMessage());
+			logger.error(e.getMessage());
 		}
 
 		//戻り値
@@ -128,14 +134,6 @@ public class EventController {
 			String flag = request.getParameter("flag");
 			String fromDate = request.getParameter("fromDateTime");
 			String toDate = request.getParameter("toDateTime");
-			String chkStatus0 = request.getParameter("chkStatus0");
-
-			if(!chkStatus0.isEmpty()) {
-				model.addAttribute("status0Check", true);
-				statusList.add(chkStatus0);
-			}else {
-				model.addAttribute("status0Check", false);
-			}
 			String chkStatus1 = request.getParameter("chkStatus1");
 			if(!chkStatus1.isEmpty()) {
 				model.addAttribute("status1Check", true);
@@ -195,13 +193,20 @@ public class EventController {
 			model.addAttribute("list", list);
 
 		}catch (Exception e) {
-			e.printStackTrace();
+			logger.error(e.getMessage());
 		}
 		//戻り値
 		return "event_list";
 	}
 
 
+	/**
+	 * Excelファイル出力
+	 *
+	 * @param list
+	 * @param response
+	 * @throws Exception
+	 */
 	private void ExcelDown(List<EventList> list, HttpServletResponse response) throws Exception  {
 		try {
 
@@ -313,6 +318,67 @@ public class EventController {
 			logger.debug(e.getMessage());
 		}
 	}
+
+    /**
+     * 新規のTODOを追加する.
+     * @param todo 新規投稿TODO
+     * @return 更新の反映されたTODO
+     */
+    @ResponseBody
+    @PostMapping("/getListAuto")
+    public List<EventList> ajaxGetList(@RequestBody String json) throws JsonMappingException, IOException  {
+
+    	logger.debug("ajaxGetList Start===========");
+		List<EventList> list = new ArrayList<EventList>();
+
+		try {
+
+			JSONParser pJson = new JSONParser();
+			JSONObject obj = (JSONObject)pJson.parse(json);
+			List<String> statusList = new ArrayList<>();
+			List<String> arrayKind = new ArrayList<>();
+
+			//パラメータ設定
+			String fromDate = (String) obj.get("fromDateTime");
+			String toDate = (String) obj.get("toDateTime");
+			String chkStatus1 = (String) obj.get("chkStatus1");
+			String chkStatus2 = (String) obj.get("chkStatus2");
+			String chkKind1 = (String) obj.get("chkKind1");
+			String chkKind2 = (String) obj.get("chkKind2");
+			String chkKind3 = (String) obj.get("chkKind3");
+
+			if(!chkStatus1.isEmpty()) {
+				statusList.add(chkStatus1);
+			}
+			if(!chkStatus2.isEmpty()) {
+				statusList.add(chkStatus2);
+			}
+			if(!chkKind1.isEmpty()) {
+				arrayKind.add(chkKind1);
+			}
+			if(!chkKind2.isEmpty()) {
+				arrayKind.add(chkKind2);
+			}
+			if(!chkKind3.isEmpty()) {
+				arrayKind.add(chkKind3);
+			}
+
+			//パラメータ格納
+			Map<String, Object> paraMap = new HashMap<>();
+			paraMap.put("fromDate", fromDate);
+			paraMap.put("toDate", toDate);
+			paraMap.put("status", statusList);
+			paraMap.put("kinds", arrayKind);
+
+			//一覧データ取得（全データ）
+			list = eventService.selectEventList(paraMap);
+
+		}catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+    	//戻る値
+    	return list;
+    }
 
 }
 

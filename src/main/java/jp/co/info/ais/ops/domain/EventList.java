@@ -14,6 +14,13 @@ public class EventList {
 	private String upoaname;
 	private String upoatime;
 	private String mailtext;
+	private String mailkind;
+	private String maildatetime;
+	private String mailsubject;
+	private String mailfrom;
+	private String mailto;
+	private String mailcc;
+
 
 	public String getOccurtime() {
 		return occurtime;
@@ -54,6 +61,8 @@ public class EventList {
 				+ ", eventname=" + eventname + ", eventid=" + eventid + ", eventkind=" + eventkind
 				+ ", customerno=" + customerno
 				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
+				+ ", mailkind=" + mailkind + ", maildatetime=" + maildatetime + ", mailsubject=" + mailsubject
+				+ ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc=" + mailcc
 				+ ", upoaname=" + upoaname + ", upoatime=" + upoatime + ", mailtext=\" + mailtext + \"]";
 	}
 
@@ -95,6 +104,42 @@ public class EventList {
 	}
 	public void setEventkind(String eventkind) {
 		this.eventkind = eventkind;
+	}
+	public String getMailkind() {
+		return mailkind;
+	}
+	public void setMailkind(String mailkind) {
+		this.mailkind = mailkind;
+	}
+	public String getMaildatetime() {
+		return maildatetime;
+	}
+	public void setMaildatetime(String maildatetime) {
+		this.maildatetime = maildatetime;
+	}
+	public String getMailsubject() {
+		return mailsubject;
+	}
+	public void setMailsubject(String mailsubject) {
+		this.mailsubject = mailsubject;
+	}
+	public String getMailfrom() {
+		return mailfrom;
+	}
+	public void setMailfrom(String mailfrom) {
+		this.mailfrom = mailfrom;
+	}
+	public String getMailto() {
+		return mailto;
+	}
+	public void setMailto(String mailto) {
+		this.mailto = mailto;
+	}
+	public String getMailcc() {
+		return mailcc;
+	}
+	public void setMailcc(String mailcc) {
+		this.mailcc = mailcc;
 	}
 
 }
