@@ -45,6 +45,8 @@ public class EventController {
 	private static final String FIXED_STATUS_OK_TXT = "正常終了";
 	private static final String FIXED_STATUS_NG = "2";
 	private static final String FIXED_STATUS_NG_TXT = "失敗";
+	private static final String FIXED_AUTO_RENEW_NO = "0";
+	private static final String FIXED_AUTO_RENEW_YES = "1";
 
 	@Autowired
 	HttpSession session;
@@ -127,6 +129,7 @@ public class EventController {
 			String fromDate = request.getParameter("fromDateTime");
 			String toDate = request.getParameter("toDateTime");
 			String chkStatus0 = request.getParameter("chkStatus0");
+
 			if(!chkStatus0.isEmpty()) {
 				model.addAttribute("status0Check", true);
 				statusList.add(chkStatus0);
@@ -186,6 +189,7 @@ public class EventController {
 			}
 
 			//戻り値
+			model.addAttribute("flag", flag);
 			model.addAttribute("fromDate", fromDate);
 			model.addAttribute("toDate", toDate);
 			model.addAttribute("list", list);

@@ -22,14 +22,14 @@
 		 FROM tbl_jikahoeventid te, tbl_jikahoeventlist tl, tbl_jikahomaillist tm
 		WHERE te.eventid = tl.eventid
 		  AND tl.mailid = tm.mailid
-		<if test="fromDate != null and toDate != null">
+        <if test= "(fromDate != null and fromDate != '') and (toDate != null and toDate != '')">
 		  AND tl.occurtime BETWEEN to_timestamp(#{fromDate}, 'yyyy-mm-dd hh24:mi:ss') AND to_timestamp(#{toDate}, 'yyyy-mm-dd hh24:mi:ss')
 		</if>
-        <if test="status != null">
+        <if test="status != null and status != ''">
               AND tl.status IN
 		    <foreach item="item" index="index" collection="status" open="(" separator="," close=")">#{item}</foreach>
         </if>
-        <if test="kinds != null">
+        <if test="kinds != null and kinds != ''">
               AND te.eventkind IN
 		    <foreach item="item" index="index" collection="kinds" open="(" separator="," close=")">#{item}</foreach>
         </if>
