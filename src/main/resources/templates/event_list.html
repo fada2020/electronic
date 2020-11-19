@@ -51,12 +51,12 @@
 	                        <div class="form-group form-inline">
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}">
+	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; font-size: medium;">時 ～　</span>
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}">
+	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; padding-right: 10px; font-size: medium;">時</span>
 	                            <button type="button" class="btn btn-primary btn-sm" id="searchBtn"><i class="fa fa-search"></i> 検索</button>
@@ -231,6 +231,7 @@
 	<input type="hidden" id="flag" name="flag">
 	<input type="hidden" id="fromDateTime" name="fromDateTime">
 	<input type="hidden" id="toDateTime" name="toDateTime">
+	<input type="hidden" id="chkStatus0" name="chkStatus0">
 	<input type="hidden" id="chkStatus1" name="chkStatus1">
 	<input type="hidden" id="chkStatus2" name="chkStatus2">
 	<input type="hidden" id="chkKind1" name="chkKind1">
@@ -262,6 +263,15 @@ jQuery(document).ready(function($) {
 
 //検索処理を行う。
 $('#searchBtn').on('click', function() {
+	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+
+ 	 if(tDateTime != '' && fDateTime != ''){
+ 	 	 if(tDateTime < fDateTime){
+ 	 		 alert('開始日が終了日を超えています。');
+ 	 		 return false;
+ 	 	 }
+ 	 }
  	 setFormData();
  	 $('#flag').val('search');
  	 $('#hidSearchForm').submit();
@@ -313,6 +323,7 @@ function callAjaxList() {
     var param = {
     	    "fromDateTime" : $("#fromDateTime").val(),
     	    "toDateTime" : $("#toDateTime").val(),
+    	    "chkStatus0" : $("#chkStatus0").val(),
     	    "chkStatus1" : $("#chkStatus1").val(),
     	    "chkStatus2" : $("#chkStatus2").val(),
     	    "chkKind1" : $("#chkKind1").val(),
@@ -452,8 +463,10 @@ function setFormData(){
 	 }
  	 if($("input:checkbox[name=kind3]").is(":checked") == true) {
  		 $('#chkKind3').val('3');
+ 		 $('#chkStatus0').val('0');
 	 }else{
 		 $('#chkKind3').attr('value', '');
+		 $('#chkStatus0').attr('value', '');
 	 }
 }
 

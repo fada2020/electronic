@@ -90,9 +90,9 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中" data-row='1'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中" data-row='1'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
@@ -414,8 +414,8 @@
 										<button type="button" class="btn btn-danger" id="genkyoChange" data-dismiss="modal">はい</button>
 										<button type="button" class="btn btn-default"
 											data-dismiss="modal">いいえ</button>
-
 									</div>
+									<input type="text" id="gRow">
 								</div>
 							</div>
 						</div>
@@ -469,7 +469,8 @@ jQuery(document).ready(function($) {
  	});
     // 現況変更モーダルの内容表示の出し分け
     $('.btn_change_genkyo').on('click', function() {
-		var genkyo= $(this).attr('data-genkyo');
+		var genkyo = $(this).attr('data-genkyo');
+		var idx = $(this).attr('data-row');
 		var modal = $('#ChangeGenkyo');
 		if (genkyo == "使用中") {
 			modal.find('.modal-body label#statusLabel').text("使用中");
@@ -492,6 +493,16 @@ jQuery(document).ready(function($) {
 					+ day + "/" + hour + ":" + min);
 		}
     });
+
+    $('#genkyoChange').on('click', function() {
+    	alert('genkyoChange Click');
+/*
+ 		var tr = $('.btn_change_genkyo').parent().eq(1);
+        var td = tr.children();
+        var no = td.eq(1).text('未使用');
+ */
+ 	});
+
 	// 終了判定モーダルの内容表示の出し分け
     $('.btn_change_end_judg').on('click', function() {
 		var judg= $(this).attr('data-judo');
@@ -504,6 +515,8 @@ jQuery(document).ready(function($) {
 			modal.find('.modal-body label#conformLabel').text("適用中に変更しますか？");
 		}
     });
+
+
 
 });
 

@@ -142,6 +142,10 @@ public class EventController {
 			String flag = request.getParameter("flag");
 			String fromDate = request.getParameter("fromDateTime");
 			String toDate = request.getParameter("toDateTime");
+			String chkStatus0 = request.getParameter("chkStatus0");
+			if(!chkStatus0.isEmpty()) {
+				statusList.add(chkStatus0);
+			}
 			String chkStatus1 = request.getParameter("chkStatus1");
 			if(!chkStatus1.isEmpty()) {
 				model.addAttribute("status1Check", true);
@@ -361,12 +365,16 @@ public class EventController {
 			//パラメータ設定
 			String fromDate = (String) obj.get("fromDateTime");
 			String toDate = (String) obj.get("toDateTime");
+			String chkStatus0 = (String) obj.get("chkStatus0");
 			String chkStatus1 = (String) obj.get("chkStatus1");
 			String chkStatus2 = (String) obj.get("chkStatus2");
 			String chkKind1 = (String) obj.get("chkKind1");
 			String chkKind2 = (String) obj.get("chkKind2");
 			String chkKind3 = (String) obj.get("chkKind3");
 
+			if(!chkStatus0.isEmpty()) {
+				statusList.add(chkStatus0);
+			}
 			if(!chkStatus1.isEmpty()) {
 				statusList.add(chkStatus1);
 			}
