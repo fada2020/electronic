@@ -9,7 +9,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>OPS:Event</title>
+    <title>OPS:Setting</title>
     <meta name="description" content="OPS">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -77,7 +77,7 @@
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row">1</th>
+                                        <th style="text-align:center;" scope="row">1</th>
                                         <td style="text-align:center; color: red;">使用中</td>
                                         <td style="text-align:center; color: red;">適用中</td>
                                         <td>2020/05/05 06:00</td>
@@ -89,12 +89,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">2</th>
+                                        <th style="text-align:center;" scope="row">2</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center; color: red;">適用中</td>
                                         <td>―</td>
@@ -106,12 +108,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">3</th>
+                                        <th style="text-align:center;" scope="row">3</th>
                                         <td style="text-align:center; color: red;">使用中</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>2020/06/06 07:00</td>
@@ -123,12 +127,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">4</th>
+                                        <th style="text-align:center;" scope="row">4</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -140,12 +146,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">5</th>
+                                        <th style="text-align:center;" scope="row">5</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -157,12 +165,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">6</th>
+                                        <th style="text-align:center;" scope="row">6</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -174,12 +184,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">7</th>
+                                        <th style="text-align:center;" scope="row">7</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -191,12 +203,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">8</th>
+                                        <th style="text-align:center;" scope="row">8</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -208,12 +222,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">9</th>
+                                        <th style="text-align:center;" scope="row">9</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -225,12 +241,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">10</th>
+                                        <th style="text-align:center;" scope="row">10</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -242,12 +260,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">11</th>
+                                        <th style="text-align:center;" scope="row">11</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -259,12 +279,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">12</th>
+                                        <th style="text-align:center;" scope="row">12</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -276,12 +298,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">13</th>
+                                        <th style="text-align:center;" scope="row">13</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -293,12 +317,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">14</th>
+                                        <th style="text-align:center;" scope="row">14</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -310,12 +336,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">15</th>
+                                        <th style="text-align:center;" scope="row">15</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -327,12 +355,14 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row">16</th>
+                                        <th style="text-align:center;" scope="row">16</th>
                                         <td id="status" style="text-align:center;">未使用</td>
                                         <td style="text-align:center;">未適用</td>
                                         <td>―</td>
@@ -344,14 +374,26 @@
                                         <td style="text-align:center;">
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeGenkyo" ><i class="fa fa-refresh"></i>現況変更</button>
-                                            <button type="button" class="btn btn-sm btn-info" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                            <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
                         </div>
-                        <!-- 現況変更モーダル -->
+
+
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+
+        </div> <!-- .content -->
+
+                         <!-- 現況変更モーダル -->
                         <div class="modal fade" id="ChangeGenkyo" tabindex="-1" role="dialog"
 							aria-labelledby="basicModal" aria-hidden="true">
 							<div class="modal-dialog">
@@ -398,14 +440,6 @@
 								</div>
 							</div>
 						</div>
-
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-
-
-        </div> <!-- .content -->
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -414,73 +448,65 @@
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
     <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
+
+    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
+    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- dataTable -->
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 
 
 <script>
-jQuery(function($){
+jQuery(document).ready(function($) {
 	//DataTable Option設定
- 	$('#setList').DataTable( {
+    var table = $('#setList').DataTable( {
+    	autoWidth: true,
  	    fixedHeader: true,
- 	    scrollY: 400,
  	    searching: false,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
         }
- 	} );
-})
-</script>
+ 	});
+    // 現況変更モーダルの内容表示の出し分け
+    $('.btn_change_genkyo').on('click', function() {
+		var genkyo= $(this).attr('data-genkyo');
+		var modal = $('#ChangeGenkyo');
+		if (genkyo == "使用中") {
+			modal.find('.modal-body label#statusLabel').text("使用中");
+			modal.find('.modal-body label#conformLabel').text("未使用に変更しますか？");
+			modal.find('.modal-body label#timeLabel').fadeOut();
+			modal.find('.modal-body input#view_time').fadeOut();
+		}else{
+			modal.find('.modal-body label#statusLabel').text("未使用");
+			modal.find('.modal-body label#conformLabel').text("使用中に変更しますか？");
+			modal.find('.modal-body label#timeLabel').fadeIn();
+			modal.find('.modal-body input#view_time').fadeIn();
+			modal.find('.modal-body label#timeLabel').text("使用開始日時");
+			var now = new Date();
+			var year = now.getFullYear();
+			var mon = now.getMonth() + 1; //１を足すこと
+			var day = now.getDate();
+			var hour = now.getHours();
+			var min = now.getMinutes();
+			modal.find('.modal-body input#view_time').val(year + "/" + mon + "/"
+					+ day + "/" + hour + ":" + min);
+		}
+    });
+	// 終了判定モーダルの内容表示の出し分け
+    $('.btn_change_end_judg').on('click', function() {
+		var judg= $(this).attr('data-judo');
+		var modal = $('#ChangeEndJudg');
+		if (judg == "適用中") {
+			modal.find('.modal-body label#statusLabel').text("適用中");
+			modal.find('.modal-body label#conformLabel').text("未適用に変更しますか？");
+		}else{
+			modal.find('.modal-body label#statusLabel').text("未適用");
+			modal.find('.modal-body label#conformLabel').text("適用中に変更しますか？");
+		}
+    });
 
-<script th:inline="javascript">
-/*<![CDATA[*/
-	jQuery(function($){
-		// 現況変更モーダルの内容表示の出し分け
-		$('#ChangeGenkyo').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget);
-			var recipient = button.closest('tr').children('td')[0].innerText;
-			var modal = $(this);
-			if (recipient == "使用中") {
-				modal.find('.modal-body label#statusLabel').text("使用中");
-				modal.find('.modal-body label#conformLabel').text("未使用に変更しますか？");
-				modal.find('.modal-body label#timeLabel').fadeOut();
-				modal.find('.modal-body input#view_time').fadeOut();
-			}else{
-				modal.find('.modal-body label#statusLabel').text("未使用");
-				modal.find('.modal-body label#conformLabel').text("使用中に変更しますか？");
-				modal.find('.modal-body label#timeLabel').fadeIn();
-				modal.find('.modal-body input#view_time').fadeIn();
-				modal.find('.modal-body label#timeLabel').text("使用開始日時");
-				var now = new Date();
-				var year = now.getFullYear();
-				var mon = now.getMonth() + 1; //１を足すこと
-				var day = now.getDate();
-				var hour = now.getHours();
-				var min = now.getMinutes();
-				modal.find('.modal-body input#view_time').val(year + "/" + mon + "/"
-						+ day + "/" + hour + ":" + min);
-			}
-		});
+});
 
-		// 終了判定モーダルの内容表示の出し分け
-		$('#ChangeEndJudg').on('show.bs.modal', function (event) {
-			var button = $(event.relatedTarget);
-			var recipient = button.closest('tr').children('td')[1].innerText;
-			var modal = $(this);
-			if (recipient == "適用中") {
-				modal.find('.modal-body label#statusLabel').text("適用中");
-				modal.find('.modal-body label#conformLabel').text("未適用に変更しますか？");
-			}else{
-				modal.find('.modal-body label#statusLabel').text("未適用");
-				modal.find('.modal-body label#conformLabel').text("適用中に変更しますか？");
-			}
-		});
-
-
-	});
-
-/*]]>*/
 </script>
 
 </body>

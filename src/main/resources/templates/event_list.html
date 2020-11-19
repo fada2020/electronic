@@ -114,15 +114,15 @@
                                         									    : (${list.eventkind == '2'}
                                         									    ? 'color: blue;'
                                         									    : 'color: black;')"></td>
-                                        <td style="text-align:center;" th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
-                                        									    ? 'color: red;'
+                                        <td th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
+                                        									    ? 'color: red; text-align:center;'
                                         									    : (${list.eventkind == '2'}
-                                        									    ? 'color: blue;'
-                                        									    : 'color: black;')">
-                                        <span th:case == "1">メール</span>
-          								<span th:case == "2">電話</span>
-          								<span th:case == '3'>判定</span>
-          								<span th:case == '4'>操作</span>
+                                        									    ? 'color: blue; text-align:center;'
+                                        									    : 'color: black; text-align:center;')">
+                                        									    <span th:case == "1">メール</span>
+                                        									    <span th:case == "2">電話</span>
+                                        									    <span th:case == '3'>判定</span>
+                                        									    <span th:case == '4'>操作</span>
  										</td>
                                         <td style="text-align:center;" th:switch="${list.status}">
                                         <span th:case == "0">ー</span>
@@ -162,7 +162,7 @@
 <!-- Modal -->
  <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="top: -20px;">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content"style="width: 700px; margin: auto; right: 70px; padding-right: 25px; padding-bottom: 10px;">
+    <div class="modal-content"style="width: 600px; margin: auto; right: 70px; padding-right: 25px; padding-bottom: 10px;">
      <div class="modal-header" style="padding: 0.3rem; margin: auto; border-bottom:none;">
         <h5 class="modal-title" id="exampleModalScrollableTitle">メール確認</h5>
       </div>
@@ -196,7 +196,7 @@
 		<tbody>
       		<tr style="height:25px;">
     		  <td colspan="2">
-    		   <textarea name="board_content" id="mMailText" cols="89" rows="25"
+    		   <textarea name="board_content" id="mMailText" cols="89" rows="20"
     		   disabled="disabled" wrap="hard" style="font-size: 15px; white-space: pre-wrap;"></textarea>
     		  </td>
 			</tr>
@@ -240,11 +240,6 @@
 
 
 <script>
-
-$(window).on('resize', function(){
-	table.columns.adjust().draw();
-});
-
 jQuery(document).ready(function($) {
     $.datetimepicker.setLocale("ja");
  	$('#fromDate').datetimepicker({
@@ -257,13 +252,12 @@ jQuery(document).ready(function($) {
     var table = $('#eventList').DataTable( {
     	autoWidth: true,
  	    fixedHeader: true,
- 	    //scrollY: 450,
  	    searching: false,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
         }
- 	} );
+ 	});
 });
 
 //検索処理を行う。
@@ -357,23 +351,23 @@ function callAjaxList() {
     			  switch (kind) {
       			    case "1":
     	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='color:red; width:10%;'></td>").text('メール'));
+    		            trTag.append($("<td style='text-align:center; color:red; width:10%;'></td>").text('メール'));
     		            break;
        			  	case "2":
     	   			  	trTag.append($("<td style='color:blue; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='color:blue; width:10%;'></td>").text('電話'));
+    		            trTag.append($("<td style='text-align:center; color:blue; width:10%;'></td>").text('電話'));
     	   			  	break;
        			  	case "3":
     	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='width:10%;'></td>").text('判定'));
+    		            trTag.append($("<td style='text-align:center; width:10%;'></td>").text('判定'));
     	   			  	break;
        			  	case "4":
        			  		trTag.append($("<td style='color:red; width:20%;'></td>").text(data[i].eventname));
-      	                trTag.append($("<td style='width:10%;'></td>").text('操作'));
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('操作'));
        			  		break;
     				default:
     					trTag.append($("<td style='width:20%;'></td>").text(data[i].eventname));
-    				    trTag.append($("<td style='width:20%;'></td>").text(data[i].eventkind));
+    				    trTag.append($("<td style='text-align:center; width:20%;'></td>").text(data[i].eventkind));
     				    break;
     			  }
                   //状態(5)
