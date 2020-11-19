@@ -137,8 +137,8 @@
                                                      data-maildate=${list.maildatetime},
                                                      date-mailfrom=${list.mailfrom},
                                                      date-subject=${list.mailsubject},
-                                                     date-mailto=${list.mailto},
- 													 date-mailcc=${#strings.replace(list.mailcc, ' ', ', ')},
+                                                     date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},
+ 													 date-mailcc=${#strings.replace(list.mailcc, ' ', '&#10')},
                                                      date-mailtext=${list.mailtext}"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
@@ -196,7 +196,8 @@
 		<tbody>
       		<tr style="height:25px;">
     		  <td colspan="2">
-    		   <textarea name="board_content" id="mMailText" cols="89" rows="25" disabled="disabled" wrap="hard" style="font-size: 15px; white-space: pre-wrap;"></textarea>
+    		   <textarea name="board_content" id="mMailText" cols="89" rows="25"
+    		   disabled="disabled" wrap="hard" style="font-size: 15px; white-space: pre-wrap;"></textarea>
     		  </td>
 			</tr>
 		</tbody>
@@ -263,10 +264,6 @@ jQuery(document).ready(function($) {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
         }
  	} );
-});
-
-$(function(){
-
 });
 
 //検索処理を行う。
@@ -397,10 +394,12 @@ function callAjaxList() {
                   trTag.append($("<td style='text-align:center; width:20%;'>"
                   +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
                   +"data-toggle='modal' data-target='#exampleModalScrollable' id='mailid'"
-                  +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${list.mailto},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
+                  +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
     			  +"<i class='fa fa-envelope'></i>メール内容確認</button>"
                   +"</td>"));
                   $('#eventList').append(trTag);
+
+
               }
           }
 	  },
@@ -427,7 +426,7 @@ $('.btn_emailview').on('click', function() {
 	  $('#mMailSubject').text(mail_subject);
 	  $('#mMailTo').text(mail_to);
 	  $('#mMailCc').text(mail_cc);
-	  $("#mMailText").val(mail_text.replace(/(<br>|<br\/>|<br \/>)/g, '<br>')); //textarea改行処理
+	  $("#mMailText").val(mail_text); //textarea改行処理
 });
 
 //検索条件設定
