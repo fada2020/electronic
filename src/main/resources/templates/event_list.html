@@ -142,8 +142,8 @@
                                                      date-mailtext=${list.mailtext}"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
-                                    	<tr th:unless="${not #lists.isEmpty( list )}">
-									<td colspan="7">検索リストが存在しません</td>
+                                    <tr th:unless="${not #lists.isEmpty( list )}">
+									 <td colspan="7">検索リストが存在しません</td>
 									</tr>
                                 </tbody>
                             </table>
@@ -239,11 +239,12 @@
 
 
 <script>
+
 $(window).on('resize', function(){
-    table.columns.adjust();
+	table.columns.adjust().draw();
 });
 
-$(function(){
+jQuery(document).ready(function($) {
     $.datetimepicker.setLocale("ja");
  	$('#fromDate').datetimepicker({
  	    lang:'ja'
@@ -255,13 +256,17 @@ $(function(){
     var table = $('#eventList').DataTable( {
     	autoWidth: true,
  	    fixedHeader: true,
- 	    scrollY: 450,
+ 	    //scrollY: 450,
  	    searching: false,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
         }
  	} );
+});
+
+$(function(){
+
 });
 
 //検索処理を行う。
@@ -272,10 +277,9 @@ $('#searchBtn').on('click', function() {
 });
 //チェックボックス処理を行う。
 $('.checkbox-input').on('change', function() {
- 	 setFormData();
- 	 $('#flag').val('search');
- 	 $('#hidSearchForm').submit();
+	callAjaxList();
 });
+
 //エクセルファイル出力処理を行う。
 $('#excelBtn').on('click', function() {
 	  setFormData();
@@ -335,66 +339,69 @@ function callAjaxList() {
 		  var dataLen = data.length;
           if(!data || dataLen < 1 ){
         	  //TODO:
-              return;
-          }
-          // 画面のtableタグの全てのtrタグを削除
-          $('#eventList').find("tr:gt(0)").remove();
-          // 該当するデータがあった場合は、取得したEventListオブジェクトのリストを
-          // 画面のtableタグに表示
-          let i = 0;
-          for(i = 0; i < dataLen; i++){
-        	  var status = data[i].status;
-        	  var kind = data[i].eventkind;
-              let trTag = $("<tr/>");
-              //発生時刻(1)
-              trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].occurtime));
-			  //施設名(2)
-              trTag.append($("<td style='width:20%;'></td>").text(data[i].customer));
-			  //イベント名称(3),区分(4)
-			  switch (kind) {
-  			    case "1":
-	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-		            trTag.append($("<td style='color:red; width:10%;'></td>").text('メール'));
-		            break;
-   			  	case "2":
-	   			  	trTag.append($("<td style='color:blue; width:20%;'></td>").text(data[i].eventname));
-		            trTag.append($("<td style='color:blue; width:10%;'></td>").text('電話'));
-	   			  	break;
-   			  	case "3":
-	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-		            trTag.append($("<td style='width:10%;'></td>").text('判定'));
-	   			  	break;
-   			  	case "4":
-   			  		trTag.append($("<td style='color:red; width:20%;'></td>").text(data[i].eventname));
-  	                trTag.append($("<td style='width:10%;'></td>").text('操作'));
-   			  		break;
-				default:
-					trTag.append($("<td style='width:20%;'></td>").text(data[i].eventname));
-				    trTag.append($("<td style='width:20%;'></td>").text(data[i].eventkind));
-				    break;
-			  }
-              //状態(5)
-			  switch (status) {
-  			    case "1":
-  	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('正常終了'));
-		            break;
-   			  	case "2":
-  	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('失敗'));
-	   			  	break;
-				default:
-	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
-				    break;
-			  }
-			  //補足(6)
-              trTag.append($("<td style='width:10%;'></td>").text(data[i].comments));
-			  //ボタン(7)
-              trTag.append($("<td style='text-align:center; width:20%;'>"
-              +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
-              +"data-toggle='modal' data-target='#exampleModalScrollable' id='mailid'"
-              +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${list.mailto},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
-			  +"<i class='fa fa-envelope'></i>メール内容確認</button>"
-              +"</td>"));
-              $('#eventList').append(trTag);
+              $('#eventList').find("tr:gt(0)").remove();
+              var data = ["<tr th:unless='${not #lists.isEmpty( list )}'><td colspan='7'>検索リストが存在しません</td></tr>"];
+              $('#eventList').append(data);
+          }else{
+              // 画面のtableタグの全てのtrタグを削除
+              $('#eventList').find("tr:gt(0)").remove();
+              // 該当するデータがあった場合は、取得したEventListオブジェクトのリストを
+              // 画面のtableタグに表示
+              let i = 0;
+              for(i = 0; i < dataLen; i++){
+            	  var status = data[i].status;
+            	  var kind = data[i].eventkind;
+                  let trTag = $("<tr/>");
+                  //発生時刻(1)
+                  trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].occurtime));
+    			  //施設名(2)
+                  trTag.append($("<td style='width:20%;'></td>").text(data[i].customer));
+    			  //イベント名称(3),区分(4)
+    			  switch (kind) {
+      			    case "1":
+    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='color:red; width:10%;'></td>").text('メール'));
+    		            break;
+       			  	case "2":
+    	   			  	trTag.append($("<td style='color:blue; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='color:blue; width:10%;'></td>").text('電話'));
+    	   			  	break;
+       			  	case "3":
+    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='width:10%;'></td>").text('判定'));
+    	   			  	break;
+       			  	case "4":
+       			  		trTag.append($("<td style='color:red; width:20%;'></td>").text(data[i].eventname));
+      	                trTag.append($("<td style='width:10%;'></td>").text('操作'));
+       			  		break;
+    				default:
+    					trTag.append($("<td style='width:20%;'></td>").text(data[i].eventname));
+    				    trTag.append($("<td style='width:20%;'></td>").text(data[i].eventkind));
+    				    break;
+    			  }
+                  //状態(5)
+    			  switch (status) {
+      			    case "1":
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('正常終了'));
+    		            break;
+       			  	case "2":
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('失敗'));
+    	   			  	break;
+    				default:
+    	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
+    				    break;
+    			  }
+    			  //補足(6)
+                  trTag.append($("<td style='width:10%;'></td>").text(data[i].comments));
+    			  //ボタン(7)
+                  trTag.append($("<td style='text-align:center; width:20%;'>"
+                  +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
+                  +"data-toggle='modal' data-target='#exampleModalScrollable' id='mailid'"
+                  +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${list.mailto},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
+    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>"
+                  +"</td>"));
+                  $('#eventList').append(trTag);
+              }
           }
 	  },
 	  error: function(xhr, textStatus, errorThrown){
@@ -420,7 +427,7 @@ $('.btn_emailview').on('click', function() {
 	  $('#mMailSubject').text(mail_subject);
 	  $('#mMailTo').text(mail_to);
 	  $('#mMailCc').text(mail_cc);
-	  $("#mMailText").val(mail_text.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n')); //textarea改行処理
+	  $("#mMailText").val(mail_text.replace(/(<br>|<br\/>|<br \/>)/g, '<br>')); //textarea改行処理
 });
 
 //検索条件設定
