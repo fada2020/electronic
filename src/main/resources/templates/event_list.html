@@ -101,8 +101,8 @@
                                         <th style="text-align:center; width:20%;">イベント名称</th>
                                         <th style="text-align:center; width:10%;">区分</th>
                                         <th style="text-align:center; width:10%;">状態</th>
-                                        <th style="text-align:center; width:10%;">補足</th>
-                                        <th style="text-align:center; width:20%;"></th>
+                                        <th style="text-align:center; width:20%;">補足</th>
+                                        <th style="text-align:center; width:10%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 14px;">
@@ -125,7 +125,7 @@
           								<span th:case == '4'>操作</span>
  										</td>
                                         <td style="text-align:center;" th:switch="${list.status}">
-                                        <span th:case == "0">－</span>
+                                        <span th:case == "0">ー</span>
           								<span th:case == "1">正常終了</span>
           								<span th:case == '2'>失敗</span>
                                         </td>
