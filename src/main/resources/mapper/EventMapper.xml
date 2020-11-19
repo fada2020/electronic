@@ -9,7 +9,7 @@
 		       tl.mailid AS mailid,
 		       tl.upoaid AS upoaid,
 		       tl.status AS status,
-		       tl.upoaname AS upoaname,
+		       tl.comments AS comments,
 		       te.eventname AS eventname,
     	       te.eventkind AS eventkind,
 		       tm.mailtext AS mailtext,

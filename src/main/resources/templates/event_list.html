@@ -94,7 +94,7 @@
                         </div>
                         <div class="card-body" id="store-data">
                             <table id="eventList" class="table table-striped table-bordered">
-                                <thead>
+                                <thead style="font-size: 15px;">
                                     <tr style="background-color: #000033; color:white;" class="active">
                                         <th style="text-align:center; width:10%;">発生時刻</th>
                                         <th style="text-align:center; width:20%;">施設名</th>
@@ -105,7 +105,7 @@
                                         <th style="text-align:center; width:20%;"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style="font-size: 14px;">
                                       <tr th:each="list : ${list}">
                                         <td style="text-align:center;" th:text="${list.occurtime}"></td>
                                         <td th:text="${list.customer}"></td>
@@ -125,11 +125,11 @@
           								<span th:case == '4'>操作</span>
  										</td>
                                         <td style="text-align:center;" th:switch="${list.status}">
-                                        <span th:case == "0">なし</span>
+                                        <span th:case == "0">ー</span>
           								<span th:case == "1">正常終了</span>
           								<span th:case == '2'>失敗</span>
                                         </td>
-                                        <td th:text="${list.upoaname}"></td>
+                                        <td th:text="${list.comments}"></td>
                                         <td style="text-align:center;" th:value="${list.customer}" id="mailid">
                                           <button type="button" class="btn btn-sm btn-success btn_emailview"
                                             data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"
@@ -138,7 +138,7 @@
                                                      date-mailfrom=${list.mailfrom},
                                                      date-subject=${list.mailsubject},
                                                      date-mailto=${list.mailto},
-                                                     date-mailcc=${#strings.replace(list.mailcc, ' ', ', ')},
+ 													 date-mailcc=${#strings.replace(list.mailcc, ' ', ', ')},
                                                      date-mailtext=${list.mailtext}"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
@@ -168,10 +168,10 @@
       </div>
       <div class="modal-body" style="padding: 0.5rem; left:15px;">
       <table>
-     	<thead>
+     	<thead style="font-size: 15px;">
       		<tr style="height:40px;">
     		  <th style="width: 120px;">メールID</th>
-  	    	  <td><sapn id="mMailId"></sapn></td>
+  	    	  <td><span id="mMailId"></span></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">送信時間</th>
@@ -187,16 +187,16 @@
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">宛先 (To)</th>
-  	    	  <td><span id="mMailTo"></span></td>
+  	    	  <td><textarea id="mMailTo" cols="72" rows="1" class="border-color" disabled="disabled"></textarea></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px; padding-top: 10px; padding-bottom: 50px;">宛先 (CC)</th>
-  	    	   <td><span id="mMailCc"></span></td>
+  	    	   <td><textarea id="mMailCc" cols="72" rows="2" class="border-color" disabled="disabled"></textarea></td>
 		</thead>
 		<tbody>
       		<tr style="height:25px;">
     		  <td colspan="2">
-    		   <textarea name="board_content" id="mMailText" cols="89" rows="23" disabled="disabled" wrap="hard"></textarea>
+    		   <textarea name="board_content" id="mMailText" cols="89" rows="25" disabled="disabled" wrap="hard" style="font-size: 15px; white-space: pre-wrap;"></textarea>
     		  </td>
 			</tr>
 		</tbody>
@@ -255,7 +255,7 @@ $(function(){
     var table = $('#eventList').DataTable( {
     	autoWidth: true,
  	    fixedHeader: true,
- 	    scrollY: 500,
+ 	    scrollY: 450,
  	    searching: false,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
@@ -266,6 +266,12 @@ $(function(){
 
 //検索処理を行う。
 $('#searchBtn').on('click', function() {
+ 	 setFormData();
+ 	 $('#flag').val('search');
+ 	 $('#hidSearchForm').submit();
+});
+//チェックボックス処理を行う。
+$('.checkbox-input').on('change', function() {
  	 setFormData();
  	 $('#flag').val('search');
  	 $('#hidSearchForm').submit();
@@ -296,7 +302,7 @@ startAutoRenew = function() {
   	  	 callAjaxList();
 	 	 $('#flag').val('search');
 	 	 //$('#hidSearchForm').submit();
-	  }, 10000);
+	  }, 2000);
 };
 
 stopAutoRenew = function() {
@@ -306,7 +312,6 @@ stopAutoRenew = function() {
 
 
 function callAjaxList() {
-	alert("CHECK::自動更新開始");
 	setFormData()
 	//var queryString = $("#hidSearchForm").serialize();
     var hostUrl= /*[[@{/getListAuto}]]*/ 'getListAuto';
@@ -330,7 +335,6 @@ function callAjaxList() {
 		  var dataLen = data.length;
           if(!data || dataLen < 1 ){
         	  //TODO:
-              alert("更新するデータはありませんでした");
               return;
           }
           // 画面のtableタグの全てのtrタグを削除
@@ -382,7 +386,7 @@ function callAjaxList() {
 				    break;
 			  }
 			  //補足(6)
-              trTag.append($("<td style='width:10%;'></td>").text(data[i].upoaname));
+              trTag.append($("<td style='width:10%;'></td>").text(data[i].comments));
 			  //ボタン(7)
               trTag.append($("<td style='text-align:center; width:20%;'>"
               +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
@@ -416,8 +420,7 @@ $('.btn_emailview').on('click', function() {
 	  $('#mMailSubject').text(mail_subject);
 	  $('#mMailTo').text(mail_to);
 	  $('#mMailCc').text(mail_cc);
-	  $("#mMailText").val(mail_text);
-
+	  $("#mMailText").val(mail_text.replace(/(<br>|<br\/>|<br \/>)/g, '\r\n')); //textarea改行処理
 });
 
 //検索条件設定

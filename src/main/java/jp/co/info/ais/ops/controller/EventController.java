@@ -47,6 +47,14 @@ public class EventController {
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
 	private static final String SEARCH_FLAG = "search";
 	private static final String EXCEL_FLAG = "excel";
+	private static final String FIXED_EVENTKIND_MAIL = "1";
+	private static final String FIXED_EVENTKIND_MAIL_TXT = "メール";
+	private static final String FIXED_EVENTKIND_CALL = "2";
+	private static final String FIXED_EVENTKIND_CALL_TXT = "電話";
+	private static final String FIXED_EVENTKIND_DECIDE = "3";
+	private static final String FIXED_EVENTKIND_DECIDE_TXT = "判定";
+	private static final String FIXED_EVENTKIND_CONTROL = "4";
+	private static final String FIXED_EVENTKIND_CONTROL_TXT = "操作";
 	private static final String FIXED_STATUS_NON = "0";
 	private static final String FIXED_STATUS_NON_TXT = "なし";
 	private static final String FIXED_STATUS_OK = "1";
@@ -217,16 +225,17 @@ public class EventController {
 		    Cell cell = null;
 		    int rowNo = 0;
 
+
 		    // テブルヘッダースタイル
 		    CellStyle headStyle = wb.createCellStyle();
 
 		    //セールの幅
 		    sheet.setColumnWidth(0, 5000);
 		    sheet.setColumnWidth(1, 7500);
-		    sheet.setColumnWidth(2, 7000);
+		    sheet.setColumnWidth(2, 9000);
 		    sheet.setColumnWidth(3, 2000);
 		    sheet.setColumnWidth(4, 2500);
-		    sheet.setColumnWidth(5, 3500);
+		    sheet.setColumnWidth(5, 6500);
 
 		    // 細いセール指定
 		    headStyle.setBorderTop(BorderStyle.THIN);
@@ -280,10 +289,20 @@ public class EventController {
 		        cell.setCellValue(eventlist.getCustomer());
 		        cell = row.createCell(2);
 		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getMailid());
+		        cell.setCellValue(eventlist.getEventname());
 		        cell = row.createCell(3);
 		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getUpoaid());
+		        if(eventlist.getEventkind().equals(FIXED_EVENTKIND_MAIL)) {
+			        cell.setCellValue(FIXED_EVENTKIND_MAIL_TXT);
+		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CALL)) {
+			        cell.setCellValue(FIXED_EVENTKIND_CALL_TXT);
+		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_DECIDE)) {
+			        cell.setCellValue(FIXED_EVENTKIND_DECIDE_TXT);
+		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CONTROL)) {
+		        	cell.setCellValue(FIXED_EVENTKIND_CONTROL_TXT);
+		        }else {
+			        cell.setCellValue('-');
+		        }
 		        cell = row.createCell(4);
 		        cell.setCellStyle(bodyStyle);
 		        if(eventlist.getStatus().equals(FIXED_STATUS_NON)) {
@@ -298,7 +317,6 @@ public class EventController {
 		        cell = row.createCell(5);
 		        cell.setCellStyle(bodyStyle);
 		        cell.setCellValue(eventlist.getUpoaname());
-		        cell = row.createCell(6);
 		    }
 
 		    // コンテンツタイプとファイル名指定
@@ -309,9 +327,11 @@ public class EventController {
 		    response.setContentType("ms-vnd/excel");
 		    response.setHeader("Content-Disposition", "attachment;filename=mail_list_"+dateString+".xls");
 
+
 		    // excel 出力
 		    wb.write(response.getOutputStream());
 		    wb.close();
+		    response.getOutputStream().close();
 
 
 		}catch (Exception e) {

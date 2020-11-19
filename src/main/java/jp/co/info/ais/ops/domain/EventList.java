@@ -20,8 +20,15 @@ public class EventList {
 	private String mailfrom;
 	private String mailto;
 	private String mailcc;
+	private String comments;
 
 
+	public String getComments() {
+		return comments;
+	}
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
 	public String getOccurtime() {
 		return occurtime;
 	}
@@ -63,7 +70,7 @@ public class EventList {
 				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
 				+ ", mailkind=" + mailkind + ", maildatetime=" + maildatetime + ", mailsubject=" + mailsubject
 				+ ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc=" + mailcc
-				+ ", upoaname=" + upoaname + ", upoatime=" + upoatime + ", mailtext=\" + mailtext + \"]";
+				+ ", comments=" + comments + ", upoatime=" + upoatime + ", mailtext=\" + mailtext + \"]";
 	}
 
 	public void setMailid(String mailid) {
