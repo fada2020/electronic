@@ -47,7 +47,7 @@
                         </div>
 						<div id="errDiv" style="font-size: 1.25em; text-align: center; padding-bottom: 10px; display: none;"><span style="color:red;">アカウントまたはパスワードが違います</span></div>
 
-                        <button type="button" id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30">ログイン</button>
+                        <button type="submit" id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30">ログイン</button>
                         <!-- ログイン処理エラーメッセージ出力部分 -->
                         <!-- div class="social-login-content"></div -->
                     </form>
@@ -65,38 +65,30 @@
 <script>
 $(function(){
 	$('#loginBtn').on('click', function() {
-
 		 var account = $('#account').val();
 		 var passwd = $('#passkey').val();
-		 if(account == "ais1234"){
-			 if(passwd == "ais123456"){
-				 $('#errDiv').hide();
-				 $('#loginForm').submit();
-			 }else{
-				 $('#account').val('');
-				 $('#passkey').val('');
-		         $('#errDiv').show();
-		         return false;
-			 }
-		 }else if(account == "ais9876"){
-			 if(passkey == "ais654321"){
-				 $('#errDiv').hide();
-				 $('#loginForm').submit();
-			 }else{
-				 $('#account').val('');
-				 $('#passkey').val('');
-		         $('#errDiv').show();
-		         return false;
-			 }
+		 if(!account || !passwd){
+			 // requiredのポップアップを動作させるため
+			 var submit = document.getElementById("loginBtn");
+			 submit.click();
+			 return;
 		 }else{
-			 $('#account').val('');
-			 $('#passkey').val('');
-	         $('#errDiv').show();
-	         return false;
+			 if(account == "ais1234" && passwd == "ais123456"){
+				 $('#errDiv').hide();
+				 $('#loginForm').submit();
+			 }else if(account == "ais9876" && passwd == "ais654321"){
+					 $('#errDiv').hide();
+					 $('#loginForm').submit();
+			 }else{
+				 $('#account').val('');
+				 $('#passkey').val('');
+		         $('#errDiv').show();
+		         return false;
+			 }
 		 }
+
 	});
 });
-
 </script>
 
 
