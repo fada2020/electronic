@@ -629,8 +629,8 @@
                         <div class="card-header">
                             <div class="form-group form-inline">
                                 <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">キーワード</label>
-                                <input type="text" placeholder="" class="form-control input-sm">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> 検索</button>
+                                <input type="text" id="keyword" placeholder="" class="form-control input-sm">
+                                <button type="button" class="btn btn-primary btn_search"><i class="fa fa-search"></i> 検索</button>
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
@@ -1356,6 +1356,8 @@ jQuery(document).ready(function($) {
         	$('#sltSiteName').val(selectedSiteName);
     	}
     	tableSite.$('tr.selected').removeClass('selected');
+    	$('#siteSearchModal').find('form')[0].reset()
+
     });
     $('#siteList tr').on('click', function (e) {
         var str = ""
@@ -1447,14 +1449,27 @@ $('#ikitiZ').change(function() {
         $('#modeEditBtn').show();
     });
 
+    //ユーザー選択区分
     $('.btn_m_user').on('click', function() {
     	$('#viewFlag').val('multi');
     });
     $('.btn_s_user').on('click', function() {
     	$('#viewFlag').val('single');
     });
-
-
+    $('.btn_search').on('click', function() {
+    	var keyword = $('#keyword').val();
+        $("#siteList tr").each(function(index) {
+            if (index != 0) {
+                $row = $(this);
+                var id = $row.find('td:eq(1)').text();
+                if (id.indexOf(keyword) == 0) {
+                    $(this).show();
+                }else {
+                    $(this).hide();
+                }
+            }
+        });
+    });
 
 })
 
