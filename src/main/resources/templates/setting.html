@@ -78,8 +78,8 @@
                                 <tbody>
                                     <tr>
                                         <th style="text-align:center;" scope="row">1</th>
-                                        <td style="text-align:center; color: red;">使用中</td>
-                                        <td style="text-align:center; color: red;">適用中</td>
+                                        <td style="text-align:center;"><span style="color: red;" id="txtStatus1">使用中</span></td>
+                                        <td style="text-align:center;"><span style="color: red;" id="txtKind1">適用中</span></td>
                                         <td>2020/05/05 06:00</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24850</td>
@@ -97,8 +97,8 @@
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">2</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center; color: red;">適用中</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus2">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: red;" id="txtKind2">適用中</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24851</td>
@@ -109,15 +109,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='2'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="適用中" data-row='2'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">3</th>
-                                        <td style="text-align:center; color: red;">使用中</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: red;" id="txtStatus3">使用中</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind3">未適用</span></td>
                                         <td>2020/06/06 07:00</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24852</td>
@@ -128,15 +128,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="使用中" data-row='3'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='3'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">4</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus4">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind4">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24853</td>
@@ -147,15 +147,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='4'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='4'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">5</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus5">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind5">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24854</td>
@@ -166,15 +166,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='5'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='5'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">6</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus6">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind6">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24855</td>
@@ -185,15 +185,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='6'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='6'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">7</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus7">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind7">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24856</td>
@@ -204,15 +204,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='7'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='7'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">8</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus8">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind8">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24857</td>
@@ -223,15 +223,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='8'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='8'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">9</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus9">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind9">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24858</td>
@@ -242,15 +242,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='9'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='9'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">10</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus10">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind10">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24859</td>
@@ -261,15 +261,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='10'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='10'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">11</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus11">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind11">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24860</td>
@@ -280,15 +280,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='11'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='11'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">12</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus12">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind12">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24861</td>
@@ -299,15 +299,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='10'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='10'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">13</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus13">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind13">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24862</td>
@@ -318,15 +318,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='10'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='10'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">14</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus14">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind14">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24863</td>
@@ -337,15 +337,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='10'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='10'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">15</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus15">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind15">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24864</td>
@@ -356,15 +356,15 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='15'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='15'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                     <tr>
                                         <th style="text-align:center;" scope="row">16</th>
-                                        <td id="status" style="text-align:center;">未使用</td>
-                                        <td style="text-align:center;">未適用</td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtStatus16">未使用</span></td>
+                                        <td style="text-align:center;"><span style="color: black;" id="txtKind16">未適用</span></td>
                                         <td>―</td>
                                         <td style="text-align:center;">✔</td>
                                         <td>3CI24865</td>
@@ -375,9 +375,9 @@
                                             <button type="button" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>編集</button>
                                             <button type="button" class="btn btn-sm btn-danger"><i class="fa fa-eraser"></i>削除</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_genkyo"
-                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用"><i class="fa fa-refresh"></i>現況変更</button>
+                                               data-toggle="modal" data-target="#ChangeGenkyo" data-genkyo="未使用" data-row='15'><i class="fa fa-refresh"></i>現況変更</button>
                                             <button type="button" class="btn btn-sm btn-info btn_change_end_judg"
-                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用"><i class="fa fa-refresh"></i>終了判定切替</button>
+                                               data-toggle="modal" data-target="#ChangeEndJudg" data-judg="未適用" data-row='15'><i class="fa fa-refresh"></i>終了判定切替</button>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -412,10 +412,8 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-danger" id="genkyoChange" data-dismiss="modal">はい</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">いいえ</button>
+										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
 									</div>
-									<input type="text" id="gRow">
 								</div>
 							</div>
 						</div>
@@ -433,13 +431,17 @@
 									</div>
 									<div class="modal-footer">
 										<button type="button" class="btn btn-danger" id="chngeJudg" data-dismiss="modal">はい</button>
-										<button type="button" class="btn btn-default"
-											data-dismiss="modal">いいえ</button>
-
+										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
 							</div>
 						</div>
+
+<form id="hidMainFrom">
+<input type="hidden" id="gRow">
+<input type="hidden" id="genkyoTxt">
+<input type="hidden" id="judgTxt">
+</form>
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -471,6 +473,8 @@ jQuery(document).ready(function($) {
     $('.btn_change_genkyo').on('click', function() {
 		var genkyo = $(this).attr('data-genkyo');
 		var idx = $(this).attr('data-row');
+		$('#gRow').val(idx);
+		$('#genkyoTxt').val(genkyo);
 		var modal = $('#ChangeGenkyo');
 		if (genkyo == "使用中") {
 			modal.find('.modal-body label#statusLabel').text("使用中");
@@ -494,18 +498,12 @@ jQuery(document).ready(function($) {
 		}
     });
 
-    $('#genkyoChange').on('click', function() {
-    	alert('genkyoChange Click');
-/*
- 		var tr = $('.btn_change_genkyo').parent().eq(1);
-        var td = tr.children();
-        var no = td.eq(1).text('未使用');
- */
- 	});
-
 	// 終了判定モーダルの内容表示の出し分け
     $('.btn_change_end_judg').on('click', function() {
-		var judg= $(this).attr('data-judo');
+		var judg= $(this).attr('data-judg');
+		var idx = $(this).attr('data-row');
+		$('#gRow').val(idx);
+		$('#judgTxt').val(judg);
 		var modal = $('#ChangeEndJudg');
 		if (judg == "適用中") {
 			modal.find('.modal-body label#statusLabel').text("適用中");
@@ -516,6 +514,35 @@ jQuery(document).ready(function($) {
 		}
     });
 
+    $('#genkyoChange').on('click', function() {
+    	var idx = $('#gRow').val();
+    	var status = $('#genkyoTxt').val();
+    	var tr = $('.btn_change_genkyo').parent().eq(idx);
+        var td = tr.children();
+        var sid = "txtStatus"+idx;
+		if (status == "使用中") {
+	        document.getElementById(sid).innerText="未使用";
+	        document.getElementById(sid).style.color = 'black';
+		}else{
+	        document.getElementById(sid).innerText="使用中";
+	        document.getElementById(sid).style.color = 'red';
+		}
+ 	});
+
+    $('#chngeJudg').on('click', function() {
+    	var idx = $('#gRow').val();
+    	var judg = $('#judgTxt').val();
+    	var tr = $('.btn_change_end_judg').parent().eq(idx);
+        var td = tr.children();
+        var kid = "txtKind"+idx;
+		if (judg == "適用中") {
+	        document.getElementById(kid).innerText="未適用";
+	        document.getElementById(kid).style.color = 'black';
+		}else{
+	        document.getElementById(kid).innerText="適用中";
+	        document.getElementById(kid).style.color = 'red';
+		}
+ 	});
 
 
 });
