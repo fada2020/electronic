@@ -24,8 +24,6 @@
     <link href='../static/vendors/Select-1.3.1/css/select.dataTables.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 
-
-
 </head>
 
 <body>
@@ -73,7 +71,7 @@
                                 </div>
                                 <div class="col-6">
                                     <div class="col-5"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button></div>
-                                    <div class="col-7"><input type="text" class="form-control input-sm"></div>
+                                    <div class="col-7"><input type="text" class="form-control input-sm" id="siteName"></div>
                                     <div class="col-5" style="font-size: 15px;">住所 ${Address}</div>
                                     <div class="col-7"><input type="text" style="width: 400px;" class="form-control input-sm"></div>
                                 </div>
@@ -115,9 +113,9 @@
                             </div>
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
-                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
+                                <div class="col-9"><textarea name="emailArrTxt" id="emailArrTxt" rows="2" placeholder="" class="form-control" style="font-size:11px;"></textarea></div>
                             </div>
                         </div>
                     </div>
@@ -128,21 +126,21 @@
                            <div class="row form-group form-group-sm">
                                <div class="d-flex align-items-center">
                                <div class="col-3" style="padding-top: 20px;">
-                                   <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                   <button type="button" class="btn btn-primary btn-sm btn_s_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                </div>
                                </div>
                                <div class="col-9">
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <input type="text" class="form-control input-sm" id="userName" style="font-size:11px;">
                                    </div>
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <input type="text" class="form-control input-sm" id="userTel" style="font-size:11px;">
                                    </div>
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <input type="text" class="form-control input-sm" id="userMail" style="font-size:11px;">
                                    </div>
                                </div>
                            </div>
@@ -615,6 +613,8 @@
 
 <!-- Site Search Modal Start-->
 <div class="modal fade" id="siteSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id='siteForm'>
+<input type="text" id="hidSiteName">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -634,26 +634,27 @@
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        	<table class="table table-striped table-bordered" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
-                                        <th style="text-align:center;width: 90%; font-size: 14px;">サイト名称</th>
+                                        <th style="text-align:center; width: 120px; font-size: 14px;">No</th>
+                                        <th style="text-align:center; width: 500px; font-size: 14px;">サイト名称</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="siteList" class="table table-striped table-bordered" style="width: 100%; margin-top: 0px !important;">
+                        	    <thead style="display:none;">
+                                    <tr>
+                                        <td></td><td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
+<th:block th:each="siteNo : ${#numbers.sequence(1,50)}">
                                     <tr>
-                                        <th scope="row" style="text-align:center;">1</th>
-                                        <td style="font-size: 12px;">サイトA</td>
+                                        <td scope="row" style="width: 104px !important; text-align:center;padding-left: 10px;" th:text="${siteNo}"></td>
+                                        <td style="width: 500px !important; font-size: 12px;"th:text="|サイト-${siteNo}|"></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">２</th>
-                                        <td style="font-size: 12px;">サイトB</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">３</th>
-                                        <td style="font-size: 12px;">サイトC</td>
-                                    </tr>
+</th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -661,11 +662,12 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">設定</button>
+                <button type="button" class="btn btn-secondary　btn_site_ok" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
+</form>
 </div>
 <!-- Site Search Modal End-->
 
@@ -692,7 +694,7 @@
                             <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;">NO</th>
+                                        <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
                                         <th colspan="4" style="text-align:center;width: 90%; font-size: 14px;">演算子 (       )</th>
                                     </tr>
                                 </thead>
@@ -1026,7 +1028,7 @@
                         	<table class="table table-striped table-bordered" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 120px; font-size: 14px;">タグNO</th>
+                                        <th style="text-align:center; width: 120px; font-size: 14px;">タグNo</th>
                                         <th style="text-align:center; width: 300px; font-size: 14px;">タグ名称</th>
                                         <th style="text-align:center; width: 200px; font-size: 14px;">単位</th>
                                     </tr>
@@ -1067,6 +1069,7 @@
 
 <!-- User Select Modal Start-->
 <div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id="userForm">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1088,50 +1091,31 @@
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        	<table class="table table-striped table-bordered" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;"></th>
-                                        <th style="text-align:center;width: 30%; font-size: 14px;">氏名</th>
-                                        <th style="text-align:center;width: 60%; font-size: 14px;">メールアドレス</th>
+                                        <th style="text-align:center; width: 80px; font-size: 14px;"></th>
+                                        <th style="text-align:center; width: 300px; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center; width: 500px; font-size: 14px;">メールアドレス</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="userList" class="table table-striped table-bordered" style="width: 100%; margin-top: 0px !important;">
+                                <thead style="display:none;">
+                                    <tr>
+                                        <td></td><td></td><td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
+<th:block th:each="userNo : ${#numbers.sequence(1,50)}">
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                         <th scope="row" style="width: 55px;text-align:center;">
+                                            <input type="checkbox" id="userCheck" name="userCheck" value="option1">
                                         </th>
-                                        <td style="font-size: 12px;">テスト　太郎1</td>
-                                        <td style="font-size: 12px;">test1@test.co.jp</td>
+                                        <td style="width: 310px; font-size: 12px;"th:text="|テスト　太郎${userNo}|"></td>
+                                        <td style="width: 500px; font-size: 12px;"th:text="|test${userNo}@test.co.jp|"></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎2</td>
-                                        <td style="font-size: 12px;">test2@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎3</td>
-                                        <td style="font-size: 12px;">test3@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎4</td>
-                                        <td style="font-size: 12px;">test4@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎5</td>
-                                        <td style="font-size: 12px;">test5@test.co.jp</td>
-                                    </tr>
+</th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -1139,10 +1123,12 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn_user_ok" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
+</form>
 </div>
 <!-- User Select Modal End-->
 
@@ -1272,6 +1258,10 @@
 <!-- Cancel Modal Part End-->
 
         </div> <!-- .content -->
+
+<form id="hidMainForm">
+<input type="hidden" id="viewFlag">
+</form>
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -1290,6 +1280,43 @@
 
 <script th:inline="javascript">
 jQuery(document).ready(function($) {
+	//UserList DataTable Option設定
+    var tableUser = $('#userList').DataTable( {
+    	responsive: true,
+ 	    searching: false,
+        paging: false,
+    	ordering: true,
+        info: false,
+    	lengthChange: false,
+    	autoWidth: true,
+ 	    fixedHeader: true,
+        scrollY: 350,
+        scrollCollapse: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        }
+ 	});
+
+	//SiteList DataTable Option設定
+    var tableSite = $('#siteList').DataTable( {
+    	responsive: true,
+ 	    searching: false,
+        paging: false,
+    	ordering: true,
+        info: false,
+    	lengthChange: false,
+    	autoWidth: true,
+ 	    fixedHeader: true,
+        scrollY: 350,
+        scrollCollapse: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        },
+        select: {
+            style: 'single'
+     	}
+ 	});
+
 	//DataTable Option設定
     var table = $('#tagList').DataTable( {
     	responsive: true,
@@ -1309,16 +1336,8 @@ jQuery(document).ready(function($) {
             style: 'single'
      	}
  	});
-    $(".dataTables_scrollBody").width($(".dataTables_scrollHead").width());
 
-    $('#tagList tbody').on( 'click', 'tr', function () {
-        if ( $(this).hasClass('selected') ) {
-            $(this).removeClass('selected');
-        }else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
-    } );
+    $(".dataTables_scrollBody").width($(".dataTables_scrollHead").width());
 
     $('#button').click( function () {
         table.row('.selected').remove().draw( false );
@@ -1328,6 +1347,53 @@ jQuery(document).ready(function($) {
     $('.btn_ok').on('click', function (e) {
         table.$('tr.selected').removeClass('selected');
     });
+    //サイト選択後、設定ボタンをクリックすると親ウィンドウに値をセット
+    $('.btn_site_ok').on('click', function (e) {
+    	var selectedSiteName = $('#siteForm').val();
+    	if(selectedSiteName == 'サイト名称'){
+        	$('#sltSiteName').val('');
+    	}else{
+        	$('#sltSiteName').val(selectedSiteName);
+    	}
+    	tableSite.$('tr.selected').removeClass('selected');
+    });
+    $('#siteList tr').on('click', function (e) {
+        var str = ""
+        var tdArr = new Array();
+        var tr = $(this);
+        var td = tr.children();
+        var siteName = td.eq(1).text();
+        $('#siteName').val(siteName);
+    });
+    //ユーザー選択後、設定ボタンをクリックすると親ウィンドウに値をセット
+	$(".btn_user_ok").click(function(){
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=userCheck]:checked");
+		var name = '';
+		var email = '';
+		let emailArr = '';
+		checkbox.each(function(i){
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			name = td.eq(1).text();
+			email = td.eq(2).text();
+			if(emailArr == ''){
+				emailArr = email;
+			}else{
+				emailArr += '\n'+email;
+			}
+		});
+		if($('#viewFlag').val() == 'single'){
+			$('#userName').val(name);
+			$('#userMail').val(email);
+		}else{
+			$('#emailArrTxt').val(emailArr);
+		}
+    	tableUser.$('tr.selected').removeClass('selected');
+    	$('#userSelectModal').find('form')[0].reset()
+	});
+
 
 });
 
@@ -1380,6 +1446,15 @@ $('#ikitiZ').change(function() {
         $('#modeViewBtn').hide();
         $('#modeEditBtn').show();
     });
+
+    $('.btn_m_user').on('click', function() {
+    	$('#viewFlag').val('multi');
+    });
+    $('.btn_s_user').on('click', function() {
+    	$('#viewFlag').val('single');
+    });
+
+
 
 })
 
