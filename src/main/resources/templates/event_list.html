@@ -19,8 +19,13 @@
 	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
 	<!-- dataTable -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
-
+<style>
+	body{
+		overflow:hidden;
+		}
+</style>
 </head>
+
  <body>
     <!-- Left Panel -->
 	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
@@ -255,7 +260,7 @@ jQuery(document).ready(function($) {
     	autoWidth: true,
  	    fixedHeader: true,
  	    searching: false,
- 	    scrollY: 550,
+ 	    scrollY: 500,
  	    scrollerCollapse: true,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
