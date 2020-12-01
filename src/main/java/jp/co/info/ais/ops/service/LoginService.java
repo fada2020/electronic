@@ -33,13 +33,8 @@ public class LoginService {
 	}
 
 	public Login selectLogin(String userid, String passwd) throws Exception {
-		System.out.println(loginMapper.selectLogin(userid,passwd));
+
 		return loginMapper.selectLogin(userid,passwd);
 	}
 
-	/*
-	public Login selectLogin(String id ,String pass) {
-		return loginMapper.selectLogin(id, pass);
-	}
-	*/
 }
