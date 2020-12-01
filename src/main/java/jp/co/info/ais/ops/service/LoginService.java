@@ -6,6 +6,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import jp.co.info.ais.ops.domain.Login;
 import jp.co.info.ais.ops.mapper.LoginMapper;
 
 
@@ -24,14 +25,16 @@ public class LoginService {
 	 * ID存在チェック
 	 * @param id
 	 * @return int id
+	 * @throws Exception
 	 */
-	public int selectLoginId(String id) {
+	public int selectLoginId(String id) throws Exception {
+
 		return loginMapper.selectId(id);
 	}
 
-	/*
-	public Login selectLogin(String id ,String pass) {
-		return loginMapper.selectLogin(id, pass);
+	public Login selectLogin(String userid, String passwd) throws Exception {
+
+		return loginMapper.selectLogin(userid,passwd);
 	}
-	*/
+
 }
