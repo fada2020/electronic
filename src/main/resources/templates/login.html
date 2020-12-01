@@ -80,15 +80,16 @@
 	   function candoit() {
 
 			 var login = new Object();
+			 var hostUrl= /*[[@{/loginprocess}]]*/ 'loginprocess';
 			 login.loginuser=$('#account').val();
 			 login.passwd=$('#passkey').val();
 			 $.ajax({
 				   type  : "POST",
-				   url : "/loginprocess",
-					dataType : "json",
-					"contentType" : "application/JSON",
-					 scriptCharset: 'utf-8',
-					data : JSON.stringify(login)
+				   url : hostUrl,
+				   dataType : "json",
+				   contentType : "application/JSON",
+				   scriptCharset: 'utf-8',
+				   data : JSON.stringify(login)
 			}).success(function(d){
 				$("#idErr")[0].hidden = true;
 				$("#pwdErr")[0].hidden = true;
@@ -98,7 +99,7 @@
 			        }else if(d == 2){
 			            $("#pwdErr")[0].hidden = false;
 			        }else if(d == 0){
-			        	location.href='/event/';
+			        	location.href='/ops/event/';
 			        }
 			}).error(function(d){
 
