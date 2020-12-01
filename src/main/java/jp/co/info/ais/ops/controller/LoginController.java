@@ -7,6 +7,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,14 +41,9 @@ public class LoginController {
 		logger.info(model.toString());
 		model.addAttribute("loginErr", "g");
 		logger.info("LOGIN PAGE START ===================");
-		if (session.getAttribute("id") == null) {
-			// sessionに値がなかったら
-			return "login.html";
-		} else {
-			return "event_list.html";
-
-		}
-
+		//Session終了
+		session.invalidate();
+		return "login.html";
 	}
 
 	/**
@@ -57,7 +53,7 @@ public class LoginController {
 	 * @param model
 	 * @return int login画面
 	 */
-	@RequestMapping(value = "/loginprocess", method = RequestMethod.POST)
+    @PostMapping("/loginprocess")
 	@ResponseBody
 	public int loginProcess(@RequestBody Login login, Model model) {
 		int result = 0;
@@ -76,8 +72,6 @@ public class LoginController {
 
 				}
 			}
-
-			System.out.println(result);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}

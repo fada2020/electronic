@@ -51,19 +51,20 @@
 	                        <div class="form-group form-inline">
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}">
+	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; font-size: medium;">時 ～　</span>
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}">
+	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; padding-right: 10px; font-size: medium;">時</span>
 	                            <button type="button" class="btn btn-primary btn-sm" id="searchBtn"><i class="fa fa-search"></i> 検索</button>
 							</div><!-- /.form-inline -->
 						</div><!-- /.col-9-->
 						<div class="col-5" style="float: right; text-align: right; margin-top: 20px;">
-                            <button type="button" id="executeBtn" class="btn btn-sm btn-primary" style="padding-right: 20px;"><i class="fa fa-refresh"></i> 自動更新</button>
+                            <button type="button" id="executeBtn" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> 自動更新</button>
+                            <button type="button" id="executeStopBtn" class="btn btn-sm btn-warning" style="display: none;"><i class="fa fa-refresh"></i> 自動更新中</button>
 							<button type="button" id="excelBtn" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
 						</div><!-- /.col-sm-3-->
             		</div><!-- /.card-body -->
@@ -74,38 +75,37 @@
                     <div class="card">
                         <div class="card-header">
                             <div id="2-checkbox" class="store-select">
-                                <label class="checkbox-inline">
-                                    <input class="checkbox-input" name="status" id="status" value="1"type="checkbox" checked><span> 正常終了</span>
+                                  <label class="checkbox-inline">
+                                    <input class="checkbox-input" name="status1" id="status1" type="checkbox" th:checked="${status1Check}" th:value="1"><span> 正常終了</span>
                                   </label>
                                   <label class="checkbox-inline" style="padding-left:10px;">
-                                    <input class="checkbox-input" name="status" id="status" value="2"type="checkbox" checked><span> 失敗</span>
+                                    <input class="checkbox-input" name="status2" id="status2" type="checkbox" th:checked="${status2Check}" th:value="2"><span> 失敗</span>
                                   </label>
                                   <label class="checkbox-inline" style="padding-left:10px;">
-                                    <input class="checkbox-input" name="kind" id="kind" value="1"type="checkbox" checked><span> メール</span>
+                                    <input class="checkbox-input" name="kind1" id="kind1" type="checkbox" th:checked="${kind1Check}" th:value="1"><span> メール</span>
                                   </label>
                                   <label class="checkbox-inline" style="padding-left:10px;">
-                                    <input class="checkbox-input" name="kind" id="kind" value="2"type="checkbox" checked><span> 電話</span>
+                                    <input class="checkbox-input" name="kind2" id="kind2" type="checkbox" th:checked="${kind2Check}" th:value="2"><span> 電話</span>
                                   </label>
                                   <label class="checkbox-inline" style="padding-left:10px;">
-                                    <input class="checkbox-input" name="kind" id="kind" value="3"type="checkbox" checked><span> 判定</span>
+                                    <input class="checkbox-input" name="kind3" id="kind3" type="checkbox" th:checked="${kind3Check}" th:value="3"><span> 判定</span>
                                   </label>
-                              </div>
+                            </div>
                         </div>
-					<form action="mailcheck" method="get">
                         <div class="card-body" id="store-data">
-                            <table id="eventList" class="table table-striped table-bordered">
-                                <thead>
+                            <table id="eventList" class="table table-striped table-bordered table-sm" style="width: 100%;">
+                                <thead style="font-size: 15px;">
                                     <tr style="background-color: #000033; color:white;" class="active">
-                                        <th style="text-align:center;">発生時刻</th>
-                                        <th style="text-align:center;">施設名</th>
-                                        <th style="text-align:center;">イベント名称</th>
-                                        <th style="text-align:center;">区分</th>
-                                        <th style="text-align:center;">状態</th>
-                                        <th style="text-align:center;">補足</th>
-                                        <th style="text-align:center;"></th>
+                                        <th style="text-align:center; width:10%;">発生時刻</th>
+                                        <th style="text-align:center; width:20%;">施設名</th>
+                                        <th style="text-align:center; width:20%;">イベント名称</th>
+                                        <th style="text-align:center; width:10%;">区分</th>
+                                        <th style="text-align:center; width:10%;">状態</th>
+                                        <th style="text-align:center; width:20%;">補足</th>
+                                        <th style="text-align:center; width:10%;"></th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody style="font-size: 14px;">
                                       <tr th:each="list : ${list}">
                                         <td style="text-align:center;" th:text="${list.occurtime}"></td>
                                         <td th:text="${list.customer}"></td>
@@ -114,34 +114,40 @@
                                         									    : (${list.eventkind == '2'}
                                         									    ? 'color: blue;'
                                         									    : 'color: black;')"></td>
-                                        <td style="text-align:center;" th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
-                                        									    ? 'color: red;'
+                                        <td th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
+                                        									    ? 'color: red; text-align:center;'
                                         									    : (${list.eventkind == '2'}
-                                        									    ? 'color: blue;'
-                                        									    : 'color: black;')">
-                                        <span th:case == "1">メール</span>
-          								<span th:case == "2">電話</span>
-          								<span th:case == '3'>判定</span>
-          								<span th:case == '4'>操作</span>
+                                        									    ? 'color: blue; text-align:center;'
+                                        									    : 'color: black; text-align:center;')">
+                                        									    <span th:case == "1">メール</span>
+                                        									    <span th:case == "2">電話</span>
+                                        									    <span th:case == '3'>判定</span>
+                                        									    <span th:case == '4'>操作</span>
  										</td>
                                         <td style="text-align:center;" th:switch="${list.status}">
-                                        <span th:case == "0">なし</span>
+                                        <span th:case == "0">ー</span>
           								<span th:case == "1">正常終了</span>
           								<span th:case == '2'>失敗</span>
                                         </td>
-                                        <td th:text="${list.upoaname}"></td>
+                                        <td th:text="${list.comments}"></td>
                                         <td style="text-align:center;" th:value="${list.customer}" id="mailid">
-                                          <button type="button" class="btn btn-sm btn-success"
-                                            data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                          <button type="button" class="btn btn-sm btn-success btn_emailview"
+                                            data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"
+                                            th:attr="data-mailid=${list.mailid},
+                                                     data-maildate=${list.maildatetime},
+                                                     date-mailfrom=${list.mailfrom},
+                                                     date-subject=${list.mailsubject},
+                                                     date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},
+ 													 date-mailcc=${#strings.replace(list.mailcc, ' ', '&#10')},
+                                                     date-mailtext=${list.mailtext}"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
-                                    	<tr th:unless="${not #lists.isEmpty( list )}">
-									<td colspan="7">検索リストが存在しません</td>
+                                    <tr th:unless="${not #lists.isEmpty( list )}">
+									 <td colspan="7">検索リストが存在しません</td>
 									</tr>
                                 </tbody>
                             </table>
                         </div>
-					</form>
                     </div>
                 </div>
 
@@ -156,44 +162,43 @@
 <!-- Modal -->
  <div class="modal fade" id="exampleModalScrollable" tabindex="-1" role="dialog" aria-labelledby="exampleModalScrollableTitle" aria-hidden="true" style="top: -20px;">
   <div class="modal-dialog modal-dialog-scrollable" role="document">
-    <div class="modal-content"style="width: 700px; margin: auto; right: 70px; padding-right: 25px; padding-bottom: 10px;">
+    <div class="modal-content"style="width: 600px; margin: auto; right: 70px; padding-right: 25px; padding-bottom: 10px;">
      <div class="modal-header" style="padding: 0.3rem; margin: auto; border-bottom:none;">
         <h5 class="modal-title" id="exampleModalScrollableTitle">メール確認</h5>
       </div>
       <div class="modal-body" style="padding: 0.5rem; left:15px;">
       <table>
-     	<thead>
+     	<thead style="font-size: 15px;">
       		<tr style="height:40px;">
     		  <th style="width: 120px;">メールID</th>
-  	    	  <td>$$$$</td>
+  	    	  <td><span id="mMailId"></span></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">送信時間</th>
-  	    	  <td>2020/05/03 06:45:22</td>
+  	    	  <td><span id="mMailDatetime"></span></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">送信者</th>
-  	    	  <td>*******@helionet21.jp</td>
+  	    	  <td><span id="mMailFrom"></span></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">件  名</th>
-  	    	  <td>【自家捕使用開始】シマダヤ関東株式会社</td>
+  	    	  <td><span id="mMailSubject"></span></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px;">宛先 (To)</th>
-  	    	  <td>jikaho@ennet.co,jp</td>
+  	    	  <td><textarea id="mMailTo" cols="50" rows="1" class="border-color" disabled="disabled"></textarea></td>
       		</tr>
       		<tr style="height:40px;">
     		  <th style="width: 120px; padding-top: 10px; padding-bottom: 50px;">宛先 (CC)</th>
-  	    	   <td>***@shimadaya.co.jp; ***@shimadaya.co,jp;<br/>
-          	    ***@shimadaya.co.jp; ***@tokyogas-se.co.jp; <br/>
-              ***@tokyogas-se.co.jp; ***@tokyogas-se.co.jp;</td>
+  	    	   <td><textarea id="mMailCc" cols="50" rows="2" class="border-color" disabled="disabled"></textarea></td>
 		</thead>
 		<tbody>
-
-      			<tr style="height:25px;">
-
-    		  <td colspan="2"> <textarea name="board_content" cols="89" rows="23" disabled="disabled" ></textarea></td>
+      		<tr style="height:25px;">
+    		  <td colspan="2">
+    		   <textarea name="board_content" id="mMailText" cols="65" rows="20"
+    		   disabled="disabled" wrap="hard" style="font-size: 15px; white-space: pre-wrap;"></textarea>
+    		  </td>
 			</tr>
 		</tbody>
       </table>
@@ -223,15 +228,21 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 
 <form th:action="@{/event/}" name="hidSearchForm" id="hidSearchForm" method="post">
+	<input type="hidden" id="flag" name="flag">
 	<input type="hidden" id="fromDateTime" name="fromDateTime">
 	<input type="hidden" id="toDateTime" name="toDateTime">
-	<input type="hidden" id="chkStatus" name="chkStatus">
-	<input type="hidden" id="chkKind" name="chkKind">
+	<input type="hidden" id="chkStatus0" name="chkStatus0">
+	<input type="hidden" id="chkStatus1" name="chkStatus1">
+	<input type="hidden" id="chkStatus2" name="chkStatus2">
+	<input type="hidden" id="chkKind1" name="chkKind1">
+	<input type="hidden" id="chkKind2" name="chkKind2">
+	<input type="hidden" id="chkKind3" name="chkKind3">
 </form>
 
 
 <script>
-$(function(){
+
+jQuery(document).ready(function($) {
     $.datetimepicker.setLocale("ja");
  	$('#fromDate').datetimepicker({
  	    lang:'ja'
@@ -240,50 +251,234 @@ $(function(){
  	    lang:'ja'
  	});
 	//DataTable Option設定
- 	$('#eventList').DataTable( {
+    var table = $('#eventList').DataTable( {
+    	autoWidth: true,
  	    fixedHeader: true,
- 	    scrollY: 500,
  	    searching: false,
+ 	    scrollY: 550,
+ 	    scrollerCollapse: true,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
             "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
         }
- 	} );
+ 	});
 });
 
 //検索処理を行う。
 $('#searchBtn').on('click', function() {
- 	 var fDateTime = $('#fromDate').val();
+	 var fDateTime = $('#fromDate').val();
  	 var tDateTime = $('#toDate').val();
- 	 $('#fromDateTime').val(fDateTime);
- 	 $('#toDateTime').val(tDateTime);
- 	 var checkVal = '';
-	 $('input[name=status]').each(function(index,item){
-		if(index!=0){
-		 checkVal += ',';
-		}
-		checkVal += $(this).val();
-	 });
- 	 $('#chkStatus').val(checkVal);
 
- 	 var checkKind = '';
-	 $('input[name=kind]').each(function(index,item){
-		if(index!=0){
-		 checkKind += ',';
-		}
-		checkKind += $(this).val();
-	 });
- 	 $('#chkKind').val(checkKind);
-	 $('#hidSearchForm').submit();
+ 	 if(tDateTime != '' && fDateTime != ''){
+ 	 	 if(tDateTime < fDateTime){
+ 	 		 alert('開始日が終了日を超えています。');
+ 	 		 return false;
+ 	 	 }
+ 	 }
+ 	 setFormData();
+ 	 $('#flag').val('search');
+ 	 $('#hidSearchForm').submit();
+});
+//チェックボックス処理を行う。
+$('.checkbox-input').on('change', function() {
+	callAjaxList();
+});
+
+//エクセルファイル出力処理を行う。
+$('#excelBtn').on('click', function() {
+	  setFormData();
+	  $('#flag').val('excel');
+	  $('#hidSearchForm').submit();
 });
 //自動実行処理を行う。
 $('#executeBtn').on('click', function() {
-	  alert("executeBtnクリックされました");
+	$('#executeBtn').hide();
+    $('#executeStopBtn').show();
+	startAutoRenew();
+
 });
-//エクセルファイル出力処理を行う。
-$('#excelBtn').on('click', function() {
-	  alert("excelBtnクリックされました");
+
+//自動実行処理を止まる。
+$('#executeStopBtn').on('click', function() {
+	$('#executeStopBtn').hide();
+    $('#executeBtn').show();
+	stopAutoRenew();
 });
+
+startAutoRenew = function() {
+	  playRenew = setInterval(function() {
+  	  	 callAjaxList();
+	 	 $('#flag').val('search');
+	 	 //$('#hidSearchForm').submit();
+	  }, 2000);
+};
+
+stopAutoRenew = function() {
+   	   setFormData();
+	   clearInterval(playRenew);
+};
+
+
+function callAjaxList() {
+	setFormData()
+	//var queryString = $("#hidSearchForm").serialize();
+    var hostUrl= /*[[@{/getListAuto}]]*/ 'getListAuto';
+    var param = {
+    	    "fromDateTime" : $("#fromDateTime").val(),
+    	    "toDateTime" : $("#toDateTime").val(),
+    	    "chkStatus0" : $("#chkStatus0").val(),
+    	    "chkStatus1" : $("#chkStatus1").val(),
+    	    "chkStatus2" : $("#chkStatus2").val(),
+    	    "chkKind1" : $("#chkKind1").val(),
+    	    "chkKind2" : $("#chkKind2").val(),
+    	    "chkKind3" : $("#chkKind3").val()
+    };
+    $.ajax({
+	  url: hostUrl,
+	  type: "POST",
+	  data:JSON.stringify(param),
+	  dataType: "json",
+	  contentType : "application/json; charset=UTF-8",
+	  cache: false,
+	  success: function(data, textStatus){
+		  var dataLen = data.length;
+          if(!data || dataLen < 1 ){
+        	  //TODO:
+              $('#eventList').find("tr:gt(0)").remove();
+              var data = ["<tr th:unless='${not #lists.isEmpty( list )}'><td colspan='7'>検索リストが存在しません</td></tr>"];
+              $('#eventList').append(data);
+          }else{
+              // 画面のtableタグの全てのtrタグを削除
+              $('#eventList').find("tr:gt(0)").remove();
+              // 該当するデータがあった場合は、取得したEventListオブジェクトのリストを
+              // 画面のtableタグに表示
+              let i = 0;
+              for(i = 0; i < dataLen; i++){
+            	  var status = data[i].status;
+            	  var kind = data[i].eventkind;
+            	  var comments = data[i].comments;
+                  let trTag = $("<tr/>");
+                  //発生時刻(1)
+                  trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].occurtime));
+    			  //施設名(2)
+                  trTag.append($("<td style='width:20%;'></td>").text(data[i].customer));
+    			  //イベント名称(3),区分(4)
+    			  switch (kind) {
+      			    case "1":
+    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='text-align:center; color:red; width:10%;'></td>").text('メール'));
+    		            break;
+       			  	case "2":
+    	   			  	trTag.append($("<td style='color:blue; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='text-align:center; color:blue; width:10%;'></td>").text('電話'));
+    	   			  	break;
+       			  	case "3":
+    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
+    		            trTag.append($("<td style='text-align:center; width:10%;'></td>").text('判定'));
+    	   			  	break;
+       			  	case "4":
+       			  		trTag.append($("<td style='color:red; width:20%;'></td>").text(data[i].eventname));
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('操作'));
+       			  		break;
+    				default:
+    					trTag.append($("<td style='width:20%;'></td>").text(data[i].eventname));
+    				    trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].eventkind));
+    				    break;
+    			  }
+                  //状態(5)
+    			  switch (status) {
+    			    case "0":
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
+    		            break;
+      			    case "1":
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('正常終了'));
+    		            break;
+       			  	case "2":
+      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('失敗'));
+    	   			  	break;
+    				default:
+    	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
+    				    break;
+    			  }
+    			  //補足(6)
+    			  if(comments === null || comment === ''){
+                      trTag.append($("<td style='width:20%;'></td>").text(''));
+    			  }else{
+                      trTag.append($("<td style='width:20%;'></td>").text(comments));
+    			  }
+    			  //ボタン(7)
+                  trTag.append($("<td style='text-align:center; width:10%;'>"
+                  +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
+                  +"data-toggle='modal' data-target='#exampleModalScrollable' id='mailid'"
+                  +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
+    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>"
+                  +"</td>"));
+                  $('#eventList').append(trTag);
+              }
+          }
+	  },
+	  error: function(xhr, textStatus, errorThrown){
+		  alert("エラーが発生し、データが取得できませんでした。");
+	  }
+	});
+}
+
+
+//メール内容確認
+$('.btn_emailview').on('click', function() {
+	  var mail_id = $(this).attr('data-mailid');
+	  var mail_datetime = $(this).attr('data-maildate');
+	  var mail_from = $(this).attr('date-mailfrom');
+	  var mail_subject = $(this).attr('date-subject');
+	  var mail_to = $(this).attr('date-mailto');
+	  var mail_cc = $(this).attr('date-mailcc');
+	  var mail_text = $(this).attr('date-mailtext');
+
+	  $('#mMailId').text(mail_id);
+	  $('#mMailDatetime').text(mail_datetime);
+	  $('#mMailFrom').text(mail_from);
+	  $('#mMailSubject').text(mail_subject);
+	  $('#mMailTo').text(mail_to);
+	  $('#mMailCc').text(mail_cc);
+	  $("#mMailText").val(mail_text); //textarea改行処理
+});
+
+//検索条件設定
+function setFormData(){
+	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+ 	 $('#fromDateTime').val(fDateTime);
+ 	 $('#toDateTime').val(tDateTime);
+
+ 	 if($("input:checkbox[name=status1]").is(":checked") == true) {
+ 		 $('#chkStatus1').val('1');
+	 }else{
+		 $('#chkStatus1').attr('value', '');
+	 }
+ 	 if($("input:checkbox[name=status2]").is(":checked") == true) {
+ 		 $('#chkStatus2').val('2');
+	 }else{
+		 $('#chkStatus2').attr('value', '');
+	 }
+ 	 if($("input:checkbox[name=kind1]").is(":checked") == true) {
+ 		 $('#chkKind1').val('1');
+	 }else{
+		 $('#chkKind1').attr('value', '');
+	 }
+ 	 if($("input:checkbox[name=kind2]").is(":checked") == true) {
+ 		 $('#chkKind2').val('2');
+	 }else{
+		 $('#chkKind2').attr('value', '');
+	 }
+ 	 if($("input:checkbox[name=kind3]").is(":checked") == true) {
+ 		 $('#chkKind3').val('3');
+ 		 $('#chkStatus0').val('0');
+	 }else{
+		 $('#chkKind3').attr('value', '');
+		 $('#chkStatus0').attr('value', '');
+	 }
+}
+
 </script>
 
 
