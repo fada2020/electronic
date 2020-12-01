@@ -35,8 +35,21 @@
                 <div class="login-logo">
                     <h2><a href="./event.html">自家発補給 電力使用自動連絡</a></h2>
                 </div>
+                <div class="alert alert-danger alert-dismissable text-left"
+								id="idErr" hidden="true">
+								<button onclick="hide();" class="close"
+									type="button">×</button>
+								IDをご確認ください。
+							</div>
+							<div class="alert alert-danger alert-dismissable text-left"
+								id="pwdErr" hidden="true">
+								<button onclick="hide();" class="close"
+									type="button">×</button>
+								PWをご確認ください。
+							</div>
+
                 <div class="login-form">
-                    <form th:action="@{/event/}" name="loginForm" id="loginForm" method="post">
+
                         <div class="form-group" style="margin-bottom: 10px;">
                             <label>アカウント</label>
                             <input type="text" class="form-control" placeholder="Account" id="account" name="account" required>
@@ -45,12 +58,11 @@
                              <label>パスワード</label>
                              <input type="password" class="form-control" placeholder="Password" id="passkey" name="passkey" required>
                         </div>
-						<div id="errDiv" style="font-size: 1.25em; text-align: center; padding-bottom: 10px; display: none;"><span style="color:red;">アカウントまたはパスワードが違います</span></div>
 
-                        <button type="submit" id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30">ログイン</button>
+                        <button id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="candoit();">ログイン</button>
                         <!-- ログイン処理エラーメッセージ出力部分 -->
                         <!-- div class="social-login-content"></div -->
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -61,35 +73,43 @@
     <script src="static/assets/js/main.js"></script>
     <script src="static/assets/js/datetimepicker/jquery.js"></script>
 
+<script th:inline="javascript">
+	/*<![CDATA[*/
 
-<script>
-$(function(){
-	$('#loginBtn').on('click', function() {
-		 var account = $('#account').val();
-		 var passwd = $('#passkey').val();
-		 if(!account || !passwd){
-			 // requiredのポップアップを動作させるため
-			 var submit = document.getElementById("loginBtn");
-			 submit.click();
-			 return;
-		 }else{
-			 if(account == "ais1234" && passwd == "ais123456"){
-				 $('#errDiv').hide();
-				 $('#loginForm').submit();
-			 }else if(account == "ais9876" && passwd == "ais654321"){
-					 $('#errDiv').hide();
-					 $('#loginForm').submit();
-			 }else{
-				 $('#account').val('');
-				 $('#passkey').val('');
-		         $('#errDiv').show();
-		         return false;
-			 }
-		 }
 
-	});
-});
-</script>
+	   function candoit() {
+
+			 var login = new Object();
+			 login.loginuser=$('#account').val();
+			 login.passwd=$('#passkey').val();
+			 $.ajax({
+				   type  : "POST",
+				   url : "/loginprocess",
+					dataType : "json",
+					"contentType" : "application/JSON",
+					 scriptCharset: 'utf-8',
+					data : JSON.stringify(login)
+			}).success(function(d){
+				$("#idErr")[0].hidden = true;
+				$("#pwdErr")[0].hidden = true;
+
+				   if(d == 1){
+			            $("#idErr")[0].hidden = false;
+			        }else if(d == 2){
+			            $("#pwdErr")[0].hidden = false;
+			        }else if(d == 0){
+			        	location.href='/event/';
+			        }
+			}).error(function(d){
+
+			});
+	  }
+
+
+ /*]]>*/
+ </script>
+
+
 
 
 </body>
