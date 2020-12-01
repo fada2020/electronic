@@ -15,8 +15,11 @@
         -->
             </div>
             <div class="col-sm-5">
-                <div class="user-area dropdown float-right" style="font-size: 1.5em;">AISユーザー</div>
 
+			<a th:if="${session.id == null}" href="/">Login</a>
+
+                <div class="user-area dropdown float-right" th:if="${session.id != null}" th:text="${session.id}"style="font-size: 1.5em;"></div>
+<div class="user-area dropdown float-left"th:if="${session.id != null}"><a href="/logout">Logout</a></div>
             </div>
         </div>
     </header><!-- /header -->
