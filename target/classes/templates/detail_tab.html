@@ -17,7 +17,13 @@
     <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="../static/assets/css/style.css">
+	<!-- datetimepicker -->
+	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
+	<!-- dataTable -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+    <link href='../static/vendors/Select-1.3.1/css/select.dataTables.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+
 </head>
 
 <body>
@@ -60,42 +66,56 @@
                         <div class="card card-body">
                             <div class="row form-group form-group-sm">
                                 <div class="col-2">
-                                    <button type="button" id="modeEditBtn" class="btn btn-secondary btn-sm"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
-                                    <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm" style="display: none;"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
+                                    <button type="button" id="modeEditBtn" class="btn btn-secondary btn-sm" style="display: none;"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
+                                    <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                                 </div>
                                 <div class="col-6">
                                     <div class="col-5"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button></div>
-                                    <div class="col-7"><input type="text" class="form-control input-sm"></div>
-                                    <div class="col-5">住所 ${Address}</div>
-                                    <div class="col-7"><input type="text" class="form-control input-sm"></div>
+                                    <div class="col-7"><input type="text" class="form-control input-sm" id="siteName"></div>
+                                    <div class="col-5" style="font-size: 15px;">住所 ${Address}</div>
+                                    <div class="col-7"><input type="text" style="width: 400px;" class="form-control input-sm"></div>
                                 </div>
                                 <div class="col-4">
                                     <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal"><i class="fa fa-save"></i>&nbsp; 保存</button>
                                     <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
                                 </div>
                             </div>
-                        </div>
-                        <h5>指定電力超過のお知らせメール 記載情報</h5>
-                        <div class="card card-body">
                             <div class="row form-group">
                                 <div class="col-8">
-                                    <label class="checkbox-inline" style="padding-left:10px;">
+                                    <label class="checkbox-inline" style="padding-left:10px; font-size: 13px;">
                                     <input type="checkbox" checked data-toggle="modal" data-target="#checkModal"><span> 有効</span>
                                     未入力項目がある場合、チェック不可
                                     </label>
                                 </div>
                             </div>
+                        </div>
+                        <h5>指定電力超過のお知らせメール 記載情報</h5>
+                        <div class="card card-body">
                             <div class="row form-group">
-                                <div class="col-4">【お知らせ番号】</div>
+                                <div class="col-4" style="font-size: 15px;">【お知らせ番号】</div>
                                 <div class="col-8">
                                     <input type="text" class="form-control input-sm">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-4">【施設名】${Customer}</div>
+                                <div class="col-4" style="font-size: 15px;">【施設名】${Customer}</div>
                                 <div class="col-8">
                                     <input type="text" class="form-control input-sm">
                                 </div>
+                            </div>
+                        </div>
+                        <!-- メール送付先 -->
+                        <h5>メール送付先</h5>
+                        <div class="card card-body">
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3" style="font-size: 15px;">社外アドレス<br>連絡メールのみ</div>
+                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
+                            </div>
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
+                                    <button type="button" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                </div>
+                                <div class="col-9"><textarea name="emailArrTxt" id="emailArrTxt" rows="2" placeholder="" class="form-control" style="font-size:11px;"></textarea></div>
                             </div>
                         </div>
                     </div>
@@ -104,57 +124,43 @@
                         <div class="card card-body">
                             <!-- 責任者 -->
                            <div class="row form-group form-group-sm">
-                               <div class="col-3"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                               <div class="d-flex align-items-center">
+                               <div class="col-3" style="padding-top: 20px;">
+                                   <button type="button" class="btn btn-primary btn-sm btn_s_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                               </div>
                                </div>
                                <div class="col-9">
                                    <div class="col-3">
-                                       <label for="" class="control-label mb-1">名称</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
+                                       <input type="text" class="form-control input-sm" id="userName" style="font-size:11px;">
                                    </div>
                                    <div class="col-3">
-                                       <label for="" class="control-label mb-1">電話番号</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
+                                       <input type="text" class="form-control input-sm" id="userTel" style="font-size:11px;">
                                    </div>
                                    <div class="col-6">
-                                       <label for="" class="control-label mb-1">メールアドレス</label>
-                                       <input type="text" class="form-control input-sm">
+                                       <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
+                                       <input type="text" class="form-control input-sm" id="userMail" style="font-size:11px;">
                                    </div>
                                </div>
                            </div>
                        </div>
                     </div>
                     <div class="col-6">
-                        <h5>最終更新日時・更新者</h5>
+                        <!-- <h5>最終更新日時・更新者</h5> -->
                         <div class="card card-body">
                             <!-- 連絡先マスタ -->
                             <div class="row form-group form-group-sm">
-                                <div class="col-3"><button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#masterModal"><i class="fa fa-list-alt"></i>&nbsp; 連絡先マスタ</button></div>
                                 <div class="col-9">
                                     <div class="col-6">
-                                            <label for="" class="control-label mb-1">最終更新日時</label>
-                                            <input type="text" class="form-control input-sm">
+                                            <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新日時</label>
+                                            <input type="text" class="form-control input-sm" disabled=true>
                                     </div>
                                     <div class="col-6">
-                                            <label for="" class="control-label mb-1">最終更新者</label>
-                                            <input type="text" class="form-control input-sm">
+                                            <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新者</label>
+                                            <input type="text" class="form-control input-sm" disabled=true>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-6">
-                        <!-- メール送付先 -->
-                        <h5>メール送付先</h5>
-                        <div class="card card-body">
-                            <div class="row form-group form-group-sm">
-                                <div class="col-3">社外アドレス<br>連絡メールのみ</div>
-                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
-                            </div>
-                            <div class="row form-group form-group-sm">
-                                <div class="col-3">社内ユーザー<br><br>
-                                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
-                                </div>
-                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
                             </div>
                         </div>
                     </div>
@@ -165,15 +171,15 @@
                         <div class="card card-body">
                             <!-- 開始連絡　-->
                             <div class="row form-group form-group-sm">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     連絡先
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm">
+                                    <select class="form-control" style="width: 100%; "><option></option><option>エネットオペレーションセンター / jikaho@ennet.co.jp / 048-603-5981</option></select>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
@@ -183,7 +189,7 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
@@ -194,7 +200,7 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3"style="font-size: 15px;">
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
@@ -202,11 +208,11 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="vertical-align: top;">
+                                <div class="col-3" style="vertical-align: top; font-size: 15px;">
                                     メール 本文
                                 </div>
                                 <div class="col-9">
-                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%;"　placeholder="" class="form-control"></textarea>
+                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -217,24 +223,23 @@
                             <!-- 開始判定条件 -->
                             <div class="row form-group form-group-sm">
                                 <div class="col-6">
-                                    <textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                    <textarea style="overflow:auto;" name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                </div>
+                                <div class="col-6">
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
                                 <div class="col-9">
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
-                                        <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 計算式設定</button>
-                                </div>
-                                <div class="col-9">
                                     <label for="" class="control-label mb-1">接点タグ</label>
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-sm" style="margin-bottom: 0px;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">監視端末</th>
                                                 <th scope="col">タグ名称</th>
                                                 <th scope="col">ON/OFF</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -245,6 +250,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">B</th>
@@ -252,6 +261,10 @@
                                                 <td>1号準備</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -261,6 +274,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">D</th>
@@ -268,6 +285,10 @@
                                                 <td>2号停止</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -277,6 +298,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">F</th>
@@ -284,6 +309,10 @@
                                                 <td>2号開始</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -293,6 +322,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">H</th>
@@ -300,6 +333,10 @@
                                                 <td>3号準備</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -309,6 +346,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">J</th>
@@ -316,6 +357,10 @@
                                                 <td>4号停止</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -333,15 +378,15 @@
                         <div class="card card-body">
                             <!-- 終了連絡　-->
                             <div class="row form-group form-group-sm">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     連絡先
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm">
+                                    <select class="form-control" style="width: 100%; "><option></option><option>エネットオペレーションセンター / jikaho@ennet.co.jp / 048-603-5981</option></select>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
@@ -351,7 +396,7 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
@@ -362,7 +407,7 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3">
+                                <div class="col-3" style="font-size: 15px;">
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
@@ -370,11 +415,11 @@
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="vertical-align: top;">
+                                <div class="col-3" style="vertical-align: top; font-size: 15px;">
                                     メール 本文
                                 </div>
                                 <div class="col-9">
-                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%;"　placeholder="" class="form-control"></textarea>
+                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control"></textarea>
                                 </div>
                             </div>
 
@@ -385,40 +430,44 @@
                         <div class="card card-body">
                             <!-- 終了判定条件 -->
                             <div class="row form-group form-group-sm">
-                                <div class="col-6">
-                                    <textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                <div class="col-5">
+                                    <textarea style="overflow:auto;" name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
                                 </div>
                                 <div class="col-2" style="text-align: center; vertical-align: text-bottom; font-size: medium;">
                                     <span>AND</span>
                                 </div>
-                                <div class="col-4">
+                                <div class="col-2">
                                     <textarea style="background-color:white;" name="textarea-input" id="ikitiZ_input" rows="2" class="form-control" disabled=true></textarea>
+                                </div>
+                                <div class="col-3">
+                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
-                                <div class="col-9">
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
-                                        <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 計算式設定</button>
-                                </div>
-                                <div class="col-9">
+
+                                <div class="col-11">
                                     <label for="" class="control-label mb-1">接点タグ</label>
-                                    <table class="table table-bordered" id="tagTable">
+                                    <table class="table table-bordered table-sm" id="tagTable">
                                         <thead>
                                             <tr>
-                                                <th scope="col">No</th>
+                                                <th height=100% scope="col">No</th>
                                                 <th scope="col">監視端末</th>
                                                 <th scope="col">タグ名称</th>
                                                 <th scope="col">ON/OFF</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody >
                                             <tr>
-                                                <th scope="row">A</th>
+                                                <th  scope="row">A</th>
                                                 <td>大手町タワー#1</td>
                                                 <td>1号停止</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -428,6 +477,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                   <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">C</th>
@@ -435,6 +488,10 @@
                                                 <td>1号開始</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -444,6 +501,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">E</th>
@@ -451,6 +512,10 @@
                                                 <td>2号準備</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -460,6 +525,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">G</th>
@@ -467,6 +536,10 @@
                                                 <td>3号停止</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -476,6 +549,10 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row">I</th>
@@ -483,6 +560,10 @@
                                                 <td>3号開始</td>
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
                                                 </td>
                                             </tr>
                                             <tr>
@@ -492,17 +573,22 @@
                                                 <td>
                                                     <select><option>ON</option><option>OFF</option></select>
                                                 </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
                                     <label for="" class="control-label mb-1">アナログタグ</label>
-                                    <table class="table table-bordered">
+                                    <table class="table table-bordered table-sm" style="margin-bottom: 0px;">
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
                                                 <th scope="col">監視端末</th>
                                                 <th scope="col">タグ名称</th>
                                                 <th scope="col">間値</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -511,6 +597,10 @@
                                                 <td>大手町タワー#2</td>
                                                 <td>受電電力</td>
                                                 <td><input type=text id="ikitiZ" placeholder=4.000></td>
+                                                <td>
+                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -523,6 +613,8 @@
 
 <!-- Site Search Modal Start-->
 <div class="modal fade" id="siteSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id='siteForm'>
+<input type="text" id="hidSiteName">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -537,31 +629,32 @@
                         <div class="card-header">
                             <div class="form-group form-inline">
                                 <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">キーワード</label>
-                                <input type="text" placeholder="" class="form-control input-sm">
-                                <button type="button" class="btn btn-primary"><i class="fa fa-search"></i> 検索</button>
+                                <input type="text" id="keyword" placeholder="" class="form-control input-sm">
+                                <button type="button" class="btn btn-primary btn_search"><i class="fa fa-search"></i> 検索</button>
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
-                                        <th style="text-align:center;width: 90%; font-size: 14px;">サイト名称</th>
+                                        <th style="text-align:center; width: 120px; font-size: 14px;">No</th>
+                                        <th style="text-align:center; width: 500px; font-size: 14px;">サイト名称</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="siteList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
+                        	    <thead style="display:none;">
+                                    <tr>
+                                        <td></td><td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
+<th:block th:each="siteNo : ${#numbers.sequence(1,50)}">
                                     <tr>
-                                        <th scope="row" style="text-align:center;">1</th>
-                                        <td style="font-size: 12px;">サイトA</td>
+                                        <td scope="row" style="width: 112px !important; text-align:center;padding-left: 10px;" th:text="${siteNo}"></td>
+                                        <td style="width: 500px !important; font-size: 12px;"th:text="|サイト-${siteNo}|"></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">２</th>
-                                        <td style="font-size: 12px;">サイトB</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">３</th>
-                                        <td style="font-size: 12px;">サイトC</td>
-                                    </tr>
+</th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -569,10 +662,12 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn_site_ok" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
+</form>
 </div>
 <!-- Site Search Modal End-->
 
@@ -581,25 +676,25 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">計算式設定</h5>
+                <h5 class="modal-title" id="mediumModalLabel">演算式設定</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <div class="col-sm-12 col-lg-12">
-                    <div class="card">
+            <div class="modal-body" style="margin-bottom: 0px;">
+                <div class="col-sm-12 col-lg-12" style="margin-bottom: 0px;">
+                    <div class="card" style="margin-bottom: 0px;">
                         <div class="card-header">
                             <div class="form-group form-inline">
-                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">計算式</label>
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">演算式</label>
                                 <textarea style="background-color:lightyellow;" name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control" disabled=true>( A OR B ) AND C</textarea>
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered table-sm">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;">NO</th>
+                                        <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
                                         <th colspan="4" style="text-align:center;width: 90%; font-size: 14px;">演算子 (       )</th>
                                     </tr>
                                 </thead>
@@ -756,7 +851,7 @@
                                     </tr>
                                 </tbody>
                             </table>
-                            <div class="form-group form-inline">
+                            <div class="form-group form-inline" style="margin-bottom: 0px;">
                                 <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">コメント</label>
                                 <textarea name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control"></textarea>
                             </div><!--/.form-group -->
@@ -765,7 +860,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">反映</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
@@ -778,7 +873,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">連絡先マスター</h5>
+                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -792,7 +887,7 @@
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered table-sm">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="text-align:center; width: 10%; font-size: 12px;">NO</th>
@@ -861,7 +956,6 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">登録</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
@@ -904,6 +998,7 @@
 
 <!-- Tag Modal Start-->
 <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id="tagForm">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -930,56 +1025,51 @@
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 20%; font-size: 14px;">タグNO</th>
-                                        <th style="text-align:center;width: 50%; font-size: 14px;">タグ名称</th>
-                                        <th style="text-align:center;width: 30%; font-size: 14px;">単位</th>
+                                        <th style="text-align:center; width: 120px; font-size: 14px;">タグNo</th>
+                                        <th style="text-align:center; width: 300px; font-size: 14px;">タグ名称</th>
+                                        <th style="text-align:center; width: 200px; font-size: 14px;">単位</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="tagList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
+                                <thead style="display:none;">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
+<th:block th:each="seq : ${#numbers.sequence(1,50)}">
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di1</th>
-                                        <td style="font-size: 12px;">1号機開始動中</td>
-                                        <td style="font-size: 12px;"></td>
+                                        <td scope="row" style="width: 121px; text-align:center;padding-left: 10px;" th:text="|Di${seq}|"></td>
+                                        <td style="width: 330px; font-size: 12px;"th:text="|${seq}号機開始動中|"></td>
+                                        <td style="width: 200px; font-size: 12px;"></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di2</th>
-                                        <td style="font-size: 12px;">1号機開始動中</td>
-                                        <td style="font-size: 12px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di3</th>
-                                        <td style="font-size: 12px;">1号機開始動中</td>
-                                        <td style="font-size: 12px;"></td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">Di4</th>
-                                        <td style="font-size: 12px;">1号機開始動中</td>
-                                        <td style="font-size: 12px;"></td>
-                                    </tr>
+</th:block>
                                 </tbody>
                             </table>
-                            <div class="form-group form-inline">
-                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">選択タグ</label>
-                                <input type="text" placeholder="1号機開始動中" class="form-control input-sm">
-                            </div><!--/.form-group -->
+
                         </div>
                     </div><!-- /.card-->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">設定</button>
+                <button type="button" class="btn btn-secondary btn_ok" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
+</form>
 </div>
 <!-- Tag Modal End-->
 
 <!-- User Select Modal Start-->
 <div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id="userForm">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -1001,50 +1091,31 @@
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
+                        	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 10%; font-size: 14px;"></th>
-                                        <th style="text-align:center;width: 30%; font-size: 14px;">氏名</th>
-                                        <th style="text-align:center;width: 60%; font-size: 14px;">メールアドレス</th>
+                                        <th style="text-align:center; width: 80px; font-size: 14px;"></th>
+                                        <th style="text-align:center; width: 300px; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center; width: 500px; font-size: 14px;">メールアドレス</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="userList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
+                                <thead style="display:none;">
+                                    <tr>
+                                        <td></td><td></td><td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
+<th:block th:each="userNo : ${#numbers.sequence(1,50)}">
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
+                                         <th scope="row" style="width: 75px;text-align:center;">
+                                            <input type="checkbox" id="userCheck" name="userCheck" value="option1">
                                         </th>
-                                        <td style="font-size: 12px;">テスト　太郎1</td>
-                                        <td style="font-size: 12px;">test1@test.co.jp</td>
+                                        <td style="width: 326px; font-size: 12px;"th:text="|テスト　太郎${userNo}|"></td>
+                                        <td style="width: 500px; font-size: 12px;"th:text="|test${userNo}@test.co.jp|"></td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎2</td>
-                                        <td style="font-size: 12px;">test2@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎3</td>
-                                        <td style="font-size: 12px;">test3@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎4</td>
-                                        <td style="font-size: 12px;">test4@test.co.jp</td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">
-                                            <input type="checkbox" id="checkbox1" name="checkbox1" value="option1">
-                                        </th>
-                                        <td style="font-size: 12px;">テスト　太郎5</td>
-                                        <td style="font-size: 12px;">test5@test.co.jp</td>
-                                    </tr>
+</th:block>
                                 </tbody>
                             </table>
                         </div>
@@ -1052,10 +1123,12 @@
                 </div>
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn_user_ok" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
+</form>
 </div>
 <!-- User Select Modal End-->
 
@@ -1185,6 +1258,10 @@
 <!-- Cancel Modal Part End-->
 
         </div> <!-- .content -->
+
+<form id="hidMainForm">
+<input type="hidden" id="viewFlag">
+</form>
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -1193,11 +1270,138 @@
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
     <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
+	<!-- datetimepicker -->
+    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
+    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
+	<!-- dataTable -->
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+	<script type="text/javascript" src="../static/vendors/Select-1.3.1/js/dataTables.select.js"></script>
 
 
 <script th:inline="javascript">
+jQuery(document).ready(function($) {
+	//UserList DataTable Option設定
+    var tableUser = $('#userList').DataTable( {
+    	responsive: true,
+ 	    searching: false,
+        paging: false,
+    	ordering: true,
+        info: false,
+    	lengthChange: false,
+    	autoWidth: true,
+ 	    fixedHeader: true,
+        scrollY: 350,
+        scrollCollapse: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        }
+ 	});
+
+	//SiteList DataTable Option設定
+    var tableSite = $('#siteList').DataTable( {
+    	responsive: true,
+ 	    searching: false,
+        paging: false,
+    	ordering: true,
+        info: false,
+    	lengthChange: false,
+    	autoWidth: true,
+ 	    fixedHeader: true,
+        scrollY: 350,
+        scrollCollapse: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        },
+        select: {
+            style: 'single'
+     	}
+ 	});
+
+	//DataTable Option設定
+    var table = $('#tagList').DataTable( {
+    	responsive: true,
+ 	    searching: false,
+        paging: false,
+    	ordering: true,
+        info: false,
+    	lengthChange: false,
+    	autoWidth: true,
+ 	    fixedHeader: true,
+        scrollY: 350,
+        scrollCollapse: true,
+        language: {
+            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+        },
+        select: {
+            style: 'single'
+     	}
+ 	});
+
+    $(".dataTables_scrollBody").width($(".dataTables_scrollHead").width());
+
+    $('#button').click( function () {
+        table.row('.selected').remove().draw( false );
+    } );
+
+    //モーダル終了時、選択行をクリア
+    $('.btn_ok').on('click', function (e) {
+        table.$('tr.selected').removeClass('selected');
+    });
+    //サイト選択後、設定ボタンをクリックすると親ウィンドウに値をセット
+    $('.btn_site_ok').on('click', function (e) {
+    	var selectedSiteName = $('#siteForm').val();
+    	if(selectedSiteName == 'サイト名称'){
+        	$('#sltSiteName').val('');
+    	}else{
+        	$('#sltSiteName').val(selectedSiteName);
+    	}
+    	tableSite.$('tr.selected').removeClass('selected');
+    	$('#siteSearchModal').find('form')[0].reset()
+
+    });
+    $('#siteList tr').on('click', function (e) {
+        var str = ""
+        var tdArr = new Array();
+        var tr = $(this);
+        var td = tr.children();
+        var siteName = td.eq(1).text();
+        $('#siteName').val(siteName);
+    });
+    //ユーザー選択後、設定ボタンをクリックすると親ウィンドウに値をセット
+	$(".btn_user_ok").click(function(){
+		var rowData = new Array();
+		var tdArr = new Array();
+		var checkbox = $("input[name=userCheck]:checked");
+		var name = '';
+		var email = '';
+		let emailArr = '';
+		checkbox.each(function(i){
+			var tr = checkbox.parent().parent().eq(i);
+			var td = tr.children();
+			name = td.eq(1).text();
+			email = td.eq(2).text();
+			if(emailArr == ''){
+				emailArr = email;
+			}else{
+				emailArr += '\n'+email;
+			}
+		});
+		if($('#viewFlag').val() == 'single'){
+			$('#userName').val(name);
+			$('#userMail').val(email);
+		}else{
+			$('#emailArrTxt').val(emailArr);
+		}
+    	tableUser.$('tr.selected').removeClass('selected');
+    	$('#userSelectModal').find('form')[0].reset()
+	});
+
+
+});
+
+
 jQuery(function($){
-	$('#ikitiZ').change(function() {
+$('#ikitiZ').change(function() {
         var ikiti = $(this).val();
         if(ikiti != ""){
         	document.getElementById('ikitiZ_input').innerHTML = "Z < " + ikiti;
@@ -1244,7 +1448,31 @@ jQuery(function($){
         $('#modeViewBtn').hide();
         $('#modeEditBtn').show();
     });
+
+    //ユーザー選択区分
+    $('.btn_m_user').on('click', function() {
+    	$('#viewFlag').val('multi');
+    });
+    $('.btn_s_user').on('click', function() {
+    	$('#viewFlag').val('single');
+    });
+    $('.btn_search').on('click', function() {
+    	var keyword = $('#keyword').val();
+        $("#siteList tr").each(function(index) {
+            if (index != 0) {
+                $row = $(this);
+                var id = $row.find('td:eq(1)').text();
+                if (id.indexOf(keyword) == 0) {
+                    $(this).show();
+                }else {
+                    $(this).hide();
+                }
+            }
+        });
+    });
+
 })
+
 </script>
 
 </body>

@@ -35,25 +35,21 @@
                 <div class="login-logo">
                     <h2><a href="./event.html">自家発補給 電力使用自動連絡</a></h2>
                 </div>
-                <script type="text/javascript">
-                    function check(){
-                        if (loginform.account.value != "" && loginform.passkey.value != ""){
-                            if (loginform.account.value == "ais1234" && loginform.passkey.value == "ais123456"){
-                            	return true;
-                            }else if (loginform.account.value == "ais9876" && loginform.passkey.value == "ais654321"){
-                            	return true;
-                            }else{
-                            	alert("アカウントまたはパスワードが違います");
-                                loginform.account.value = "";
-                                loginform.passkey.value = "";
-                                return false;
-                            }
-                        }
+                <div class="alert alert-danger alert-dismissable text-left"
+								id="idErr" hidden="true">
+								<button onclick="hide();" class="close"
+									type="button">×</button>
+								IDをご確認ください。
+							</div>
+							<div class="alert alert-danger alert-dismissable text-left"
+								id="pwdErr" hidden="true">
+								<button onclick="hide();" class="close"
+									type="button">×</button>
+								PWをご確認ください。
+							</div>
 
-                    }
-                </script>
                 <div class="login-form">
-                    <form th:action="@{/event/}" name="loginform" method="post">
+
                         <div class="form-group" style="margin-bottom: 10px;">
                             <label>アカウント</label>
                             <input type="text" class="form-control" placeholder="Account" id="account" name="account" required>
@@ -63,10 +59,10 @@
                              <input type="password" class="form-control" placeholder="Password" id="passkey" name="passkey" required>
                         </div>
 
-                        <button type="submit" id="login_post" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="return check();">ログイン</button>
+                        <button id="loginBtn" class="btn btn-success btn-flat m-b-30 m-t-30" onclick="candoit();">ログイン</button>
                         <!-- ログイン処理エラーメッセージ出力部分 -->
                         <!-- div class="social-login-content"></div -->
-                    </form>
+
                 </div>
             </div>
         </div>
@@ -75,6 +71,46 @@
     <script src="static/vendors/jquery/dist/jquery.min.js"></script>
     <script src="static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="static/assets/js/main.js"></script>
+    <script src="static/assets/js/datetimepicker/jquery.js"></script>
+
+<script th:inline="javascript">
+	/*<![CDATA[*/
+
+
+	   function candoit() {
+
+			 var login = new Object();
+			 login.loginuser=$('#account').val();
+			 login.passwd=$('#passkey').val();
+			 $.ajax({
+				   type  : "POST",
+				   url : "/loginprocess",
+					dataType : "json",
+					"contentType" : "application/JSON",
+					 scriptCharset: 'utf-8',
+					data : JSON.stringify(login)
+			}).success(function(d){
+				$("#idErr")[0].hidden = true;
+				$("#pwdErr")[0].hidden = true;
+
+				   if(d == 1){
+			            $("#idErr")[0].hidden = false;
+			        }else if(d == 2){
+			            $("#pwdErr")[0].hidden = false;
+			        }else if(d == 0){
+			        	location.href='/event/';
+			        }
+			}).error(function(d){
+
+			});
+	  }
+
+
+ /*]]>*/
+ </script>
+
+
+
 
 </body>
 </html>
