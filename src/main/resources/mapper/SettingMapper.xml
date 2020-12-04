@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.info.ais.ops.mapper.SettingMapper">
+
+	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
+		SELECT
+		(ROW_NUMBER() OVER()) AS rownum,
+			shisetsuno,
+			shisetsuname,
+			sitecd,
+			jdgsw,
+			jdgstatus,
+			status,
+			starttime,
+			sitename
+		 FROM tbl_jikahorenrakusettei
+	</select>
+
+	<delete id="deleteShisetsuno" parameterType="String">
+    	DELETE FROM tbl_jikahorenrakusettei
+    	WHERE
+    		shisetsuno =#{shisetsuno}
+    </delete>
+	<update id="updateStatus" parameterType="jp.co.info.ais.ops.domain.Setting">
+		update tbl_jikahorenrakusettei
+			<set>
+			<if test="status != null and !status.equals('')">
+				status=#{status},
+				starttime=#{starttime},
+			</if>
+			<if test="jdgstatus != null and !jdgstatus.equals('')">
+				jdgstatus=#{jdgstatus}
+			</if>
+			</set>
+		where shisetsuno= #{shisetsuno}
+	</update>
+ </mapper>
