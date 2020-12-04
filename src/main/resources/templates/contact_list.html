@@ -29,8 +29,15 @@
 </head>
 
 <style>
+.margin-left{
+       margin-left: 10px !important;
+}
 	body{
 			overflow:hidden;
+			}
+			tr{
+			text-align:center;
+			font-size: 12px;
 			}
 </style>
 
@@ -68,132 +75,15 @@
                             <table id="setList" class="table table-striped table-bordered table-sm" style="width: 100%;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center;  font-size: 12px;">NO</th>
-                                        <th style="text-align:center; font-size: 12px;">名称</th>
-                                        <th style="text-align:center; font-size: 12px;">メールアドレス</th>
-                                        <th style="text-align:center; font-size: 12px;">電話番号</th>
-                                        <th style="text-align:center; font-size: 12px;"></th>
+                                        <th style="width: 10%;">NO</th>
+                                        <th style="width: 20%;">名称</th>
+                                        <th style="width: 25%;">メールアドレス</th>
+                                        <th style="width: 25%;">電話番号</th>
+                                        <th style="width: 20%;"></th>
                                     </tr>
                                 </thead>
-
                                 <tbody>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">1</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">2</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">3</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">4</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary" data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <th scope="row" style="text-align:center;">5</th>
-                                        <td style="font-size: 0.9em; text-align:center;">〇〇〇〇〇〇〇〇〇</td>
-                                        <td style="font-size: 0.9em; text-align:center;">＃＃＃＃＃＃＃＃＃</td>
-                                        <td style="font-size: 0.9em; text-align:center;">XXX-XXXX-XXXX</td>
-                                        <td style="text-align:center;">
-	                                        <button type="button" class="btn btn-sm btn-primary"  data-toggle="modal" data-target="#addModal"><i class="fa fa-edit"></i> 編集</button>
-	                                        <button type="button" class="btn btn-sm btn-danger" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>
-                                        </td>
-                                    </tr>
-
-	                          </tbody>
+                                </tbody>
 	                  		</table>
 
                         </div>
@@ -210,18 +100,19 @@
 			    <div class="modal-dialog modal-sm" role="document">
 			        <div class="modal-content">
 			            <div class="modal-header">
-			                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+			                <h5 class="modal-title" id="staticModalLabel">連絡先マスタ</h5>
 			                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
 			                    <span aria-hidden="true">&times;</span>
 			                </button>
 			            </div>
 			            <div class="modal-body" style="text-align: center;">
+			             <input  type="hidden" id="contactcdd" name="contactcdd" placeholder="" style="width: 290px" class="form-control input-sm">
 			                <p>
 			                    選択されたデータを削除します。<br>よろしいですか？
 			                </p>
 			            </div>
 			            <div class="modal-footer">
-			                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
+			                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="submitDelete();">はい</button>
 			                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 			            </div>
 			        </div>
@@ -236,59 +127,326 @@
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">自家補連絡設定</h5>
+                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body" style="text-align: center;">
+
+             <input  type="hidden" id="contactcd" name="contactcd" placeholder="" style="width: 290px" class="form-control input-sm">
                 <div class="form-group form-inline">
                     <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">名称</label>
-                    <input type="text" placeholder="" style="width: 290px" class="form-control input-sm">
+                    <input  type="text" id="contactname" name="contactname" placeholder="" style="width: 290px" class="form-control input-sm">
+                </div><!--/.form-group -->
+                 <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">メールアドレス</label>
+                    <input type="text" id="contactmailaddress" name="contactmailaddress" placeholder="" style="width: 290px;" class="form-control input-sm">
                 </div><!--/.form-group -->
                 <div class="form-group form-inline">
                     <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">電話番号</label>
-                    <input type="text" placeholder="" style="width: 290px;" class="form-control input-sm">
+                    <input type="text" id="contactphoneno" name="contactphoneno" placeholder="" style="width: 290px;" class="form-control input-sm">
                 </div><!--/.form-group -->
-                <div class="form-group form-inline">
-                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">メールアドレス</label>
-                    <input type="text" placeholder="" style="width: 290px;" class="form-control input-sm">
-                </div><!--/.form-group -->
+         		<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
+				</div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">保存</button>
+                <button type="button" class="btn btn-secondary" onClick="submitSave();" >はい</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
 </div>
-<!-- Master Add Modal Part End-->
-
+<!-- Master update Modal Part End-->
+  <!-- Master Add Modal Part Start-->
+<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+             <input  type="hidden" id="contactcdu" name="contactcdu" placeholder="" style="width: 290px" class="form-control input-sm">
+                <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">名称</label>
+                    <input  type="text" id="contactnameu" name="contactnameu" placeholder="" style="width: 290px" class="form-control input-sm">
+                </div><!--/.form-group -->
+                   <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">メールアドレス</label>
+                    <input type="text" id="contactmailaddressu" name="contactmailaddressu" placeholder="" style="width: 290px;" class="form-control input-sm">
+                </div><!--/.form-group -->
+                <div class="form-group form-inline">
+                    <label class=" form-control-label" style="width: 100px; font-size: 14px; margin-right: 10px; text-align: left;">電話番号</label>
+                    <input type="text" id="contactphonenou" name="contactphonenou" placeholder="" style="width: 290px;" class="form-control input-sm">
+                </div><!--/.form-group -->
+                <div class="alert alert-danger alert-dismissable text-left" id="errMessageu" hidden="true">
+				</div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"  onClick="submitUpdate();" >はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Master update Modal Part End-->
     <!-- Right Panel -->
 
     <script src="../static/vendors/jquery/dist/jquery.min.js"></script>
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
     <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 	<!-- dataTable -->
 	<script src="../static/assets/js/datetimepicker/jquery.js"></script>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 
-
 <script>
-jQuery(document).ready(function($) {
-	//DataTable Option設定
-	var table = $('#setList').DataTable( {
- 	    fixedHeader: true,
- 	    searching: false,
- 	    scrollY: 550,
- 	    lengthMenu: [ 50, 100, 500 ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
-        }
- 	} );
+/*メールパターン*/
+var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+/*電話番号パターン*/
+var phone = RegExp(/^[0-9]*$/);
+/*名称パターン*/
+var engname = RegExp(/^[a-zA-Z]*$/);
+var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
+var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
+var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
+var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
+var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
+
+var buttonText = '<button onclick="hide();"class="close"type="button">×</button>';
+var errNeedsMail = 'メールは必須項目です。';
+var errOkMail = '正しいメールではありません。';
+var errNeedsPhone = '電話番号は必須項目です。';
+var errOkPhone = '正しい電話番号ではありません。';
+var errNeedsName = '名称は必須項目です。';
+var errOkName = '正しい名称ではありません。';
+/*datatableの初期表示*/
+var myDataTables = $("#setList").DataTable({
+	/*datatableのオプション*/
+		autoWidth: true,
+	    searching: false,
+	    scrollY: 550,
+	    scrollerCollapse: true,
+	    lengthMenu: [ 15, 30, 50 ],
+    language: {
+        "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+    },
+    ajax: {
+    	/*コントロールのメソッドのパス*/
+	   url: /*[[@{/getContactListAuto}]]*/ 'getContactListAuto',
+	   type: "POST",
+	   dataType: "json",
+	   contentType : "application/json; charset=UTF-8",
+	   dataSrc: ''
+    },
+    /*順番通りカラムに設定する*/
+    columns:[
+    	{data: "contactcd"},
+    	{data: "contactname"},
+    	{data: "contactmailaddress"},
+    	{data: "contactphoneno"},
+    	{
+    		data: "description_u",
+            render: function ( data, type, row, meta ) {
+              return '<button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
+              +'<button type="button" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>';
+            }
+		}
+    ]
 });
 
+function hide(){
+	$("#errMessage")[0].hidden = true;
+	$("#errMessageu")[0].hidden = true;
+}
+/*編集時modalからのOKによるデータを新規で作成する*/
+function submitSave(){
+
+	var name = $("#contactname").val();
+	  //名称の空白確認
+    if($("#contactname").val()== ""){
+    	$("#errMessage").html(buttonText+errNeedsName);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactname").focus();
+      return false;
+    }
+    //名称の検査
+    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
+    	$("#errMessage").html(buttonText+errOkName);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactname").focus();
+      return false;
+    }
+	  //メールの空白確認
+    if($("#contactmailaddress").val() == ""){
+    	$("#errMessage").html(errNeedsMail);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactmailaddress").focus();
+      return false;
+    }
+    //メールの検査
+    if(!getMail.test($("#contactmailaddress").val())){
+    	$("#errMessage").html(errOkMail);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactmailaddress").focus();
+      return false;
+    }
+	  //電話番号の空白確認
+    if($("#contactphoneno").val() == ""){
+    	$("#errMessage").html(buttonText+errNeedsPhone);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactphoneno").focus();
+      return false;
+    }
+    //電話番号の検査
+    if(!phone.test($("#contactphoneno").val())){
+    	$("#errMessage").html(buttonText+errOkPhone);
+    	$("#errMessage")[0].hidden = false;
+        $("#contactphoneno").focus();
+      return false;
+    }
+
+	 var contact = new Object();
+	 contact.contactcd =$('#contactcd').val();
+	 contact.contactname =  $('#contactname').val();
+	 contact.contactphoneno = $('#contactphoneno').val();
+	 contact.contactmailaddress = $('#contactmailaddress').val();
+	 var jsonData = JSON.stringify(contact);
+	  /* OKの時の処理 */
+		$.ajax({
+			url: /*[[@{/addContact}]]*/ 'addContact',
+			type : "POST",
+			dataType : "json",
+			contentType : 'application/JSON',
+			data : jsonData
+		}).success(function(result) {
+			if(result>0){
+				location.href = '/ops/contact/';
+		}else{
+			alert('編集失敗');
+			}
+		}).error(function(xhr, textStatus, error) {
+			alert(xhr);
+			alert(textStatus);
+			alert('通信失敗');
+		});
+}
+
+/*編集時modalにデータを設定する*/
+$('#setList').on('click', '.updateButton', function() {
+	  var contactcd = $(this).closest('tr').find('td:eq(0)').text();
+	  var contactname = $(this).closest('tr').find('td:eq(1)').text();
+	  var contactmailaddress = $(this).closest('tr').find('td:eq(2)').text();
+	  var contactphoneno = $(this).closest('tr').find('td:eq(3)').text();
+	  $('#contactcdu').val(contactcd);
+	  $('#contactnameu').val(contactname);
+	  $('#contactphonenou').val(contactphoneno);
+	  $('#contactmailaddressu').val(contactmailaddress);
+	});
+
+/*編集時modalからのOKによるデータを編集する*/
+function submitUpdate(){
+
+	var name = $("#contactnameu").val();
+	  //名称の空白確認
+    if($("#contactnameu").val()== ""){
+    	$("#errMessageu").html(buttonText+errNeedsName);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactnameu").focus();
+      return false;
+    }
+    //名称の検査
+    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
+    	$("#errMessageu").html(buttonText+errOkName);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactnameu").focus();
+      return false;
+    }
+	  //メールの空白確認
+    if($("#contactmailaddressu").val() == ""){
+    	$("#errMessageu").html(errNeedsMail);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactmailaddressu").focus();
+      return false;
+    }
+    //メールの検査
+    if(!getMail.test($("#contactmailaddressu").val())){
+    	$("#errMessageu").html(errOkMail);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactmailaddressu").focus();
+      return false;
+    }
+	  //電話番号の空白確認
+    if($("#contactphonenou").val() == ""){
+    	$("#errMessageu").html(buttonText+errNeedsPhone);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactphonenou").focus();
+      return false;
+    }
+    //電話番号の検査
+    if(!phone.test($("#contactphonenou").val())){
+    	$("#errMessageu").html(buttonText+errOkPhone);
+    	$("#errMessageu")[0].hidden = false;
+        $("#contactphonenou").focus();
+      return false;
+    }
+
+	 var contact = new Object();
+	 contact.contactcd =$('#contactcdu').val();
+	 contact.contactname =  $('#contactnameu').val();
+	 contact.contactphoneno = $('#contactphonenou').val();
+	 contact.contactmailaddress = $('#contactmailaddressu').val();
+	 var jsonData = JSON.stringify(contact);
+
+	  /* OKの時の処理 */
+	$.ajax({
+		url: /*[[@{/updateContact}]]*/ 'updateContact',
+		type : "POST",
+		dataType : "json",
+		contentType : 'application/JSON',
+		data : jsonData
+	}).success(function(result) {
+		if(result>0){
+			location.href = '/ops/contact/';
+	}else{
+		alert('編集失敗');
+		}
+	}).error(function(xhr, textStatus, error) {
+		alert('通信失敗');
+	});
+}
+
+/*削除時modalにデータを設定する*/
+$('#setList').on('click', '.deleteButton', function() {
+	var contactcd = $(this).closest('tr').find('td:eq(0)').text();
+	$('#contactcdd').val(contactcd);
+});
+
+/*削除時modalからのOKによるデータを削除する*/
+ function submitDelete() {
+	var contactcd = $('#contactcdd').val();
+	  /* OKの時の処理 */
+	$.ajax({
+		url: /*[[@{/deleteContact}]]*/ 'deleteContact',
+		type : "POST",
+		dataType : "json",
+		contentType : 'application/JSON',
+		data : contactcd
+	}).success(function(result) {
+		if(result>0){
+			location.href = '/ops/contact/';
+	}else{
+		alert('編集失敗');
+		}
+	}).error(function(xhr, textStatus, error) {
+		alert('通信失敗');
+	});
+}
 </script>
 
 </body>
