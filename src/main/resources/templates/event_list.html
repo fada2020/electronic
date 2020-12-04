@@ -141,9 +141,9 @@
  													 date-mailcc=${#strings.replace(list.mailcc, ' ', '&#10')},
                                                      date-mailtext=${list.mailtext}"
                                             th:style="${list.eventkind} == '1' ? 'display:block text-align:center;' : 'display:none'"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: gray;" type="button" th:case == "2" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: gray;" type="button" th:case == "3" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: gray;" type="button" th:case == "4" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "2" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "3" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "4" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
                                     <tr th:unless="${not #lists.isEmpty( list )}">
