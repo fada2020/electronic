@@ -8,14 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.info.ais.ops.domain.Contact;
-import jp.co.info.ais.ops.mapper.ContactMapper;
+import jp.co.info.ais.ops.mapper.postgre.ContactMapper;
 
 @Service
 public class ContactService {
 	private static final Logger logger = LogManager.getLogger(EventService.class);
 
 	@Autowired
-	private ContactMapper contactMapper;
+	ContactMapper contactMapper;
 
 	/*contactリス表示*/
 	public List<Contact> contactList() throws Exception {

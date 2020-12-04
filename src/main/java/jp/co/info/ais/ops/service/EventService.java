@@ -9,14 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.info.ais.ops.domain.EventList;
-import jp.co.info.ais.ops.mapper.EventMapper;
+import jp.co.info.ais.ops.mapper.postgre.EventMapper;
 
 @Service
 public class EventService {
 	private static final Logger logger = LogManager.getLogger(EventService.class);
 
-	@Autowired
-	private EventMapper eventMapper;
+    @Autowired
+	EventMapper eventMapper;
 
 	/**
 	 *　Eventリスト取得を依頼
