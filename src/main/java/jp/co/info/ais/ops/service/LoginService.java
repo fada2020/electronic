@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.info.ais.ops.domain.Login;
-import jp.co.info.ais.ops.mapper.LoginMapper;
+import jp.co.info.ais.ops.mapper.oracle.LoginMapper;
 
 
 @Service
@@ -18,8 +18,8 @@ public class LoginService {
 	/**
 	 * ログインマッパー(Mapper)クラス
 	 */
-	@Autowired
-	private LoginMapper loginMapper;
+    @Autowired
+    LoginMapper loginMapper;
 
 	/**
 	 * ID存在チェック

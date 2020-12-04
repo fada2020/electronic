@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.info.ais.ops.mapper.postgre.ContactMapper">
+
+	<!--リスト表示  -->
+	<select id="contactList" resultType="jp.co.info.ais.ops.domain.Contact">
+		SELECT
+			contactcd,
+			contactname,
+			contactphoneno,
+			contactmailaddress
+		 FROM tbl_jikahocontactmaster
+	</select>
+
+	<!--contact削除  -->
+	<delete id="deleteContact" parameterType="int">
+    	DELETE FROM tbl_jikahocontactmaster
+    	WHERE
+    		contactcd =#{contactcd}
+    </delete>
+
+	 <!--contact編集  -->
+	 <update id="updateContact" parameterType="jp.co.info.ais.ops.domain.Contact">
+		update tbl_jikahocontactmaster set
+		contactname=#{contactname},
+		contactphoneno=#{contactphoneno},
+		contactmailaddress=#{contactmailaddress}
+		where
+		contactcd=#{contactcd}
+	</update>
+
+	<!--contact新規  -->
+	<insert id="addContact" parameterType="jp.co.info.ais.ops.domain.Contact">
+		insert into tbl_jikahocontactmaster(
+			contactname,
+			contactphoneno,
+			contactmailaddress
+			) values(
+			#{contactname},
+			#{contactphoneno},
+			#{contactmailaddress}
+			)
+	</insert>
+
+ </mapper>

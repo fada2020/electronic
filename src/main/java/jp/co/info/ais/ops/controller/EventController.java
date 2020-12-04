@@ -61,11 +61,12 @@ public class EventController {
 	private static final String FIXED_STATUS_OK_TXT = "正常終了";
 	private static final String FIXED_STATUS_NG = "2";
 	private static final String FIXED_STATUS_NG_TXT = "失敗";
-	private static final String FIXED_AUTO_RENEW_NO = "0";
-	private static final String FIXED_AUTO_RENEW_YES = "1";
 
 	@Autowired
 	HttpSession session;
+
+	@Autowired
+	EventController eventController;
 
 	@Autowired
 	private EventService eventService;

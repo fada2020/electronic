@@ -68,12 +68,14 @@ public class LoginController {
 				if (user == null) {
 					result = 2;
 				} else {
+					result = 9;
 					session.setAttribute("id", user.getLoginuser());
-
 				}
 			}
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			System.out.println(e.toString());
+
+			//logger.error(e.getMessage());
 		}
 		return result;
 	}

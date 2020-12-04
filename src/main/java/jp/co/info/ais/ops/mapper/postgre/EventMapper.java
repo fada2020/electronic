@@ -1,4 +1,4 @@
-package jp.co.info.ais.ops.mapper;
+package jp.co.info.ais.ops.mapper.postgre;
 
 import java.util.List;
 import java.util.Map;
