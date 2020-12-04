@@ -51,21 +51,23 @@
 	                        <div class="form-group form-inline">
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm" th:value="${fromDate}" required>
+	                                <input type="text" name="fromDate" id="fromDate" class="form-control input-sm disabled-text" th:value="${fromDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; font-size: medium;">時 ～　</span>
 	                            <div class="input-group">
 	                                <div class="input-group-addon input-sm"><i class="fa fa-calendar"></i></div>
-	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm" th:value="${toDate}" required>
+	                                <input type="text" name="toDate" id="toDate" class="form-control input-sm disabled-text" th:value="${toDate}" required>
 	                            </div>
 	                            <span style="padding: 5px; padding-right: 10px; font-size: medium;">時</span>
 	                            <button type="button" class="btn btn-primary btn-sm" id="searchBtn"><i class="fa fa-search"></i> 検索</button>
+	                            <button type="button" class="btn btn-primary btn-sm" id="searchStopBtn" disabled="disabled" style="display: none; background-color: #6c757d; border-color: #6c757d;"><i class="fa fa-search"></i> 検索</button>
 							</div><!-- /.form-inline -->
 						</div><!-- /.col-9-->
 						<div class="col-5" style="float: right; text-align: right; margin-top: 20px;">
                             <button type="button" id="executeBtn" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> 自動更新</button>
                             <button type="button" id="executeStopBtn" class="btn btn-sm btn-warning" style="display: none;"><i class="fa fa-refresh"></i> 自動更新中</button>
 							<button type="button" id="excelBtn" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
+							<button type="button" id="excelStopBtn" class="btn btn-sm btn-success" disabled="disabled" style="display: none; background-color: #6c757d; border-color: #6c757d;"><i class="fa fa-print"></i> EXCEL出力</button>
 						</div><!-- /.col-sm-3-->
             		</div><!-- /.card-body -->
             	</div><!-- /.card -->
@@ -299,16 +301,28 @@ $('#excelBtn').on('click', function() {
 });
 //自動実行処理を行う。
 $('#executeBtn').on('click', function() {
+	$('.checkbox-input').prop("disabled",true);
+	$('.disabled-text').prop("disabled",true);
 	$('#executeBtn').hide();
-    $('#executeStopBtn').show();
+	$('#excelBtn').hide();
+	$('#searchBtn').hide();
+	$('#executeStopBtn').show();
+	$('#excelStopBtn').show();
+	$('#searchStopBtn').show();
 	startAutoRenew();
 
 });
 
 //自動実行処理を止まる。
 $('#executeStopBtn').on('click', function() {
+	$('.checkbox-input').prop("disabled", false);
+	$('.disabled-text').prop("disabled", false);
 	$('#executeStopBtn').hide();
-    $('#executeBtn').show();
+	$('#excelStopBtn').hide();
+	$('#searchStopBtn').hide();
+	$('#executeBtn').show();
+	$('#excelBtn').show();
+	$('#searchBtn').show();
 	stopAutoRenew();
 });
 
