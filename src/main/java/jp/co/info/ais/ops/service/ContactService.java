@@ -15,7 +15,7 @@ public class ContactService {
 	private static final Logger logger = LogManager.getLogger(EventService.class);
 
 	@Autowired
-	ContactMapper contactMapper;
+	private ContactMapper contactMapper;
 
 	/*contactリス表示*/
 	public List<Contact> contactList() throws Exception {
