@@ -71,11 +71,11 @@
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="text-align:center;">No</th>
                                         <th id="status">現況</th>
-                                        <th id="jdgstatus">終了判定</th>
+                                        <th id="endjdgsw">終了判定</th>
                                         <th id="starttime">使用開始日時</th>
                                         <th id="jdgsw">有効</th>
                                         <th id="shisetsuno">お客さま番号</th>
-                                        <th id="shisetsuname">施設名</th>
+                                        <th id="customer">施設名</th>
                                         <th id="sitecd">サイトID</th>
                                         <th id="sitename">サイト名</th>
                                         <th></th>
@@ -127,13 +127,13 @@
 										<h4 class="modal-title　myModalLabel" >自家補連絡設定</h4>
 									</div>
 									<div class="modal-body">
-										<label id="jdgstatusLabel"></label>
+										<label id="endjdgswLabel"></label>
 										 <label>です。</label><br>
 										  <label id="jdgbeforeConform"></label>
 										<label id="jdgconformLabel"></label><br>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-danger" id="idButton" data-dismiss="modal" onClick="jdgStatusChange();">はい</button>
+										<button type="button" class="btn btn-danger" id="idButton" data-dismiss="modal" onClick="endjdgswChange();">はい</button>
 										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
@@ -188,7 +188,7 @@
 <input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
 <input type="hidden" id="shisetsunou">
 <input type="hidden" id="statusu">
-<input type="hidden" id="jdgstatusu">
+<input type="hidden" id="endjdgswu">
 <input type="hidden" id="starttimeu">
 
 </form>
@@ -251,16 +251,16 @@ var myDataTables = $("#setList").DataTable({
             	}
             }},
             { data: function ( d ) {
-            	if(d.jdgstatus == 0) {
+            	if(d.endjdgsw == 0) {
             		return '適用中';
             	} else {
             		return '未適用';
             	}
             }},
             { targets: 5, data: function ( d ) {
-            	if(d.starttime !="") {
+            	if(d.starttime !=null) {
             		var str = d.starttime;
-            		return str.substring(0, 4) + "/" + str.substring(4, 6) + "/" + str.substring(6, 8)+ " "+str.substring(8, 10)+ ":"+str.substring(10, 12)+ ":"+str.substring(12, 14);
+            		return str.replace(/-/g,"/");
             	}else{
             		return "-";
             	}
@@ -273,7 +273,7 @@ var myDataTables = $("#setList").DataTable({
 	            	}
 	            }},
 	    	{data: "shisetsuno"},
-	    	{data: "shisetsuname"},
+	    	{data: "customer"},
 	    	{data: "sitecd"},
 	    	{data: "sitename"},
 	    	/*renderを利用してボタンを生成*/
@@ -293,7 +293,7 @@ var myDataTables = $("#setList").DataTable({
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	        }
-	        if ( data.jdgstatus == 0 ) {
+	        if ( data.endjdgsw == 0 ) {
 		          $(row).find('td:eq(2)').css('color','red');
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
@@ -344,19 +344,19 @@ $('#setList').on('click', '.updateButton', function() {
 	    $('#hidMainFrom').submit();
 	  });
 
-//現況変更モーダルの内容表示の出し分け
+//終了判定切替モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_end_judg', function() {
 	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
-	var jdgstatus = $(this).closest('tr').find('td:eq(2)').text();
+	var endjdgsw = $(this).closest('tr').find('td:eq(2)').text();
 
 	$('#shisetsunou').val(shisetsuno);
-	$('#jdgstatusu').val(jdgstatus);
-	if(jdgstatus=='適用中'){
-		$("#jdgstatusLabel").text(jdgstatus);
-		$("#jdgstatusLabel").css('color','red');
+	$('#endjdgswu').val(endjdgsw);
+	if(endjdgsw=='適用中'){
+		$("#endjdgswLabel").text(endjdgsw);
+		$("#endjdgswLabel").css('color','red');
 		$("#jdgbeforeConform").text('未適用に変更しますか？');
 	}else{
-		$("#jdgstatusLabel").text(jdgstatus);
+		$("#endjdgswLabel").text(endjdgsw);
 		$("#jdgbeforeConform").text('適用中');
 		$("#jdgbeforeConform").css('color','red');
 		$("#jdgconformLabel").text('に変更しますか？');
@@ -380,7 +380,7 @@ $('#setList').on('click', '.btn_change_genkyo', function() {
 		$("#beforeConform").text('使用中');
 		$("#beforeConform").css('color','red');
 		$("#conformLabel").text('に変更しますか？');
-		var settingTime=starttime.substring(0, 4) + "/" + starttime.substring(4, 6) + "/" + starttime.substring(6, 8)+ " "+starttime.substring(8, 10)+ ":"+starttime.substring(10, 12)+ ":"+starttime.substring(12, 14);
+		var settingTime=starttime.replace(/-/g,"/");
 		$('#view_time').val(settingTime);
 		$('#view_time').attr("type", "text");
 	}
@@ -389,8 +389,9 @@ $('#setList').on('click', '.btn_change_genkyo', function() {
 //現在時刻取得（yyyymmddhhmm
 function getCurrentTime() {
     var now = new Date();
-    var res = "" + now.getFullYear() + padZero(now.getMonth() + 1) + padZero(now.getDate()) + padZero(now.getHours()) +
-        padZero(now.getMinutes())+ padZero(now.getSeconds());
+    var res = "" + now.getFullYear() +"-" +padZero(now.getMonth() + 1) +"-"+ padZero(now.getDate()) +" "+ padZero(now.getHours())+":" +
+        padZero(now.getMinutes())+ ":"+padZero(now.getSeconds());
+
     return res;
 }
 
@@ -398,9 +399,6 @@ function getCurrentTime() {
 function padZero(num) {
     return (num < 10 ? "0" : "") + num;
 }
-jQuery(document).ready(function ($) {
-    var value = '@Request.RequestContext.HttpContext.Session["id"]';
-});
 
 /*sessionidと入力したIDを比較*/
 function submitId(){
@@ -417,19 +415,19 @@ function submitId(){
 	}
 }
 /*終了判定を変更する*/
-function jdgStatusChange(){
+function endjdgswChange(){
 	var obj = new Object();
 	var shisetsuno = $('#shisetsunou').val();
-	var nowjdgstatus=$('#jdgstatusu').val();
-	var jdgstatus="";
-	if(nowjdgstatus=='適用中'){
-		jdgstatus=1;
+	var nowendjdgsw=$('#endjdgswu').val();
+	var endjdgsw="";
+	if(nowendjdgsw=='適用中'){
+		endjdgsw=1;
 
 	}else{
-		jdgstatus=0;
+		endjdgsw=0;
 	}
 
-	obj.jdgstatus=jdgstatus;
+	obj.endjdgsw=endjdgsw;
 	obj.shisetsuno=shisetsuno;
 
 	var jsonData = JSON.stringify(obj);
@@ -460,7 +458,7 @@ function genkyoChange(){
 
 	if(genkyostatus=='使用中'){
 		status=1;
-		starttime="";
+		starttime=null;
 	}else{
 		status=0;
 	}
@@ -486,11 +484,6 @@ function genkyoChange(){
 		alert('通信失敗');
 	});
 }
-
-//エクセルファイル出力処理を行う。
-$('#excelBtn').on('click', function() {
-
-});
 
 </script>
 

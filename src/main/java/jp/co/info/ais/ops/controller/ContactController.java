@@ -70,11 +70,15 @@ public class ContactController {
 		JSONArray jArray = new JSONArray();
 		try {
 			list = contactService.contactList();
+
 			 for (int i = 0; i < list.size(); i++)
 			 {
 			 JSONObject sObject = new JSONObject();
-			 sObject.put("contactcd", list.get(i).getcontactcd());
+			 sObject.put("rownum", list.get(i).getRownum());
+			 sObject.put("contactcd", list.get(i).getContactcd());
 			 sObject.put("contactname", list.get(i).getContactname());
+			 sObject.put("startcontactcd", list.get(i).getStartcontactcd());
+			 sObject.put("endcontactcd", list.get(i).getEndcontactcd());
 			 sObject.put("contactphoneno", list.get(i).getContactphoneno());
 			 sObject.put("contactmailaddress", list.get(i).getContactmailaddress());
 			 jArray.add(sObject);

@@ -50,17 +50,17 @@ public class SettingController {
 	private static final Logger logger = LogManager.getLogger(SettingController.class);
 
 	private static final String EXCEL_FLAG = "excel";
-	private static final int SIYO = 0;
+	private static final String SIYO = "0";
 	private static final String SIYO_TXT = "使用中";
-	private static final int MISIYO = 1;
+	private static final String MISIYO = "1";
 	private static final String MISIYO_TXT = "未使用";
-	private static final int TEKIYO = 0;
+	private static final String TEKIYO = "0";
 	private static final String TEKIYO_TXT = "適用中";
-	private static final int MITEKIYO = 1;
+	private static final String MITEKIYO = "1";
 	private static final String MITEKIYO_TXT = "未適用";
-	private static final int YUKO = 0;
+	private static final String YUKO = "0";
 	private static final String YUKO_TXT = "✔";
-	private static final int MUKO = 1;
+	private static final String MUKO = "1";
 	private static final String MUKO_TXT = " ";
 
 	/**
@@ -138,10 +138,10 @@ public class SettingController {
 				JSONObject sObject = new JSONObject();
 				sObject.put("rownum", list.get(i).getRownum());
 				sObject.put("shisetsuno", list.get(i).getShisetsuno());
-				sObject.put("shisetsuname", list.get(i).getShisetsuname());
+				sObject.put("customer", list.get(i).getCustomer());
 				sObject.put("sitecd", list.get(i).getSitecd());
 				sObject.put("jdgsw", list.get(i).getJdgsw());
-				sObject.put("jdgstatus", list.get(i).getJdgstatus());
+				sObject.put("endjdgsw", list.get(i).getEndjdgsw());
 				sObject.put("status", list.get(i).getStatus());
 				sObject.put("starttime", list.get(i).getStarttime());
 				sObject.put("sitename", list.get(i).getSitename());
@@ -210,7 +210,7 @@ public class SettingController {
 	@ResponseBody
 	@PostMapping("/updateStatus")
 	public int updateStatus(@RequestBody Setting setting) throws Exception {
-		System.out.println(setting.getStarttime());
+
 		logger.debug("shisetsuno delete Start===========");
 		int result = 0;
 		try {
@@ -317,32 +317,32 @@ public class SettingController {
 		        cell.setCellValue(setting.getRownum());
 		        cell = row.createCell(1);//現況
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getStatus()==SIYO) {
+		        if(setting.getStatus().equals(SIYO)) {
 		        	cell.setCellValue(SIYO_TXT);
-		        }else if(setting.getStatus()==MISIYO) {
+		        }else if(setting.getStatus().equals(MISIYO)) {
 		        	cell.setCellValue(MISIYO_TXT);
 		        }
 		        cell = row.createCell(2);//終了判定
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getJdgstatus()==TEKIYO) {
+		        if(setting.getEndjdgsw().equals(TEKIYO)) {
 		        	cell.setCellValue(TEKIYO_TXT);
-		        }else if(setting.getJdgstatus()==MITEKIYO) {
+		        }else if(setting.getEndjdgsw().equals(MITEKIYO)) {
 		        	cell.setCellValue(MITEKIYO_TXT);
 		        }
 		        cell = row.createCell(3);//使用開始日時
 		        cell.setCellStyle(bodyStyle);
 		        if(!setting.getStarttime().equals("")&&setting.getStarttime()!=null){
 		        	String str= setting.getStarttime();
-		        	time = str.substring(0, 4) + "/" + str.substring(4, 6) + "/" + str.substring(6, 8)+ " "+str.substring(8, 10)+ ":"+str.substring(10, 12)+ ":"+str.substring(12, 14);
+		        	time = str.replaceAll("-", "/");
 		        	cell.setCellValue(time);
 		        }else {
 		        	cell.setCellValue("-");
 		        }
 		        cell = row.createCell(4);//有効
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getJdgsw()==YUKO) {
+		        if(setting.getJdgsw().equals(YUKO)) {
 		        	cell.setCellValue(YUKO_TXT);
-		        }else if(setting.getJdgsw()==MUKO) {
+		        }else if(setting.getJdgsw().equals(MUKO)) {
 		        	cell.setCellValue(MUKO_TXT);
 		        }
 		        cell = row.createCell(5);//お客様番号
@@ -350,7 +350,7 @@ public class SettingController {
 		        cell.setCellValue(setting.getShisetsuno());
 		        cell = row.createCell(6);//施設名
 		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(setting.getShisetsuname());
+		        cell.setCellValue(setting.getCustomer());
 		        cell = row.createCell(7);//サイトID
 		        cell.setCellStyle(bodyStyle);
 		        cell.setCellValue(setting.getSitecd());
@@ -372,8 +372,6 @@ public class SettingController {
 		    response.getOutputStream().close();
 
 		}catch (Exception e) {
-
-			e.printStackTrace();
 			logger.debug(e.getMessage());
 
 		}

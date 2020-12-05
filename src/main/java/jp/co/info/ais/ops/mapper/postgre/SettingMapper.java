@@ -6,7 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 import jp.co.info.ais.ops.domain.Setting;
-
 @Repository
 @Mapper
 public interface SettingMapper {

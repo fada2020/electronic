@@ -1,14 +1,24 @@
 package jp.co.info.ais.ops.domain;
 
 public class Contact {
-	private int contactcd;
-	private String contactname;
-	private String contactphoneno;
-	private String contactmailaddress;
-	public int getcontactcd() {
+	private int rownum;//No
+	private int contactcd;//連絡先CD
+	private String contactname;//連絡先名称
+	private String contactphoneno;//連絡先電話番号
+	private String contactmailaddress;//連絡先メールアドレス
+	private int startcontactcd;//更新Start時点
+	private int endcontactcd;//更新End時点
+
+	public int getRownum() {
+		return rownum;
+	}
+	public void setRownum(int rownum) {
+		this.rownum = rownum;
+	}
+	public int getContactcd() {
 		return contactcd;
 	}
-	public void setcontactcd(int contactcd) {
+	public void setContactcd(int contactcd) {
 		this.contactcd = contactcd;
 	}
 	public String getContactname() {
@@ -29,10 +39,25 @@ public class Contact {
 	public void setContactmailaddress(String contactmailaddress) {
 		this.contactmailaddress = contactmailaddress;
 	}
+	public int getStartcontactcd() {
+		return startcontactcd;
+	}
+	public void setStartcontactcd(int startcontactcd) {
+		this.startcontactcd = startcontactcd;
+	}
+	public int getEndcontactcd() {
+		return endcontactcd;
+	}
+	public void setEndcontactcd(int endcontactcd) {
+		this.endcontactcd = endcontactcd;
+	}
 	@Override
 	public String toString() {
 		return "Contact [contactcd=" + contactcd + ", contactname=" + contactname + ", contactphoneno=" + contactphoneno
-				+ ", contactmailaddress=" + contactmailaddress + "]";
+				+ ", contactmailaddress=" + contactmailaddress + ", startcontactcd=" + startcontactcd
+				+ ", endcontactcd=" + endcontactcd + "]";
 	}
+
+
 
 }

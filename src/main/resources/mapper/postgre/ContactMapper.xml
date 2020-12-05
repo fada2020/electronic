@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jp.co.info.ais.ops.mapper.postgre.ContactMapper">
+<mapper namespace="jp.co.info.ais.ops.mapper.ContactMapper">
 
 	<!--リスト表示  -->
 	<select id="contactList" resultType="jp.co.info.ais.ops.domain.Contact">
 		SELECT
-			contactcd,
-			contactname,
-			contactphoneno,
-			contactmailaddress
-		 FROM tbl_jikahocontactmaster
+			(ROW_NUMBER() OVER()) AS rownum,
+			cm.contactcd as contactcd,
+			cm.contactname as contactname,
+			cm.contactphoneno as contactphoneno,
+			cm.contactmailaddress as contactmailaddress,
+			rs.startcontactcd as startcontactcd,
+			rs.endcontactcd as endcontactcd
+		FROM tbl_jikahocontactmaster cm LEFT OUTER JOIN tbl_jikahorenrakusettei rs
+        ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd;
 	</select>
 
 	<!--contact削除  -->
