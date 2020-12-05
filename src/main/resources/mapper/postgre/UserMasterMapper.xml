@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="jp.co.info.ais.ops.mapper.UserMasterMapper">
+
+	<!--リスト表示  -->
+	<select id="usermasterList" resultType="jp.co.info.ais.ops.domain.UserMaster">
+		SELECT
+			su.loginuser as loginuser,
+			su.username as username,
+			su.usernamekana as usernamekana,
+			ug.enable as enable
+		FROM sys_user su LEFT OUTER JOIN tbl_usergrant ug
+        ON su.loginuser = ug.loginuser;
+	</select>
+
+ </mapper>
