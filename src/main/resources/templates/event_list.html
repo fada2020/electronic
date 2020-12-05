@@ -64,8 +64,9 @@
 							</div><!-- /.form-inline -->
 						</div><!-- /.col-9-->
 						<div class="col-5" style="float: right; text-align: right; margin-top: 20px;">
-                            <button type="button" id="executeBtn" class="btn btn-sm btn-primary"><i class="fa fa-refresh"></i> 自動更新</button>
-                            <button type="button" id="executeStopBtn" class="btn btn-sm btn-warning" style="display: none;"><i class="fa fa-refresh"></i> 自動更新中</button>
+						    <button type="button" id="autoexecuteBtn" class="btn btn-sm btn-primary" th:style="${session.enable} == '3' ? 'display:block text-align:center;' : 'display:none'"><i class="fa fa-refresh"></i> 自動更新</button>
+						    <button type="button" class="btn btn-sm btn-primary" disabled="disabled" th:style="${session.enable} != '3' ? 'display:block text-align:center; background-color: #6c757d; border-color: #6c757d;' : 'display:none'"><i class="fa fa-refresh"></i> 自動更新</button>
+						    <button type="button" id="executeStopBtn" class="btn btn-sm btn-warning" style="display: none;"><i class="fa fa-refresh"></i> 自動更新中</button>
 							<button type="button" id="excelBtn" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
 							<button type="button" id="excelStopBtn" class="btn btn-sm btn-success" disabled="disabled" style="display: none; background-color: #6c757d; border-color: #6c757d;"><i class="fa fa-print"></i> EXCEL出力</button>
 						</div><!-- /.col-sm-3-->
@@ -300,10 +301,10 @@ $('#excelBtn').on('click', function() {
 	  $('#hidSearchForm').submit();
 });
 //自動実行処理を行う。
-$('#executeBtn').on('click', function() {
+$('#autoexecuteBtn').on('click', function() {
 	$('.checkbox-input').prop("disabled",true);
 	$('.disabled-text').prop("disabled",true);
-	$('#executeBtn').hide();
+	$('#autoexecuteBtn').hide();
 	$('#excelBtn').hide();
 	$('#searchBtn').hide();
 	$('#executeStopBtn').show();
@@ -320,7 +321,7 @@ $('#executeStopBtn').on('click', function() {
 	$('#executeStopBtn').hide();
 	$('#excelStopBtn').hide();
 	$('#searchStopBtn').hide();
-	$('#executeBtn').show();
+	$('#autoexecuteBtn').show();
 	$('#excelBtn').show();
 	$('#searchBtn').show();
 	stopAutoRenew();
