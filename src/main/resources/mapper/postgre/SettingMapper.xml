@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jp.co.info.ais.ops.mapper.SettingMapper">
+<mapper namespace="jp.co.info.ais.ops.mapper.postgre.SettingMapper">
 
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
 		SELECT
@@ -12,8 +12,7 @@
 			rs.jdgsw AS jdgsw,
 			rs.endjdgsw AS endjdgsw,
 			rs.status AS status,
-			rs.starttime AS starttime,
-			ts.sitename AS sitename
+			rs.starttime AS starttime
 		FROM tbl_jikahorenrakusettei rs LEFT OUTER JOIN tbl_site ts
         ON rs.sitecd = ts.sitecd;
 	</select>
