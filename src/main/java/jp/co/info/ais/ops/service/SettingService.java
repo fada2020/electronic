@@ -8,18 +8,36 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.info.ais.ops.domain.Setting;
+import jp.co.info.ais.ops.mapper.oracle.SettingOracleMapper;
 import jp.co.info.ais.ops.mapper.postgre.SettingMapper;
-
-
-
 @Service
 public class SettingService {
+
 	private static final Logger logger = LogManager.getLogger(EventService.class);
+
 	@Autowired
-	private SettingMapper settingMapper;
+	SettingOracleMapper settingOracleMapper;
+
+	@Autowired
+	SettingMapper settingMapper;
 	public List<Setting> settingList() throws Exception {
 		logger.debug("SettingListService START");
-		return settingMapper.settingList();
+			List<Setting>settingList = null;
+			List<Setting> sitecdList = null;
+			settingList = settingMapper.settingList();
+			sitecdList = settingOracleMapper.settingList(settingList);
+			if(!settingList.isEmpty()&&!sitecdList.isEmpty()) {
+				for(Setting setting : settingList) {
+					for(Setting site : sitecdList) {
+						if(site.getSitecd()==setting.getSitecd()) {
+							setting.setSitename(site.getSitename());
+						}
+
+					}
+
+				}
+			}
+		return settingList;
 	}
 	public int deleteShisetsuno(String shisetsuno)throws Exception  {
 		logger.debug("SettingdeleteService START");

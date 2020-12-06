@@ -4,7 +4,7 @@ public class Setting {
 	private int rownum;//No
 	private String shisetsuno;//お客様番号
 	private String customer;//施設名
-	private String sitecd;//サイトID
+	private int sitecd;//サイトID
 	private String jdgsw;//有効
 	private String status;//現況
 	private String endjdgsw;//終了判定
@@ -40,11 +40,11 @@ public class Setting {
 		this.customer = customer;
 	}
 
-	public String getSitecd() {
+	public int getSitecd() {
 		return sitecd;
 	}
 
-	public void setSitecd(String sitecd) {
+	public void setSitecd(int sitecd) {
 		this.sitecd = sitecd;
 	}
 
