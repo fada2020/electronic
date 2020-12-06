@@ -6,15 +6,12 @@
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
 		SELECT
 			(ROW_NUMBER() OVER()) AS rownum,
-			rs.shisetsuno AS shisetsuno,
-			rs.customer AS customer,
-			rs.sitecd AS sitecd,
-			rs.jdgsw AS jdgsw,
-			rs.endjdgsw AS endjdgsw,
-			rs.status AS status,
-			rs.starttime AS starttime
-		FROM tbl_jikahorenrakusettei rs LEFT OUTER JOIN tbl_site ts
-        ON rs.sitecd = ts.sitecd;
+			shisetsuno AS shisetsuno,
+			customer AS customer,
+			sitecd AS sitecd,
+			jdgsw AS jdgsw,
+			endjdgsw AS endjdgsw
+		FROM tbl_jikahorenrakusettei
 	</select>
 
 	<delete id="deleteShisetsuno" parameterType="String">
