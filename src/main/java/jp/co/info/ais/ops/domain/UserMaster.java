@@ -2,10 +2,9 @@ package jp.co.info.ais.ops.domain;
 
 public class UserMaster {
 	private String enable;//権限
-	private String loginuser;//ユーザー名称
-	private String username;//ユーザーカナ
-	private String usernamekana;//アカウント
-
+	private String loginuser;//アカウント
+	private String username;//ユーザー名称
+	private String usernamekana;//ユーザーカナ
 	public String getEnable() {
 		return enable;
 	}

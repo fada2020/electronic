@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jp.co.info.ais.ops.mapper.postgre.UserMasterMapper">
+<mapper namespace="jp.co.info.ais.ops.mapper.oracle.UserMasterOracleMapper">
 
 	<!--リスト表示  -->
 	<select id="usermasterList" resultType="jp.co.info.ais.ops.domain.UserMaster">
 		SELECT
 			loginuser,
-			enable
-		FROM tbl_usergrant
-		 WHERE loginuser in
-       <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
+			username,
+			usernamekana
+		FROM sys_user
 	</select>
 
  </mapper>

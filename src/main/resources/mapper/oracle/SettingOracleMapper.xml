@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="jp.co.info.ais.ops.mapper.postgre.SettingMapper">
+<mapper namespace="jp.co.info.ais.ops.mapper.oracle.SettingOracleMapper">
+
+
 
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
-		SELECT
-			(ROW_NUMBER() OVER()) AS rownum,
-			rs.shisetsuno AS shisetsuno,
-			rs.customer AS customer,
-			rs.sitecd AS sitecd,
-			rs.jdgsw AS jdgsw,
-			rs.endjdgsw AS endjdgsw,
-			rs.status AS status,
-			rs.starttime AS starttime
-		FROM tbl_jikahorenrakusettei rs LEFT OUTER JOIN tbl_site ts
-        ON rs.sitecd = ts.sitecd;
+	       SELECT sitecd, sitename
+	       FROM tbl_site
+	       WHERE sitecd in
+	       <foreach item="setting" index="index" collection="settings" open="(" separator="," close=")">#{setting.sitecd}</foreach>
 	</select>
 
 	<delete id="deleteShisetsuno" parameterType="String">

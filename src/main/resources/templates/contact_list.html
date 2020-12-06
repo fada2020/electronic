@@ -152,7 +152,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" onClick="submitSave();" >はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -187,7 +187,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary"  onClick="submitUpdate();" >はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -218,7 +218,7 @@ var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
 var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
 var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
 
-var buttonText = '<button onclick="hide();"class="close"type="button">×</button>';
+
 var errNeedsMail = 'メールは必須項目です。';
 var errOkMail = '正しいメールではありません。';
 var errNeedsPhone = '電話番号は必須項目です。';
@@ -253,7 +253,8 @@ var myDataTables = $("#setList").DataTable({
     	{
     		data: "description_u",
             render: function ( data, type, row, meta ) {
-            	if(row.startcontactcd!=0&&row.endcontactcd!=0){
+            	if(!row.startcontactcd&&!row.endcontactcd){
+
             	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
                     +'<button type="button" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i> 削除</button>';
             	}else{
@@ -265,25 +266,30 @@ var myDataTables = $("#setList").DataTable({
 		}
     ]
 });
+$('#addModal').on('click', '.dangerButton', function() {
 
-function hide(){
 	$("#errMessage")[0].hidden = true;
 	$("#errMessageu")[0].hidden = true;
-}
+});
+$('#updateModal').on('click', '.dangerButton', function() {
+
+	$("#errMessage")[0].hidden = true;
+	$("#errMessageu")[0].hidden = true;
+});
 /*編集時modalからのOKによるデータを新規で作成する*/
 function submitSave(){
 
 	var name = $("#contactname").val();
 	  //名称の空白確認
     if($("#contactname").val()== ""){
-    	$("#errMessage").html(buttonText+errNeedsName);
+    	$("#errMessage").html(errNeedsName);
     	$("#errMessage")[0].hidden = false;
         $("#contactname").focus();
       return false;
     }
     //名称の検査
     if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
-    	$("#errMessage").html(buttonText+errOkName);
+    	$("#errMessage").html(errOkName);
     	$("#errMessage")[0].hidden = false;
         $("#contactname").focus();
       return false;
@@ -304,14 +310,14 @@ function submitSave(){
     }
 	  //電話番号の空白確認
     if($("#contactphoneno").val() == ""){
-    	$("#errMessage").html(buttonText+errNeedsPhone);
+    	$("#errMessage").html(errNeedsPhone);
     	$("#errMessage")[0].hidden = false;
         $("#contactphoneno").focus();
       return false;
     }
     //電話番号の検査
     if(!phone.test($("#contactphoneno").val())){
-    	$("#errMessage").html(buttonText+errOkPhone);
+    	$("#errMessage").html(errOkPhone);
     	$("#errMessage")[0].hidden = false;
         $("#contactphoneno").focus();
       return false;

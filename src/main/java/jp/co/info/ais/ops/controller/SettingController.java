@@ -45,7 +45,7 @@ public class SettingController {
 	HttpSession session;
 
 	@Autowired
-	private SettingService settingService;
+	SettingService settingService;
 	//エラーを表すための宣言
 	private static final Logger logger = LogManager.getLogger(SettingController.class);
 
@@ -132,7 +132,6 @@ public class SettingController {
 		/*jsonオブジェクトを格納する配列リストを生成*/
 		JSONArray jArray = new JSONArray();
 		try {
-
 			list = settingService.settingList();
 			for (int i = 0; i < list.size(); i++) {
 				JSONObject sObject = new JSONObject();
@@ -147,11 +146,9 @@ public class SettingController {
 				sObject.put("sitename", list.get(i).getSitename());
 				jArray.add(sObject);
 			}
-
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-
 		//戻る値
 		return jArray;
 	}

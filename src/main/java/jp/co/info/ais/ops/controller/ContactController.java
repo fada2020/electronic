@@ -32,7 +32,7 @@ public class ContactController {
 	HttpSession session;
 
 	@Autowired
-	private ContactService contactService;
+	ContactService contactService;
 
 	//エラーを表すための宣言
 	private static final Logger logger = LogManager.getLogger(SettingController.class);
