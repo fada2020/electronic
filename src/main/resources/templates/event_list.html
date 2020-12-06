@@ -133,7 +133,7 @@
           								<span th:case == '2'>失敗</span>
                                         </td>
                                         <td th:text="${list.comments}"></td>
-                            		    <td style="text-align:center;" th:value="${list.customer}" id="mailid" th:switch="${list.eventkind}">
+                            		    <td style="text-align:center;" th:value="${list.customer}" id="mailid">
                                           <button type="button" class="btn btn-sm btn-success btn_emailview"
                                             data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"
                                             th:attr="data-mailid=${list.mailid},
@@ -144,9 +144,7 @@
  													 date-mailcc=${#strings.replace(list.mailcc, ' ', '&#10')},
                                                      date-mailtext=${list.mailtext}"
                                             th:style="${list.eventkind} == '1' ? 'display:block text-align:center;' : 'display:none'"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "2" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "3" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button style="background-color: #6c757d; border-color: #6c757d;" type="button" th:case == "4" disabled="disabled" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
+                                          <button disabled="disabled" th:style="${list.eventkind} != '1' ? 'display:block text-align:center; background-color: #6c757d; border-color: #6c757d;' : 'display:none'" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
                                         </td>
                                     </tr>
                                     <tr th:unless="${not #lists.isEmpty( list )}">
