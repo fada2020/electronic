@@ -244,14 +244,14 @@ var myDataTables = $("#setList").DataTable({
 	    columns:[
 	    	{data: "rownum"},
             { data: function ( d ) {
-            	if(d.status == 0) {
+            	if(d.status == 1) {
             		return '使用中';
             	} else {
             		return '未使用';
             	}
             }},
             { data: function ( d ) {
-            	if(d.endjdgsw == 0) {
+            	if(d.endjdgsw == 1) {
             		return '適用中';
             	} else {
             		return '未適用';
@@ -266,7 +266,7 @@ var myDataTables = $("#setList").DataTable({
             	}
             	}},
 	    	   { data: function ( d ) {
-	            	if(d.jdgsw == 0) {
+	            	if(d.jdgsw == 1) {
 	            		return '✔';
 	            	} else {
 	            		return ' ';
@@ -288,12 +288,12 @@ var myDataTables = $("#setList").DataTable({
 			}
 	    ],
 	    rowCallback: function( row, data, dataIndex ) {
-	        if ( data.status == 0 ) {
+	        if ( data.status == 1 ) {
 	          $(row).find('td:eq(1)').css('color','red');
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	        }
-	        if ( data.endjdgsw == 0 ) {
+	        if ( data.endjdgsw == 1 ) {
 		          $(row).find('td:eq(2)').css('color','red');
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
@@ -421,10 +421,10 @@ function endjdgswChange(){
 	var nowendjdgsw=$('#endjdgswu').val();
 	var endjdgsw="";
 	if(nowendjdgsw=='適用中'){
-		endjdgsw=1;
+		endjdgsw=0;
 
 	}else{
-		endjdgsw=0;
+		endjdgsw=1;
 	}
 
 	obj.endjdgsw=endjdgsw;
@@ -457,10 +457,10 @@ function genkyoChange(){
 	var status="";
 
 	if(genkyostatus=='使用中'){
-		status=1;
+		status=0;
 		starttime=null;
 	}else{
-		status=0;
+		status=1;
 	}
 
 	obj.status=status;

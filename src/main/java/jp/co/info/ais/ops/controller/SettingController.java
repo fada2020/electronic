@@ -50,17 +50,17 @@ public class SettingController {
 	private static final Logger logger = LogManager.getLogger(SettingController.class);
 
 	private static final String EXCEL_FLAG = "excel";
-	private static final String SIYO = "0";
+	private static final String SIYO = "1";
 	private static final String SIYO_TXT = "使用中";
-	private static final String MISIYO = "1";
+	private static final String MISIYO = "0";
 	private static final String MISIYO_TXT = "未使用";
-	private static final String TEKIYO = "0";
+	private static final String TEKIYO = "1";
 	private static final String TEKIYO_TXT = "適用中";
-	private static final String MITEKIYO = "1";
+	private static final String MITEKIYO = "0";
 	private static final String MITEKIYO_TXT = "未適用";
-	private static final String YUKO = "0";
+	private static final String YUKO = "1";
 	private static final String YUKO_TXT = "✔";
-	private static final String MUKO = "1";
+	private static final String MUKO = "0";
 	private static final String MUKO_TXT = " ";
 
 	/**
