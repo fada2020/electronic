@@ -34,7 +34,7 @@ public class UserMasterController {
 	HttpSession session;
 
 	@Autowired
-	private UserMasterService usermasterService;
+	UserMasterService usermasterService;
 
 	/**
 	 * 設定一覧画面出力
