@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface UserGrantMapper {
 
-	//
+	//ユーザー権限取得
 	String selectGrantInfo(String id)throws Exception;
 
 
