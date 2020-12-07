@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.info.ais.ops.domain.Login;
 import jp.co.info.ais.ops.service.LoginService;
+import jp.co.info.ais.ops.service.UserGrantService;
 
 @Controller
 @RequestMapping("/")
@@ -30,6 +31,8 @@ public class LoginController {
 
 	@Autowired
 	private LoginService loginService;
+	@Autowired
+	private UserGrantService userGrantservice;
 
 	/**
 	 * Sessionの有無で画面移動
@@ -69,7 +72,10 @@ public class LoginController {
 					result = 2;
 				} else {
 					result = 9;
+					String enableStr = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
 					session.setAttribute("id", user.getLoginuser());
+					session.setAttribute("name", user.getUsername());
+					session.setAttribute("enable", enableStr);
 				}
 			}
 		} catch (Exception e) {

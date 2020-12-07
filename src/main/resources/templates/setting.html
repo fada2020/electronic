@@ -304,7 +304,11 @@ var myDataTables = $("#setList").DataTable({
 
 /*新規ボタンをクリックしてdetailページに遷移される*/
 function newEvent(){
-	location.href="/ops/detail/";
+	$('#shisetsunou').val('');
+	$('#statusu').val('');
+	$('#endjdgswu').val('');
+	$('#starttimeu').val('');
+	$('#hidMainFrom').submit();
 }
 
 /*削除ボタンをクリックした時の処理*/
@@ -339,10 +343,10 @@ function submitDelete() {
 
 /*編集時画面遷移*/
 $('#setList').on('click', '.updateButton', function() {
-		  var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
-		  $('#shisetsunou').val(shisetsuno);
-	    $('#hidMainFrom').submit();
-	  });
+	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
+	$('#shisetsunou').val(shisetsuno);
+	$('#hidMainFrom').submit();
+});
 
 //終了判定切替モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_end_judg', function() {

@@ -13,7 +13,7 @@ import jp.co.info.ais.ops.mapper.postgre.UserMasterMapper;
 
 @Service
 public class UserMasterService {
-	private static final Logger logger = LogManager.getLogger(EventService.class);
+	private static final Logger logger = LogManager.getLogger(UserMasterService.class);
 
 	@Autowired
 	UserMasterOracleMapper usermasteroracleMapper;
