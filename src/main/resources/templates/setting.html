@@ -30,7 +30,9 @@
     tr,td {
         text-align: center;
       }
-
+html.touch *:hover {
+		pointer-events: none !important;
+		}
 </style>
 </head>
 
@@ -61,7 +63,7 @@
                     <div class="card">
                         <div class="card-header" style="float:right;">
                             <div class="col-lg-12" style="float:right; text-align: right;">
-                                <button type="button" class="btn btn-sm btn-primary" onClick="newEvent();"><i class="fa fa-plus-square"></i> 新規</button>
+                                <button type="button" class="btn btn-sm btn-primary newButton" th:if="${session.enable == '3'}" onClick="newEvent();"><i class="fa fa-plus-square"></i> 新規</button>
                                 <button type="button" id="excelButton" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
                             </div>
                         </div>
@@ -185,17 +187,19 @@
 						</div>
 					<!-- Cancel Modal Part End-->
 <form th:action="@{/detail/}" name="hidMainFrom" id="hidMainFrom" method="post">
-<input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
 <input type="hidden" id="shisetsunou">
+</form>
+
+<form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
+<input type="hidden" id="flag" name="flag">
+</form>
+<form action="">
+<input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
+<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
+<input type="hidden" id="sessionEnable" th:if="${session.enable != null}" th:value="${session.enable}">
 <input type="hidden" id="statusu">
 <input type="hidden" id="endjdgswu">
 <input type="hidden" id="starttimeu">
-<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
-
-</form>
-<form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
-
-<input type="hidden" id="flag" name="flag">
 </form>
     </div><!-- /#right-panel -->
 
@@ -281,11 +285,19 @@ var myDataTables = $("#setList").DataTable({
 			{
 	    		data: "description_u",
                 render: function ( data, type, row, meta ) {
-                  return '<button type="button"name="changeButton" class="btn btn-sm btn-primary updateButton margin-left"><i class="fa fa-edit"></i>編集</button>'
-                  +'<button type="button"  name="deleteButton" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i>削除</button>'
-                  +'<button type="button" class="btn btn-sm btn-info btn_change_genkyo margin-left" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>'
-                  +'<button type="button" class="btn btn-sm btn-info btn_change_end_judg margin-left" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>';
-                   }
+
+                	if(row.enable=='3'){
+                	   return '<button type="button" name="changeButton" class="btn btn-sm btn-primary updateButton margin-left"><i class="fa fa-edit"></i>編集</button>'
+                       +'<button type="button" name="deleteButton" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i>削除</button>'
+                       +'<button type="button" class="btn btn-sm btn-info btn_change_genkyo margin-left" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>'
+                       +'<button type="button" class="btn btn-sm btn-info btn_change_end_judg margin-left" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>';
+                	}else{
+                		 return '<button type="button" name="changeButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
+                         +'<button type="button" name="deleteButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-eraser"></i>削除</button>'
+                         +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>現況変更</button>'
+                         +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>終了判定切替</button>';
+                	}
+                }
 			}
 	    ],
 	    rowCallback: function( row, data, dataIndex ) {
@@ -294,6 +306,8 @@ var myDataTables = $("#setList").DataTable({
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	        }
+
+
 	        if ( data.endjdgsw == '1') {
 		          $(row).find('td:eq(2)').css('color','red');
 		        } else {
@@ -303,14 +317,11 @@ var myDataTables = $("#setList").DataTable({
 	    }
 	});
 
+
 /*新規ボタンをクリックしてdetailページに遷移される*/
 function newEvent(){
 		$('#shisetsunou').val('');
-		$('#statusu').val('');
-		$('#endjdgswu').val('');
-		$('#starttimeu').val('');
 		$('#hidMainFrom').submit();
-
 }
 
 /*削除ボタンをクリックした時の処理*/
@@ -318,7 +329,6 @@ $('#setList').on('click', '.deleteButton', function() {
 	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
 	$('#shisetsunod').val(shisetsuno);
 });
-
 
 
 /*削除するためshisetsunoを取得する*/

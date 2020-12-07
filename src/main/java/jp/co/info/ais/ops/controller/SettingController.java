@@ -121,7 +121,8 @@ public class SettingController {
 	@ResponseBody
 	@PostMapping("/getListAuto")
 	public JSONArray ajaxGetList() throws JsonMappingException, IOException {
-
+		/*sessionのenable取得*/
+		String enable = (String)session.getAttribute("enable");
 		logger.debug("ajaxGetList Start===========");
 		/*settingリスト生成*/
 		List<Setting> list = new ArrayList<Setting>();
@@ -136,6 +137,7 @@ public class SettingController {
 				sObject.put("rownum", list.get(i).getRownum());
 				sObject.put("shisetsuno", list.get(i).getShisetsuno());
 				sObject.put("customer", list.get(i).getCustomer());
+				sObject.put("enable", enable);
 				sObject.put("sitecd", list.get(i).getSitecd());
 				sObject.put("jdgsw", list.get(i).getJdgsw());
 				sObject.put("endjdgsw", list.get(i).getEndjdgsw());
