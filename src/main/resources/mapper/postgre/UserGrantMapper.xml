@@ -4,13 +4,11 @@
 <mapper namespace="jp.co.info.ais.ops.mapper.postgre.UserGrantMapper">
 
 	<!--リスト表示  -->
-	<select id="usermasterList" resultType="jp.co.info.ais.ops.domain.UserMaster">
+	<select id="selectGrantInfo" parameterType="String" resultType="String">
 		SELECT
-			loginuser,
 			enable
 		FROM tbl_usergrant
-		 WHERE loginuser in
-       <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
+		 WHERE loginuser = #{userid}
 	</select>
 
  </mapper>
