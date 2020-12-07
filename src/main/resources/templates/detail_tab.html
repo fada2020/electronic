@@ -46,7 +46,14 @@
 	                </div>
                 </div>
                 <div class="col-sm-6">
-	                <div class="float-right" style="float: right; text-align: right; margin-top: 10px;">
+	                <div class="float-right" id="view-only" style="float: right; text-align: right; margin-top: 10px; display:none;">
+                        <button type="button" id="editViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
+                        <span style="padding-right:10px;"></span>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"><i class="fa fa-save"></i>&nbsp; 保存</button>
+                        <span style="padding-right:10px;"></span>
+                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+		        	</div>
+	                <div class="float-right" id="view-edit" style="float: right; text-align: right; margin-top: 10px; display:none;">
                         <button type="button" id="modeEditBtn" class="btn btn-secondary btn-sm" style="display: none;"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
                         <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                         <span style="padding-right:10px;"></span>
@@ -57,7 +64,7 @@
                 </div>
 	        </div>
         </div>
-
+<form th:action="@{/detail/insert}" name="hidMainFrom" id="hidMainFrom" method="post">
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -619,7 +626,7 @@
                     </div>
                 </div>
             </div>
-
+</form>
 <!-- Site Search Modal Start-->
 <div class="modal fade" id="siteSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id='siteForm'>
@@ -997,7 +1004,7 @@
                 </div><!--/.form-group -->
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">保存</button>
+                <button type="button" class="btn btn-secondary">保存</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
@@ -1157,14 +1164,15 @@
                     <div class="row form-group">
                         <div class="col-4" style="margin-top: 10px;"><span style="font-size: 12px;">アカウント</span></div>
                         <div class="col-8">
-                            <input type="text" placeholder="" class="form-control input-sm">
+                            <input type="text" id="checkId" name="checkId" placeholder="" class="form-control input-sm">
                         </div>
                     </div>
                 </p>
             </div>
+            <div class="alert alert-danger alert-dismissable text-left" id="idErr" hidden="true">アカウントが一致しません。</div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+                <button type="button" class="btn btn-secondary btn_save">保存</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -1187,8 +1195,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">削除</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -1211,8 +1219,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">終了</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -1235,7 +1243,7 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">OK</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">確認</button>
             </div>
         </div>
     </div>
@@ -1258,8 +1266,8 @@
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">はい</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">削除</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
     </div>
@@ -1288,10 +1296,15 @@
 
 
 <script th:inline="javascript">
+/*<![CDATA[*/
+var enable = /*[[${session.enable}]]*/ 'default';
+var login_id = /*[[${session.id}]]*/ 'default';
+/*]]>*/
+
 jQuery(document).ready(function($) {
-	/*<![CDATA[*/
-    var enable = /*[[${session.enable}]]*/ 'default';
-	/*]]>*/
+
+	viewSet(enable);
+
 	//UserList DataTable Option設定
     var tableUser = $('#userList').DataTable( {
     	responsive: true,
@@ -1483,7 +1496,51 @@ $('#ikitiZ').change(function() {
         });
     });
 
+    //詳細設定保存処理
+    $('.btn_save').on('click', function() {
+		alert('INSERT START');
+		var inUserId = $('#checkId').val();
+		if(inUserId != login_id){
+			//チェックエラー
+			$("#idErr")[0].hidden = false;
+		}else{
+			//保存処理を行う
+			$("#idErr")[0].hidden = true;
+		}
+    });
+    //キャンセル処理を行う。
+    $('.btn_cancle').on('click', function() {
+		alert('CANCLE START');
+    });
+
 })
+
+//画面の初期化処理
+function viewSet(idx) {
+    //console.log('画面の初期化実施');
+    const viewOnly = document.getElementById("view-only");
+    const viewEdit = document.getElementById("view-edit");
+
+    if(idx == '3'){
+	//管理者権限
+    	if(viewOnly.style.display=="block"){
+    		viewOnly.style.display ="none";
+    	}
+    	if(viewEdit.style.display=="none"){
+    		viewEdit.style.display ="block";
+    	}
+	}else{
+	//一般利用者権限(参照のみ)
+    	if(viewOnly.style.display=="none"){
+    		viewOnly.style.display ="block";
+    	}
+    	if(viewEdit.style.display=="block"){
+    		viewEdit.style.display ="none";
+    	}
+	}
+}
+
+
 
 </script>
 
