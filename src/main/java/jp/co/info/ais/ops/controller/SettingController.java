@@ -69,7 +69,7 @@ public class SettingController {
 	 * @param model
 	 * @return String　画面名
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
+	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
 	public String SettingList(Model model, HttpServletRequest request) throws Exception {
 
 		logger.debug("設定一覧画面===開始");

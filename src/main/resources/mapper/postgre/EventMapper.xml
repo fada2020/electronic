@@ -19,28 +19,37 @@
 			   tm.mailfrom AS mailfrom,
 			   tm.mailto AS mailto,
 			   tm.mailcc AS mailcc
-		 FROM tbl_jikahoeventid te, tbl_jikahoeventlist tl, tbl_jikahomaillist tm
+		 FROM tbl_jikahoeventid te,
+		      tbl_jikahoeventlist tl LEFT JOIN tbl_jikahomaillist tm ON
+			  tl.mailid = tm.mailid
 		WHERE te.eventid = tl.eventid
-		  AND tl.mailid = tm.mailid
           <if test= "(fromDate != null and fromDate != '') and (toDate != null and toDate != '')">
 			  AND tl.occurtime BETWEEN to_timestamp(#{fromDate}, 'yyyy-mm-dd hh24:mi:ss') AND to_timestamp(#{toDate}, 'yyyy-mm-dd hh24:mi:ss')
           </if>
-
 	      <if test= "(fromDate != null and fromDate != '') and (toDate == null or toDate == '')">
 			  <![CDATA[ AND tl.occurtime >= to_timestamp(#{fromDate}, 'yyyy-mm-dd hh24:mi:ss') ]]>
 		  </if>
 	      <if test= "(fromDate == null or fromDate == '') and (toDate != null and toDate != '')">
 			  <![CDATA[ AND tl.occurtime <= to_timestamp(#{toDate}, 'yyyy-mm-dd hh24:mi:ss') ]]>
 		  </if>
+		  <if test="(status != null and kinds != null)">
+		  AND (
+		        tl.status IN
+				<foreach item="item" index="index" collection="status" open="(" separator="," close=")">#{item}</foreach>
+				OR
+		        te.eventkind IN
+				<foreach item="item" index="index" collection="kinds" open="(" separator="," close=")">#{item}</foreach>
+		  )
+		  </if>
+		  <if test="(status != null and kinds == null)">
+		     AND tl.status IN
+				<foreach item="item" index="index" collection="status" open="(" separator="," close=")">#{item}</foreach>
 
-        <if test="status != null and status != ''">
-              AND tl.status IN
-		    <foreach item="item" index="index" collection="status" open="(" separator="," close=")">#{item}</foreach>
-        </if>
-        <if test="kinds != null and kinds != ''">
-              AND te.eventkind IN
-		    <foreach item="item" index="index" collection="kinds" open="(" separator="," close=")">#{item}</foreach>
-        </if>
+		  </if>
+		  <if test="(status == null and kinds != null)">
+		     AND te.eventkind IN
+				<foreach item="item" index="index" collection="kinds" open="(" separator="," close=")">#{item}</foreach>
+		  </if>
 		ORDER BY tl.occurtime DESC
 	</select>
 

@@ -51,20 +51,23 @@
                         <span style="padding-right:10px;"></span>
                         <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"><i class="fa fa-save"></i>&nbsp; 保存</button>
                         <span style="padding-right:10px;"></span>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+	                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 		        	</div>
 	                <div class="float-right" id="view-edit" style="float: right; text-align: right; margin-top: 10px; display:none;">
-                        <button type="button" id="modeEditBtn" class="btn btn-secondary btn-sm" style="display: none;"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
+                        <button type="button" id="modeEditBtn" class="btn btn-primary btn-sm" style="display: none;"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
                         <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                         <span style="padding-right:10px;"></span>
-                        <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal"><i class="fa fa-save"></i>&nbsp; 保存</button>
+	                    <button type="button" id="saveOkBtn" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal" style="display:none;"><i class="fa fa-save"></i>&nbsp; 保存</button>
+                        <button type="button" id="saveNgBtn" class="btn btn-secondary btn-sm"><i class="fa fa-save"></i>&nbsp; 保存</button>
                         <span style="padding-right:10px;"></span>
-                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+	                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 		        	</div>
                 </div>
 	        </div>
         </div>
-<form th:action="@{/detail/insert}" name="hidMainFrom" id="hidMainFrom" method="post">
+<form th:action="@{/detail/insert}" name="mainFrom" id="mainFrom" method="post">
+<input type="hidden" id="statusFlg" name="statusFlg" value="0">
+
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -85,13 +88,13 @@
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【お客様番号】</div>
                                 <div class="col-8">
-                                    <input type="text" id="shisetsuno" name="shisetsuno" class="form-control input-sm">
+                                    <input type="text" id="shisetsuno" name="shisetsuno" class="form-control input-sm"  th:value="${detailTab.shisetsuno}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【施設名】${Customer}</div>
                                 <div class="col-8">
-                                    <input type="text" id="customer" name="customer" class="form-control input-sm">
+                                    <input type="text" id="customer" name="customer" class="form-control input-sm" th:value="${detailTab.customer}">
                                 </div>
                             </div>
                         </div>
@@ -99,18 +102,18 @@
                         <h5>サイト選択</h5>
                         <div class="card card-body">
                             <div class="row form-group">
-                                <div class="col-5" style="font-size: 15px;">
+                                <div class="col-4" style="font-size: 15px;">
 									<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
                                 </div>
-                                <div class="col-7">
-                                    <input type="text" id="" name="" class="form-control input-sm">
+                                <div class="col-8">
+                                    <input type="text" id="sitename" name="sitename" class="form-control input-sm" th:value="${detailTab.sitename}">
+                                    <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm" th:value="${detailTab.sitecd}">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-5" style="font-size: 15px;">【住所】${Address}</div>
-                                <div class="col-7">
-                                    <input type="text" id="address" name="address" class="form-control input-sm">
-                                    <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm">
+                                <div class="col-4" style="font-size: 15px;">【住所】${Address}</div>
+                                <div class="col-8">
+                                    <input type="text" id="address" name="address" class="form-control input-sm" th:value="${detailTab.address}">
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -125,13 +128,13 @@
                         <div class="card card-body">
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社外アドレス<br>連絡メールのみ</div>
-                                <div class="col-9"><textarea name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea></div>
+                                <div class="col-9"><textarea name="outermailaddr" id="outermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.outermailaddr}"></textarea></div>
                             </div>
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
                                     <button type="button" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
-                                <div class="col-9"><textarea name="emailArrTxt" id="emailArrTxt" rows="2" placeholder="" class="form-control" style="font-size:11px;"></textarea></div>
+                                <div class="col-9"><textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.intermailaddr}"></textarea></div>
                             </div>
                         </div>
                     </div>
@@ -148,15 +151,15 @@
                                <div class="col-9">
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
-                                       <input type="text" class="form-control input-sm" id="userName" style="font-size:11px;">
+                                       <input type="text" class="form-control input-sm" id="adminuserid" name="adminuserid" style="" th:value="${detailTab.adminuserid}">
                                    </div>
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
-                                       <input type="text" class="form-control input-sm" id="userTel" style="font-size:11px;">
+                                       <input type="text" class="form-control input-sm" id="adminusername" name="adminusername" style="" th:value="${detailTab.adminusername}">
                                    </div>
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
-                                       <input type="text" class="form-control input-sm" id="userMail" style="font-size:11px;">
+                                       <input type="text" class="form-control input-sm" id="adminmailaddress" name="adminmailaddress" style="" th:value="${detailTab.adminmailaddress}">
                                    </div>
                                </div>
                            </div>
@@ -170,11 +173,11 @@
                                 <div class="col-9">
                                     <div class="col-6">
                                             <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新日時</label>
-                                            <input type="text" id="upUser" name="upUser" class="form-control input-sm" disabled=true>
+                                            <input type="text" id="upUser" name="upUser" class="form-control input-sm" disabled=true th:value="${detailTab.upoaname}">
                                     </div>
                                     <div class="col-6">
                                             <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新者</label>
-                                            <input type="text" id="upDate" name="upDate" class="form-control input-sm" disabled=true>
+                                            <input type="text" id="upDate" name="upDate" class="form-control input-sm" disabled=true th:value="${detailTab.upoatime}">
                                     </div>
                                 </div>
                             </div>
@@ -1277,7 +1280,7 @@
         </div> <!-- .content -->
 
 <form id="hidMainForm">
-<input type="hidden" id="viewFlag">
+<input type="hidden" id="viewFlag" th:value="${viewFlag}">
 </form>
     </div><!-- /#right-panel -->
 
@@ -1300,6 +1303,9 @@
 var enable = /*[[${session.enable}]]*/ 'default';
 var login_id = /*[[${session.id}]]*/ 'default';
 /*]]>*/
+
+const viewEditNg = document.getElementById("editNgDiv");
+const viewEditOk = document.getElementById("editOkDiv");
 
 jQuery(document).ready(function($) {
 
@@ -1468,10 +1474,18 @@ $('#ikitiZ').change(function() {
     $('#modeEditBtn').on('click', function() {
         $('#modeEditBtn').hide();
         $('#modeViewBtn').show();
+        $('#saveOkBtn').hide();
+        $('#saveNgBtn').show();
+		$('#statusFlg').val('0');
+		viewChange('0');
     });
     $('#modeViewBtn').on('click', function() {
         $('#modeViewBtn').hide();
         $('#modeEditBtn').show();
+        $('#saveNgBtn').hide();
+        $('#saveOkBtn').show();
+		$('#statusFlg').val('1');
+		viewChange('1');
     });
 
     //ユーザー選択区分
@@ -1498,7 +1512,6 @@ $('#ikitiZ').change(function() {
 
     //詳細設定保存処理
     $('.btn_save').on('click', function() {
-		alert('INSERT START');
 		var inUserId = $('#checkId').val();
 		if(inUserId != login_id){
 			//チェックエラー
@@ -1506,6 +1519,8 @@ $('#ikitiZ').change(function() {
 		}else{
 			//保存処理を行う
 			$("#idErr")[0].hidden = true;
+			$("#mainFrom").action = "/detail/update";
+			$("#mainFrom").submit();
 		}
     });
     //キャンセル処理を行う。
@@ -1520,6 +1535,7 @@ function viewSet(idx) {
     //console.log('画面の初期化実施');
     const viewOnly = document.getElementById("view-only");
     const viewEdit = document.getElementById("view-edit");
+    const status = $('#statusFlg').val();
 
     if(idx == '3'){
 	//管理者権限
@@ -1538,9 +1554,42 @@ function viewSet(idx) {
     		viewEdit.style.display ="none";
     	}
 	}
+	viewChange('0');
 }
 
+function viewChange(idx) {
+    if(idx == '0'){
+    	//参照モード
+    	//Tab-1
+		$("#shisetsuno").attr("disabled",true);
+		$("#customer").attr("disabled",true);
+		$("#sitename").attr("disabled",true);
+		$("#address").attr("disabled",true);
+		$("#outermailaddr").attr("disabled",true);
+		$("#intermailaddr").attr("disabled",true);
+		$("#adminuserid").attr("disabled",true);
+		$("#adminusername").attr("disabled",true);
+		$("#adminmailaddress").attr("disabled",true);
 
+    }else{
+        //編集モード
+    	//Tab-1
+    	if($("#viewFlag").val() == "add"){
+            $("#shisetsuno").removeAttr("disabled");
+    	}
+        $("#customer").removeAttr("disabled");
+        $("#sitename").removeAttr("disabled");
+        $("#address").removeAttr("disabled");
+        $("#outermailaddr").removeAttr("disabled");
+        $("#intermailaddr").removeAttr("disabled");
+        $("#adminuserid").removeAttr("disabled");
+        $("#adminusername").removeAttr("disabled");
+        $("#adminmailaddress").removeAttr("disabled");
+
+    }
+
+
+}
 
 </script>
 

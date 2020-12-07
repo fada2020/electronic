@@ -21,6 +21,7 @@ public class SettingService {
 
 	@Autowired
 	SettingMapper settingMapper;
+
 	public List<Setting> settingList() throws Exception {
 		logger.debug("SettingListService START");
 			List<Setting>settingList = null;
