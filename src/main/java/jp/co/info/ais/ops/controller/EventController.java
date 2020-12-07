@@ -89,15 +89,13 @@ public class EventController {
 			//パラメータ設定
 			String fromDate = null;
 			String toDate = null;
-			String chkStatus = null;
-			String chkKind = null;
 
 			//パラメータ格納
 			Map<String, Object> paraMap = new HashMap<>();
 			paraMap.put("fromDate", fromDate);
 			paraMap.put("toDate", toDate);
-			paraMap.put("status", chkStatus);
-			paraMap.put("kind", chkKind);
+			paraMap.put("status", null);
+			paraMap.put("kinds", null);
 
 			//一覧データ取得（全データ）
 			List<EventList> list = null;
@@ -196,9 +194,16 @@ public class EventController {
 			Map<String, Object> paraMap = new HashMap<>();
 			paraMap.put("fromDate", fromDate);
 			paraMap.put("toDate", toDate);
-			paraMap.put("status", statusList);
-			paraMap.put("kinds", arrayKind);
-
+			if(statusList.size() > 0) {
+				paraMap.put("status", statusList);
+			}else {
+				paraMap.put("status", null);
+			}
+			if(arrayKind.size() > 0) {
+				paraMap.put("kinds", arrayKind);
+			}else {
+				paraMap.put("kinds", null);
+			}
 			//データ取得
 			List<EventList> list = null;
 			list = eventService.selectEventList(paraMap);
@@ -405,8 +410,16 @@ public class EventController {
 			Map<String, Object> paraMap = new HashMap<>();
 			paraMap.put("fromDate", fromDate);
 			paraMap.put("toDate", toDate);
-			paraMap.put("status", statusList);
-			paraMap.put("kinds", arrayKind);
+			if(statusList.size() > 0) {
+				paraMap.put("status", statusList);
+			}else {
+				paraMap.put("status", null);
+			}
+			if(arrayKind.size() > 0) {
+				paraMap.put("kinds", arrayKind);
+			}else {
+				paraMap.put("kinds", null);
+			}
 
 			//一覧データ取得（全データ）
 			list = eventService.selectEventList(paraMap);
