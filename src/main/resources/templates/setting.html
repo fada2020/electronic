@@ -190,9 +190,10 @@
 <input type="hidden" id="statusu">
 <input type="hidden" id="endjdgswu">
 <input type="hidden" id="starttimeu">
+<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
 
 </form>
-<form th:action="@{/setting/}" name="flagFrom" id="flagFrom" method="post">
+<form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
 
 <input type="hidden" id="flag" name="flag">
 </form>
@@ -216,7 +217,7 @@
 
 $("#excelButton").click(function (){
 	$("#flag").val("excel");
-	$('#flagFrom').submit();
+	$('#flagForm').submit();
 });
 
 
@@ -244,21 +245,21 @@ var myDataTables = $("#setList").DataTable({
 	    columns:[
 	    	{data: "rownum"},
             { data: function ( d ) {
-            	if(d.status == 1) {
+            	if(d.status == '1') {
             		return '使用中';
             	} else {
             		return '未使用';
             	}
             }},
             { data: function ( d ) {
-            	if(d.endjdgsw == 1) {
+            	if(d.endjdgsw == '1') {
             		return '適用中';
             	} else {
             		return '未適用';
             	}
             }},
             { targets: 5, data: function ( d ) {
-            	if(d.starttime !=null) {
+            	if(d.status == '1'&&d.starttime!=null) {
             		var str = d.starttime;
             		return str.replace(/-/g,"/");
             	}else{
@@ -266,7 +267,7 @@ var myDataTables = $("#setList").DataTable({
             	}
             	}},
 	    	   { data: function ( d ) {
-	            	if(d.jdgsw == 1) {
+	            	if(d.jdgsw == '1') {
 	            		return '✔';
 	            	} else {
 	            		return ' ';
@@ -288,12 +289,12 @@ var myDataTables = $("#setList").DataTable({
 			}
 	    ],
 	    rowCallback: function( row, data, dataIndex ) {
-	        if ( data.status == 1 ) {
+	        if ( data.status == '1') {
 	          $(row).find('td:eq(1)').css('color','red');
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	        }
-	        if ( data.endjdgsw == 1 ) {
+	        if ( data.endjdgsw == '1') {
 		          $(row).find('td:eq(2)').css('color','red');
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
@@ -304,11 +305,12 @@ var myDataTables = $("#setList").DataTable({
 
 /*新規ボタンをクリックしてdetailページに遷移される*/
 function newEvent(){
-	$('#shisetsunou').val('');
-	$('#statusu').val('');
-	$('#endjdgswu').val('');
-	$('#starttimeu').val('');
-	$('#hidMainFrom').submit();
+		$('#shisetsunou').val('');
+		$('#statusu').val('');
+		$('#endjdgswu').val('');
+		$('#starttimeu').val('');
+		$('#hidMainFrom').submit();
+
 }
 
 /*削除ボタンをクリックした時の処理*/
@@ -343,10 +345,10 @@ function submitDelete() {
 
 /*編集時画面遷移*/
 $('#setList').on('click', '.updateButton', function() {
-	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
-	$('#shisetsunou').val(shisetsuno);
-	$('#hidMainFrom').submit();
-});
+		var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
+		$('#shisetsunou').val(shisetsuno);
+		$('#hidMainFrom').submit();
+	  });
 
 //終了判定切替モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_end_judg', function() {
@@ -422,17 +424,18 @@ function submitId(){
 function endjdgswChange(){
 	var obj = new Object();
 	var shisetsuno = $('#shisetsunou').val();
-	var nowendjdgsw=$('#endjdgswu').val();
-	var endjdgsw="";
-	if(nowendjdgsw=='適用中'){
-		endjdgsw=0;
+	var nowendjdgsw = $('#endjdgswu').val();
+	var endjdgsw = "";
+
+	if(nowendjdgsw == '適用中'){
+		endjdgsw = 0;
 
 	}else{
-		endjdgsw=1;
+		endjdgsw = 1;
 	}
 
-	obj.endjdgsw=endjdgsw;
-	obj.shisetsuno=shisetsuno;
+	obj.endjdgsw = endjdgsw;
+	obj.shisetsuno = shisetsuno;
 
 	var jsonData = JSON.stringify(obj);
 
@@ -462,7 +465,7 @@ function genkyoChange(){
 
 	if(genkyostatus=='使用中'){
 		status=0;
-		starttime=null;
+
 	}else{
 		status=1;
 	}

@@ -6,11 +6,13 @@
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
 		SELECT
 			(ROW_NUMBER() OVER()) AS rownum,
-			shisetsuno AS shisetsuno,
-			customer AS customer,
-			sitecd AS sitecd,
-			jdgsw AS jdgsw,
-			endjdgsw AS endjdgsw
+			shisetsuno,
+			customer,
+			status,
+			sitecd,
+			jdgsw,
+			endjdgsw,
+			starttime
 		FROM tbl_jikahorenrakusettei
 	</select>
 
@@ -26,11 +28,19 @@
 			<if test="status != null and !status.equals('')">
 				status=#{status},
 				starttime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
+				upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS'),
+				upoaid=#{upoaid},
+				upoaname=#{upoaname},
 			</if>
+
 			<if test="endjdgsw != null and !endjdgsw.equals('')">
-				endjdgsw=#{endjdgsw}
+				endjdgsw=#{endjdgsw},
+				upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS'),
+				upoaid=#{upoaid},
+				upoaname=#{upoaname}
 			</if>
 			</set>
 		where shisetsuno= #{shisetsuno}
 	</update>
+
  </mapper>
