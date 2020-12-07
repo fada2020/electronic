@@ -49,11 +49,13 @@
 		text-align:center;
 		font-size: 12px;
 	}
-	td{
- 	    overflow:hidden;
-		white-space : nowrap;
-		text-overflow: ellipsis;
-		}
+
+	.left-text{
+	overflow:hidden;
+	white-space : nowrap;
+	text-overflow: ellipsis;
+	text-align:left !important;
+	}
 </style>
 
 <body>
@@ -263,12 +265,12 @@ var myDataTables = $("#setList").DataTable({
 	   dataSrc: ''
     },
     /*順番通りカラムに設定する*/
-    columns:[
-    	{ data: "rownum"},
-    	{ data: "contactname"},
-    	{ data: "contactmailaddress"},
-    	{ data: "contactphoneno"},
-    	{
+    columnDefs:[
+    	{targets:[0], data: "rownum"},
+    	{className:"left-text", targets:[1], data: "contactname"},
+    	{className:"left-text", targets:[2], data: "contactmailaddress"},
+    	{className:"left-text", targets:[3], data: "contactphoneno"},
+    	{targets:[4],
     		data: "description_u",
             render: function ( data, type, row, meta ) {
 

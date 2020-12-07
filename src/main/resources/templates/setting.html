@@ -30,16 +30,20 @@
 	table{
 		table-layout: fixed;
 	}
-    tr,td {
+    tr {
         text-align: center;
-        white-space: nowrap;
+
+    }
+    td{ white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
-      }
-html.touch *:hover {
-		pointer-events: none !important;
 		}
-
+	html.touch *:hover {
+		pointer-events: none !important;
+	}
+.customerClass, .sitNameClass{
+text-align: left !important;
+}
 </style>
 </head>
 
@@ -78,16 +82,16 @@ html.touch *:hover {
                             <table id="setList" class="table table-striped table-bordered table-sm">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center;">No</th>
-                                        <th id="status">現況</th>
-                                        <th id="endjdgsw">終了判定</th>
-                                        <th id="starttime">使用開始日時</th>
-                                        <th id="jdgsw">有効</th>
-                                        <th id="shisetsuno">お客様番号</th>
-                                        <th id="customer">施設名</th>
-                                        <th id="sitecd">サイトID</th>
-                                        <th id="sitename">サイト名</th>
-                                        <th></th>
+                                        <th style="width:5%;text-align:center;">No</th>
+                                        <th style="width:5%;" id="status">現況</th>
+                                        <th style="width:5%;" id="endjdgsw">終了判定</th>
+                                        <th style="width:10%;" id="starttime">使用開始日時</th>
+                                        <th style="width:5%;" id="jdgsw">有効</th>
+                                        <th style="width:10%;" id="shisetsuno">お客様番号</th>
+                                        <th style="width:15%;" id="customer">施設名</th>
+                                        <th style="width:5%;" id="sitecd">サイトID</th>
+                                        <th style="width:15%;" id="sitename">サイト名</th>
+                                        <th style="width:25%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -253,23 +257,23 @@ var myDataTables = $("#setList").DataTable({
 	    },
 
 	    /*順番通りカラムに設定する*/
-	    columns:[
-	    	{data: "rownum"},
-            { data: function ( d ) {
+	    columnDefs:[
+	    	{targets: [0], data: "rownum"},
+            {targets: [1], data: function ( d ) {
             	if(d.status == '1') {
             		return '使用中';
             	} else {
             		return '未使用';
             	}
             }},
-            { data: function ( d ) {
+            {targets: [2], data: function ( d ) {
             	if(d.endjdgsw == '1') {
             		return '適用中';
             	} else {
             		return '未適用';
             	}
             }},
-            { targets: 5, data: function ( d ) {
+            {targets: [3], data: function ( d ) {
             	if(d.status == '1'&&d.starttime!=null) {
             		var str = d.starttime;
             		return str.replace(/-/g,"/");
@@ -277,19 +281,19 @@ var myDataTables = $("#setList").DataTable({
             		return "-";
             	}
             	}},
-	    	   { data: function ( d ) {
+	    	   {targets: [4], data: function ( d ) {
 	            	if(d.jdgsw == '1') {
 	            		return '✔';
 	            	} else {
-	            		return ' ';
+	            		return '-';
 	            	}
 	            }},
-	    	{data: "shisetsuno"},
-	    	{data: "customer"},
-	    	{data: "sitecd"},
-	    	{data: "sitename"},
+	    	{targets: [5], data: "shisetsuno"},
+	    	{className: "customerClass", targets: [6], data: "customer"},
+	    	{targets: [7],data: "sitecd"},
+	    	{className: "sitNameClass", targets: [8], data: "sitename"},
 	    	/*renderを利用してボタンを生成*/
-			{
+			{targets: [9],
 	    		data: "description_u",
                 render: function ( data, type, row, meta ) {
 
