@@ -13,7 +13,8 @@ import jp.co.info.ais.ops.mapper.postgre.SettingMapper;
 @Service
 public class SettingService {
 
-	private static final Logger logger = LogManager.getLogger(EventService.class);
+	private static final Logger logger = LogManager.getLogger(SettingService.class);
+
 
 	@Autowired
 	SettingOracleMapper settingOracleMapper;
@@ -24,13 +25,13 @@ public class SettingService {
 		logger.debug("SettingListService START");
 			List<Setting>settingList = null;
 			List<Setting> sitecdList = null;
-			settingList = settingMapper.settingList();
-			sitecdList = settingOracleMapper.settingList(settingList);
+			settingList = settingMapper.settingList();//postgreからのsettingList
+			sitecdList = settingOracleMapper.settingList(settingList);//oracleからのsettingList
 			if(!settingList.isEmpty()&&!sitecdList.isEmpty()) {
 				for(Setting setting : settingList) {
 					for(Setting site : sitecdList) {
 						if(site.getSitecd()==setting.getSitecd()) {
-							setting.setSitename(site.getSitename());
+							setting.setSitename(site.getSitename());//sitenameを設定
 						}
 
 					}

@@ -9,7 +9,7 @@ public class Setting {
 	private String status;//現況
 	private String endjdgsw;//終了判定
 	private String starttime;//使用開始日時
-	private String sitename;//保留
+	private String sitename;//サイトname
 	private String upoaid;//更新者ID
 	private String upoaname;//更新者名前
 	private String upoatime;//更新時間

@@ -1,7 +1,9 @@
 package jp.co.info.ais.ops.controller;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -35,7 +37,7 @@ public class ContactController {
 	ContactService contactService;
 
 	//エラーを表すための宣言
-	private static final Logger logger = LogManager.getLogger(SettingController.class);
+	private static final Logger logger = LogManager.getLogger(ContactController.class);
 
 	/**
 	 * 設定一覧画面出力
@@ -105,7 +107,18 @@ public class ContactController {
     	logger.debug("Contact update Start===========");
     	/*settingリスト生成*/
     	int result=0;
+    	String upoaname = "";
+		String upoaid = "";
+		String upoatime = "";
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
 		try {
+			upoatime = format1.format(time);
+			upoaid = (String) session.getAttribute("id");
+			upoaname = (String) session.getAttribute("name");
+			contact.setUpoaid(upoaid);
+			contact.setUpoaname(upoaname);
+			contact.setUpoatime(upoatime);
 			result = contactService.updateContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
@@ -125,7 +138,18 @@ public class ContactController {
     	logger.debug("Contact add Start===========");
     	/*settingリスト生成*/
     	int result=0;
+    	String upoaname = "";
+		String upoaid = "";
+		String upoatime = "";
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
 		try {
+			upoatime = format1.format(time);
+			upoaid = (String) session.getAttribute("id");
+			upoaname = (String) session.getAttribute("name");
+			contact.setUpoaid(upoaid);
+			contact.setUpoaname(upoaname);
+			contact.setUpoatime(upoatime);
 			result = contactService.addContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());

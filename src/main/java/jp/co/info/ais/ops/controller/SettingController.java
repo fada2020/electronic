@@ -75,10 +75,7 @@ public class SettingController {
 		logger.debug("設定一覧画面===開始");
 		try {
 			logger.debug("setting List Start");
-			//パラメータ格納
-			List<Setting> list = null;
-			list = settingService.settingList();
-			model.addAttribute("list", list);
+
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
@@ -104,6 +101,7 @@ public class SettingController {
 			model.addAttribute("list", list);
 			//Excelファイル出力
 			if(flag.equals(EXCEL_FLAG)) {
+
 				excelDown(list, response);
 			}
 		} catch (Exception e) {
@@ -210,8 +208,19 @@ public class SettingController {
 
 		logger.debug("shisetsuno delete Start===========");
 		int result = 0;
-		try {
+		String upoaname = "";
+		String upoaid = "";
+		String upoatime = "";
+		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
 
+		try {
+			upoatime = format1.format(time);
+			upoaid = (String) session.getAttribute("id");
+			upoaname = (String) session.getAttribute("name");
+			setting.setUpoaid(upoaid);
+			setting.setUpoaname(upoaname);
+			setting.setUpoatime(upoatime);
 			result = settingService.updateStatus(setting);
 
 		} catch (Exception e) {
@@ -240,7 +249,6 @@ public class SettingController {
 		    Cell cell = null;
 		    int rowNo = 0;
 		    String time = "";
-		    list = settingService.settingList();
 
 		    // テブルヘッダースタイル
 		    CellStyle headStyle = wb.createCellStyle();
@@ -309,51 +317,76 @@ public class SettingController {
 		    // データ生成
 		    for(Setting setting : list) {
 		        row = ((org.apache.poi.ss.usermodel.Sheet) sheet).createRow(rowNo++);
+
 		        cell = row.createCell(0);//No
 		        cell.setCellStyle(bodyStyle);
 		        cell.setCellValue(setting.getRownum());
+
 		        cell = row.createCell(1);//現況
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getStatus().equals(SIYO)) {
+		        if(setting.getStatus()!=null&&setting.getStatus().equals(SIYO)) {
 		        	cell.setCellValue(SIYO_TXT);
 		        }else if(setting.getStatus().equals(MISIYO)) {
 		        	cell.setCellValue(MISIYO_TXT);
 		        }
+
 		        cell = row.createCell(2);//終了判定
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getEndjdgsw().equals(TEKIYO)) {
+		        if(setting.getEndjdgsw()!=null&&setting.getEndjdgsw().equals(TEKIYO)) {
 		        	cell.setCellValue(TEKIYO_TXT);
 		        }else if(setting.getEndjdgsw().equals(MITEKIYO)) {
 		        	cell.setCellValue(MITEKIYO_TXT);
 		        }
+
 		        cell = row.createCell(3);//使用開始日時
 		        cell.setCellStyle(bodyStyle);
-		        if(!setting.getStarttime().equals("")&&setting.getStarttime()!=null){
+		        if(setting.getStarttime()!=null){
 		        	String str= setting.getStarttime();
 		        	time = str.replaceAll("-", "/");
 		        	cell.setCellValue(time);
 		        }else {
 		        	cell.setCellValue("-");
 		        }
+
 		        cell = row.createCell(4);//有効
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getJdgsw().equals(YUKO)) {
+		        if(setting.getJdgsw()!=null&&setting.getJdgsw().equals(YUKO)) {
 		        	cell.setCellValue(YUKO_TXT);
 		        }else if(setting.getJdgsw().equals(MUKO)) {
 		        	cell.setCellValue(MUKO_TXT);
 		        }
+
 		        cell = row.createCell(5);//お客様番号
 		        cell.setCellStyle(bodyStyle);
+		        if(setting.getShisetsuno()!=null) {
 		        cell.setCellValue(setting.getShisetsuno());
+		        }else {
+		        	cell.setCellValue("-");
+		        }
+
 		        cell = row.createCell(6);//施設名
 		        cell.setCellStyle(bodyStyle);
+		        if(setting.getCustomer()!=null) {
 		        cell.setCellValue(setting.getCustomer());
+		        }else {
+		        	cell.setCellValue("-");
+		        }
+
 		        cell = row.createCell(7);//サイトID
 		        cell.setCellStyle(bodyStyle);
+		        if(setting.getSitecd()!=0) {
 		        cell.setCellValue(setting.getSitecd());
+		        }else {
+		        	cell.setCellValue("-");
+		        }
+
 		        cell = row.createCell(8);//サイト名
 		        cell.setCellStyle(bodyStyle);
+		        if(setting.getSitename()!=null) {
 		        cell.setCellValue(setting.getSitename());
+		        }else {
+		        	cell.setCellValue("-");
+		        }
 		    }
 
 		    // コンテンツタイプとファイル名指定
@@ -369,6 +402,7 @@ public class SettingController {
 		    response.getOutputStream().close();
 
 		}catch (Exception e) {
+
 			logger.debug(e.getMessage());
 
 		}

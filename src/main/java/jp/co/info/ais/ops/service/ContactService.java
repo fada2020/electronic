@@ -12,7 +12,7 @@ import jp.co.info.ais.ops.mapper.postgre.ContactMapper;
 
 @Service
 public class ContactService {
-	private static final Logger logger = LogManager.getLogger(EventService.class);
+	private static final Logger logger = LogManager.getLogger(ContactService.class);
 
 	@Autowired
 	ContactMapper contactMapper;
