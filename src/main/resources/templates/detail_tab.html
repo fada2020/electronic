@@ -76,15 +76,15 @@
                         <h5>指定電力超過のお知らせメール 記載情報</h5>
                         <div class="card card-body">
                             <div class="row form-group">
-                                <div class="col-4" style="font-size: 15px;">【お顧客番号】</div>
+                                <div class="col-4" style="font-size: 15px;">【お客様番号】</div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control input-sm">
+                                    <input type="text" id="shisetsuno" name="shisetsuno" class="form-control input-sm">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【施設名】${Customer}</div>
                                 <div class="col-8">
-                                    <input type="text" class="form-control input-sm">
+                                    <input type="text" id="customer" name="customer" class="form-control input-sm">
                                 </div>
                             </div>
                         </div>
@@ -98,13 +98,14 @@
 									<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
                                 </div>
                                 <div class="col-7">
-                                    <input type="text" class="form-control input-sm">
+                                    <input type="text" id="" name="" class="form-control input-sm">
                                 </div>
                             </div>
                             <div class="row form-group">
-                                <div class="col-5" style="font-size: 15px;">【施設名】${Customer}</div>
+                                <div class="col-5" style="font-size: 15px;">【住所】${Address}</div>
                                 <div class="col-7">
-                                    <input type="text" class="form-control input-sm">
+                                    <input type="text" id="address" name="address" class="form-control input-sm">
+                                    <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm">
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -164,11 +165,11 @@
                                 <div class="col-9">
                                     <div class="col-6">
                                             <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新日時</label>
-                                            <input type="text" class="form-control input-sm" disabled=true>
+                                            <input type="text" id="upUser" name="upUser" class="form-control input-sm" disabled=true>
                                     </div>
                                     <div class="col-6">
                                             <label for="" class="control-label mb-1" style="font-size: 15px;">最終更新者</label>
-                                            <input type="text" class="form-control input-sm" disabled=true>
+                                            <input type="text" id="upDate" name="upDate" class="form-control input-sm" disabled=true>
                                     </div>
                                 </div>
                             </div>
