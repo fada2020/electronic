@@ -72,10 +72,10 @@ public class LoginController {
 					result = 2;
 				} else {
 					result = 9;
-					String enableStr = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
+					String enable = (String) userGrantservice.selectGrantInfo(user.getEnable());
 					session.setAttribute("id", user.getLoginuser());
 					session.setAttribute("name", user.getUsername());
-					session.setAttribute("enable", enableStr);
+					session.setAttribute("enable", enable);
 				}
 			}
 		} catch (Exception e) {
