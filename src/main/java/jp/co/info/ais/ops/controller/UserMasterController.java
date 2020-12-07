@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.fasterxml.jackson.databind.JsonMappingException;
 
 import jp.co.info.ais.ops.domain.UserMaster;
-import jp.co.info.ais.ops.service.UserMasterService;
+import jp.co.info.ais.ops.service.UserGrantService;
 
 @Controller
 @RequestMapping("/master")
@@ -34,7 +34,7 @@ public class UserMasterController {
 	HttpSession session;
 
 	@Autowired
-	UserMasterService usermasterService;
+	UserGrantService usergrantService;
 
 	/**
 	 * 設定一覧画面出力
@@ -69,7 +69,7 @@ public class UserMasterController {
 		/*jsonオブジェクトを格納する配列リストを生成*/
 		JSONArray jArray = new JSONArray();
 		try {
-			list = usermasterService.usermasterList();
+			list = usergrantService.usermasterList();
 
 			for (int i = 0; i < list.size(); i++) {
 				JSONObject sObject = new JSONObject();

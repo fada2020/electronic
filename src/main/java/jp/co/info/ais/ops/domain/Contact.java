@@ -8,9 +8,6 @@ public class Contact {
 	private String contactmailaddress;//連絡先メールアドレス
 	private int startcontactcd;//更新Start時点
 	private int endcontactcd;//更新End時点
-	private String upoaid;//更新者ID
-	private String upoaname;//更新者名前
-	private String upoatime;//更新時間
 	public int getRownum() {
 		return rownum;
 	}
@@ -54,30 +51,11 @@ public class Contact {
 		this.endcontactcd = endcontactcd;
 	}
 
-	public String getUpoaid() {
-		return upoaid;
-	}
-	public void setUpoaid(String upoaid) {
-		this.upoaid = upoaid;
-	}
-	public String getUpoaname() {
-		return upoaname;
-	}
-	public void setUpoaname(String upoaname) {
-		this.upoaname = upoaname;
-	}
-	public String getUpoatime() {
-		return upoatime;
-	}
-	public void setUpoatime(String upoatime) {
-		this.upoatime = upoatime;
-	}
 	@Override
 	public String toString() {
 		return "Contact [rownum=" + rownum + ", contactcd=" + contactcd + ", contactname=" + contactname
 				+ ", contactphoneno=" + contactphoneno + ", contactmailaddress=" + contactmailaddress
-				+ ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + ", upoaid=" + upoaid
-				+ ", upoaname=" + upoaname + ", upoatime=" + upoatime + "]";
+				+ ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + "]";
 	}
 
 

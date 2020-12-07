@@ -29,10 +29,7 @@
 		update tbl_jikahocontactmaster set
 		contactname=#{contactname},
 		contactphoneno=#{contactphoneno},
-		contactmailaddress=#{contactmailaddress},
-		upoaid=#{upoaid},
-		upoaname=#{upoaname},
-		upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS')
+		contactmailaddress=#{contactmailaddress}
 		where
 		contactcd=#{contactcd}
 	</update>
@@ -42,17 +39,12 @@
 		insert into tbl_jikahocontactmaster(
 			contactname,
 			contactphoneno,
-			contactmailaddress,
-			upoaid,
-			upoaname,
-			upoatime
+			contactmailaddress
 			) values(
 			#{contactname},
 			#{contactphoneno},
-			#{contactmailaddress},
-			#{upoaid},
-			#{upoaname},
-			TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS')
+			#{contactmailaddress}
+
 			)
 	</insert>
 

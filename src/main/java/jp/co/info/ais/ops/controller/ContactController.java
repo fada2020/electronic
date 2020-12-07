@@ -1,9 +1,7 @@
 package jp.co.info.ais.ops.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpSession;
@@ -64,6 +62,8 @@ public class ContactController {
     @PostMapping("/getContactListAuto")
     public JSONArray ajaxGetList() throws JsonMappingException, IOException  {
     	logger.debug("ajaxGetList Start===========");
+    	/*sessionのenable取得*/
+		String enable = (String)session.getAttribute("enable");
     	/*settingリスト生成*/
     	List<Contact> list = new ArrayList<Contact>();
 		/*jsonオブジェクト生成*/
@@ -71,6 +71,7 @@ public class ContactController {
     	/*jsonオブジェクトを格納する配列リストを生成*/
 		JSONArray jArray = new JSONArray();
 		try {
+
 			list = contactService.contactList();
 
 			 for (int i = 0; i < list.size(); i++)
@@ -79,6 +80,7 @@ public class ContactController {
 			 sObject.put("rownum", list.get(i).getRownum());
 			 sObject.put("contactcd", list.get(i).getContactcd());
 			 sObject.put("contactname", list.get(i).getContactname());
+			 sObject.put("enable", enable);
 			 sObject.put("startcontactcd", list.get(i).getStartcontactcd());
 			 sObject.put("endcontactcd", list.get(i).getEndcontactcd());
 			 sObject.put("contactphoneno", list.get(i).getContactphoneno());
@@ -107,18 +109,7 @@ public class ContactController {
     	logger.debug("Contact update Start===========");
     	/*settingリスト生成*/
     	int result=0;
-    	String upoaname = "";
-		String upoaid = "";
-		String upoatime = "";
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();
 		try {
-			upoatime = format1.format(time);
-			upoaid = (String) session.getAttribute("id");
-			upoaname = (String) session.getAttribute("name");
-			contact.setUpoaid(upoaid);
-			contact.setUpoaname(upoaname);
-			contact.setUpoatime(upoatime);
 			result = contactService.updateContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
@@ -138,18 +129,7 @@ public class ContactController {
     	logger.debug("Contact add Start===========");
     	/*settingリスト生成*/
     	int result=0;
-    	String upoaname = "";
-		String upoaid = "";
-		String upoatime = "";
-		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();
 		try {
-			upoatime = format1.format(time);
-			upoaid = (String) session.getAttribute("id");
-			upoaname = (String) session.getAttribute("name");
-			contact.setUpoaid(upoaid);
-			contact.setUpoaname(upoaname);
-			contact.setUpoatime(upoatime);
 			result = contactService.addContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
