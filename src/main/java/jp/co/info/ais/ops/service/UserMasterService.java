@@ -25,17 +25,18 @@ public class UserMasterService {
 		logger.debug("MasterListService START");
 		List<UserMaster>userMasterList = null;
 		List<UserMaster> enableList = null;
+		/*ユーザーのリスト*/
 		userMasterList = usermasteroracleMapper.usermasterList();
+		/*ユーザーの権限リスト*/
 		enableList = usermasterMapper.usermasterList(userMasterList);
+		/*ユーザーのリストに権限情報を設定*/
 		if(!userMasterList.isEmpty()&&!enableList.isEmpty()) {
 			for(UserMaster user : userMasterList) {
 				for(UserMaster enable : enableList) {
 					if(user.getLoginuser().equals(enable.getLoginuser())) {
 						user.setEnable(enable.getEnable());
 					}
-
 				}
-
 			}
 		}
 		return userMasterList;
