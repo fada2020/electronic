@@ -197,8 +197,8 @@ text-align: left !important;
 						    </div>
 						</div>
 					<!-- Cancel Modal Part End-->
-<form th:action="@{/detail/}" name="hidMainFrom" id="hidMainFrom" method="post">
-<input type="hidden" id="shisetsunou">
+<form th:action="@{/detail}" name="hidMainFrom" id="hidMainFrom" method="post">
+<input type="hidden" id="shisetsunou" name="shisetsunou">
 </form>
 
 <form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
@@ -368,7 +368,9 @@ function submitDelete() {
 $('#setList').on('click', '.updateButton', function() {
 		var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
 		$('#shisetsunou').val(shisetsuno);
-		$('#hidMainFrom').submit();
+
+			$('#hidMainFrom').submit();
+
 	  });
 
 //終了判定切替モーダルの内容表示の出し分け
