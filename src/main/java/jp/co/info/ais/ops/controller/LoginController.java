@@ -72,7 +72,8 @@ public class LoginController {
 					result = 2;
 				} else {
 					result = 9;
-					String enable = (String) userGrantservice.selectGrantInfo(user.getEnable());
+					String enable = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
+					logger.debug("Enable------->"+enable);
 					session.setAttribute("id", user.getLoginuser());
 					session.setAttribute("name", user.getUsername());
 					session.setAttribute("enable", enable);

@@ -9,8 +9,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/detail")
@@ -23,7 +25,7 @@ public class DetailTabController {
 	HttpSession session;
 
 	/**
-	 *
+	 * 詳細設定初期画面
 	 */
 	@RequestMapping(value = "", method = { RequestMethod.POST })
 	public String select(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception  {
@@ -55,6 +57,31 @@ public class DetailTabController {
 		//戻り値
 		return "detail_tab";
 
+	}
+
+
+	/**
+	 * 詳細設定登録処理
+	 */
+	@ResponseBody
+	@PostMapping("/insert")
+	public String insert(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		logger.debug("詳細設定登録 開始 ===========");
+		try {
+			//パラメータ取得
+			String shisetsunou = request.getParameter("shisetsunou");
+			shisetsunou = "dceoef";
+			logger.debug("顧客番号："+shisetsunou);
+
+
+
+			//model.addAttribute("shisetsuno", shisetsuno);
+
+		} catch (Exception e) {
+			logger.error(e.getMessage());
+		}
+		//戻る値
+		return "detail";
 	}
 
 }

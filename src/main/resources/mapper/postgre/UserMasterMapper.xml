@@ -6,8 +6,7 @@
 	<!--リスト表示  -->
 	<select id="usermasterList" resultType="jp.co.info.ais.ops.domain.UserMaster">
 		SELECT
-			loginuser,
-			enable
+			loginuser
 		FROM tbl_usergrant
 		 WHERE loginuser in
        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
