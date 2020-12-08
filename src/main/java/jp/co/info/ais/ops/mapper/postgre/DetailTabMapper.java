@@ -11,4 +11,10 @@ public interface DetailTabMapper {
 
 	DetailTab selectInfo(String id) throws Exception;
 
+	public int insertDetail(DetailTab detailTab)throws Exception;
+
+	public int updateDetail(DetailTab detailTab)throws Exception;
+
+
+
 }

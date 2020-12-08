@@ -5,6 +5,11 @@ public class UserMaster {
 	private String loginuser;//アカウント
 	private String username;//ユーザー名称
 	private String usernamekana;//ユーザーカナ
+    //DetailTab追加
+	private String mailaddr; //MAILADDR
+	private String pcmailaddr; //PCMAILADDR
+
+
 	public String getEnable() {
 		return enable;
 	}
@@ -29,10 +34,28 @@ public class UserMaster {
 	public void setUsernamekana(String usernamekana) {
 		this.usernamekana = usernamekana;
 	}
+	public String getMailaddr() {
+		return mailaddr;
+	}
+	public void setMailaddr(String mailaddr) {
+		this.mailaddr = mailaddr;
+	}
+	public String getPcmailaddr() {
+		return pcmailaddr;
+	}
+	public void setPcmailaddr(String pcmailaddr) {
+		this.pcmailaddr = pcmailaddr;
+	}
+
 	@Override
 	public String toString() {
-		return "Master [enable=" + enable + ", loginuser=" + loginuser + ", username=" + username + ", usernamekana="
-				+ usernamekana + "]";
+		return "Master [enable=" + enable +
+				", loginuser=" + loginuser +
+				", username=" + username +
+				", usernamekana="+ usernamekana +
+				", mailaddr="+ mailaddr +
+				", pcmailaddr="+ pcmailaddr +
+				"]";
 	}
 
 }

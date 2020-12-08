@@ -13,4 +13,13 @@ public interface UserMasterOracleMapper {
 
 	public List<UserMaster> usermasterList()throws Exception;
 
+
+	/**
+	 *　詳細設定ユーザー選択用
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UserMaster> getUserList()throws Exception;
+
 }

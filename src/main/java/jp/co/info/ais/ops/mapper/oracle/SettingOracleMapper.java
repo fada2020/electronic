@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import jp.co.info.ais.ops.domain.Setting;
+import jp.co.info.ais.ops.domain.Site;
 
 @Repository
 @Mapper
@@ -17,5 +18,12 @@ public interface SettingOracleMapper {
 	public int deleteShisetsuno(String shisetsuno) throws Exception;
 
 	public int updateStatus(Setting setting)throws Exception;
+
+	/*
+	 * 詳細設定サイトリスト取得
+	 */
+	public List<Site> getSiteList() throws Exception;
+
+
 
 }

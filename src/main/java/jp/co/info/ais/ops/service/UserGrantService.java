@@ -48,4 +48,18 @@ public class UserGrantService {
 	}
 
 
+	/**
+	 * 詳細設定ユーザー選択
+	 *
+	 * @return
+	 * @throws Exception
+	 */
+	public List<UserMaster> getUserList()  throws Exception {
+		List<UserMaster>userMasterList = null;
+		/*ユーザーのリスト*/
+		userMasterList = usermasteroracleMapper.getUserList();
+		return userMasterList;
+	}
+
+
 }

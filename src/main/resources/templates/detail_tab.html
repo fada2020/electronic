@@ -65,8 +65,10 @@
                 </div>
 	        </div>
         </div>
+
 <form th:action="@{/detail/insert}" name="mainFrom" id="mainFrom" method="post">
 <input type="hidden" id="statusFlg" name="statusFlg" value="0">
+<input type="hidden" id="viewFlag" name="viewFlag" th:value="${viewFlag}">
 
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -103,7 +105,8 @@
                         <div class="card card-body">
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">
-									<button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
+									<button type="button" id="siteNgBtn" class="btn btn-secondary btn-sm"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
+									<button type="button" id="siteOkBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal" style="display:none;"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
                                 </div>
                                 <div class="col-8">
                                     <input type="text" id="sitename" name="sitename" class="form-control input-sm" th:value="${detailTab.sitename}">
@@ -132,7 +135,8 @@
                             </div>
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
-                                    <button type="button" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                    <button type="button" id="userMOkBtn" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal" style="display:none;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                    <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
                                 <div class="col-9"><textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.intermailaddr}"></textarea></div>
                             </div>
@@ -145,17 +149,19 @@
                            <div class="row form-group form-group-sm">
                                <div class="d-flex align-items-center">
                                <div class="col-3" style="padding-top: 20px;">
-                                   <button type="button" class="btn btn-primary btn-sm btn_s_user" data-toggle="modal" data-target="#userSelectModal"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                    <button type="button" id="userSOkBtn" class="btn btn-primary btn-sm btn_s_user" data-toggle="modal" data-target="#userSelectModal" style="display:none;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
+                                    <button type="button" id="userSNgBtn" class="btn btn-secondary btn-sm btn_s_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                </div>
                                </div>
                                <div class="col-9">
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
-                                       <input type="text" class="form-control input-sm" id="adminuserid" name="adminuserid" style="" th:value="${detailTab.adminuserid}">
+                                       <input type="hidden" class="form-control input-sm" id="adminuserid" name="adminuserid" style="" th:value="${detailTab.adminuserid}">
+                                       <input type="text" class="form-control input-sm" id="adminusername" name="adminusername" style="" th:value="${detailTab.adminusername}">
                                    </div>
                                    <div class="col-3">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
-                                       <input type="text" class="form-control input-sm" id="adminusername" name="adminusername" style="" th:value="${detailTab.adminusername}">
+                                       <input type="text" class="form-control input-sm" id="admintel" name="admintel">
                                    </div>
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
@@ -633,7 +639,8 @@
 <!-- Site Search Modal Start-->
 <div class="modal fade" id="siteSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id='siteForm'>
-<input type="text" id="hidSiteName">
+<input type="hidden" id="hidSiteName">
+<input type="hidden" id="hidSiteCd">
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -658,22 +665,22 @@
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="text-align:center; width: 120px; font-size: 14px;">No</th>
                                         <th style="text-align:center; width: 500px; font-size: 14px;">サイト名称</th>
+                                        <th style="text-align:center; display: none;"></th>
                                     </tr>
                                 </thead>
                         	</table>
                             <table id="siteList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
                         	    <thead style="display:none;">
                                     <tr>
-                                        <td></td><td></td>
+                                        <td></td><td></td><td></td>
                                     </tr>
                                 </thead>
                                 <tbody>
-<th:block th:each="siteNo : ${#numbers.sequence(1,50)}">
-                                    <tr>
-                                        <td scope="row" style="width: 112px !important; text-align:center;padding-left: 10px;" th:text="${siteNo}"></td>
-                                        <td style="width: 500px !important; font-size: 12px;"th:text="|サイト-${siteNo}|"></td>
-                                    </tr>
-</th:block>
+<tr th:each="rows, rowStat : ${siteList}">
+        <td scope="row" style="width: 112px !important; text-align:center;padding-left: 10px;" th:text="${rowStat.count}"></td>
+		<td style="width: 500px !important; font-size: 12px;" th:text="${rows.sitename}"></td>
+		<td style="display: none;" th:text="${rows.sitecd}"></td>
+</tr>
                                 </tbody>
                             </table>
                         </div>
@@ -689,6 +696,68 @@
 </form>
 </div>
 <!-- Site Search Modal End-->
+<!-- User Select Modal Start-->
+<div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+<form id="userForm">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="mediumModalLabel">ユーザー選択</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="col-sm-12 col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="form-group form-inline">
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">対象者</label>
+                                <select name="select" id="select" class="form-control">
+                                    <option value="0">産業ES</option>
+                                    <option value="1">産業AA</option>
+                                </select>
+                            </div><!--/.form-group -->
+                        </div>
+                        <div class="card-body">
+                        	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
+                                <thead>
+                                    <tr style="background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 80px; font-size: 14px;"></th>
+                                        <th style="text-align:center; width: 300px; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center; width: 500px; font-size: 14px;">メールアドレス</th>
+                                    </tr>
+                                </thead>
+                        	</table>
+                            <table id="userList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
+                                <thead style="display:none;">
+                                    <tr>
+                                        <td></td><td></td><td></td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+<tr th:each="user : ${userList}">
+	<th scope="row" style="width: 75px;text-align:center;">
+	    <input type="checkbox" id="userCheck" name="userCheck" value="option1">
+	</th>
+    <td style="width: 326px; font-size: 12px;"th:text="${user.username}"></td>
+    <td style="width: 500px; font-size: 12px;"th:text="${user.mailaddr}"></td>
+</tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div><!-- /.card-->
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary btn_user_ok" data-dismiss="modal">設定</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+<!-- User Select Modal End-->
 
 <!-- Cal Modal Start-->
 <div class="modal fade" id="calModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
@@ -1086,71 +1155,6 @@
 </div>
 <!-- Tag Modal End-->
 
-<!-- User Select Modal Start-->
-<div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-<form id="userForm">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">ユーザー選択</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="col-sm-12 col-lg-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="form-group form-inline">
-                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">対象者</label>
-                                <select name="select" id="select" class="form-control">
-                                    <option value="0">産業ES</option>
-                                    <option value="1">産業AA</option>
-                                </select>
-                            </div><!--/.form-group -->
-                        </div>
-                        <div class="card-body">
-                        	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
-                                <thead>
-                                    <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 80px; font-size: 14px;"></th>
-                                        <th style="text-align:center; width: 300px; font-size: 14px;">氏名</th>
-                                        <th style="text-align:center; width: 500px; font-size: 14px;">メールアドレス</th>
-                                    </tr>
-                                </thead>
-                        	</table>
-                            <table id="userList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
-                                <thead style="display:none;">
-                                    <tr>
-                                        <td></td><td></td><td></td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-<th:block th:each="userNo : ${#numbers.sequence(1,50)}">
-                                    <tr>
-                                         <th scope="row" style="width: 75px;text-align:center;">
-                                            <input type="checkbox" id="userCheck" name="userCheck" value="option1">
-                                        </th>
-                                        <td style="width: 326px; font-size: 12px;"th:text="|テスト　太郎${userNo}|"></td>
-                                        <td style="width: 500px; font-size: 12px;"th:text="|test${userNo}@test.co.jp|"></td>
-                                    </tr>
-</th:block>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div><!-- /.card-->
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary btn_user_ok" data-dismiss="modal">設定</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-<!-- User Select Modal End-->
-
 <!-- Modal Part Start-->
 <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm" role="document">
@@ -1279,9 +1283,6 @@
 
         </div> <!-- .content -->
 
-<form id="hidMainForm">
-<input type="hidden" id="viewFlag" th:value="${viewFlag}">
-</form>
     </div><!-- /#right-panel -->
 
     <!-- Right Panel -->
@@ -1309,6 +1310,7 @@ const viewEditOk = document.getElementById("editOkDiv");
 
 jQuery(document).ready(function($) {
 
+	//画面表示初期化
 	viewSet(enable);
 
 	//UserList DataTable Option設定
@@ -1378,26 +1380,30 @@ jQuery(document).ready(function($) {
     $('.btn_ok').on('click', function (e) {
         table.$('tr.selected').removeClass('selected');
     });
-    //サイト選択後、設定ボタンをクリックすると親ウィンドウに値をセット
-    $('.btn_site_ok').on('click', function (e) {
-    	var selectedSiteName = $('#siteForm').val();
-    	if(selectedSiteName == 'サイト名称'){
-        	$('#sltSiteName').val('');
-    	}else{
-        	$('#sltSiteName').val(selectedSiteName);
-    	}
-    	tableSite.$('tr.selected').removeClass('selected');
-    	$('#siteSearchModal').find('form')[0].reset()
 
-    });
+    //サイト選択後、設定ボタンをクリックすると親ウィンドウに値をセット
     $('#siteList tr').on('click', function (e) {
         var str = ""
         var tdArr = new Array();
         var tr = $(this);
         var td = tr.children();
         var siteName = td.eq(1).text();
-        $('#siteName').val(siteName);
+        var siteCd = td.eq(2).text();
+        $('#hidSiteName').val(siteName);
+        $('#hidSiteCd').val(siteCd);
     });
+    $('.btn_site_ok').on('click', function (e) {
+    	var selectedSiteName = $('#hidSiteName').val();
+    	var selectedSiteCd = $('#hidSiteCd').val();
+    	if(selectedSiteName != 'サイト名称'){
+        	$('#sitename').val(selectedSiteName);
+        	$('#sitecd').val(selectedSiteCd);
+    	}
+    	tableSite.$('tr.selected').removeClass('selected');
+    	$('#siteSearchModal').find('form')[0].reset()
+
+    });
+
     //ユーザー選択後、設定ボタンをクリックすると親ウィンドウに値をセット
 	$(".btn_user_ok").click(function(){
 		var rowData = new Array();
@@ -1418,10 +1424,10 @@ jQuery(document).ready(function($) {
 			}
 		});
 		if($('#viewFlag').val() == 'single'){
-			$('#userName').val(name);
-			$('#userMail').val(email);
+			$('#adminusername').val(name);
+			$('#adminmailaddress').val(email);
 		}else{
-			$('#emailArrTxt').val(emailArr);
+			$('#intermailaddr').val(emailArr);
 		}
     	tableUser.$('tr.selected').removeClass('selected');
     	$('#userSelectModal').find('form')[0].reset()
@@ -1472,21 +1478,41 @@ $('#ikitiZ').change(function() {
 	});
 
     $('#modeEditBtn').on('click', function() {
+
         $('#modeEditBtn').hide();
         $('#modeViewBtn').show();
         $('#saveOkBtn').hide();
+        $('#siteOkBtn').hide();
+        $('#userMOkBtn').hide();
+        $('#userSOkBtn').hide();
+
         $('#saveNgBtn').show();
-		$('#statusFlg').val('0');
+        $('#siteNgBtn').show();
+        $('#userMNgBtn').show();
+        $('#userSNgBtn').show();
+
+        $('#statusFlg').val('0');
 		viewChange('0');
     });
     $('#modeViewBtn').on('click', function() {
+
         $('#modeViewBtn').hide();
         $('#modeEditBtn').show();
         $('#saveNgBtn').hide();
+        $('#siteNgBtn').hide();
+        $('#userMNgBtn').hide();
+        $('#userSNgBtn').hide();
+
         $('#saveOkBtn').show();
-		$('#statusFlg').val('1');
+        $('#siteOkBtn').show();
+        $('#userMOkBtn').show();
+        $('#userSOkBtn').show();
+
+        $('#statusFlg').val('1');
 		viewChange('1');
     });
+
+
 
     //ユーザー選択区分
     $('.btn_m_user').on('click', function() {
@@ -1519,7 +1545,11 @@ $('#ikitiZ').change(function() {
 		}else{
 			//保存処理を行う
 			$("#idErr")[0].hidden = true;
-			$("#mainFrom").action = "/detail/update";
+			if($("#viewFlag").val() == 'add'){
+				$("#mainFrom").action = "/detail/insert/";
+			}else{
+				$("#mainFrom").action = "/detail/update/";
+			}
 			$("#mainFrom").submit();
 		}
     });
@@ -1570,6 +1600,8 @@ function viewChange(idx) {
 		$("#adminuserid").attr("disabled",true);
 		$("#adminusername").attr("disabled",true);
 		$("#adminmailaddress").attr("disabled",true);
+		$("#admintel").attr("disabled",true);
+
 
     }else{
         //編集モード
@@ -1585,6 +1617,8 @@ function viewChange(idx) {
         $("#adminuserid").removeAttr("disabled");
         $("#adminusername").removeAttr("disabled");
         $("#adminmailaddress").removeAttr("disabled");
+        $("#admintel").removeAttr("disabled");
+
 
     }
 
