@@ -69,7 +69,7 @@ public class SettingController {
 	 * @param model
 	 * @return String　画面名
 	 */
-	@RequestMapping(value = "", method = { RequestMethod.GET, RequestMethod.POST })
+	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String SettingList(Model model, HttpServletRequest request) throws Exception {
 
 		logger.debug("設定一覧画面===開始");
@@ -97,11 +97,9 @@ public class SettingController {
 			logger.debug("setting List Start");
 			//パラメータ格納
 			List<Setting> list = null;
-			list = settingService.settingList();
-			model.addAttribute("list", list);
 			//Excelファイル出力
 			if(flag.equals(EXCEL_FLAG)) {
-
+				list = settingService.settingList();
 				excelDown(list, response);
 			}
 		} catch (Exception e) {
