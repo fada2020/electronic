@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import jp.co.info.ais.ops.domain.Setting;
+import jp.co.info.ais.ops.domain.Site;
 import jp.co.info.ais.ops.mapper.oracle.SettingOracleMapper;
 import jp.co.info.ais.ops.mapper.postgre.SettingMapper;
 @Service
@@ -45,9 +46,24 @@ public class SettingService {
 		logger.debug("SettingdeleteService START");
 		return settingMapper.deleteShisetsuno(shisetsuno);
 	}
+
 	public int updateStatus(Setting setting) throws Exception  {
 		logger.debug("SettingUpdateStatusService START");
 		return settingMapper.updateStatus(setting);
 	}
+
+	/**
+	 * 詳細設定サイトリスト取得
+	 *
+	 * @return siteList
+	 * @throws Exception
+	 */
+	public List<Site> getSiteList() throws Exception {
+		List<Site> siteList = null;
+		siteList = settingOracleMapper.getSiteList();
+		return siteList;
+	}
+
+
 
 }

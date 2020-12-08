@@ -12,4 +12,13 @@
 		FROM sys_user
 	</select>
 
+	<!--リスト表示  -->
+	<select id="getUserList" resultType="jp.co.info.ais.ops.domain.UserMaster">
+		SELECT
+			  loginuser
+			  ,username
+			  ,mailaddr
+		 FROM sys_user
+	</select>
+
  </mapper>

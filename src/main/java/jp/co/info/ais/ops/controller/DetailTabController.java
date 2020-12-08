@@ -1,5 +1,8 @@
 package jp.co.info.ais.ops.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -11,26 +14,35 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.info.ais.ops.domain.DetailTab;
+import jp.co.info.ais.ops.domain.Site;
+import jp.co.info.ais.ops.domain.UserMaster;
 import jp.co.info.ais.ops.service.DetailTabService;
+import jp.co.info.ais.ops.service.SettingService;
+import jp.co.info.ais.ops.service.UserGrantService;
 
 @Controller
 @RequestMapping("/detail")
 public class DetailTabController {
 
-	//エラーを表すための宣言
-	private static final Logger logger = LogManager.getLogger(DetailTabController.class);
-
 	@Autowired
 	HttpSession session;
+
+	//エラーを表すための宣言
+	private static final Logger logger = LogManager.getLogger(DetailTabController.class);
+	private static final String INSERT_FLAG = "add";
+	private static final String UPDATE_FLAG = "edit";
 
 	@Autowired
 	DetailTabController detailTabController;
 
 	@Autowired
 	DetailTabService detailTabService;
+	@Autowired
+	SettingService settingService;
+	@Autowired
+	UserGrantService userGrantService;
 
 	/**
 	 * 詳細設定初期画面
@@ -58,6 +70,16 @@ public class DetailTabController {
 				model.addAttribute("viewFlag", "add");
 				model.addAttribute("detailTab", detailTab);
 			}
+			//サイト選択リスト
+			List<Site> siteList = new ArrayList<Site>();
+			siteList = settingService.getSiteList();
+			model.addAttribute("siteList", siteList);
+
+			//ユーザー選択リスト
+			List<UserMaster> userList = new ArrayList<UserMaster>();
+			userList = userGrantService.getUserList();
+			model.addAttribute("userList", userList);
+
 
 		}catch (Exception e) {
 			logger.error(e.getMessage());
@@ -67,52 +89,43 @@ public class DetailTabController {
 
 	}
 
-
 	/**
-	 * 詳細設定編集処理
+	 * 詳細設定：登録/編集の処理
 	 */
-	@ResponseBody
-	@RequestMapping(value = "/update", method = { RequestMethod.POST })
-	public String update(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug("詳細設定編集 開始 ===========");
-		try {
-			//パラメータ取得
-			String shisetsunou = request.getParameter("shisetsunou");
-			shisetsunou = "dceoef";
-			logger.debug("顧客番号："+shisetsunou);
-
-			//model.addAttribute("shisetsuno", shisetsuno);
-
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		//戻る値
-		return "setting";
-	}
-
-
-	/**
-	 * 詳細設定登録処理
-	 */
-	@ResponseBody
 	@RequestMapping(value = "/insert", method = { RequestMethod.POST })
 	public String insert(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		logger.debug("詳細設定登録 開始 ===========");
+
 		try {
 			//パラメータ取得
+			String viewFlag = request.getParameter("viewFlag");
 			String shisetsunou = request.getParameter("shisetsunou");
-			shisetsunou = "dceoef";
+			String customer = request.getParameter("customer");
+			String sitename = request.getParameter("sitename");
+			String sitecd = request.getParameter("sitecd");
+			String address = request.getParameter("address");
+			String outermailaddr = request.getParameter("outermailaddr");
+			String intermailaddr = request.getParameter("intermailaddr");
+			String adminuserid = request.getParameter("adminuserid");
+			String adminusername = request.getParameter("adminusername");
+			String adminmailaddress = request.getParameter("adminmailaddress");
 			logger.debug("顧客番号："+shisetsunou);
 
+			if(viewFlag.equals(INSERT_FLAG)) {
+				//logger.debug("詳細設定-登録 開始 ===========");
+				System.out.println("詳細設定-登録 開始 ===========");
 
+			}else {
+				//logger.debug("詳細設定-編集 開始 ===========");
+				System.out.println("詳細設定-編集 開始 ===========");
 
-			//model.addAttribute("shisetsuno", shisetsuno);
+			}
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		//戻る値
-		return "setting";
+		//return "setting";
+		return "redirect:/setting/";
 	}
 
 }

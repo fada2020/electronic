@@ -21,6 +21,58 @@
 	   WHERE shisetsuno =#{id}
 	</select>
 
+	<insert id="insertDetail" parameterType="jp.co.info.ais.ops.domain.DetailTab">
+		insert into tbl_jikahorenrakusettei
+		(
+			shisetsuno
+			,customer
+			,sitecd
+			,sitename
+			,address
+			,outermailaddr
+			,intermailaddr
+			,adminuserid
+			,adminusername
+			,adminmailaddress
+			,upoaid
+			,upoaname
+			,upoatime
+		) values(
+			#{shisetsuno}
+			,#{customer}
+			,#{sitecd}
+			,#{sitename}
+			,#{address}
+			,#{outermailaddr}
+			,#{intermailaddr}
+			,#{adminuserid}
+			,#{adminusername}
+			,#{adminmailaddress}
+			,#{upoaid}
+			,#{upoaname}
+			,current_timestamp
+		)
+	</insert>
+
+	 <update id="updateDetail" parameterType="jp.co.info.ais.ops.domain.DetailTab">
+		UPDATE tbl_jikahorenrakusettei SET
+			customer=#{customer}
+			,sitecd=#{sitecd}
+			,sitename=#{sitename}
+			,address=#{address}
+			,outermailaddr=#{outermailaddr}
+			,intermailaddr=#{intermailaddr}
+			,adminuserid=#{adminuserid}
+			,adminusername=#{adminusername}
+			,adminmailaddress=#{adminmailaddress}
+			,upoaid=#{upoaid}
+			,upoaname=#{upoaname}
+			,upoatime=current_timestamp
+		WHERE
+			shisetsuno=#{shisetsuno}
+	</update>
+
+
 
 
  </mapper>

@@ -19,7 +19,7 @@
     </delete>
 
 	<update id="updateStatus" parameterType="jp.co.info.ais.ops.domain.Setting">
-		update tbl_jikahorenrakusettei
+		UPDATE tbl_jikahorenrakusettei
 			<set>
 			<if test="status != null and !status.equals('')">
 				status=#{status},
@@ -29,6 +29,15 @@
 				endjdgsw=#{endjdgsw}
 			</if>
 			</set>
-		where shisetsuno= #{shisetsuno}
+		WHERE shisetsuno= #{shisetsuno}
 	</update>
+
+	<!-- 詳細設定用 -->
+	<select id="getSiteList" resultType="jp.co.info.ais.ops.domain.Site">
+	       SELECT sitecd, sitename
+	         FROM tbl_site
+	        WHERE ( sitedel = 0 OR  sitedel is null )
+	     ORDER BY sitename DESC
+	</select>
+
  </mapper>
