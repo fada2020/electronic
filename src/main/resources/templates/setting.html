@@ -14,36 +14,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="apple-touch-icon" href="apple-icon.png">
     <link rel="shortcut icon" href="favicon.ico">
-    <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/vendors/themify-icons/css/themify-icons.css">
-    <link rel="stylesheet" href="../static/vendors/flag-icon-css/css/flag-icon.min.css">
-    <link rel="stylesheet" href="../static/vendors/selectFX/css/cs-skin-elastic.css">
-    <link rel="stylesheet" href="../static/assets/css/style.css">
+    <link rel="stylesheet" th:href="@{/static/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/selectFX/css/cs-skin-elastic.css}">
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}">
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<!-- dataTable -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
 <style>
 	.margin-left{
-	       margin-left: 10px !important;
+	    margin-left: 10px !important;
 	}
 	table{
 		table-layout: fixed;
 	}
-    tr {
-        text-align: center;
-
-    }
-    td{ white-space: nowrap;
+    td{
+    	white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 		}
 	html.touch *:hover {
 		pointer-events: none !important;
 	}
-.customerClass, .sitNameClass{
-text-align: left !important;
-}
+	.customerClass, .sitNameClass{
+		text-align: left;
+	}
+	 th {
+        text-align: center !important;
+    }
 </style>
 </head>
 
@@ -75,6 +75,7 @@ text-align: left !important;
                         <div class="card-header" style="float:right;">
                             <div class="col-lg-12" style="float:right; text-align: right;">
                                 <button type="button" class="btn btn-sm btn-primary newButton" th:if="${session.enable == '3'}" onClick="newEvent();"><i class="fa fa-plus-square"></i> 新規</button>
+                                <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" disabled><i class="fa fa-plus-square"></i> 新規</button>
                                 <button type="button" id="excelButton" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
                             </div>
                         </div>
@@ -216,13 +217,12 @@ text-align: left !important;
 
     <!-- Right Panel -->
 
-    <script src="../static/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../static/assets/js/main.js"></script>
-
-    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
-    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
+    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
 	<!-- dataTable -->
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 

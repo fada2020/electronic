@@ -45,17 +45,19 @@
 	table{
 		table-layout: fixed;
 	}
-	tr{
-		text-align:center;
-		font-size: 12px;
-	}
 
 	.left-text{
 	overflow:hidden;
 	white-space : nowrap;
 	text-overflow: ellipsis;
-	text-align:left !important;
+	text-align:left;
 	}
+
+	th{
+	text-align:center !important;
+	font-size: 12px;
+	}
+
 </style>
 
 <body>
@@ -86,6 +88,7 @@
                         <div class="card-header" style="float:right;">
                             <div class="form-group form-inline" style="float: right; padding-top: 20px;">
                                 <button type="button" class="btn btn-info" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
+                                <button type="button" class="btn btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
                             </div><!--/.form-group -->
                         </div>
                        <div class="card-body">
@@ -93,7 +96,6 @@
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="width: 10%;">NO</th>
-
                                         <th style="width: 20%;">名称</th>
                                         <th style="width: 25%;">メールアドレス</th>
                                         <th style="width: 25%;">電話番号</th>
