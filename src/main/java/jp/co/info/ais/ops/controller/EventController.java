@@ -102,9 +102,10 @@ public class EventController {
 			List<EventList> list = null;
 			list = eventService.selectEventList(paraMap);
 
+			//一覧の施設名とイベント名称の文字数制限
 			for (EventList lengthcheck : list) {
-				if(lengthcheck.getCustomer().length()>20) {
-					lengthcheck.setCustomer(lengthcheck.getCustomer().substring(0,20) + "...");
+				if(lengthcheck.getCustomer().length()>29) {
+					lengthcheck.setCustomer(lengthcheck.getCustomer().substring(0,29) + "...");
 				}
 				if(lengthcheck.getEventname().length()>20) {
 					lengthcheck.setEventname(lengthcheck.getEventname().substring(0,20) + "...");
@@ -201,6 +202,16 @@ public class EventController {
 			//データ取得
 			List<EventList> list = null;
 			list = eventService.selectEventList(paraMap);
+
+			//一覧の施設名とイベント名称の文字数制限
+			for (EventList lengthcheck : list) {
+				if(lengthcheck.getCustomer().length()>29) {
+					lengthcheck.setCustomer(lengthcheck.getCustomer().substring(0,29) + "...");
+				}
+				if(lengthcheck.getEventname().length()>20) {
+					lengthcheck.setEventname(lengthcheck.getEventname().substring(0,20) + "...");
+				}
+			}
 
 			//Excelファイル出力
 			if(flag.equals(EXCEL_FLAG)) {
@@ -407,8 +418,19 @@ public class EventController {
 			paraMap.put("status", statusList);
 			paraMap.put("kinds", arrayKind);
 
+
 			//一覧データ取得（全データ）
 			list = eventService.selectEventList(paraMap);
+
+			//一覧の施設名とイベント名称の文字数制限
+			for (EventList lengthcheck : list) {
+				if(lengthcheck.getCustomer().length()>29) {
+					lengthcheck.setCustomer(lengthcheck.getCustomer().substring(0,29) + "...");
+				}
+				if(lengthcheck.getEventname().length()>20) {
+					lengthcheck.setEventname(lengthcheck.getEventname().substring(0,20) + "...");
+				}
+			}
 
 		}catch (Exception e) {
 			logger.error(e.getMessage());
