@@ -94,7 +94,7 @@
                                         <th style="width:5%;" id="endjdgsw">終了判定</th>
                                         <th style="width:10%;" id="starttime">使用開始日時</th>
                                         <th style="width:5%;" id="jdgsw">有効</th>
-                                        <th style="width:10%;" id="shisetsuno">お客様番号</th>
+                                        <th style="width:10%;" id="customerno">お客様番号</th>
                                         <th style="width:15%;" id="customer">施設名</th>
                                         <th style="width:5%;" id="sitecd">サイトID</th>
                                         <th style="width:15%;" id="sitename">サイト名</th>
@@ -109,7 +109,6 @@
                 </div>
             </div>
             <!--/.col-->
-
         </div> <!-- .content -->
                          <!-- 現況変更モーダル -->
                         <div class="modal fade" id="ChangeGenkyo" tabindex="-1" role="dialog"
@@ -189,7 +188,7 @@
 						                </button>
 						            </div>
 						            <div class="modal-body" style="text-align: center;">
-						             <input  type="hidden" id="shisetsunod" name="shisetsunod" placeholder="" style="width: 290px" class="form-control input-sm">
+						             <input  type="hidden" id="customernod" name="customernod" placeholder="" style="width: 290px" class="form-control input-sm">
 						                <p>
 						                    選択されたデータを削除します。<br>よろしいですか？
 						                </p>
@@ -203,7 +202,7 @@
 						</div>
 					<!-- Cancel Modal Part End-->
 <form th:action="@{/detail/}" name="hidMainFrom" id="hidMainFrom" method="post">
-<input type="hidden" id="shisetsunou" name="shisetsunou">
+<input type="hidden" id="customernou" name="customernou">
 </form>
 
 <form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
@@ -292,7 +291,7 @@ var myDataTables = $("#setList").DataTable({
 	            		return '-';
 	            	}
 	            }},
-	    	{targets: [5], data: "shisetsuno"},
+	    	{targets: [5], data: "customerno"},
 	    	{className: "customerClass", targets: [6], data: "customer"},
 	    	{targets: [7],data: "sitecd"},
 	    	{className: "sitNameClass", targets: [8], data: "sitename"},
@@ -335,20 +334,20 @@ var myDataTables = $("#setList").DataTable({
 
 /*新規ボタンをクリックしてdetailページに遷移される*/
 function newEvent(){
-	$('#shisetsunou').val('');
+	$('#customernou').val('');
 	$('#hidMainFrom').submit();
 }
 
 /*削除ボタンをクリックした時の処理*/
 $('#setList').on('click', '.deleteButton', function() {
-	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
-	$('#shisetsunod').val(shisetsuno);
+	var customerno = $(this).closest('tr').find('td:eq(5)').text();
+	$('#customernod').val(customerno);
 });
 
 
-/*削除するためshisetsunoを取得する*/
+/*削除するためcustomernoを取得する*/
 function submitDelete() {
-	 var shisetsuno =$('#shisetsunod').val();
+	 var customerno =$('#customernod').val();
 	        /*　OKの時の処理  今回は特に処理がないので空*/
 	    	  /* OKの時の処理 */
 	    	$.ajax({
@@ -356,7 +355,7 @@ function submitDelete() {
 	    		type : "POST",
 	    		dataType : "json",
 	    		contentType : 'application/JSON',
-	    		data : shisetsuno
+	    		data : customerno
 	    	}).success(function(result) {
 	    		if(result>0){
 	    			location.href = '/ops/setting/';
@@ -370,17 +369,17 @@ function submitDelete() {
 
 /*編集時画面遷移*/
 $('#setList').on('click', '.updateButton', function() {
-	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
-	$('#shisetsunou').val(shisetsuno);
+	var customerno = $(this).closest('tr').find('td:eq(5)').text();
+	$('#customernou').val(customerno);
 	$('#hidMainFrom').submit();
 });
 
 //終了判定切替モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_end_judg', function() {
-	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
+	var customerno = $(this).closest('tr').find('td:eq(5)').text();
 	var endjdgsw = $(this).closest('tr').find('td:eq(2)').text();
 
-	$('#shisetsunou').val(shisetsuno);
+	$('#customernou').val(customerno);
 	$('#endjdgswu').val(endjdgsw);
 	if(endjdgsw=='適用中'){
 		$("#endjdgswLabel").text(endjdgsw);
@@ -395,10 +394,10 @@ $('#setList').on('click', '.btn_change_end_judg', function() {
 });
 // 現況変更モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_genkyo', function() {
-	var shisetsuno = $(this).closest('tr').find('td:eq(5)').text();
+	var customerno = $(this).closest('tr').find('td:eq(5)').text();
 	var status = $(this).closest('tr').find('td:eq(1)').text();
 	var starttime = getCurrentTime();
-	$('#shisetsunou').val(shisetsuno);
+	$('#customernou').val(customerno);
 	$('#statusu').val(status);
 	$('#starttimeu').val(starttime);
 	if(status=='使用中'){
@@ -457,7 +456,7 @@ function submitId(){
 /*終了判定を変更する*/
 function endjdgswChange(){
 	var obj = new Object();
-	var shisetsuno = $('#shisetsunou').val();
+	var customerno = $('#customernou').val();
 	var nowendjdgsw = $('#endjdgswu').val();
 	var endjdgsw = "";
 
@@ -469,7 +468,7 @@ function endjdgswChange(){
 	}
 
 	obj.endjdgsw = endjdgsw;
-	obj.shisetsuno = shisetsuno;
+	obj.customerno = customerno;
 
 	var jsonData = JSON.stringify(obj);
 
@@ -494,7 +493,7 @@ function genkyoChange(){
 
 	var obj = new Object();
 	var genkyostatus = $('#statusu').val();
-	var shisetsuno = $('#shisetsunou').val();
+	var customerno = $('#customernou').val();
 	var starttime = $('#starttimeu').val();
 	var status="";
 
@@ -505,7 +504,7 @@ function genkyoChange(){
 	}
 
 	obj.status=status;
-	obj.shisetsuno=shisetsuno;
+	obj.customerno=customerno;
 	obj.starttime=starttime;
 	var jsonData = JSON.stringify(obj);
 

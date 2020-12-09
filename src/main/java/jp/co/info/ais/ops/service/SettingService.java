@@ -42,9 +42,9 @@ public class SettingService {
 			}
 		return settingList;
 	}
-	public int deleteShisetsuno(String shisetsuno)throws Exception  {
+	public int deleteCustomerno(String customerno)throws Exception  {
 		logger.debug("SettingdeleteService START");
-		return settingMapper.deleteShisetsuno(shisetsuno);
+		return settingMapper.deleteCustomerno(customerno);
 	}
 
 	public int updateStatus(Setting setting) throws Exception  {

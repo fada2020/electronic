@@ -12,7 +12,7 @@ public interface SettingMapper {
 
 	public List<Setting> settingList() throws Exception;
 
-	public int deleteShisetsuno(String shisetsuno) throws Exception;
+	public int deleteCustomerno(String customerno) throws Exception;
 
 	public int updateStatus(Setting setting)throws Exception;
 }
