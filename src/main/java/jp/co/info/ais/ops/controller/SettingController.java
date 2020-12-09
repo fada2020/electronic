@@ -61,8 +61,9 @@ public class SettingController {
 	private static final String YUKO = "1";
 	private static final String YUKO_TXT = "✔";
 	private static final String MUKO = "0";
-	private static final String MUKO_TXT = " ";
-
+	private static final String MUKO_TXT = "-";
+	private static final String NULL_TXT = "-";
+	private static final String CALENDAR_TXT = "-";
 	/**
 	 * 設定一覧画面出力
 	 *
@@ -262,7 +263,7 @@ public class SettingController {
 		    sheet.setColumnWidth(5, 8000);//お客様番号
 		    sheet.setColumnWidth(6, 8000);//施設名
 		    sheet.setColumnWidth(7, 8000);//サイトID
-		    sheet.setColumnWidth(8, 8000);//サイト名
+		    sheet.setColumnWidth(8, 10000);//サイト名
 
 		    // 細いセール指定
 		    headStyle.setBorderTop(BorderStyle.THIN);
@@ -342,10 +343,10 @@ public class SettingController {
 		        cell.setCellStyle(bodyStyle);
 		        if(setting.getStarttime()!=null){
 		        	String str= setting.getStarttime();
-		        	time = str.replaceAll("-", "/");
+		        	time = str.replaceAll(NULL_TXT, CALENDAR_TXT);
 		        	cell.setCellValue(time);
 		        }else {
-		        	cell.setCellValue("-");
+		        	cell.setCellValue(NULL_TXT);
 		        }
 
 		        cell = row.createCell(4);//有効
@@ -361,7 +362,7 @@ public class SettingController {
 		        if(setting.getShisetsuno()!=null) {
 		        cell.setCellValue(setting.getShisetsuno());
 		        }else {
-		        	cell.setCellValue("-");
+		        	cell.setCellValue(NULL_TXT);
 		        }
 
 		        cell = row.createCell(6);//施設名
@@ -369,7 +370,7 @@ public class SettingController {
 		        if(setting.getCustomer()!=null) {
 		        cell.setCellValue(setting.getCustomer());
 		        }else {
-		        	cell.setCellValue("-");
+		        	cell.setCellValue(NULL_TXT);
 		        }
 
 		        cell = row.createCell(7);//サイトID
@@ -377,7 +378,7 @@ public class SettingController {
 		        if(setting.getSitecd()!=0) {
 		        cell.setCellValue(setting.getSitecd());
 		        }else {
-		        	cell.setCellValue("-");
+		        	cell.setCellValue(NULL_TXT);
 		        }
 
 		        cell = row.createCell(8);//サイト名
@@ -385,7 +386,7 @@ public class SettingController {
 		        if(setting.getSitename()!=null) {
 		        cell.setCellValue(setting.getSitename());
 		        }else {
-		        	cell.setCellValue("-");
+		        	cell.setCellValue(NULL_TXT);
 		        }
 		    }
 

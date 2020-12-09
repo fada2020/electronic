@@ -45,7 +45,9 @@
 	table{
 		table-layout: fixed;
 	}
-
+	td{
+	text-align:center;
+	}
 	.left-text{
 	overflow:hidden;
 	white-space : nowrap;
@@ -86,20 +88,20 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style="float:right;">
-                            <div class="form-group form-inline" style="float: right; padding-top: 20px;">
-                                <button type="button" class="btn btn-info" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
-                                <button type="button" class="btn btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
+                            <div class="form-group form-inline" style="float: right; margin: 0px;">
+                                <button type="button" class="btn btn-sm btn-primary" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
+                                <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
                             </div><!--/.form-group -->
                         </div>
                        <div class="card-body">
                             <table id="setList" class="table table-striped table-bordered table-sm" style="width: 100%;">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
-                                        <th style="width: 10%;">NO</th>
-                                        <th style="width: 20%;">名称</th>
-                                        <th style="width: 25%;">メールアドレス</th>
-                                        <th style="width: 25%;">電話番号</th>
-                                        <th style="width: 20%;"></th>
+                                        <th style="width: 10%;">No</th>
+                                        <th style="width: 25%;">名称</th>
+                                        <th style="width: 30%;">メールアドレス</th>
+                                        <th style="width: 20%;">電話番号</th>
+                                        <th style="width: 15%;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -107,14 +109,14 @@
 	                  		</table>
 
                         </div>
-                        	 <div class="modal-footer">
-	            </div>
+
                     </div><!-- /.card-->
                 </div>
             </div>
 
             </div>
             <!--/.col-->
+          </div> <!-- .content -->
 		<!-- Delete1 Modal Part Start-->
 			<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
 			    <div class="modal-dialog modal-sm" role="document">
@@ -140,7 +142,7 @@
 			</div>
 		<!-- Cancel Modal Part End-->
 
-        </div> <!-- .content -->
+
 
     <!-- Master Add Modal Part Start-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
