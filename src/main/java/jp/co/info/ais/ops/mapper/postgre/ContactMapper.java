@@ -23,4 +23,9 @@ public interface ContactMapper {
 	/*contact削除*/
 	public int deleteContact(int contactcd)throws Exception;
 
+	/*リスト表示(詳細)*/
+	public List<Contact> contactAllList() throws Exception;
+
+
+
 }

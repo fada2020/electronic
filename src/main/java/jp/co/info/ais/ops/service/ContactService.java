@@ -40,4 +40,12 @@ public class ContactService {
 		logger.debug("ContactdeleteService START");
 		return contactMapper.deleteContact(contactcd);
 	}
+
+	/*contactリス表示(詳細設定)*/
+	public List<Contact> contactAllList() throws Exception {
+		logger.debug("ContactListService START");
+		return contactMapper.contactAllList();
+	}
+
+
 }

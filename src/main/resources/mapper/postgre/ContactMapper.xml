@@ -17,6 +17,14 @@
         ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd;
 	</select>
 
+	<!--リスト表示(詳細設定)  -->
+	<select id="contactAllList" resultType="jp.co.info.ais.ops.domain.Contact">
+		SELECT
+			  contactcd
+			 ,contactname
+		  FROM tbl_jikahocontactmaster
+	</select>
+
 	<!--contact削除  -->
 	<delete id="deleteContact" parameterType="int">
     	DELETE FROM tbl_jikahocontactmaster

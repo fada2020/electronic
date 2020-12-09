@@ -139,7 +139,7 @@ public class SettingController {
 				sObject.put("enable", enable);
 				sObject.put("sitecd", list.get(i).getSitecd());
 				sObject.put("jdgsw", list.get(i).getJdgsw());
-				sObject.put("endjdgsw", list.get(i).getEndjdgsw());
+				sObject.put("endjgdsw", list.get(i).getEndjgdsw());
 				sObject.put("status", list.get(i).getStatus());
 				sObject.put("starttime", list.get(i).getStarttime());
 				sObject.put("sitename", list.get(i).getSitename());
@@ -333,9 +333,9 @@ public class SettingController {
 
 		        cell = row.createCell(2);//終了判定
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getEndjdgsw()!=null&&setting.getEndjdgsw().equals(TEKIYO)) {
+		        if(setting.getEndjgdsw()!=null&&setting.getEndjgdsw().equals(TEKIYO)) {
 		        	cell.setCellValue(TEKIYO_TXT);
-		        }else if(setting.getEndjdgsw().equals(MITEKIYO)) {
+		        }else if(setting.getEndjgdsw().equals(MITEKIYO)) {
 		        	cell.setCellValue(MITEKIYO_TXT);
 		        }
 

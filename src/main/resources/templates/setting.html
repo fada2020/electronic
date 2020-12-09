@@ -91,7 +91,7 @@
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="width:5%;text-align:center;">No</th>
                                         <th style="width:5%;" id="status">現況</th>
-                                        <th style="width:5%;" id="endjdgsw">終了判定</th>
+                                        <th style="width:5%;" id="endjgdsw">終了判定</th>
                                         <th style="width:10%;" id="starttime">使用開始日時</th>
                                         <th style="width:5%;" id="jdgsw">有効</th>
                                         <th style="width:10%;" id="customerno">お客様番号</th>
@@ -144,13 +144,13 @@
 										<h4 class="modal-title　myModalLabel" >自家補連絡設定</h4>
 									</div>
 									<div class="modal-body">
-										<label class="modalFont" id="endjdgswLabel"></label>
+										<label class="modalFont" id="endjgdswLabel"></label>
 										 <label class="modalFont">です。</label><br>
 										  <label class="modalFont" id="jdgbeforeConform"></label>
 										<label class="modalFont" id="jdgconformLabel"></label><br>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjdgswChange();">はい</button>
+										<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjgdswChange();">はい</button>
 										<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
@@ -213,7 +213,7 @@
 <input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
 <input type="hidden" id="sessionEnable" th:if="${session.enable != null}" th:value="${session.enable}">
 <input type="hidden" id="statusu">
-<input type="hidden" id="endjdgswu">
+<input type="hidden" id="endjgdsw">
 <input type="hidden" id="starttimeu">
 </form>
     </div><!-- /#right-panel -->
@@ -270,7 +270,7 @@ var myDataTables = $("#setList").DataTable({
             	}
             }},
             {targets: [2], data: function ( d ) {
-            	if(d.endjdgsw == '1') {
+            	if(d.endjgdsw == '1') {
             		return '適用中';
             	} else {
             		return '未適用';
@@ -322,7 +322,7 @@ var myDataTables = $("#setList").DataTable({
 	        }
 
 
-	        if ( data.endjdgsw == '1') {
+	        if ( data.endjgdsw == '1') {
 		          $(row).find('td:eq(2)').css('color','red');
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
@@ -377,16 +377,16 @@ $('#setList').on('click', '.updateButton', function() {
 //終了判定切替モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_end_judg', function() {
 	var customerno = $(this).closest('tr').find('td:eq(5)').text();
-	var endjdgsw = $(this).closest('tr').find('td:eq(2)').text();
+	var endjgdsw = $(this).closest('tr').find('td:eq(2)').text();
 
 	$('#customernou').val(customerno);
-	$('#endjdgswu').val(endjdgsw);
-	if(endjdgsw=='適用中'){
-		$("#endjdgswLabel").text(endjdgsw);
-		$("#endjdgswLabel").css('color','red');
+	$('#endjgdsw').val(endjgdsw);
+	if(endjgdsw=='適用中'){
+		$("#endjgdswLabel").text(endjdgsw);
+		$("#endjgdswLabel").css('color','red');
 		$("#jdgbeforeConform").text('未適用に変更しますか？');
 	}else{
-		$("#endjdgswLabel").text(endjdgsw);
+		$("#endjgdswLabel").text(endjdgsw);
 		$("#jdgbeforeConform").text('適用中');
 		$("#jdgbeforeConform").css('color','red');
 		$("#jdgconformLabel").text('に変更しますか？');
@@ -454,20 +454,18 @@ function submitId(){
 
 }
 /*終了判定を変更する*/
-function endjdgswChange(){
+function endjgdswChange(){
 	var obj = new Object();
 	var customerno = $('#customernou').val();
-	var nowendjdgsw = $('#endjdgswu').val();
-	var endjdgsw = "";
+	var nowendjgdsw = $('#endjgdsw').val();
+	var endjgdsw = "";
 
-	if(nowendjdgsw == '適用中'){
-		endjdgsw = 0;
-
+	if(nowendjgdsw == '適用中'){
+		endjgdsw = 0;
 	}else{
-		endjdgsw = 1;
+		endjgdsw = 1;
 	}
-
-	obj.endjdgsw = endjdgsw;
+	obj.endjgdsw = endjgdsw;
 	obj.customerno = customerno;
 
 	var jsonData = JSON.stringify(obj);
