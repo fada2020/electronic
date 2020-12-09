@@ -2,7 +2,7 @@ package jp.co.info.ais.ops.domain;
 
 public class Setting {
 	private int rownum;//No
-	private String shisetsuno;//お客様番号
+	private String customerno;//お客様番号
 	private String customer;//施設名
 	private int sitecd;//サイトID
 	private String jdgsw;//有効
@@ -24,12 +24,12 @@ public class Setting {
 		this.rownum = rownum;
 	}
 
-	public String getShisetsuno() {
-		return shisetsuno;
+	public String getCustomerno() {
+		return customerno;
 	}
 
-	public void setShisetsuno(String shisetsuno) {
-		this.shisetsuno = shisetsuno;
+	public void setCustomerno(String customerno) {
+		this.customerno = customerno;
 	}
 
 	public String getCustomer() {
@@ -130,7 +130,7 @@ public class Setting {
 
 	@Override
 	public String toString() {
-		return "Setting [rownum=" + rownum + ", shisetsuno=" + shisetsuno + ", customer=" + customer + ", sitecd="
+		return "Setting [rownum=" + rownum + ", customerno=" + customerno + ", customer=" + customer + ", sitecd="
 				+ sitecd + ", jdgsw=" + jdgsw + ", status=" + status + ", endjdgsw=" + endjdgsw + ", starttime="
 				+ starttime + ", sitename=" + sitename + ", upoaid=" + upoaid + ", upoaname=" + upoaname + ", upoatime="
 				+ upoatime + ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + "]";

@@ -6,7 +6,7 @@
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
 		SELECT
 			(ROW_NUMBER() OVER()) AS rownum,
-			shisetsuno,
+			customerno,
 			customer,
 			status,
 			sitecd,
@@ -16,10 +16,10 @@
 		FROM tbl_jikahorenrakusettei
 	</select>
 
-	<delete id="deleteShisetsuno" parameterType="String">
+	<delete id="deleteCustomerno" parameterType="String">
     	DELETE FROM tbl_jikahorenrakusettei
     	WHERE
-    		shisetsuno =#{shisetsuno}
+    		customerno =#{customerno}
     </delete>
 
 	<update id="updateStatus" parameterType="jp.co.info.ais.ops.domain.Setting">
@@ -40,7 +40,7 @@
 				upoaname=#{upoaname}
 			</if>
 			</set>
-		where shisetsuno= #{shisetsuno}
+		where customerno= #{customerno}
 	</update>
 
  </mapper>

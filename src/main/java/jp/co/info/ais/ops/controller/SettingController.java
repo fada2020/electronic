@@ -134,7 +134,7 @@ public class SettingController {
 			for (int i = 0; i < list.size(); i++) {
 				JSONObject sObject = new JSONObject();
 				sObject.put("rownum", list.get(i).getRownum());
-				sObject.put("shisetsuno", list.get(i).getShisetsuno());
+				sObject.put("customerno", list.get(i).getCustomerno());
 				sObject.put("customer", list.get(i).getCustomer());
 				sObject.put("enable", enable);
 				sObject.put("sitecd", list.get(i).getSitecd());
@@ -159,15 +159,15 @@ public class SettingController {
 	 */
 	@ResponseBody
 	@PostMapping("/delete")
-	public int delete(@RequestBody String shisetsuno) throws Exception {
+	public int delete(@RequestBody String customerno) throws Exception {
 
-		logger.debug("shisetsuno delete Start===========");
+		logger.debug("customerno delete Start===========");
 		/*settingリスト生成*/
 		int result = 0;
 
 		try {
 
-			result = settingService.deleteShisetsuno(shisetsuno);
+			result = settingService.deleteCustomerno(customerno);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -184,12 +184,12 @@ public class SettingController {
 	 */
 	@ResponseBody
 	@PostMapping("/update")
-	public String update(@RequestBody String shisetsuno, Model model) throws Exception {
+	public String update(@RequestBody String customerno, Model model) throws Exception {
 
-		logger.debug("shisetsuno delete Start===========");
+		logger.debug("customerno delete Start===========");
 
 		try {
-			model.addAttribute("shisetsuno", shisetsuno);
+			model.addAttribute("customerno", customerno);
 
 		} catch (Exception e) {
 			logger.error(e.getMessage());
@@ -207,7 +207,7 @@ public class SettingController {
 	@PostMapping("/updateStatus")
 	public int updateStatus(@RequestBody Setting setting) throws Exception {
 
-		logger.debug("shisetsuno delete Start===========");
+		logger.debug("customerno delete Start===========");
 		int result = 0;
 		String upoaname = "";
 		String upoaid = "";
@@ -341,7 +341,7 @@ public class SettingController {
 
 		        cell = row.createCell(3);//使用開始日時
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getStarttime()!=null){
+		        if(setting.getStarttime()!=null&&setting.getStatus().equals(SIYO)){
 		        	String str= setting.getStarttime();
 		        	time = str.replaceAll(NULL_TXT, CALENDAR_TXT);
 		        	cell.setCellValue(time);
@@ -359,8 +359,8 @@ public class SettingController {
 
 		        cell = row.createCell(5);//お客様番号
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getShisetsuno()!=null) {
-		        cell.setCellValue(setting.getShisetsuno());
+		        if(setting.getCustomerno()!=null) {
+		        cell.setCellValue(setting.getCustomerno());
 		        }else {
 		        	cell.setCellValue(NULL_TXT);
 		        }
