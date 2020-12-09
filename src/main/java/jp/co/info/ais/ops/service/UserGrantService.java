@@ -32,8 +32,10 @@ public class UserGrantService {
 		List<UserMaster> enableList = null;
 		/*ユーザーのリスト*/
 		userMasterList = usermasteroracleMapper.usermasterList();
+		System.out.println(userMasterList);
 		/*ユーザーの権限リスト*/
 		enableList = userGrantMapper.usermasterList(userMasterList);
+		System.out.println(enableList);
 		/*ユーザーのリストに権限情報を設定*/
 		if(!userMasterList.isEmpty()&&!enableList.isEmpty()) {
 			for(UserMaster user : userMasterList) {
@@ -44,6 +46,7 @@ public class UserGrantService {
 				}
 			}
 		}
+		System.out.println(userMasterList);
 		return userMasterList;
 	}
 
@@ -59,6 +62,15 @@ public class UserGrantService {
 		/*ユーザーのリスト*/
 		userMasterList = usermasteroracleMapper.getUserList();
 		return userMasterList;
+	}
+
+	public int saveEnable(List<UserMaster> list)throws Exception {
+		List<String> userList = null;
+		userList = userGrantMapper.countList(list);
+
+
+
+		return userGrantMapper.saveEnable(list);
 	}
 
 

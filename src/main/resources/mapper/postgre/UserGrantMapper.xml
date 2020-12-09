@@ -21,5 +21,16 @@
        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
 	</select>
 
+	<update id ="saveEnable" parameterType= "java.util.List" >
+
+	     <foreach collection ="list" item="user" separator= ";">
+	          update tbl_usergrant
+	           <set>
+	            enable = #{user.enable}
+	           </set >
+	          WHERE loginuser = #{user.loginuser}
+	     </foreach>
+
+	</update >
 
  </mapper>

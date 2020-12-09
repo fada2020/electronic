@@ -7,16 +7,15 @@
     <meta name="description" content="OPS">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="../static/assets/css/style.css">
-	<!-- datetimepicker -->
-	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
+ 	<link rel="stylesheet" th:href="@{/static/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/selectFX/css/cs-skin-elastic.css}">
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<!-- dataTable -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
-    <link href='../static/vendors/Select-1.3.1/css/select.dataTables.css' rel='stylesheet' type='text/css'>
-    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
-
 <style>
 body{
 	overflow:hidden;
@@ -77,8 +76,8 @@ tr,td {
                         </div>
                     </div>
 					<div class="col-5" style="float: right; text-align: right; margin-top: 3px;">
-                       <button type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal"><i class="fa fa-save"></i>&nbsp; 保存</button>
-                       <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+                       <button type="button" class="btn btn-success btn-sm saveButton" ><i class="fa fa-save"></i>&nbsp; 保存</button>
+                       <button type="button" class="btn btn-danger btn-sm cancelButton" ><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 					</div>
                         </div>
 	                <div class="card-body">
@@ -101,25 +100,48 @@ tr,td {
 		  </div><!-- content mt-3 -->
     </div><!-- /.right-panel -->
     <!-- Right Panel -->
-    <script src="../static/vendors/jquery/dist/jquery.min.js"></script>
-    <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
-    <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="../static/assets/js/main.js"></script>
-	<!-- datetimepicker -->
-    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
-    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
-    <script src="../static/vendors/jquery.tooltip.js/jquery.tooltip.js"></script>
+     <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
 	<!-- dataTable -->
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
-
 <script>
 
-var selected ='<select class="enable" id="enable" name="enable"><option value=""></option>'
-				+'<option value="0">権限なし</option>'
-				+'<option value="1">参照</option>'
-				+'<option value="3">参照・変更</option>'
-			 	+'</select>';
+$('.searchButton').on('click', function() {
+	var keywordAccount = $('#useraccount').val();
+	var keywordName = $('#username').val();
+    $("#masterList tr").each(function(index) {
+        if (index != 0) {
+            $row = $(this);
+            var name = $row.find('td:eq(1)').text();
+            var account = $row.find('td:eq(3)').text();
+            if (keywordAccount == "" && keywordName == "") {
+            	$(this).show();
+     		        } else {
+     		        	$(this).hide();
+     		        	if(keywordAccount != ""){
+     		        	   $("#masterList tr:contains('"+keywordAccount+"')").show();
+     		        	}
+     		        	if(keywordName != ""){
+     	           		   $("#masterList tr:contains('"+keywordName+"')").show();
+     		        	}
+     		        }
+        }
+    });
+});
 
+$('.cancelButton').click(function(){
+	location.href="/ops/master/";
+});
+
+var html = '<select class="enableFind" name="enable"><option value="-1"></option>'
+	+'<option value="0">権限なし</option>'
+	+'<option value="1">参照</option>'
+	+'<option value="3">参照・変更</option>'
+ 	+'</select>';
 var myDataTables = $("#masterList").DataTable({
 	/*datatableのオプション*/
 		autoWidth: true,
@@ -139,52 +161,65 @@ var myDataTables = $("#masterList").DataTable({
 	   dataSrc: ''
     },
     /*順番通りカラムに設定する*/
-    columns:[
-    	{ data: "enable",
+    columnDefs:[
+    	{ className:"enable", targets:[0], data: "enable",
    		  render: function ( data, type, row, meta ) {
-   		   if (row.enable!== null) {
-   			  switch(row.enable){
-   			  case "0":
-   				  return '<select class="enable" id="enable" name="enable"><option value=""></option>'
-				+'<option value="0" selected>権限なし</option>'
-				+'<option value="1">参照</option>'
-				+'<option value="3">参照・変更</option>'
-			 	+'</select>';
-   			    break;
-   			  case "1":
-   				return '<select class="enable" id="enable" name="enable"><option value=""></option>'
-				+'<option value="0">権限なし</option>'
-				+'<option value="1" selected>参照</option>'
-				+'<option value="3">参照・変更</option>'
-			 	+'</select>';
-   			    break;
-   			  case "3":
-   				return '<select class="enable" id="enable" name="enable"><option value=""></option>'
-				+'<option value="0">権限なし</option>'
-				+'<option value="1">参照</option>'
-				+'<option value="3" selected>参照・変更</option>'
-			 	+'</select>';
-   			    break;
-
-   			  dedfault:
-   				return selected;
-   			    break;
-   			  }
-   			  }else{
-   			return selected;
-   		   }
+   			return html;
     }
 	},
-    	{ data: "username"},
-    	{ data: "usernamekana"},
-    	{ data: "loginuser"}
+    	{ targets:[1], data: "username"},
+    	{ targets:[2], data: "usernamekana"},
+    	{className:"loginuser", targets:[3], data: "loginuser"}
 
-    ]
+    ],
+    rowCallback: function( row, data, dataIndex ) {
+        if(data.enable=='0'){
+
+
+            $(row).find(".enableFind option:eq(1)").attr("selected", "selected");
+        }else if(data.enable=='1'){
+        	$(row).find(".enableFind option:eq(2)").attr("selected", "selected");
+
+        }else if(data.enable=='3'){
+        	$(row).find(".enableFind option:eq(3)").attr("selected", "selected");
+
+        }else{
+        	$(row).find(".enableFind option:eq(0)").attr("selected", "selected");
+    }
+    }
 });
 
 
 
-$('.searchButton').on('click', function() {
+$('.saveButton').on('click', function() {
+	var param = new Array();
+	var obj = new Object();
+	  $("#masterList tr").each(function(index) {
+	        if (index != 0) {
+	            var loginuser = $(this).closest('tr').find('td:eq(3)').text();
+	            var enable = $(this).find(".enableFind option:selected").val();
+	            if(enable=='-1'){
+	            	enable=0;
+	            }
+	            obj.enable = enable;
+	            obj.loginuser = loginuser;
+	            param.push(obj);
+	        }
+	    });
+
+	  $.ajax({
+			url: /*[[@{/saveEnable}]]*/ 'saveEnable',
+			type : "POST",
+			dataType : "json",
+			contentType : 'application/JSON',
+			data : JSON.stringify(param)
+		}).success(function(result) {
+
+				location.href = '/ops/master/';
+
+		}).error(function(xhr, textStatus, error) {
+			alert('通信失敗');
+		});
 
 
 

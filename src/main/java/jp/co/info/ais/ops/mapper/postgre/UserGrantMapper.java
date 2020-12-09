@@ -17,4 +17,8 @@ public interface UserGrantMapper {
 
 	//ユーザーリスト権限取得
 	public List<UserMaster> usermasterList(@Param("users")List<UserMaster> userMasterList)throws Exception;
+
+	int saveEnable(@Param("list")List<UserMaster> userMasterList)throws Exception;
+
+	List<String> countList(@Param("users")List<UserMaster> userMasterList)throws Exception;
 }

@@ -12,10 +12,10 @@
 	       <foreach item="setting" index="index" collection="settings" open="(" separator="," close=")">#{setting.sitecd}</foreach>
 	</select>
 
-	<delete id="deleteShisetsuno" parameterType="String">
+	<delete id="deleteCustomerno" parameterType="String">
     	DELETE FROM tbl_jikahorenrakusettei
     	WHERE
-    		shisetsuno =#{shisetsuno}
+    		customerno =#{customerno}
     </delete>
 
 	<update id="updateStatus" parameterType="jp.co.info.ais.ops.domain.Setting">
@@ -29,7 +29,7 @@
 				endjdgsw=#{endjdgsw}
 			</if>
 			</set>
-		WHERE shisetsuno= #{shisetsuno}
+		WHERE customerno= #{customerno}
 	</update>
 
 	<!-- 詳細設定用 -->
