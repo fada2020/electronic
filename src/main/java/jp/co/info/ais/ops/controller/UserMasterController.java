@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -87,6 +88,29 @@ public class UserMasterController {
 
 		//戻る値
 		return jArray;
+	}
+
+
+	/**
+	 * 新規のTODOを追加する.
+	 * @param todo 新規投稿TODO
+	 * @return 更新の反映されたTODO
+	 */
+	@ResponseBody
+	@PostMapping("/saveEnable")
+	public int saveEnable(@RequestBody List<UserMaster> list) throws Exception {
+
+		System.out.println(list);
+
+		int result = 0;
+		try {
+		result = usergrantService.saveEnable(list);
+		} catch (Exception e) {
+
+			logger.error(e.getMessage());
+		}
+		//戻る値
+		return result;
 	}
 
 }
