@@ -88,7 +88,7 @@
                 <div class="col-md-12">
                     <div class="card">
                         <div class="card-header" style="float:right;">
-                            <div class="form-group form-inline" style="float: right; padding-top: 20px;">
+                            <div class="form-group form-inline" style="float: right; margin: 0px;">
                                 <button type="button" class="btn btn-sm btn-primary" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
                                 <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
                             </div><!--/.form-group -->
@@ -109,14 +109,14 @@
 	                  		</table>
 
                         </div>
-                        	 <div class="modal-footer">
-	            </div>
+
                     </div><!-- /.card-->
                 </div>
             </div>
 
             </div>
             <!--/.col-->
+          </div> <!-- .content -->
 		<!-- Delete1 Modal Part Start-->
 			<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
 			    <div class="modal-dialog modal-sm" role="document">
@@ -142,7 +142,7 @@
 			</div>
 		<!-- Cancel Modal Part End-->
 
-        </div> <!-- .content -->
+
 
     <!-- Master Add Modal Part Start-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
