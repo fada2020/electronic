@@ -24,12 +24,12 @@
     <link href='../static/vendors/Select-1.3.1/css/select.dataTables.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <style>
-	th{
-		text-align: center;
-	}
-	td{
+th{
+	text-align: center;
+}
+td{
 	text-align: left;
-	}
+}
 </style>
 </head>
 
@@ -97,7 +97,7 @@
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【お客様番号】</div>
                                 <div class="col-8">
-                                    <input type="text" id="shisetsuno" name="shisetsuno" class="form-control input-sm"  th:value="${detailTab.shisetsuno}">
+                                    <input type="text" id="customerno" name="customerno" class="form-control input-sm"  th:value="${detailTab.customerno}">
                                 </div>
                             </div>
                             <div class="row form-group">
@@ -145,7 +145,9 @@
                                     <button type="button" id="userMOkBtn" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal" style="display:none;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                     <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
-                                <div class="col-9"><textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.intermailaddr}"></textarea></div>
+                                <div class="col-9">
+                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.intermailaddr}"></textarea>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -175,7 +177,7 @@
                                </div>
                             	<div style="width:100%;">
                             	<div class="col-3">
-                            	 </div>
+                            	</div>
                                 <div class="col-9" style="padding: 20px 30px 30px;">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
                                        <input type="text" class="form-control input-sm" id="adminmailaddress" name="adminmailaddress" style="" th:value="${detailTab.adminmailaddress}">
@@ -213,7 +215,10 @@
                                     連絡先
                                 </div>
                                 <div class="col-9">
-                                    <select class="form-control" style="width: 100%; "><option></option><option>エネットオペレーションセンター / jikaho@ennet.co.jp / 048-603-5981</option></select>
+								    <select id="startcontactno" name="startcontactno" class="form-control" style="width: 100%; ">
+								        <option value="-1"></option>
+								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.startcontactno}" th:inline="text">[[${cont.contactname}]]</option>
+								    </select>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -221,7 +226,7 @@
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 300px;">
+                                    <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm" style="width: 300px;" th:value="${detailTab.startvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
@@ -231,9 +236,9 @@
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <input type="text" id="startvoicecycl" name="startvoicecycl" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.startvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
-                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <input type="text" id="startvoicecnt" name="startvoicecnt" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.startvoicecnt}">
                                     <span style="margin-left: 10px; font-size: 14px;">回</span>
                                 </div>
                             </div>
@@ -242,7 +247,7 @@
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 100%;">
+                                    <input type="text" id="startsubject" name="startsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.startsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -250,7 +255,7 @@
                                     メール 本文
                                 </div>
                                 <div class="col-9">
-                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control"></textarea>
+                                    <textarea name="startmailtext" id="startmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.startmailtext}></textarea>
                                 </div>
                             </div>
                         </div>
@@ -264,7 +269,7 @@
                                     <textarea style="overflow:auto;" name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
                                 </div>
                                 <div class="col-6">
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
+                                    <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
@@ -420,7 +425,10 @@
                                     連絡先
                                 </div>
                                 <div class="col-9">
-                                    <select class="form-control" style="width: 100%; "><option></option><option>エネットオペレーションセンター / jikaho@ennet.co.jp / 048-603-5981</option></select>
+								    <select id="endcontactno" name="endcontactno" class="form-control" style="width: 100%; ">
+								        <option value="-1"></option>
+								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.endcontactno}" th:inline="text">[[${cont.contactname}]]</option>
+								    </select>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -428,7 +436,7 @@
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 300px;">
+                                    <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm" style="width: 300px;" th:value="${detailTab.endvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
@@ -438,9 +446,9 @@
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <input type="text" id="endvoicecycl" name="endvoicecycl" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.endvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
-                                    <input type="text" class="form-control input-sm" style="width: 100px;">
+                                    <input type="text" id="endvoicecnt" name="endvoicecnt" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.endvoicecnt}">
                                     <span style="margin-left: 10px; font-size: 14px;">回</span>
                                 </div>
                             </div>
@@ -449,7 +457,7 @@
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" class="form-control input-sm" style="width: 100%;">
+                                    <input type="text" id="endsubject" name="endsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.endsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -457,7 +465,7 @@
                                     メール 本文
                                 </div>
                                 <div class="col-9">
-                                    <textarea name="textarea-input" id="textarea-input" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control"></textarea>
+                                    <textarea name="endmailtext" id="endmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.endmailtext}></textarea>
                                 </div>
                             </div>
 
@@ -1607,7 +1615,7 @@ function viewChange(idx) {
     if(idx == '0'){
     	//参照モード
     	//Tab-1
-		$("#shisetsuno").attr("disabled",true);
+		$("#customerno").attr("disabled",true);
 		$("#customer").attr("disabled",true);
 		$("#sitename").attr("disabled",true);
 		$("#address").attr("disabled",true);
@@ -1617,13 +1625,23 @@ function viewChange(idx) {
 		$("#adminusername").attr("disabled",true);
 		$("#adminmailaddress").attr("disabled",true);
 		$("#admintel").attr("disabled",true);
-
-
+		$("#startcontactno").attr("disabled",true);
+		$("#startvoicepath").attr("disabled",true);
+		$("#startvoicecycl").attr("disabled",true);
+		$("#startvoicecnt").attr("disabled",true);
+		$("#startsubject").attr("disabled",true);
+		$("#startmailtext").attr("disabled",true);
+		$("#endcontactno").attr("disabled",true);
+		$("#endvoicepath").attr("disabled",true);
+		$("#endvoicecycl").attr("disabled",true);
+		$("#endvoicecnt").attr("disabled",true);
+		$("#endsubject").attr("disabled",true);
+		$("#endmailtext").attr("disabled",true);
     }else{
         //編集モード
     	//Tab-1
     	if($("#viewFlag").val() == "add"){
-            $("#shisetsuno").removeAttr("disabled");
+            $("#customerno").removeAttr("disabled");
     	}
         $("#customer").removeAttr("disabled");
         $("#sitename").removeAttr("disabled");
@@ -1634,15 +1652,42 @@ function viewChange(idx) {
         $("#adminusername").removeAttr("disabled");
         $("#adminmailaddress").removeAttr("disabled");
         $("#admintel").removeAttr("disabled");
+        $("#startcontactno").removeAttr("disabled");
+        $("#startvoicepath").removeAttr("disabled");
+        $("#startvoicecycl").removeAttr("disabled");
+        $("#startvoicecnt").removeAttr("disabled");
+        $("#startsubject").removeAttr("disabled");
+        $("#startmailtext").removeAttr("disabled");
+        $("#endcontactno").removeAttr("disabled");
+        $("#endvoicepath").removeAttr("disabled");
+        $("#endvoicecycl").removeAttr("disabled");
+        $("#endvoicecnt").removeAttr("disabled");
+        $("#endsubject").removeAttr("disabled");
+        $("#endmailtext").removeAttr("disabled");
+    }
+}
 
+//TODO:必須入力チェック
+function checkValue(){
 
+	$("#mainFrom").find("input[type=text]").each(function(index, item){
+        if ($(this).val().trim() == '') {
+            return false;
+        }
+    });
+    var count=$('select option:selected').val();
+    if(count == 0){
+        return false;
     }
 
+/*
+    if($("#customerno").val() == ''){
+		return false;
+	}
+ */
 
 }
 
 </script>
-
 </body>
-
 </html>

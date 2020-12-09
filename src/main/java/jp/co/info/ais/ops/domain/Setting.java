@@ -7,7 +7,7 @@ public class Setting {
 	private int sitecd;//サイトID
 	private String jdgsw;//有効
 	private String status;//現況
-	private String endjdgsw;//終了判定
+	private String endjgdsw;//終了判定
 	private String starttime;//使用開始日時
 	private String sitename;//サイトname
 	private String upoaid;//更新者ID
@@ -64,12 +64,12 @@ public class Setting {
 		this.status = status;
 	}
 
-	public String getEndjdgsw() {
-		return endjdgsw;
+	public String getEndjgdsw() {
+		return endjgdsw;
 	}
 
-	public void setEndjdgsw(String endjdgsw) {
-		this.endjdgsw = endjdgsw;
+	public void setEndjgdsw(String endjdgsw) {
+		this.endjgdsw = endjdgsw;
 	}
 
 	public String getStarttime() {
@@ -131,7 +131,7 @@ public class Setting {
 	@Override
 	public String toString() {
 		return "Setting [rownum=" + rownum + ", customerno=" + customerno + ", customer=" + customer + ", sitecd="
-				+ sitecd + ", jdgsw=" + jdgsw + ", status=" + status + ", endjdgsw=" + endjdgsw + ", starttime="
+				+ sitecd + ", jdgsw=" + jdgsw + ", status=" + status + ", endjgdsw=" + endjgdsw + ", starttime="
 				+ starttime + ", sitename=" + sitename + ", upoaid=" + upoaid + ", upoaname=" + upoaname + ", upoatime="
 				+ upoatime + ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + "]";
 	}
