@@ -41,8 +41,14 @@
 	.customerClass, .sitNameClass{
 		text-align: left;
 	}
+	td{
+	 text-align: center;
+	}
 	 th {
         text-align: center !important;
+    }
+    .modalFont{
+    	font-size:14px;
     }
 </style>
 </head>
@@ -99,8 +105,6 @@
                                 </tbody>
                             </table>
                         </div>
-
-
                     </div>
                 </div>
             </div>
@@ -116,18 +120,18 @@
 										<h4 class="modal-title" id="myModalLabel">自家補連絡設定</h4>
 									</div>
 									<div class="modal-body">
-										<label>現況：</label>
-										<label id="statusLabel"></label>
-                                        <label>です。</label>
+										<label class="modalFont">現況：</label>
+										<label class="modalFont" id="statusLabel"></label>
+                                        <label class="modalFont">です。</label>
                                         <br>
-                                        <label id="beforeConform"></label>
-										<label id="conformLabel"></label><br>
-										<label id="timeLabel"></label>
+                                        <label class="modalFont" id="beforeConform"></label>
+										<label class="modalFont" id="conformLabel"></label><br>
+										<label class="modalFont" id="timeLabel"></label>
 										<input type="text" id="view_time" disabled=true />
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-danger" id="genkyoChange" data-dismiss="modal" data-toggle="modal" data-target="#idCheck">はい</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
+										<button type="button" class="btn btn-secondary" id="genkyoChange" data-dismiss="modal" data-toggle="modal" data-target="#idCheck">はい</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
 							</div>
@@ -141,14 +145,14 @@
 										<h4 class="modal-title　myModalLabel" >自家補連絡設定</h4>
 									</div>
 									<div class="modal-body">
-										<label id="endjdgswLabel"></label>
-										 <label>です。</label><br>
-										  <label id="jdgbeforeConform"></label>
-										<label id="jdgconformLabel"></label><br>
+										<label class="modalFont" id="endjdgswLabel"></label>
+										 <label class="modalFont">です。</label><br>
+										  <label class="modalFont" id="jdgbeforeConform"></label>
+										<label class="modalFont" id="jdgconformLabel"></label><br>
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-danger" id="idButton" data-dismiss="modal" onClick="endjdgswChange();">はい</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
+										<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjdgswChange();">はい</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
 							</div>
@@ -162,14 +166,14 @@
 										<h4 class="modal-title　myModalLabel">自家補連絡設定</h4>
 									</div>
 									<div class="modal-body" style="text-align:center;">
-									<label id="conformLabel">データを保存します。よろしいですか？</label><br>
-										<label id="statusLabel">アカウント</label>
+									<label class="modalFont" id="conformLabel">データを保存します。よろしいですか？</label><br>
+										<label class="modalFont" id="statusLabel">アカウント</label>
 										<input type="text"   id="user" name="user" />
-
+									<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-danger" id="idCheckButton" data-dismiss="modal"onClick="submitId();">はい</button>
-										<button type="button" class="btn btn-default" data-dismiss="modal">いいえ</button>
+										<button type="button" class="btn btn-secondary" id="idCheckButton" onClick="submitId();">はい</button>
+										<button type="button" class="btn btn-danger cancleButton" data-dismiss="modal">いいえ</button>
 									</div>
 								</div>
 							</div>
@@ -191,8 +195,8 @@
 						                </p>
 						            </div>
 						            <div class="modal-footer">
-						                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="submitDelete();">はい</button>
-						                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+						                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="submitDelete();">はい</button>
+						                <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
 						            </div>
 						        </div>
 						    </div>
@@ -235,7 +239,7 @@ $("#excelButton").click(function (){
 	$('#flagForm').submit();
 });
 
-
+var errorMs = "アカウントが一致しません。";
 var myDataTables = $("#setList").DataTable({
 
     /*datatableのオプション*/
@@ -427,6 +431,11 @@ function padZero(num) {
     return (num < 10 ? "0" : "") + num;
 }
 
+$('.cancleButton').on('click', function() {
+	$("#errMessage").text('');
+	$("#errMessage")[0].hidden = true;
+
+});
 /*sessionidと入力したIDを比較*/
 function submitId(){
 	var user=$('#user').val();
@@ -437,9 +446,13 @@ function submitId(){
 	}
 	if(user===sessionId){
 		genkyoChange();
+		$("#errMessage").val('');
+		$("#errMessage")[0].hidden = true;
 	}else{
-		alert("IDが違います。");
+		$("#errMessage").text(errorMs);
+		$("#errMessage")[0].hidden = false;
 	}
+
 }
 /*終了判定を変更する*/
 function endjdgswChange(){
@@ -478,6 +491,7 @@ function endjdgswChange(){
 }
 /*現況を変更する*/
 function genkyoChange(){
+
 	var obj = new Object();
 	var genkyostatus = $('#statusu').val();
 	var shisetsuno = $('#shisetsunou').val();
