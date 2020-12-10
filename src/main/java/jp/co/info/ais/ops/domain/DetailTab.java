@@ -12,7 +12,7 @@ public class DetailTab {
 	private String sitename;         //サイトname
 	private String jdgsw;            //有効(システム使用判定/0:使用しない 1:使用する)
 	private String status;           //現況/0:未使用 1:使用中
-	private String endjgdsw;         //終了判定/0:終了判定しない 1:終了判定する
+	private String endjdgsw;         //終了判定/0:終了判定しない 1:終了判定する
 	private String starttime;        //自家補使用開始日時/YYYYMMDDHHMMSS
 	private String upoaid;           //最終更新者ID/ログインユーザー（アカウント）
 	private String upoaname;         //最終更新者名
@@ -76,11 +76,11 @@ public class DetailTab {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getEndjgdsw() {
-		return endjgdsw;
+	public String getEndjdgsw() {
+		return endjdgsw;
 	}
-	public void setEndjgdsw(String endjgdsw) {
-		this.endjgdsw = endjgdsw;
+	public void setEndjdgsw(String endjdgsw) {
+		this.endjdgsw = endjdgsw;
 	}
 	public String getStarttime() {
 		return starttime;
@@ -216,7 +216,7 @@ public class DetailTab {
 				", sitecd="+ sitecd +
 				", jdgsw="+ jdgsw +
 				", status="+ status +
-				", endjgdsw="+ endjgdsw +
+				", endjdgsw="+ endjdgsw +
 				", starttime="+ starttime +
 				", upoaid="+ upoaid +
 				", upoaname="+ upoaname +

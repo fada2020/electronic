@@ -11,7 +11,7 @@
 			status,
 			sitecd,
 			jdgsw,
-			endjgdsw,
+			endjdgsw,
 			starttime
 		FROM tbl_jikahorenrakusettei
 	</select>
@@ -33,8 +33,8 @@
 				upoaname=#{upoaname},
 			</if>
 
-			<if test="endjgdsw != null and !endjgdsw.equals('')">
-				endjgdsw=#{endjgdsw},
+			<if test="endjdgsw != null and !endjdgsw.equals('')">
+				endjdgsw=#{endjdgsw},
 				upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS'),
 				upoaid=#{upoaid},
 				upoaname=#{upoaname}

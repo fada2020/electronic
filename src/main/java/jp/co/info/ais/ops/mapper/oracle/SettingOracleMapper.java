@@ -15,7 +15,7 @@ public interface SettingOracleMapper {
 
 	public List<Setting> settingList(@Param("settings") List<Setting> settingList) throws Exception;
 
-	public int deleteShisetsuno(String shisetsuno) throws Exception;
+	public int deleteCustomer(String customerno) throws Exception;
 
 	public int updateStatus(Setting setting)throws Exception;
 

@@ -9,7 +9,7 @@ CREATE TABLE tbl_jikahorenrakusettei
    sitecd character varying(5) NOT NULL,
    jdgsw character varying(1) NOT NULL DEFAULT '0',
    status character varying(1) NOT NULL DEFAULT '0',
-   endjgdsw character varying(1) NOT NULL DEFAULT '0',
+   endjdgsw character varying(1) NOT NULL DEFAULT '0',
    starttime timestamp without time zone,
    upoaid character varying(15),
    upoaname character varying(15),
@@ -57,7 +57,7 @@ COMMENT ON COLUMN tbl_jikahorenrakusettei.jdgsw
 COMMENT ON COLUMN tbl_jikahorenrakusettei.status
     IS '現況/0:未使用 1:使用中';
 
-COMMENT ON COLUMN tbl_jikahorenrakusettei.endjgdsw
+COMMENT ON COLUMN tbl_jikahorenrakusettei.endjdgsw
     IS '終了判定/0:終了判定しない 1:終了判定する';
 
 COMMENT ON COLUMN tbl_jikahorenrakusettei.starttime
