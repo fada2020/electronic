@@ -32,10 +32,8 @@ public class UserGrantService {
 		List<UserMaster> enableList = null;
 		/*ユーザーのリスト*/
 		userMasterList = usermasteroracleMapper.usermasterList();
-		System.out.println(userMasterList);
 		/*ユーザーの権限リスト*/
 		enableList = userGrantMapper.usermasterList(userMasterList);
-		System.out.println(enableList);
 		/*ユーザーのリストに権限情報を設定*/
 		if(!userMasterList.isEmpty()&&!enableList.isEmpty()) {
 			for(UserMaster user : userMasterList) {
@@ -46,7 +44,6 @@ public class UserGrantService {
 				}
 			}
 		}
-		System.out.println(userMasterList);
 		return userMasterList;
 	}
 
@@ -64,13 +61,28 @@ public class UserGrantService {
 		return userMasterList;
 	}
 
-	public int saveEnable(List<UserMaster> list)throws Exception {
-		List<String> userList = null;
-		userList = userGrantMapper.countList(list);
+	public int saveEnable(UserMaster master)throws Exception {
+
+		return userGrantMapper.saveEnable(master);
+
+	}
+
+	public List<String> enableList() throws Exception {
+		// TODO 自動生成されたメソッド・スタブ
+		return userGrantMapper.enableList();
+	}
+
+	public int updateEnable(UserMaster master)throws Exception {
+
+		return userGrantMapper.updateEnable(master);
 
 
+	}
 
-		return userGrantMapper.saveEnable(list);
+	public int allSaveEnable(List<UserMaster> list) throws Exception {
+
+		// TODO 自動生成されたメソッド・スタブ
+		return userGrantMapper.allSaveEnable(list);
 	}
 
 

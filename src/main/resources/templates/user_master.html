@@ -76,7 +76,8 @@ tr,td {
                         </div>
                     </div>
 					<div class="col-5" style="float: right; text-align: right; margin-top: 3px;">
-                       <button type="button" class="btn btn-success btn-sm saveButton" ><i class="fa fa-save"></i>&nbsp; 保存</button>
+                       <button type="button" class="btn btn-success btn-sm saveButton" th:if="${session.enable == '3'}"  ><i class="fa fa-save"></i>&nbsp; 保存</button>
+ 					   <button type="button" class="btn btn-secondary btn-sm" th:if="${session.enable != '3'}"  ><i class="fa fa-save"></i>&nbsp; 保存</button>
                        <button type="button" class="btn btn-danger btn-sm cancelButton" ><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 					</div>
                         </div>
@@ -100,6 +101,11 @@ tr,td {
 		  </div><!-- content mt-3 -->
     </div><!-- /.right-panel -->
     <!-- Right Panel -->
+    <form action="">
+<input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
+<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
+<input type="hidden" id="sessionEnable" th:if="${session.enable != null}" th:value="${session.enable}">
+</form>
      <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
     <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
     <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
@@ -192,68 +198,42 @@ var myDataTables = $("#masterList").DataTable({
 
 
 $('.saveButton').on('click', function() {
+
 	var param = new Array();
-	var obj = new Object();
-	  $("#masterList tr").each(function(index) {
-	        if (index != 0) {
-	            var loginuser = $(this).closest('tr').find('td:eq(3)').text();
-	            var enable = $(this).find(".enableFind option:selected").val();
-	            if(enable=='-1'){
-	            	enable=0;
-	            }
-	            obj.enable = enable;
-	            obj.loginuser = loginuser;
-	            param.push(obj);
-	        }
-	    });
+   $("#masterList tr").each(function(index) {
+    if (index != 0) {
+    	var master = new Object();
+        var loginuser = $(this).closest('tr').find('td:eq(3)').text();
+        var enable = $(this).find(".enableFind option:selected").val();
 
-	  $.ajax({
-			url: /*[[@{/saveEnable}]]*/ 'saveEnable',
-			type : "POST",
-			dataType : "json",
-			contentType : 'application/JSON',
-			data : JSON.stringify(param)
-		}).success(function(result) {
+        if(enable == -1){
+        	enable = 0;
+        }
 
-				location.href = '/ops/master/';
+        master.enable = enable;
+        master.loginuser = loginuser;
+       	param.push(master);
+   }
+    });
 
-		}).error(function(xhr, textStatus, error) {
-			alert('通信失敗');
-		});
-
-
-
+  $.ajax({
+		url: /*[[@{/saveEnable}]]*/ 'saveEnable',
+		type : "POST",
+		dataType : "json",
+		contentType : 'application/JSON',
+		data : JSON.stringify(param)
+	}).success(function(result) {
+		if(result>0){
+			location.href = '/ops/master/';
+		}else{
+			alert('保存出来ません。');
+		}
+	}).error(function(xhr, textStatus, error) {
+		alert('通信失敗');
+	});
 });
 
 </script>
 
-<script type="text/javascript">
-	// 入力文字制限
-function chkword(obj, maxByte) {
-	var strValue = obj.value;
-	var strLen = strValue.length;
-	var totalByte = 0;
-	var len = 0;
-	var oneChar = "";
-	var str2 = "";
-
-	for(var i = 0; i < strLen; i++){
-		oneChar = strValue.charAt(i);
-		if(escape(oneChar).length > 16){
-			totalByte += 2;
-		} else {
-			totalByte++;
-		}
-	}
-
-	if(totalByte > maxByte){
-		alert(maxByte + "字たけ入力できます。");
-		str2 = strValue.substr(0, len);
-		obj.value = str2;
-		chkword(obj, 4000);
-	}
-}
-
-</script>
 </body>
 </html>

@@ -8,7 +8,7 @@
 		SELECT
 			enable
 		FROM tbl_usergrant
-		 WHERE loginuser = #{userid}
+		WHERE loginuser = #{userid}
 	</select>
 
 	<!--リスト表示  -->
@@ -17,20 +17,55 @@
 			loginuser,
 			enable
 		FROM tbl_usergrant
-		 WHERE loginuser in
+		WHERE loginuser in
        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
 	</select>
 
-	<update id ="saveEnable" parameterType= "java.util.List" >
+	<!--権限保存  -->
+	<insert id ="saveEnable" parameterType= "jp.co.info.ais.ops.domain.UserMaster" >
+			insert into tbl_usergrant
+		    (
+			    loginuser,
+			    enable
+		    )
+		    VALUES
+		    (
+			    #{loginuser},
+			    #{enable}
+		    )
+	</insert >
 
-	     <foreach collection ="list" item="user" separator= ";">
-	          update tbl_usergrant
-	           <set>
-	            enable = #{user.enable}
-	           </set >
-	          WHERE loginuser = #{user.loginuser}
-	     </foreach>
+	<!--権限変更  -->
+	<update id="updateEnable" parameterType= "jp.co.info.ais.ops.domain.UserMaster" >
+    	update tbl_usergrant
+    	set enable=#{enable}
+    	WHERE loginuser = #{loginuser}
+    </update>
 
-	</update >
+<!--リスト表示  -->
+	<select id="enableList" resultType="String">
+		SELECT
+			loginuser
+		FROM tbl_usergrant
+	</select>
 
+	<!--権限リスト保存  -->
+	<insert id ="allSaveEnable" parameterType= "java.util.List" >
+			insert into tbl_usergrant
+		    (
+			    loginuser,
+			    enable
+		    )
+		    VALUES
+		<foreach item="user" index="index" collection="users" separator=",">
+		    (
+			    #{user.loginuser},
+			    #{user.enable}
+		    )
+		</foreach>
+	</insert >
  </mapper>
+
+
+
+

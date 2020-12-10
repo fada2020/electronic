@@ -100,11 +100,25 @@ public class UserMasterController {
 	@PostMapping("/saveEnable")
 	public int saveEnable(@RequestBody List<UserMaster> list) throws Exception {
 
-		System.out.println(list);
-
+		List<String> map = null;
 		int result = 0;
 		try {
-		result = usergrantService.saveEnable(list);
+			map = usergrantService.enableList();
+			if(!map.isEmpty()) {
+				for(UserMaster m : list) {
+					if(map.indexOf(m.getLoginuser())>-1) {
+					/*update*/
+					result += usergrantService.updateEnable(m);
+					}else {
+					/*save*/
+					result += usergrantService.saveEnable(m);
+					}
+
+				}
+			}else {
+				result = usergrantService.allSaveEnable(list);
+			}
+
 		} catch (Exception e) {
 
 			logger.error(e.getMessage());
