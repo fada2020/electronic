@@ -17,13 +17,13 @@ public class DetailTab {
 	private String upoaid;           //最終更新者ID/ログインユーザー（アカウント）
 	private String upoaname;         //最終更新者名
 	private String upoatime;         //最終更新日時
-	private String startcontactno;   //開始連絡先CD
+	private String startcontactcd;   //開始連絡先CD
 	private String startvoicepath;   //開始電話連絡音声ファイル/音声ファイルの保存パス(ファイル名)
 	private int startvoicecycl;      //開始電話連絡リトライ間隔
 	private int startvoicecnt;       //開始電話連絡リトライ回数
 	private String startsubject;     //開始メールタイトル
 	private String startmailtext;    //開始メール本文
-	private String endcontactno;     //終了連絡先CD
+	private String endcontactcd;     //終了連絡先CD
 	private String endvoicepath;     //終了電話連絡音声ファイル/音声ファイルの保存パス(ファイル名)
 	private int endvoicecycl;        //終了電話連絡リトライ間隔
 	private int endvoicecnt;         //終了電話連絡リトライ回数
@@ -106,11 +106,11 @@ public class DetailTab {
 	public void setUpoatime(String upoatime) {
 		this.upoatime = upoatime;
 	}
-	public String getStartcontactno() {
-		return startcontactno;
+	public String getStartcontactcd() {
+		return startcontactcd;
 	}
-	public void setStartcontactno(String startcontactno) {
-		this.startcontactno = startcontactno;
+	public void setStartcontactcd(String startcontactcd) {
+		this.startcontactcd = startcontactcd;
 	}
 	public String getStartvoicepath() {
 		return startvoicepath;
@@ -142,11 +142,11 @@ public class DetailTab {
 	public void setStartmailtext(String startmailtext) {
 		this.startmailtext = startmailtext;
 	}
-	public String getEndcontactno() {
-		return endcontactno;
+	public String getEndcontactcd() {
+		return endcontactcd;
 	}
-	public void setEndcontactno(String endcontactno) {
-		this.endcontactno = endcontactno;
+	public void setEndcontactcd(String endcontactcd) {
+		this.endcontactcd = endcontactcd;
 	}
 	public String getEndvoicepath() {
 		return endvoicepath;
@@ -221,13 +221,13 @@ public class DetailTab {
 				", upoaid="+ upoaid +
 				", upoaname="+ upoaname +
 				", upoatime="+ upoatime +
-				", startcontactno="+ startcontactno +
+				", startcontactcd="+ startcontactcd +
 				", startvoicepath="+ startvoicepath +
 				", startvoicecycl="+ startvoicecycl +
 				", startvoicecnt="+ startvoicecnt +
 				", startsubject=" + startsubject +
 				", startmailtext=" + startmailtext +
-				", endcontactno=" + endcontactno +
+				", endcontactcd=" + endcontactcd +
 				", endvoicepath=" + endvoicepath +
 				", endvoicecycl=" + endvoicecycl +
 				", endvoicecnt=" + endvoicecnt +

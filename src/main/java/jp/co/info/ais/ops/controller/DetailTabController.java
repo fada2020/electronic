@@ -126,7 +126,7 @@ public class DetailTabController {
 			detailTab.setAdminmailaddress(request.getParameter("adminmailaddress"));
 
 			//TAB-2
-			detailTab.setStartcontactno(request.getParameter("startcontactno"));
+			detailTab.setStartcontactcd(request.getParameter("startcontactcd"));
 			detailTab.setStartvoicepath(request.getParameter("startvoicepath"));
 			String startvoicecycl = request.getParameter("startvoicecycl");
 			if(!startvoicecycl.isEmpty()) {
@@ -140,7 +140,7 @@ public class DetailTabController {
 			detailTab.setStartmailtext(request.getParameter("startmailtext"));
 
 			//TAB-3
-			detailTab.setEndcontactno(request.getParameter("endcontactno"));
+			detailTab.setEndcontactcd(request.getParameter("endcontactcd"));
 			detailTab.setEndvoicepath(request.getParameter("endvoicepath"));
 			String endvoicecycl = request.getParameter("endvoicecycl");
 			if(!endvoicecycl.isEmpty()) {

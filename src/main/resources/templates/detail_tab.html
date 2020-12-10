@@ -215,9 +215,9 @@ td{
                                     連絡先
                                 </div>
                                 <div class="col-9">
-								    <select id="startcontactno" name="startcontactno" class="form-control" style="width: 100%; ">
+								    <select id="startcontactcd" name="startcontactcd" class="form-control" style="width: 100%; ">
 								        <option value="-1"></option>
-								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.startcontactno}" th:inline="text">[[${cont.contactname}]]</option>
+								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.startcontactcd}" th:inline="text">[[${cont.contactname}]]</option>
 								    </select>
                                 </div>
                             </div>
@@ -425,9 +425,9 @@ td{
                                     連絡先
                                 </div>
                                 <div class="col-9">
-								    <select id="endcontactno" name="endcontactno" class="form-control" style="width: 100%; ">
+								    <select id="endcontactcd" name="endcontactcd" class="form-control" style="width: 100%; ">
 								        <option value="-1"></option>
-								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.endcontactno}" th:inline="text">[[${cont.contactname}]]</option>
+								        <option th:each="cont : ${contList}" th:value="${cont.contactcd}" th:selected="${cont.contactcd == detailTab.endcontactcd}" th:inline="text">[[${cont.contactname}]]</option>
 								    </select>
                                 </div>
                             </div>
@@ -1625,13 +1625,13 @@ function viewChange(idx) {
 		$("#adminusername").attr("disabled",true);
 		$("#adminmailaddress").attr("disabled",true);
 		$("#admintel").attr("disabled",true);
-		$("#startcontactno").attr("disabled",true);
+		$("#startcontactcd").attr("disabled",true);
 		$("#startvoicepath").attr("disabled",true);
 		$("#startvoicecycl").attr("disabled",true);
 		$("#startvoicecnt").attr("disabled",true);
 		$("#startsubject").attr("disabled",true);
 		$("#startmailtext").attr("disabled",true);
-		$("#endcontactno").attr("disabled",true);
+		$("#endcontactcd").attr("disabled",true);
 		$("#endvoicepath").attr("disabled",true);
 		$("#endvoicecycl").attr("disabled",true);
 		$("#endvoicecnt").attr("disabled",true);
@@ -1652,13 +1652,13 @@ function viewChange(idx) {
         $("#adminusername").removeAttr("disabled");
         $("#adminmailaddress").removeAttr("disabled");
         $("#admintel").removeAttr("disabled");
-        $("#startcontactno").removeAttr("disabled");
+        $("#startcontactcd").removeAttr("disabled");
         $("#startvoicepath").removeAttr("disabled");
         $("#startvoicecycl").removeAttr("disabled");
         $("#startvoicecnt").removeAttr("disabled");
         $("#startsubject").removeAttr("disabled");
         $("#startmailtext").removeAttr("disabled");
-        $("#endcontactno").removeAttr("disabled");
+        $("#endcontactcd").removeAttr("disabled");
         $("#endvoicepath").removeAttr("disabled");
         $("#endvoicecycl").removeAttr("disabled");
         $("#endvoicecnt").removeAttr("disabled");
