@@ -9,11 +9,8 @@ CREATE TABLE tbl_jikahoeventid
    eventname character varying(50) NOT NULL,
    CONSTRAINT tbl_jikahoeventid_pkey PRIMARY KEY (eventid)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahoeventid
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahoeventid
     IS '自家補連絡イベントID';

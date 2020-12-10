@@ -35,6 +35,8 @@ public class DetailTabController {
 	private static final Logger logger = LogManager.getLogger(DetailTabController.class);
 	private static final String INSERT_FLAG = "add";
 	private static final String UPDATE_FLAG = "edit";
+	private static final String ERROR_MSG = "＊登録済みのお客様番号です。 ご確認ください。";
+	private static final String SYS_ERROR_MSG = "＊登録・編集処理中にエラーに障害が発生しました。";
 
 	@Autowired
 	DetailTabController detailTabController;
@@ -64,13 +66,11 @@ public class DetailTabController {
 			DetailTab detailTab = new DetailTab();
 			if(!customerno.isEmpty()) {
 				//編集
-				System.out.println("Update START");
 				detailTab = detailTabService.selectInfo(customerno);
 				model.addAttribute("viewFlag", UPDATE_FLAG);
 				model.addAttribute("detailTab", detailTab);
 			}else {
 			    //新規
-				System.out.println("Insert START");
 				model.addAttribute("viewFlag", INSERT_FLAG);
 				model.addAttribute("detailTab", detailTab);
 			}
@@ -87,13 +87,13 @@ public class DetailTabController {
 			List<Contact> contactList = new ArrayList<Contact>();
 			contactList = contactService.contactAllList();
 			model.addAttribute("contList", contactList);
-
+			//エラーメッセージ出力のため
+			model.addAttribute("errMsg", null);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		//戻り値
 		return "detail_tab";
-
 	}
 
 	/**
@@ -102,6 +102,7 @@ public class DetailTabController {
 	@RequestMapping(value = "/insert", method = { RequestMethod.POST })
 	public String insert(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		boolean ref = true;
 		try {
 			DetailTab detailTab = new DetailTab();
 			int result=0;
@@ -109,7 +110,8 @@ public class DetailTabController {
 			//パラメータ取得
 			//TAB-1
 			String viewFlag = request.getParameter("viewFlag");
-			detailTab.setCustomerno(request.getParameter("customerno"));
+			String customerNo = request.getParameter("customerno");
+			detailTab.setCustomerno(customerNo);
 			detailTab.setSitename(request.getParameter("sitename"));
 			String sitecd = request.getParameter("sitecd");
 			if(!sitecd.isEmpty()) {
@@ -124,6 +126,7 @@ public class DetailTabController {
 			detailTab.setAdminuserid(request.getParameter("adminuserid"));
 			detailTab.setAdminusername(request.getParameter("adminusername"));
 			detailTab.setAdminmailaddress(request.getParameter("adminmailaddress"));
+			detailTab.setAdminphoneno(request.getParameter("adminphoneno"));
 
 			//TAB-2
 			detailTab.setStartcontactcd(request.getParameter("startcontactcd"));
@@ -155,20 +158,57 @@ public class DetailTabController {
 
 			if(viewFlag.equals(INSERT_FLAG)) {
 				logger.debug("詳細設定-登録 開始 ===========");
-				//TODO：お客様番号の重複チェックが必要か？
-				//登録処理を呼ぶ
-				result = detailTabService.insertDetail(detailTab);
+				if (detailTabService.checkCustomerNo(customerNo) < 1) {
+					ref = false;
+					//エラーメッセージ出力のため
+					model.addAttribute("errMsg", ERROR_MSG);
+				}else {
+					//登録処理を呼ぶ
+					result = detailTabService.insertDetail(detailTab);
+					//エラーメッセージ出力のため
+				    if(result < 1) {
+				    	ref = false;
+						model.addAttribute("errMsg", SYS_ERROR_MSG);
+				    }else {
+						model.addAttribute("errMsg", null);
+				    }
+				}
 			}else {
 				logger.debug("詳細設定-編集 開始 ===========");
 				//編集処理を呼ぶ
 				result = detailTabService.updateDetail(detailTab);
+			    if(result < 1) {
+			    	ref = false;
+					model.addAttribute("errMsg", SYS_ERROR_MSG);
+			    }else {
+					model.addAttribute("errMsg", null);
+			    }
 			}
-
+			//エラー発生時、処理
+			if(!ref) {
+				model.addAttribute("detailTab", detailTab);
+				//サイト選択リスト
+				List<Site> siteList = new ArrayList<Site>();
+				siteList = settingService.getSiteList();
+				model.addAttribute("siteList", siteList);
+				//ユーザー選択リスト
+				List<UserMaster> userList = new ArrayList<UserMaster>();
+				userList = userGrantService.getUserList();
+				model.addAttribute("userList", userList);
+				//連絡先選択リスト
+				List<Contact> contactList = new ArrayList<Contact>();
+				contactList = contactService.contactAllList();
+				model.addAttribute("contList", contactList);
+			}
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
 		//戻る値
-		return "redirect:/setting/";
+		if(ref) {
+			return "redirect:/setting/";
+		}else {
+			return "detail_tab";
+		}
 	}
 
 }

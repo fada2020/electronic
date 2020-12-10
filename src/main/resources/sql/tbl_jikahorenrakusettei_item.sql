@@ -17,11 +17,8 @@ CREATE TABLE tbl_jikahorenrakusettei_item
    value real,
    CONSTRAINT tbl_jikahorenrakusettei_item_pkey PRIMARY KEY (customerno,type,position)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahorenrakusettei_item
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahorenrakusettei_item
     IS '自家補連絡設定（開始・終了条件）';

@@ -18,6 +18,7 @@
 			  loginuser
 			  ,username
 			  ,mailaddr
+			  ,mobiletel
 		 FROM sys_user
 	</select>
 

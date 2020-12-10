@@ -6,8 +6,9 @@ public class UserMaster {
 	private String username;//ユーザー名称
 	private String usernamekana;//ユーザーカナ
     //DetailTab追加
-	private String mailaddr; //MAILADDR
+	private String mailaddr;   //MAILADDR
 	private String pcmailaddr; //PCMAILADDR
+	private String mobiletel;  //MOBILETEL
 
 
 	public String getEnable() {
@@ -46,6 +47,12 @@ public class UserMaster {
 	public void setPcmailaddr(String pcmailaddr) {
 		this.pcmailaddr = pcmailaddr;
 	}
+	public String getMobiletel() {
+		return mobiletel;
+	}
+	public void setMobiletel(String mobiletel) {
+		this.mobiletel = mobiletel;
+	}
 
 	@Override
 	public String toString() {
@@ -55,6 +62,7 @@ public class UserMaster {
 				", usernamekana="+ usernamekana +
 				", mailaddr="+ mailaddr +
 				", pcmailaddr="+ pcmailaddr +
+				", mobiletel="+ mobiletel +
 				"]";
 	}
 

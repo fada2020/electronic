@@ -8,11 +8,8 @@ CREATE TABLE tbl_usergrant
    enable character varying(1) NOT NULL DEFAULT '0',
    CONSTRAINT tbl_usergrant_pkey PRIMARY KEY (loginuser)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_usergrant
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_usergrant
     IS 'ユーザー権限';

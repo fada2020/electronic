@@ -10,11 +10,8 @@ CREATE TABLE tbl_jikahocontactmaster
    contactmailaddress text,
    CONSTRAINT tbl_jikahocontactmaster_pkey PRIMARY KEY (contactcd)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahocontactmaster
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahocontactmaster
     IS '自家補連絡先マスター';

@@ -35,6 +35,16 @@ public class DetailTabService {
 		return detailTabMapper.updateDetail(detailTab);
 	}
 
+	/**
+	 * CustomerNo存在チェック
+	 * @param id
+	 * @return int id
+	 * @throws Exception
+	 */
+	public int checkCustomerNo(String id) throws Exception {
+		return detailTabMapper.checkCustomerNo(id);
+	}
+
 
 
 

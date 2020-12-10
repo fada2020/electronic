@@ -14,11 +14,8 @@ CREATE TABLE tbl_jikahomaillist
    mailtext text,
    CONSTRAINT tbl_jikahomaillist_pkey PRIMARY KEY (mailid,mailkind)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahomaillist
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahomaillist
     IS '自家補メールリスト';

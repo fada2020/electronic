@@ -11,11 +11,8 @@ CREATE TABLE tbl_jikahorenrakusettei_sample
    mailtext text,
    CONSTRAINT tbl_jikahorenrakusettei_sample_pkey PRIMARY KEY (samplekind)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahorenrakusettei_sample
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahorenrakusettei_sample
     IS '自家補連絡設定(サンプル)';

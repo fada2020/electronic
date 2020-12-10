@@ -7,6 +7,7 @@ CREATE TABLE tbl_jikahorenrakusettei
    customercd character varying(10) NOT NULL,
    customer character varying(48) NOT NULL,
    sitecd character varying(5) NOT NULL,
+   sitename character varying(60) NOT NULL,
    jdgsw character varying(1) NOT NULL DEFAULT '0',
    status character varying(1) NOT NULL DEFAULT '0',
    endjdgsw character varying(1) NOT NULL DEFAULT '0',
@@ -31,13 +32,12 @@ CREATE TABLE tbl_jikahorenrakusettei
    adminuserid character varying(15),
    adminusername character varying(15),
    adminmailaddress text,
+   address text,
+   adminphoneno character varying(20),
    CONSTRAINT tbl_jikahorenrakusettei_pkey PRIMARY KEY (customerno)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahorenrakusettei
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahorenrakusettei
     IS '自家補連絡設定';
@@ -123,5 +123,10 @@ COMMENT ON COLUMN tbl_jikahorenrakusettei.adminusername
 COMMENT ON COLUMN tbl_jikahorenrakusettei.adminmailaddress
     IS '管理者メールアドレス';
 
+COMMENT ON COLUMN tbl_jikahorenrakusettei.address
+    IS '所在地';
+
+COMMENT ON COLUMN tbl_jikahorenrakusettei.adminphoneno
+    IS '管理者電話番号';
 
 
