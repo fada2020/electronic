@@ -76,7 +76,10 @@ public class SettingController {
 		logger.debug("設定一覧画面===開始");
 		try {
 			logger.debug("setting List Start");
-
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/HH:mm");
+		    Date nowdate = new Date();
+		    String dateString = formatter.format(nowdate);
+		    model.addAttribute("date",dateString);
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
@@ -119,7 +122,7 @@ public class SettingController {
 	 */
 	@ResponseBody
 	@PostMapping("/getListAuto")
-	public JSONArray ajaxGetList() throws JsonMappingException, IOException {
+	public JSONArray ajaxGetList(Model model) throws JsonMappingException, IOException {
 		/*sessionのenable取得*/
 		String enable = (String)session.getAttribute("enable");
 		logger.debug("ajaxGetList Start===========");
