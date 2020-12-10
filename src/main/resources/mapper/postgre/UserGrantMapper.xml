@@ -8,7 +8,7 @@
 		SELECT
 			enable
 		FROM tbl_usergrant
-		 WHERE loginuser = #{userid}
+		WHERE loginuser = #{userid}
 	</select>
 
 	<!--リスト表示  -->
@@ -17,20 +17,32 @@
 			loginuser,
 			enable
 		FROM tbl_usergrant
-		 WHERE loginuser in
+		WHERE loginuser in
        <foreach item="user" index="index" collection="users" open="(" separator="," close=")">#{user.loginuser}</foreach>
 	</select>
 
-	<update id ="saveEnable" parameterType= "java.util.List" >
+	<!--権限保存  -->
+	<insert id ="saveEnable" parameterType= "java.util.List" >
+			insert into tbl_usergrant
+		    (
+			    loginuser,
+			    enable
+		    )
+		    VALUES
+		<foreach item="user" index="index" collection="users" separator=",">
+		    (
+			    #{user.loginuser},
+			    #{user.enable}
+		    )
+		</foreach>
+	</insert >
 
-	     <foreach collection ="list" item="user" separator= ";">
-	          update tbl_usergrant
-	           <set>
-	            enable = #{user.enable}
-	           </set >
-	          WHERE loginuser = #{user.loginuser}
-	     </foreach>
-
-	</update >
-
+	<!--権限削除  -->
+	<delete id="deleteUserMaster" parameterType= "java.util.List">
+    	DELETE FROM tbl_usergrant
+    	WHERE loginuser in
+    	<foreach item="user" index="index" collection="users" open="(" separator="," close=")">
+    		#{user.loginuser}
+  		</foreach>
+    </delete>
  </mapper>

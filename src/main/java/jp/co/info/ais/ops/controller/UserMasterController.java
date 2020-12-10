@@ -100,8 +100,6 @@ public class UserMasterController {
 	@PostMapping("/saveEnable")
 	public int saveEnable(@RequestBody List<UserMaster> list) throws Exception {
 
-		System.out.println(list);
-
 		int result = 0;
 		try {
 		result = usergrantService.saveEnable(list);
