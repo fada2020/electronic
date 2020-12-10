@@ -205,9 +205,11 @@ $('.saveButton').on('click', function() {
     	var master = new Object();
         var loginuser = $(this).closest('tr').find('td:eq(3)').text();
         var enable = $(this).find(".enableFind option:selected").val();
+
         if(enable == -1){
         	enable = 0;
         }
+
         master.enable = enable;
         master.loginuser = loginuser;
        	param.push(master);

@@ -18,7 +18,13 @@ public interface UserGrantMapper {
 	//ユーザーリスト権限取得
 	public List<UserMaster> usermasterList(@Param("users")List<UserMaster> userMasterList)throws Exception;
 
-	int saveEnable(@Param("users")List<UserMaster> userMasterList)throws Exception;
 
-	void deleteUserMaster(@Param("users")List<UserMaster> list)throws Exception;
+	List<String> enableList()throws Exception;
+
+
+	int saveEnable(UserMaster master)throws Exception;
+
+
+	int updateEnable(UserMaster master)throws Exception;
+
 }

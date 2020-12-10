@@ -99,10 +99,31 @@ public class UserMasterController {
 	@ResponseBody
 	@PostMapping("/saveEnable")
 	public int saveEnable(@RequestBody List<UserMaster> list) throws Exception {
+		/*
+		 * check map *(grantuser)
+		 *
+		 *
+		 * */
+		List<String> map = null;
+		map = usergrantService.enableList();
 
 		int result = 0;
 		try {
-		result = usergrantService.saveEnable(list);
+			if(!map.isEmpty()) {
+				for(UserMaster m : list) {
+					if(map.indexOf(m.getLoginuser())>-1) {
+						/*update*/
+					result = usergrantService.updateEnable(m);
+					}else {
+						/*save*/
+					result = usergrantService.saveEnable(m);
+					}
+					if(result==0) {
+						break;
+					}
+				}
+			}
+
 		} catch (Exception e) {
 
 			logger.error(e.getMessage());

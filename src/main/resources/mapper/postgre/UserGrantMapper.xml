@@ -22,27 +22,30 @@
 	</select>
 
 	<!--権限保存  -->
-	<insert id ="saveEnable" parameterType= "java.util.List" >
+	<insert id ="saveEnable" parameterType= "jp.co.info.ais.ops.domain.UserMaster" >
 			insert into tbl_usergrant
 		    (
 			    loginuser,
 			    enable
 		    )
 		    VALUES
-		<foreach item="user" index="index" collection="users" separator=",">
 		    (
-			    #{user.loginuser},
-			    #{user.enable}
+			    #{loginuser},
+			    #{enable}
 		    )
-		</foreach>
 	</insert >
 
-	<!--権限削除  -->
-	<delete id="deleteUserMaster" parameterType= "java.util.List">
-    	DELETE FROM tbl_usergrant
-    	WHERE loginuser in
-    	<foreach item="user" index="index" collection="users" open="(" separator="," close=")">
-    		#{user.loginuser}
-  		</foreach>
-    </delete>
+	<!--権限変更  -->
+	<update id="updateEnable" parameterType= "jp.co.info.ais.ops.domain.UserMaster" >
+    	update tbl_usergrant
+    	set enable=#{enable}
+    	WHERE loginuser = #{loginuser}
+    </update>
+
+<!--リスト表示  -->
+	<select id="enableList" resultType="String">
+		SELECT
+			loginuser
+		FROM tbl_usergrant
+	</select>
  </mapper>

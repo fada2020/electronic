@@ -24,198 +24,196 @@
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 	<!-- dataTable -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+	<style>
+		.form-control-label{
+			width: 100px;
+			font-size: 14px;
+			margin-right: 10px;
+			text-align: left;
+			margin-bottom: 0px;
+		}
+		.margin-left{
+	       margin-left: 10px !important;
+		}
 
+		body{
+			overflow:hidden;
+		}
+		table{
+			table-layout: fixed;
+		}
+		td{
+		text-align:center;
+		}
+		.left-text{
+		overflow:hidden;
+		white-space : nowrap;
+		text-overflow: ellipsis;
+		text-align:left;
+		}
+
+		th{
+		text-align:center !important;
+		font-size: 12px;
+		}
+
+	</style>
 </head>
 
-<style>
-	.form-control-label{
-		width: 100px;
-		font-size: 14px;
-		margin-right: 10px;
-		text-align: left;
-		margin-bottom: 0px;
-	}
-	.margin-left{
-       margin-left: 10px !important;
-	}
-
-	body{
-		overflow:hidden;
-	}
-	table{
-		table-layout: fixed;
-	}
-	td{
-	text-align:center;
-	}
-	.left-text{
-	overflow:hidden;
-	white-space : nowrap;
-	text-overflow: ellipsis;
-	text-align:left;
-	}
-
-	th{
-	text-align:center !important;
-	font-size: 12px;
-	}
-
-</style>
-
 <body>
-    <!-- Left Panel -->
+   <!-- Left Panel -->
 	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
-    <!-- Left Panel -->
-    <!-- Right Panel -->
-    <div id="right-panel" class="right-panel">
+   <!-- Left Panel -->
 
-        <!-- Header-->
+	<!-- Right Panel -->
+	<div id="right-panel" class="right-panel">
+
+		<!-- Header-->
 		<div th:insert="fragments/top_nav :: top_nav" th:remove="tag"></div>
-        <!-- Header-->
+		<!-- Header-->
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>連絡先マスタ</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+	    <div class="breadcrumbs">
+	        <div class="col-sm-4">
+	            <div class="page-header float-left">
+	            	<div class="page-title">
+	                	<h1>連絡先マスタ</h1>
+	            	</div><!-- /.page-title End-->
+		        </div><!-- /.page-header End-->
+		    </div><!-- /.col-sm-4 End-->
+		</div> <!-- /.breadcrumbs End-->
 
-        <div class="content mt-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header" style="float:right;">
-                            <div class="form-group form-inline" style="float: right; margin: 0px;">
-                                <button type="button" class="btn btn-sm btn-primary" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
-                                <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
-                            </div><!--/.form-group -->
-                        </div>
-                       <div class="card-body">
-                            <table id="setList" class="table table-striped table-bordered table-sm" style="width: 100%;">
-                                <thead>
-                                    <tr style="background-color: #000033; color:white;">
-                                        <th style="width: 10%;">No</th>
-                                        <th style="width: 25%;">名称</th>
-                                        <th style="width: 30%;">メールアドレス</th>
-                                        <th style="width: 20%;">電話番号</th>
-                                        <th style="width: 15%;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-	                  		</table>
+	    <div class="content mt-3">
+	        <div class="row">
+	            <div class="col-md-12">
+	                <div class="card">
+	                    <div class="card-header" style="float:right;">
+	                        <div class="form-group form-inline" style="float: right; margin: 0px;">
+	                            <button type="button" class="btn btn-sm btn-primary" th:if="${session.enable == '3'}" style="margin-right: 20px;" data-toggle="modal" data-target="#addModal"><i class="fa fa-plus-square"></i> 新規</button>
+	                            <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" style="margin-right: 20px;" disabled><i class="fa fa-plus-square"></i> 新規</button>
+	                        </div><!--/.form-group -->
+	                    </div>
+	                   <!--連絡先一覧 list 表示 Start-->
+	                   <div class="card-body">
+	                        <table id="setList" class="table table-striped table-bordered table-sm" style="width: 100%;">
+	                            <thead>
+	                                <tr style="background-color: #000033; color:white;">
+	                                    <th style="width: 10%;">No</th>
+	                                    <th style="width: 25%;">名称</th>
+	                                    <th style="width: 30%;">メールアドレス</th>
+	                                    <th style="width: 20%;">電話番号</th>
+	                                    <th style="width: 15%;"></th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                            </tbody>
+	               			</table>
+	                   	</div><!--/.card-body End-->
+	                   	<!--連絡先一覧 list 表示 Start-->
+	                </div><!--/.card End-->
+	            </div> <!--/.col End-->
+	        </div> <!--/.row End-->
+	    </div> <!-- /.content End-->
 
-                        </div>
 
-                    </div><!-- /.card-->
-                </div>
-            </div>
-
-            </div>
-            <!--/.col-->
-          </div> <!-- .content -->
 		<!-- Delete1 Modal Part Start-->
-			<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
-			    <div class="modal-dialog modal-sm" role="document">
-			        <div class="modal-content">
-			            <div class="modal-header">
-			                <h5 class="modal-title" id="staticModalLabel">連絡先マスタ</h5>
-			                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
-			                    <span aria-hidden="true">&times;</span>
-			                </button>
-			            </div>
-			            <div class="modal-body" style="text-align: center;">
-			             <input  type="hidden" id="contactcdd" name="contactcdd" placeholder="" style="width: 290px" class="form-control input-sm">
-			                <p>
-			                    選択されたデータを削除します。<br>よろしいですか？
-			                </p>
-			            </div>
-			            <div class="modal-footer">
-			                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="submitDelete();">はい</button>
-			                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
-			            </div>
-			        </div>
-			    </div>
-			</div>
+		<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog modal-sm" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="staticModalLabel">連絡先マスタ</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body" style="text-align: center;">
+		             <input  type="hidden" id="contactcdd" name="contactcdd" placeholder="" style="width: 290px" class="form-control input-sm">
+		                <p>
+		                    選択されたデータを削除します。<br>よろしいですか？
+		                </p>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal" onClick="submitDelete();">はい</button>
+		                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+		            </div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
 		<!-- Cancel Modal Part End-->
 
 
 
-    <!-- Master Add Modal Part Start-->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
+	    <!-- Master Add Modal Part Start-->
+		<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+	   		<div class="modal-dialog modal-md" role="document">
+	        	<div class="modal-content">
+	            	<div class="modal-header">
+	                	<h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
+	                	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	                    <span aria-hidden="true">&times;</span>
+	                	</button>
+	            	</div>
+	            	<div class="modal-body">
+		             	<input  type="hidden" id="contactcd" name="contactcd" placeholder="" style="width: 290px" class="form-control input-sm">
+		                <div class="form-group form-inline">
+		                    <p class=" form-control-label">名称</p>
+		                    <input  type="text" id="contactname" name="contactname" placeholder="" style="width: 290px" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		                <div class="form-group form-inline">
+		                    <p class=" form-control-label">メールアドレス</p>
+		                    <input type="text" id="contactmailaddress" name="contactmailaddress" placeholder="" style="width: 290px;" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		                <div class="form-group form-inline">
+		                    <p class=" form-control-label">電話番号</p>
+		                    <input type="text" id="contactphoneno" name="contactphoneno" placeholder="" style="width: 290px;" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		         		<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
+						</div>
+	            	</div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary" onClick="submitSave();" >保存</button>
+		                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
+		            </div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
+		<!-- Master update Modal Part End-->
 
-             <input  type="hidden" id="contactcd" name="contactcd" placeholder="" style="width: 290px" class="form-control input-sm">
-                <div class="form-group form-inline">
-                    <p class=" form-control-label">名称</p>
-                    <input  type="text" id="contactname" name="contactname" placeholder="" style="width: 290px" class="form-control input-sm">
-                </div><!--/.form-group -->
-                 <div class="form-group form-inline">
-                    <p class=" form-control-label">メールアドレス</p>
-                    <input type="text" id="contactmailaddress" name="contactmailaddress" placeholder="" style="width: 290px;" class="form-control input-sm">
-                </div><!--/.form-group -->
-                <div class="form-group form-inline">
-                    <p class=" form-control-label">電話番号</p>
-                    <input type="text" id="contactphoneno" name="contactphoneno" placeholder="" style="width: 290px;" class="form-control input-sm">
-                </div><!--/.form-group -->
-         		<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
-				</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onClick="submitSave();" >保存</button>
-                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Master update Modal Part End-->
-  <!-- Master Add Modal Part Start-->
-<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-md" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-             <input  type="hidden" id="contactcdu" name="contactcdu" placeholder="" style="width: 290px" class="form-control input-sm">
-                <div class="form-group form-inline">
-                    <p class=" form-control-label" >名称</p>
-                    <input  type="text" id="contactnameu" name="contactnameu" placeholder="" style="width: 290px" class="form-control input-sm">
-                </div><!--/.form-group -->
-                   <div class="form-group form-inline">
-                    <p class=" form-control-label">メールアドレス</p>
-                    <input type="text" id="contactmailaddressu" name="contactmailaddressu" placeholder="" style="width: 290px;" class="form-control input-sm">
-                </div><!--/.form-group -->
-                <div class="form-group form-inline">
-                    <p class=" form-control-label">電話番号</p>
-                    <input type="text" id="contactphonenou" name="contactphonenou" placeholder="" style="width: 290px;" class="form-control input-sm">
-                </div><!--/.form-group -->
-                <div class="alert alert-danger alert-dismissable text-left" id="errMessageu" hidden="true">
-				</div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary"  onClick="submitUpdate();" >保存</button>
-                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Master update Modal Part End-->
-    <!-- Right Panel -->
+	  <!-- Master Add Modal Part Start-->
+		<div class="modal fade" id="updateModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-md" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="mediumModalLabel">連絡先マスタ</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body">
+		            	<input  type="hidden" id="contactcdu" name="contactcdu" placeholder="" style="width: 290px" class="form-control input-sm">
+		                <div class="form-group form-inline">
+		                    <p class=" form-control-label" >名称</p>
+		                    <input  type="text" id="contactnameu" name="contactnameu" placeholder="" style="width: 290px" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		                   <div class="form-group form-inline">
+		                    <p class=" form-control-label">メールアドレス</p>
+		                    <input type="text" id="contactmailaddressu" name="contactmailaddressu" placeholder="" style="width: 290px;" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		                <div class="form-group form-inline">
+		                    <p class=" form-control-label">電話番号</p>
+		                    <input type="text" id="contactphonenou" name="contactphonenou" placeholder="" style="width: 290px;" class="form-control input-sm">
+		                </div><!--/.form-group -->
+		                <div class="alert alert-danger alert-dismissable text-left" id="errMessageu" hidden="true">
+						</div>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-secondary"  onClick="submitUpdate();" >保存</button>
+		                <button type="button" class="btn btn-danger dangerButton" data-dismiss="modal">キャンセル</button>
+		            </div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
+		<!-- Master update Modal Part End-->
+	</div><!-- Right Panel -->
 
     <script src="../static/vendors/jquery/dist/jquery.min.js"></script>
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
@@ -228,161 +226,260 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 
 <script>
-/*メールパターン*/
-var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
-/*電話番号パターン*/
-var phone = RegExp(/^[0-9]*$/);
-/*名称パターン*/
-var engname = RegExp(/^[a-zA-Z]*$/);
-var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
-var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
-var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
-var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
-var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
+	/*メールパターン*/
+	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+	/*電話番号パターン*/
+	var phone = RegExp(/^[0-9]*$/);
+	/*名称パターン*/
+	var engname = RegExp(/^[a-zA-Z]*$/);
+	var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
+	var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
+	var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
+	var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
+	var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
 
-var errNeedsMail = 'メールは必須項目です。';
-var errOkMail = '正しいメールではありません。';
-var errNeedsPhone = '電話番号は必須項目です。';
-var errOkPhone = '正しい電話番号ではありません。';
-var errNeedsName = '名称は必須項目です。';
-var errOkName = '正しい名称ではありません。';
-var errLength = '桁まで入力できます。';
-var nameLength = 50;
-var phoneLength = 20;
-/*datatableの初期表示*/
-var myDataTables = $("#setList").DataTable({
-	/*datatableのオプション*/
+	var errNeedsMail = 'メールは必須項目です。';
+	var errOkMail = '正しいメールではありません。';
+	var errNeedsPhone = '電話番号は必須項目です。';
+	var errOkPhone = '正しい電話番号ではありません。';
+	var errNeedsName = '名称は必須項目です。';
+	var errOkName = '正しい名称ではありません。';
+	var errLength = '桁まで入力できます。';
+	var nameLength = 50;
+	var phoneLength = 20;
+	/*datatableの初期表示*/
+	var myDataTables = $("#setList").DataTable({
+		/*datatableのオプション*/
 		autoWidth: true,
 	    searching: false,
 	    scrollY: 550,
 	    scrollerCollapse: true,
 	    lengthMenu: [ 15, 30, 50 ],
-    language: {
+    	language: {
         "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
-    },
-    ajax: {
-    	/*コントロールのメソッドのパス*/
-	   url: /*[[@{/getContactListAuto}]]*/ 'getContactListAuto',
-	   type: "POST",
-	   dataType: "json",
-	   contentType : "application/json; charset=UTF-8",
-	   dataSrc: ''
-    },
-    /*順番通りカラムに設定する*/
-    columnDefs:[
-    	{targets:[0], data: "rownum"},
-    	{className:"left-text", targets:[1], data: "contactname"},
-    	{className:"left-text", targets:[2], data: "contactmailaddress"},
-    	{className:"left-text", targets:[3], data: "contactphoneno"},
-    	{targets:[4],
-    		data: "description_u",
-            render: function ( data, type, row, meta ) {
+    	},
+    	ajax: {
+	    	/*コントロールのメソッドのパス*/
+		   	url: /*[[@{/getContactListAuto}]]*/ 'getContactListAuto',
+		  	type: "POST",
+		   	dataType: "json",
+		   	contentType : "application/json; charset=UTF-8",
+		  	 dataSrc: ''
+	    },
+    	/*順番通りカラムに設定する*/
+    	columnDefs:[
+	    	{targets:[0], data: "rownum"},
+	    	{className:"left-text", targets:[1], data: "contactname"},
+	    	{className:"left-text", targets:[2], data: "contactmailaddress"},
+	    	{className:"left-text", targets:[3], data: "contactphoneno"},
+	    	{targets:[4],
+	    		data: "description_u",
+	            render: function ( data, type, row, meta ) {
 
-            	if(row.enable=='3'){
-            		if(!row.startcontactcd&&!row.endcontactcd){
-                	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
-                        +'<button type="button" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal" ><i class="fa fa-eraser"></i> 削除</button>';
-                	}else{
-                 	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
-                        +'<button type="button" class="btn btn-sm btn-secondary deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal" disabled><i class="fa fa-eraser"></i> 削除</button>';
-                	}
-        		}else{
-       			  return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button"  class="btn btn-sm btn-secondary margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
-                     +'<button type="button" class="btn btn-sm btn-secondary margin-left" disabled><i class="fa fa-eraser"></i> 削除</button>';
-        		}
+	            	if(row.enable=='3'){
+	            		if(!row.startcontactcd&&!row.endcontactcd){
+	                	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
+	                        +'<button type="button" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal" ><i class="fa fa-eraser"></i> 削除</button>';
+	                	}else{
+	                 	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
+	                        +'<button type="button" class="btn btn-sm btn-secondary deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal" disabled><i class="fa fa-eraser"></i> 削除</button>';
+	                	}
+	        		}else{
+	       			  return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button"  class="btn btn-sm btn-secondary margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
+	                     +'<button type="button" class="btn btn-sm btn-secondary margin-left" disabled><i class="fa fa-eraser"></i> 削除</button>';
+	        		}
 
-               }
-		}
-    ]
-});
+	               }
+			}
+	    ]
+	});
 
-/*modalボタンを閉じる時errormessage削除*/
-$('#addModal').on('click', '.dangerButton', function() {
-	$("#errMessage")[0].hidden = true;
-	$("#contactname").val('');
-	$("#contactmailaddress").val('');
-	$("#contactphoneno").val('');
-});
+	/*modalボタンを閉じる時errormessage削除*/
+	$('#addModal').on('click', '.dangerButton', function() {
+		$("#errMessage")[0].hidden = true;
+		$("#contactname").val('');
+		$("#contactmailaddress").val('');
+		$("#contactphoneno").val('');
+	});
 
-/*modalボタンを閉じる時errormessage削除*/
-$('#updateModal').on('click', '.dangerButton', function() {
-	$("#errMessageu")[0].hidden = true;
-	$("#contactnameu").val('');
-	$("#contactmailaddressu").val('');
-	$("#contactphonenou").val('');
-});
+	/*modalボタンを閉じる時errormessage削除*/
+	$('#updateModal').on('click', '.dangerButton', function() {
+		$("#errMessageu")[0].hidden = true;
+		$("#contactnameu").val('');
+		$("#contactmailaddressu").val('');
+		$("#contactphonenou").val('');
+	});
 
 
-/*編集時modalからのOKによるデータを新規で作成する*/
-function submitSave(){
-	var name = $("#contactname").val();
-	if($("#contactname").val()== ""){
-    	$("#errMessage").html(errNeedsName);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactname").focus();
-      return false;
-    }
-    //名称の検査
-    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
-    	$("#errMessage").html(errOkName);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactname").focus();
-      return false;
-    }
-    //名称の桁数検査
-    if(name.length>nameLength){
-    	$("#errMessage").html("名称は"+nameLength+errLength);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactname").focus();
-      return false;
-    }
-
-	  //メールの空白確認
-    if($("#contactmailaddress").val() == ""){
-    	$("#errMessage").html(errNeedsMail);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactmailaddress").focus();
-      return false;
-    }
-    //メールの検査
-    if(!getMail.test($("#contactmailaddress").val())){
-    	$("#errMessage").html(errOkMail);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactmailaddress").focus();
-      return false;
-    }
-
-	  //電話番号の空白確認
-    if($("#contactphoneno").val() == ""){
-    	$("#errMessage").html(errNeedsPhone);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactphoneno").focus();
-      return false;
-    }
-    //電話番号の検査
-    if(!phone.test($("#contactphoneno").val())){
-    	$("#errMessage").html(errOkPhone);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactphoneno").focus();
-      return false;
+	/*編集時modalからのOKによるデータを新規で作成する*/
+	function submitSave(){
+		var name = $("#contactname").val();
+		if($("#contactname").val()== ""){
+	    	$("#errMessage").html(errNeedsName);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactname").focus();
+	      return false;
 	    }
-    //電話番号の検査
- 　　 if($("#contactphoneno").val().length>phoneLength){
-    	$("#errMessage").html("電話番号は"+phoneLength+errLength);
-    	$("#errMessage")[0].hidden = false;
-        $("#contactphoneno").focus();
-      return false;
-    }
+	    //名称の検査
+	    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
+	    	$("#errMessage").html(errOkName);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactname").focus();
+	      return false;
+	    }
+	    //名称の桁数検査
+	    if(name.length>nameLength){
+	    	$("#errMessage").html("名称は"+nameLength+errLength);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactname").focus();
+	      return false;
+	    }
 
-	 var contact = new Object();
-	 contact.contactcd =$('#contactcd').val();
-	 contact.contactname =  $('#contactname').val();
-	 contact.contactphoneno = $('#contactphoneno').val();
-	 contact.contactmailaddress = $('#contactmailaddress').val();
-	 var jsonData = JSON.stringify(contact);
-	  /* OKの時の処理 */
+		  //メールの空白確認
+	    if($("#contactmailaddress").val() == ""){
+	    	$("#errMessage").html(errNeedsMail);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactmailaddress").focus();
+	      return false;
+	    }
+	    //メールの検査
+	    if(!getMail.test($("#contactmailaddress").val())){
+	    	$("#errMessage").html(errOkMail);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactmailaddress").focus();
+	      return false;
+	    }
+
+		  //電話番号の空白確認
+	    if($("#contactphoneno").val() == ""){
+	    	$("#errMessage").html(errNeedsPhone);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactphoneno").focus();
+	      return false;
+	    }
+	    //電話番号の検査
+	    if(!phone.test($("#contactphoneno").val())){
+	    	$("#errMessage").html(errOkPhone);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactphoneno").focus();
+	      return false;
+		    }
+	    //電話番号の検査
+	 　　 if($("#contactphoneno").val().length>phoneLength){
+	    	$("#errMessage").html("電話番号は"+phoneLength+errLength);
+	    	$("#errMessage")[0].hidden = false;
+	        $("#contactphoneno").focus();
+	      return false;
+	    }
+
+		 var contact = new Object();
+		 contact.contactcd =$('#contactcd').val();
+		 contact.contactname =  $('#contactname').val();
+		 contact.contactphoneno = $('#contactphoneno').val();
+		 contact.contactmailaddress = $('#contactmailaddress').val();
+		 var jsonData = JSON.stringify(contact);
+		  /* OKの時の処理 */
+			$.ajax({
+				url: /*[[@{/addContact}]]*/ 'addContact',
+				type : "POST",
+				dataType : "json",
+				contentType : 'application/JSON',
+				data : jsonData
+			}).success(function(result) {
+				if(result>0){
+					location.href = '/ops/contact/';
+			}else{
+				alert('編集失敗');
+				}
+			}).error(function(xhr, textStatus, error) {
+
+				alert('通信失敗');
+			});
+	}
+
+	/*編集時modalにデータを設定する*/
+	$('#setList').on('click', '.updateButton', function() {
+		  var contactcd = $(this).closest('tr').find('input[name=hidden]').val();
+		  var contactname = $(this).closest('tr').find('td:eq(1)').text();
+		  var contactmailaddress = $(this).closest('tr').find('td:eq(2)').text();
+		  var contactphoneno = $(this).closest('tr').find('td:eq(3)').text();
+		  $('#contactcdu').val(contactcd);
+		  $('#contactnameu').val(contactname);
+		  $('#contactphonenou').val(contactphoneno);
+		  $('#contactmailaddressu').val(contactmailaddress);
+		});
+
+	/*編集時modalからのOKによるデータを編集する*/
+	function submitUpdate(){
+
+		var name = $("#contactnameu").val();
+		  //名称の空白確認
+	  if($("#contactnameu").val()== ""){
+	  	$("#errMessageu").html(errNeedsName);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactnameu").focus();
+	    return false;
+	  }
+	  //名称の検査
+	  if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
+	  	$("#errMessageu").html(errOkName);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactnameu").focus();
+	    return false;
+	  }
+
+	  //名称の桁数検査
+	  if(name.length>nameLength){
+	  	$("#errMessageu").html("名称は"+nameLength+errLength);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactnameu").focus();
+	    return false;
+	  }
+		  //メールの空白確認
+	  if($("#contactmailaddressu").val() == ""){
+	  	$("#errMessageu").html(errNeedsMail);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactmailaddressu").focus();
+	    return false;
+	  }
+	  //メールの検査
+	  if(!getMail.test($("#contactmailaddressu").val())){
+	  	$("#errMessageu").html(errOkMail);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactmailaddressu").focus();
+	    return false;
+	  }
+		  //電話番号の空白確認
+	  if($("#contactphonenou").val() == ""){
+	  	$("#errMessageu").html(errNeedsPhone);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactphonenou").focus();
+	    return false;
+	  }
+	  //電話番号の検査
+	  if(!phone.test($("#contactphonenou").val())){
+	  	$("#errMessageu").html(errOkPhone);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactphonenou").focus();
+	    return false;
+	  }
+	  //電話番号の検査
+	　 if($("#contactphonenou").val().length>phoneLength){
+	  	$("#errMessageu").html("電話番号は"+phoneLength+errLength);
+	  	$("#errMessageu")[0].hidden = false;
+	      $("#contactphonenou").focus();
+	    return false;
+	  }
+		 var contact = new Object();
+		 contact.contactcd =$('#contactcdu').val();
+		 contact.contactname =  $('#contactnameu').val();
+		 contact.contactphoneno = $('#contactphonenou').val();
+		 contact.contactmailaddress = $('#contactmailaddressu').val();
+		 var jsonData = JSON.stringify(contact);
+
+		  /* OKの時の処理 */
 		$.ajax({
-			url: /*[[@{/addContact}]]*/ 'addContact',
+			url: /*[[@{/updateContact}]]*/ 'updateContact',
 			type : "POST",
 			dataType : "json",
 			contentType : 'application/JSON',
@@ -394,135 +491,36 @@ function submitSave(){
 			alert('編集失敗');
 			}
 		}).error(function(xhr, textStatus, error) {
-
 			alert('通信失敗');
 		});
-}
+	}
 
-/*編集時modalにデータを設定する*/
-$('#setList').on('click', '.updateButton', function() {
-	  var contactcd = $(this).closest('tr').find('input[name=hidden]').val();
-	  var contactname = $(this).closest('tr').find('td:eq(1)').text();
-	  var contactmailaddress = $(this).closest('tr').find('td:eq(2)').text();
-	  var contactphoneno = $(this).closest('tr').find('td:eq(3)').text();
-	  $('#contactcdu').val(contactcd);
-	  $('#contactnameu').val(contactname);
-	  $('#contactphonenou').val(contactphoneno);
-	  $('#contactmailaddressu').val(contactmailaddress);
+	/*削除時modalにデータを設定する*/
+	$('#setList').on('click', '.deleteButton', function() {
+		var contactcd = $(this).closest('tr').find('input[name=hidden]').val();
+		$('#contactcdd').val(contactcd);
 	});
 
-/*編集時modalからのOKによるデータを編集する*/
-function submitUpdate(){
-
-	var name = $("#contactnameu").val();
-	  //名称の空白確認
-  if($("#contactnameu").val()== ""){
-  	$("#errMessageu").html(errNeedsName);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactnameu").focus();
-    return false;
-  }
-  //名称の検査
-  if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
-  	$("#errMessageu").html(errOkName);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactnameu").focus();
-    return false;
-  }
-
-  //名称の桁数検査
-  if(name.length>nameLength){
-  	$("#errMessageu").html("名称は"+nameLength+errLength);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactnameu").focus();
-    return false;
-  }
-	  //メールの空白確認
-  if($("#contactmailaddressu").val() == ""){
-  	$("#errMessageu").html(errNeedsMail);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactmailaddressu").focus();
-    return false;
-  }
-  //メールの検査
-  if(!getMail.test($("#contactmailaddressu").val())){
-  	$("#errMessageu").html(errOkMail);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactmailaddressu").focus();
-    return false;
-  }
-	  //電話番号の空白確認
-  if($("#contactphonenou").val() == ""){
-  	$("#errMessageu").html(errNeedsPhone);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactphonenou").focus();
-    return false;
-  }
-  //電話番号の検査
-  if(!phone.test($("#contactphonenou").val())){
-  	$("#errMessageu").html(errOkPhone);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactphonenou").focus();
-    return false;
-  }
-  //電話番号の検査
-　 if($("#contactphonenou").val().length>phoneLength){
-  	$("#errMessageu").html("電話番号は"+phoneLength+errLength);
-  	$("#errMessageu")[0].hidden = false;
-      $("#contactphonenou").focus();
-    return false;
-  }
-	 var contact = new Object();
-	 contact.contactcd =$('#contactcdu').val();
-	 contact.contactname =  $('#contactnameu').val();
-	 contact.contactphoneno = $('#contactphonenou').val();
-	 contact.contactmailaddress = $('#contactmailaddressu').val();
-	 var jsonData = JSON.stringify(contact);
-
-	  /* OKの時の処理 */
-	$.ajax({
-		url: /*[[@{/updateContact}]]*/ 'updateContact',
-		type : "POST",
-		dataType : "json",
-		contentType : 'application/JSON',
-		data : jsonData
-	}).success(function(result) {
-		if(result>0){
-			location.href = '/ops/contact/';
-	}else{
-		alert('編集失敗');
-		}
-	}).error(function(xhr, textStatus, error) {
-		alert('通信失敗');
-	});
-}
-
-/*削除時modalにデータを設定する*/
-$('#setList').on('click', '.deleteButton', function() {
-	var contactcd = $(this).closest('tr').find('input[name=hidden]').val();
-	$('#contactcdd').val(contactcd);
-});
-
-/*削除時modalからのOKによるデータを削除する*/
- function submitDelete() {
-	var contactcd = $('#contactcdd').val();
-	  /* OKの時の処理 */
-	$.ajax({
-		url: /*[[@{/deleteContact}]]*/ 'deleteContact',
-		type : "POST",
-		dataType : "json",
-		contentType : 'application/JSON',
-		data : contactcd
-	}).success(function(result) {
-		if(result>0){
-			location.href = '/ops/contact/';
-	}else{
-		alert('編集失敗');
-		}
-	}).error(function(xhr, textStatus, error) {
-		alert('通信失敗');
-	});
-}
+	/*削除時modalからのOKによるデータを削除する*/
+	 function submitDelete() {
+		var contactcd = $('#contactcdd').val();
+		  /* OKの時の処理 */
+		$.ajax({
+			url: /*[[@{/deleteContact}]]*/ 'deleteContact',
+			type : "POST",
+			dataType : "json",
+			contentType : 'application/JSON',
+			data : contactcd
+		}).success(function(result) {
+			if(result>0){
+				location.href = '/ops/contact/';
+		}else{
+			alert('編集失敗');
+			}
+		}).error(function(xhr, textStatus, error) {
+			alert('通信失敗');
+		});
+	}
 </script>
 
 </body>

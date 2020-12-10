@@ -57,182 +57,191 @@
     <!-- Left Panel -->
 	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
     <!-- Left Panel -->
-    <!-- Right Panel -->
+
+    <!-- Right Panel Start-->
     <div id="right-panel" class="right-panel">
 
-        <!-- Header-->
+	    <!-- Header-->
 		<div th:insert="fragments/top_nav :: top_nav" th:remove="tag"></div>
-        <!-- Header-->
+	    <!-- Header-->
 
-        <div class="breadcrumbs">
-            <div class="col-sm-4">
-                <div class="page-header float-left">
-                    <div class="page-title">
-                        <h1>自家補連絡設定一覧</h1>
-                    </div>
-                </div>
-            </div>
-        </div>
+		<div class="breadcrumbs">
+		    <div class="col-sm-4">
+		        <div class="page-header float-left">
+		            <div class="page-title">
+		                <h1>自家補連絡設定一覧</h1>
+		            </div><!-- /.page-title End-->
+		        </div><!-- /.page-header End-->
+		    </div><!-- /.col-sm-4 End-->
+		</div> <!-- /.breadcrumbs End-->
 
-        <div class="content mt-3">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="card">
-                        <div class="card-header" style="float:right;">
-                            <div class="col-lg-12" style="float:right; text-align: right;">
-                                <button type="button" class="btn btn-sm btn-primary newButton" th:if="${session.enable == '3'}" onClick="newEvent();"><i class="fa fa-plus-square"></i> 新規</button>
-                                <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" disabled><i class="fa fa-plus-square"></i> 新規</button>
-                                <button type="button" id="excelButton" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <table id="setList" class="table table-striped table-bordered table-sm">
-                                <thead>
-                                    <tr style="background-color: #000033; color:white;">
-                                        <th style="width:5%;text-align:center;">No</th>
-                                        <th style="width:5%;" id="status">現況</th>
-                                        <th style="width:5%;" id="endjgdsw">終了判定</th>
-                                        <th style="width:10%;" id="starttime">使用開始日時</th>
-                                        <th style="width:5%;" id="jdgsw">有効</th>
-                                        <th style="width:10%;" id="customerno">お客様番号</th>
-                                        <th style="width:15%;" id="customer">施設名</th>
-                                        <th style="width:5%;" id="sitecd">サイトID</th>
-                                        <th style="width:15%;" id="sitename">サイト名</th>
-                                        <th style="width:25%;"></th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--/.col-->
-        </div> <!-- .content -->
-                         <!-- 現況変更モーダル -->
-                        <div class="modal fade" id="ChangeGenkyo" tabindex="-1" role="dialog"
-							aria-labelledby="basicModal" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title" id="myModalLabel">自家補連絡設定</h4>
-									</div>
-									<div class="modal-body">
-										<label class="modalFont">現況：</label>
-										<label class="modalFont" id="statusLabel"></label>
-                                        <label class="modalFont">です。</label>
-                                        <br>
-                                        <label class="modalFont" id="beforeConform"></label>
-										<label class="modalFont" id="conformLabel"></label><br>
-										<label class="modalFont" id="timeLabel"></label>
-										<input type="text" id="view_time" disabled=true />
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" id="genkyoChange" data-dismiss="modal" data-toggle="modal" data-target="#idCheck">はい</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
-									</div>
-								</div>
-							</div>
+	    <div class="content mt-3">
+	        <div class="row">
+	            <div class="col-md-12">
+	                <div class="card">
+	                    <div class="card-header" style="float:right;">
+	                        <div class="col-lg-12" style="float:right; text-align: right;">
+	                            <button type="button" class="btn btn-sm btn-primary newButton" th:if="${session.enable == '3'}" onClick="newEvent();"><i class="fa fa-plus-square"></i> 新規</button>
+	                            <button type="button" class="btn btn-sm btn-secondary" th:if="${session.enable != '3'}" disabled><i class="fa fa-plus-square"></i> 新規</button>
+	                            <button type="button" id="excelButton" class="btn btn-sm btn-success"><i class="fa fa-print"></i> EXCEL出力</button>
+	                        </div>
+	                    </div>
+
+	                    <!--設定一覧 list 表示 Start-->
+	                    <div class="card-body">
+	                        <table id="setList" class="table table-striped table-bordered table-sm">
+	                            <thead>
+	                                <tr style="background-color: #000033; color:white;">
+	                                    <th style="width:5%;text-align:center;">No</th>
+	                                    <th style="width:5%;" id="status">現況</th>
+	                                    <th style="width:5%;" id="endjgdsw">終了判定</th>
+	                                    <th style="width:10%;" id="starttime">使用開始日時</th>
+	                                    <th style="width:5%;" id="jdgsw">有効</th>
+	                                    <th style="width:10%;" id="customerno">お客様番号</th>
+	                                    <th style="width:15%;" id="customer">施設名</th>
+	                                    <th style="width:5%;" id="sitecd">サイトID</th>
+	                                    <th style="width:15%;" id="sitename">サイト名</th>
+	                                    <th style="width:25%;"></th>
+	                                </tr>
+	                            </thead>
+	                            <tbody>
+	                            </tbody>
+	                        </table>
+	                    </div><!--/.card-body End-->
+	                    <!--/設定一覧 list 表示 End-->
+
+	                </div><!--/.card End-->
+	            </div> <!--/.col End-->
+	        </div> <!--/.row End-->
+	    </div> <!-- /.content End-->
+
+	    <!-- 現況変更モーダル Start-->
+	  	<div class="modal fade" id="ChangeGenkyo" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title" id="myModalLabel">自家補連絡設定</h4>
+					</div>
+					<div class="modal-body">
+						<label class="modalFont">現況：</label>
+						<label class="modalFont" id="statusLabel"></label>
+	                    <label class="modalFont">です。</label><br>
+	                    <label class="modalFont" id="beforeConform"></label>
+						<label class="modalFont" id="conformLabel"></label><br>
+						<label class="modalFont" id="timeLabel"></label>
+						<input type="text" id="view_time" disabled=true />
+					</div><!-- /.modal-body -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="genkyoChange" data-dismiss="modal" data-toggle="modal" data-target="#idCheck">はい</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+					</div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
+		<!-- /現況変更モーダル End-->
+
+		<!-- 終了判定モーダル Start-->
+		<div class="modal fade" id="ChangeEndJudg" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title　myModalLabel" >自家補連絡設定</h4>
+					</div>
+					<div class="modal-body">
+						<label class="modalFont" id="endjgdswLabel"></label>
+						<label class="modalFont">です。</label><br>
+						<label class="modalFont" id="jdgbeforeConform"></label>
+						<label class="modalFont" id="jdgconformLabel"></label><br>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjgdswChange();">はい</button>
+						<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
+					</div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
+		<!-- /終了判定モーダル End-->
+
+		<!-- 現況変更モーダルのIDチェック Start-->
+		<div class="modal fade" id="idCheck" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title　myModalLabel">自家補連絡設定</h4>
+					</div>
+					<div class="modal-body" style="text-align:center;">
+						<label class="modalFont" id="conformLabel">データを保存します。よろしいですか？</label><br>
+						<label class="modalFont" id="statusLabel">アカウント</label>
+						<input type="text"   id="user" name="user" />
+						<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
 						</div>
-						<!-- 終了判定モーダル -->
-						<div class="modal fade" id="ChangeEndJudg" tabindex="-1" role="dialog"
-							aria-labelledby="basicModal" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title　myModalLabel" >自家補連絡設定</h4>
-									</div>
-									<div class="modal-body">
-										<label class="modalFont" id="endjgdswLabel"></label>
-										 <label class="modalFont">です。</label><br>
-										  <label class="modalFont" id="jdgbeforeConform"></label>
-										<label class="modalFont" id="jdgconformLabel"></label><br>
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjgdswChange();">はい</button>
-										<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
-									</div>
-								</div>
-							</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="idCheckButton" onClick="submitId();">はい</button>
+							<button type="button" class="btn btn-danger cancleButton" data-dismiss="modal">いいえ</button>
 						</div>
-						<!-- 現況変更モーダルのIDチェック -->
-						<div class="modal fade" id="idCheck" tabindex="-1" role="dialog"
-							aria-labelledby="basicModal" aria-hidden="true">
-							<div class="modal-dialog">
-								<div class="modal-content">
-									<div class="modal-header">
-										<h4 class="modal-title　myModalLabel">自家補連絡設定</h4>
-									</div>
-									<div class="modal-body" style="text-align:center;">
-									<label class="modalFont" id="conformLabel">データを保存します。よろしいですか？</label><br>
-										<label class="modalFont" id="statusLabel">アカウント</label>
-										<input type="text"   id="user" name="user" />
-									<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
-									</div>
-									<div class="modal-footer">
-										<button type="button" class="btn btn-secondary" id="idCheckButton" onClick="submitId();">はい</button>
-										<button type="button" class="btn btn-danger cancleButton" data-dismiss="modal">いいえ</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- Delete1 Modal Part Start-->
-						<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
-						    <div class="modal-dialog modal-sm" role="document">
-						        <div class="modal-content">
-						            <div class="modal-header">
-						                <h5 class="modal-title　myModalLabel" >自家補連絡設定</h5>
-						                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
-						                    <span aria-hidden="true">&times;</span>
-						                </button>
-						            </div>
-						            <div class="modal-body" style="text-align: center;">
-						             <input  type="hidden" id="customernod" name="customernod" placeholder="" style="width: 290px" class="form-control input-sm">
-						                <p>
-						                    選択されたデータを削除します。<br>よろしいですか？
-						                </p>
-						            </div>
-						            <div class="modal-footer">
-						                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="submitDelete();">はい</button>
-						                <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
-						            </div>
-						        </div>
-						    </div>
-						</div>
-					<!-- Cancel Modal Part End-->
-<form th:action="@{/detail/}" name="hidMainFrom" id="hidMainFrom" method="post">
-<input type="hidden" id="customernou" name="customernou">
-</form>
+					</div><!-- /.modal-content End-->
+				</div><!-- /.modal-dialog End-->
+			</div><!-- /.modal fade End-->
+		</div><!-- /#right-panel End-->
+		<!-- /現況変更モーダルのIDチェック End-->
 
-<form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
-<input type="hidden" id="flag" name="flag">
-</form>
-<form action="">
-<input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
-<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
-<input type="hidden" id="sessionEnable" th:if="${session.enable != null}" th:value="${session.enable}">
-<input type="hidden" id="statusu">
-<input type="hidden" id="endjgdsw">
-<input type="hidden" id="starttimeu">
-</form>
-    </div><!-- /#right-panel -->
+		<!-- 削除モーダル Start-->
+		<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+		    <div class="modal-dialog modal-sm" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title　myModalLabel" >自家補連絡設定</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body" style="text-align: center;">
+		            	<input  type="hidden" id="customernod" name="customernod" placeholder="" style="width: 290px" class="form-control input-sm">
+		                <p>選択されたデータを削除します。<br>よろしいですか？</p>
+		            </div>
+		            <div class="modal-footer">
+		                <button type="button" class="btn btn-danger" data-dismiss="modal" onClick="submitDelete();">はい</button>
+		                <button type="button" class="btn btn-secondary" data-dismiss="modal">いいえ</button>
+		            </div>
+				</div><!-- /.modal-content End-->
+			</div><!-- /.modal-dialog End-->
+		</div><!-- /.modal fade End-->
+		<!-- /削除モーダル End-->
 
-    <!-- Right Panel -->
+		<!-- 編集 hideform Start-->
+		<form th:action="@{/detail/}" name="hidMainFrom" id="hidMainFrom" method="post">
+			<input type="hidden" id="customernou" name="customernou">
+		</form>
+		<!-- /編集 hideform End-->
 
-    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
-    <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
-    <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
-    <script th:src="@{/static/assets/js/main.js}"></script>
-    <script th:src="@{/static/assets/js/datetimepicker/jquery.js}"></script>
-    <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
-	<!-- dataTable -->
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+		<!-- Excel hideform Start-->
+		<form th:action="@{/setting/}" name="flagForm" id="flagForm" method="post">
+			<input type="hidden" id="flag" name="flag">
+		</form>
+		<!-- /Excel hideform End-->
 
 
+		<form action="">
+			<input type="hidden" id="sessionId" th:if="${session.id != null}" th:value="${session.id}">
+			<input type="hidden" id="sessionName" th:if="${session.name != null}" th:value="${session.name}">
+			<input type="hidden" id="sessionEnable" th:if="${session.enable != null}" th:value="${session.enable}">
+			<input type="hidden" id="statusu">
+			<input type="hidden" id="endjgdsw">
+			<input type="hidden" id="starttimeu">
+		</form>
 
+	    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
+	    <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
+	    <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+	    <script th:src="@{/static/assets/js/main.js}"></script>
+	    <script th:src="@{/static/assets/js/datetimepicker/jquery.js}"></script>
+	    <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
+		<!-- dataTable -->
+		<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+	</div><!-- /Right Panel End-->
 <script>
 
+/*Excel Button Start*/
 $("#excelButton").click(function (){
 	$("#flag").val("excel");
 	$('#flagForm').submit();
@@ -242,78 +251,77 @@ var errorMs = "アカウントが一致しません。";
 var myDataTables = $("#setList").DataTable({
 
     /*datatableのオプション*/
-		autoWidth: true,
- 	    searching: false,
- 	    scrollY: 550,
- 	    scrollerCollapse: true,
- 	    lengthMenu: [ 15, 30, 50 ],
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
-        },
-	    ajax: {
-	    	/*コントロールのメソッドのパス*/
-		   url: /*[[@{/getListAuto}]]*/ 'getListAuto',
-		   type: "POST",
-		   dataType: "json",
-		   contentType : "application/json; charset=UTF-8",
-		   dataSrc: ''
-	    },
+	autoWidth: true,
+    searching: false,
+    scrollY: 550,
+    scrollerCollapse: true,
+    lengthMenu: [ 15, 30, 50 ],
+   	language: {
+    	"url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
+    },
+   ajax: {
+   	/*コントロールのメソッドのパス*/
+   url: /*[[@{/getListAuto}]]*/ 'getListAuto',
+   type: "POST",
+   dataType: "json",
+   contentType : "application/json; charset=UTF-8",
+   dataSrc: ''
+   },
 
-	    /*順番通りカラムに設定する*/
-	    columnDefs:[
-	    	{targets: [0], data: "rownum"},
-            {targets: [1], data: function ( d ) {
-            	if(d.status == '1') {
-            		return '使用中';
-            	} else {
-            		return '未使用';
-            	}
-            }},
-            {targets: [2], data: function ( d ) {
-            	if(d.endjgdsw == '1') {
-            		return '適用中';
-            	} else {
-            		return '未適用';
-            	}
-            }},
-            {targets: [3], data: function ( d ) {
-            	if(d.status == '1'&&d.starttime!=null) {
-            		var str = d.starttime;
-            		return str.replace(/-/g,"/");
-            	}else{
-            		return "-";
-            	}
-            	}},
-	    	   {targets: [4], data: function ( d ) {
-	            	if(d.jdgsw == '1') {
-	            		return '✔';
-	            	} else {
-	            		return '-';
-	            	}
-	            }},
-	    	{targets: [5], data: "customerno"},
-	    	{className: "customerClass", targets: [6], data: "customer"},
-	    	{targets: [7],data: "sitecd"},
-	    	{className: "sitNameClass", targets: [8], data: "sitename"},
-	    	/*renderを利用してボタンを生成*/
-			{targets: [9],
-	    		data: "description_u",
-                render: function ( data, type, row, meta ) {
-
-                	if(row.enable=='3'){
-                	   return '<button type="button" name="changeButton" class="btn btn-sm btn-primary updateButton margin-left"><i class="fa fa-edit"></i>編集</button>'
-                       +'<button type="button" name="deleteButton" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i>削除</button>'
-                       +'<button type="button" class="btn btn-sm btn-info btn_change_genkyo margin-left" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>'
-                       +'<button type="button" class="btn btn-sm btn-info btn_change_end_judg margin-left" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>';
-                	}else{
-                		 return '<button type="button" name="changeButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
-                         +'<button type="button" name="deleteButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-eraser"></i>削除</button>'
-                         +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>現況変更</button>'
-                         +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>終了判定切替</button>';
-                	}
-                }
-			}
-	    ],
+    /*順番通りカラムに設定する*/
+    columnDefs:[
+   		{targets: [0], data: "rownum"},
+        {targets: [1], data: function ( d ) {
+	       	if(d.status == '1') {
+	       		return '使用中';
+	       	} else {
+	       		return '未使用';
+	       	}
+        }},
+        {targets: [2], data: function ( d ) {
+        	if(d.endjgdsw == '1') {
+        		return '適用中';
+        	} else {
+        		return '未適用';
+        	}
+        }},
+        {targets: [3], data: function ( d ) {
+        	if(d.status == '1'&&d.starttime!=null) {
+        		var str = d.starttime;
+        		return str.replace(/-/g,"/");
+        	}else{
+        		return "-";
+        	}
+       	}},
+   	   	{targets: [4], data: function ( d ) {
+           	if(d.jdgsw == '1') {
+           		return '✔';
+           	} else {
+           		return '-';
+           	}
+        }},
+    	{targets: [5], data: "customerno"},
+    	{className: "customerClass", targets: [6], data: "customer"},
+    	{targets: [7],data: "sitecd"},
+    	{className: "sitNameClass", targets: [8], data: "sitename"},
+    	/*renderを利用してボタンを生成*/
+		{targets: [9],
+    		data: "description_u",
+               render: function ( data, type, row, meta ) {
+               	if(row.enable=='3'){
+               	   return '<button type="button" name="changeButton" class="btn btn-sm btn-primary updateButton margin-left"><i class="fa fa-edit"></i>編集</button>'
+                      +'<button type="button" name="deleteButton" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i>削除</button>'
+                      +'<button type="button" class="btn btn-sm btn-info btn_change_genkyo margin-left" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>'
+                      +'<button type="button" class="btn btn-sm btn-info btn_change_end_judg margin-left" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>';
+               	}else{
+               		 return '<button type="button" name="changeButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
+                        +'<button type="button" name="deleteButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-eraser"></i>削除</button>'
+                        +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>現況変更</button>'
+                        +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>終了判定切替</button>';
+               	}
+               }
+		}
+    ],
 	    rowCallback: function( row, data, dataIndex ) {
 	        if ( data.status == '1') {
 	          $(row).find('td:eq(1)').css('color','red');

@@ -61,13 +61,22 @@ public class UserGrantService {
 		return userMasterList;
 	}
 
-	public int saveEnable(List<UserMaster> list)throws Exception {
-	    int result = 0;
-		userGrantMapper.deleteUserMaster(list);
+	public int saveEnable(UserMaster master)throws Exception {
 
-		result = userGrantMapper.saveEnable(list);
+		return userGrantMapper.saveEnable(master);
 
-		return result;
+	}
+
+	public List<String> enableList() throws Exception {
+		// TODO 自動生成されたメソッド・スタブ
+		return userGrantMapper.enableList();
+	}
+
+	public int updateEnable(UserMaster master)throws Exception {
+
+		return userGrantMapper.updateEnable(master);
+
+
 	}
 
 
