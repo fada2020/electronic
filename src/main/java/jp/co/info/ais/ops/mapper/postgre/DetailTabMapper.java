@@ -15,6 +15,7 @@ public interface DetailTabMapper {
 
 	public int updateDetail(DetailTab detailTab)throws Exception;
 
+	int checkCustomerNo(String id)throws Exception;
 
 
 }

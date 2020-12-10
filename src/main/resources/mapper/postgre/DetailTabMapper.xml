@@ -3,6 +3,12 @@
 
 <mapper namespace="jp.co.info.ais.ops.mapper.postgre.DetailTabMapper">
 
+	<select id="checkCustomerNo" resultType="Integer">
+    	SELECT count(customerno)
+    	  FROM tbl_jikahorenrakusettei
+         WHERE
+               customerno =#{id}
+    </select>
 	<select id="selectInfo" resultType="jp.co.info.ais.ops.domain.DetailTab">
 		SELECT
 				customerno
@@ -14,6 +20,7 @@
 				,adminuserid
 				,adminusername
 				,adminmailaddress
+				,adminphoneno
 				,upoaid
 				,upoaname
 				,upoatime
@@ -33,6 +40,7 @@
 			,intermailaddr
 			,adminuserid
 			,adminusername
+			,adminphoneno
 			,adminmailaddress
 			,upoaid
 			,upoaname
@@ -47,6 +55,7 @@
 			,#{intermailaddr}
 			,#{adminuserid}
 			,#{adminusername}
+			,#{adminphoneno}
 			,#{adminmailaddress}
 			,#{upoaid}
 			,#{upoaname}
@@ -64,6 +73,7 @@
 			,intermailaddr=#{intermailaddr}
 			,adminuserid=#{adminuserid}
 			,adminusername=#{adminusername}
+			,adminphoneno=#{adminphoneno}
 			,adminmailaddress=#{adminmailaddress}
 			,upoaid=#{upoaid}
 			,upoaname=#{upoaname}

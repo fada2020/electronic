@@ -12,11 +12,8 @@ CREATE TABLE tbl_jikahonoticemailinfo
    begintimeto timestamp without time zone,
    CONSTRAINT tbl_jikahonoticemailinfo_pkey PRIMARY KEY (mailid)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahonoticemailinfo
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahonoticemailinfo
     IS '自家補お知らせメール情報';

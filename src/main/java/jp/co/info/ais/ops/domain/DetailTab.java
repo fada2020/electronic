@@ -34,6 +34,8 @@ public class DetailTab {
 	private String adminuserid;      //管理者ID
 	private String adminusername;    //管理者名
 	private String adminmailaddress; //管理者メールアドレス
+	private String adminphoneno;     //管理者電話番号
+
 	public String getCustomerno() {
 		return customerno;
 	}
@@ -208,6 +210,12 @@ public class DetailTab {
 	public void setAdminmailaddress(String adminmailaddress) {
 		this.adminmailaddress = adminmailaddress;
 	}
+	public String getAdminphoneno() {
+		return adminphoneno;
+	}
+	public void setAdminphoneno(String adminphoneno) {
+		this.adminphoneno = adminphoneno;
+	}
 
 	@Override
 	public String toString() {
@@ -238,6 +246,7 @@ public class DetailTab {
 				", adminuserid="+ adminuserid +
 				", adminusername="+ adminusername +
 				", adminmailaddress="+ adminmailaddress +
+				", adminphoneno="+ adminphoneno +
 				", address=" + address +
 				"]";
 	}

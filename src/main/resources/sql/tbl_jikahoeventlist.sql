@@ -16,11 +16,8 @@ CREATE TABLE tbl_jikahoeventlist
    upoatime timestamp without time zone,
    CONSTRAINT tbl_jikahoeventlist_pkey PRIMARY KEY (occurtime)
 )
-TABLESPACE jikaho
+TABLESPACE public
 ;
-
-ALTER TABLE tbl_jikahoeventlist
-    OWNER to jikaho;
 
 COMMENT ON TABLE tbl_jikahoeventlist
     IS '自家補連絡イベントリスト';
