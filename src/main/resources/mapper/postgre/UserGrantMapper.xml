@@ -48,4 +48,24 @@
 			loginuser
 		FROM tbl_usergrant
 	</select>
+
+	<!--権限リスト保存  -->
+	<insert id ="allSaveEnable" parameterType= "java.util.List" >
+			insert into tbl_usergrant
+		    (
+			    loginuser,
+			    enable
+		    )
+		    VALUES
+		<foreach item="user" index="index" collection="users" separator=",">
+		    (
+			    #{user.loginuser},
+			    #{user.enable}
+		    )
+		</foreach>
+	</insert >
  </mapper>
+
+
+
+

@@ -27,4 +27,7 @@ public interface UserGrantMapper {
 
 	int updateEnable(UserMaster master)throws Exception;
 
+
+	int allSaveEnable(@Param("users")List<UserMaster> list)throws Exception;
+
 }

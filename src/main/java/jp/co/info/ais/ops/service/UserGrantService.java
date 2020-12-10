@@ -79,5 +79,11 @@ public class UserGrantService {
 
 	}
 
+	public int allSaveEnable(List<UserMaster> list) throws Exception {
+
+		// TODO 自動生成されたメソッド・スタブ
+		return userGrantMapper.allSaveEnable(list);
+	}
+
 
 }
