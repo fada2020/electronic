@@ -5,7 +5,7 @@
 
 	<select id="selectInfo" resultType="jp.co.info.ais.ops.domain.DetailTab">
 		SELECT
-				shisetsuno
+				customerno
 				,customer
 				,sitename
 				,address
@@ -18,13 +18,13 @@
 				,upoaname
 				,upoatime
 		FROM tbl_jikahorenrakusettei
-	   WHERE shisetsuno =#{id}
+	   WHERE customerno =#{id}
 	</select>
 
 	<insert id="insertDetail" parameterType="jp.co.info.ais.ops.domain.DetailTab">
 		insert into tbl_jikahorenrakusettei
 		(
-			shisetsuno
+			customerno
 			,customer
 			,sitecd
 			,sitename
@@ -38,7 +38,7 @@
 			,upoaname
 			,upoatime
 		) values(
-			#{shisetsuno}
+			#{customerno}
 			,#{customer}
 			,#{sitecd}
 			,#{sitename}
@@ -69,10 +69,7 @@
 			,upoaname=#{upoaname}
 			,upoatime=current_timestamp
 		WHERE
-			shisetsuno=#{shisetsuno}
+			customerno=#{customerno}
 	</update>
-
-
-
 
  </mapper>
