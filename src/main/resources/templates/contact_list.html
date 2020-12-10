@@ -229,7 +229,7 @@
 	/*メールパターン*/
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	/*電話番号パターン*/
-	var phone = RegExp(/^.*(?=^.{8,20}$)(?=.*\d)(?=.*[a-zA-Z])(?=.*[-]).*$/);
+	var phone = RegExp(/^[0-9 \-]+$/);
 	/*名称パターン*/
 	var engname = RegExp(/^[a-zA-Z]*$/);
 	var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
