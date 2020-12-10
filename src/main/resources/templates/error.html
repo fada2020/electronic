@@ -1,0 +1,86 @@
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!-->
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<!--<![endif]-->
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>OPS:Setting</title>
+    <meta name="description" content="OPS">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="apple-touch-icon" href="apple-icon.png">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="stylesheet" th:href="@{/static/vendors/bootstrap/dist/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/font-awesome/css/font-awesome.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/themify-icons/css/themify-icons.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/flag-icon-css/css/flag-icon.min.css}">
+    <link rel="stylesheet" th:href="@{/static/vendors/selectFX/css/cs-skin-elastic.css}">
+    <link rel="stylesheet" th:href="@{/static/assets/css/style.css}">
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
+	<!-- dataTable -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+<!-- Style -->
+<style>
+    	.errorpage {
+    		position: absolute; top: 90px; right: 50px; left: 30px;
+    	}
+		#errorpage {
+			vertical-align:middle;
+
+		}
+		#errorpage {
+			vertical-align:middle;
+		}
+</style>
+</head>
+<body class="nav-md">
+    <!-- Left Panel -->
+	<div th:insert="fragments/sidebar :: sidebar" th:remove="tag"></div>
+    <!-- Left Panel -->
+
+    <!-- Right Panel Start-->
+    <div id="right-panel" class="right-panel">
+
+	    <!-- Header-->
+		<div th:insert="fragments/top_nav :: top_nav" th:remove="tag"></div>
+	    <!-- Header-->
+	      <div class="content mt-3">
+	        <div class="row">
+	            <div class="col-md-12">
+	                <div class="card">
+	                    <div class="card-header" style="float:right;">
+	                        <div class="col-lg-12" style="float:right; text-align: right;">
+	                      		<button type="button" style="cursor: pointer;" class="btn btn-success" id = "btn" onclick="history.back();">前に戻る</button>
+	                        </div>
+	                    </div>
+	                     <div class="card-body">
+
+								<br><br><br>
+								<h3>エラーの内容</h3>
+									error code : <span th:text="${code}"></span> <br>
+									error msg :<span th:text="${msg}"></span> <br>
+									timestamp :<span th:text="${timestamp}"></span>
+								<h6>大変申し訳ございません。</h6>
+						</div>
+	                </div><!--/.card End-->
+	            </div> <!--/.col End-->
+	        </div> <!--/.row End-->
+	    </div> <!-- /.content End-->
+		</div>
+    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
+    <script th:src="@{/static/vendors/popper.js/dist/umd/popper.min.js}"></script>
+    <script th:src="@{/static/vendors/bootstrap/dist/js/bootstrap.min.js}"></script>
+    <script th:src="@{/static/assets/js/main.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.js}"></script>
+    <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
+	<!-- dataTable -->
+	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+	<!-- page script -->
+
+</body>
+</html>
+
