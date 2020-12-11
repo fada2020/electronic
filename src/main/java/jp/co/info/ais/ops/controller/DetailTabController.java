@@ -159,10 +159,6 @@ public class DetailTabController {
 			if(viewFlag.equals(INSERT_FLAG)) {
 				logger.debug("詳細設定-登録 開始 ===========");
 				if (detailTabService.checkCustomerNo(customerNo) < 1) {
-					ref = false;
-					//エラーメッセージ出力のため
-					model.addAttribute("errMsg", ERROR_MSG);
-				}else {
 					//登録処理を呼ぶ
 					result = detailTabService.insertDetail(detailTab);
 					//エラーメッセージ出力のため
@@ -172,6 +168,10 @@ public class DetailTabController {
 				    }else {
 						model.addAttribute("errMsg", null);
 				    }
+				}else {
+					ref = false;
+					//エラーメッセージ出力のため
+					model.addAttribute("errMsg", ERROR_MSG);
 				}
 			}else {
 				logger.debug("詳細設定-編集 開始 ===========");
