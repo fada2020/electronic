@@ -54,10 +54,10 @@ public class SettingController {
 	private static final String SIYO_TXT = "使用中";
 	private static final String MISIYO = "0";
 	private static final String MISIYO_TXT = "未使用";
-	private static final String TEKIYO = "1";
-	private static final String TEKIYO_TXT = "適用中";
-	private static final String MITEKIYO = "0";
-	private static final String MITEKIYO_TXT = "未適用";
+	private static final String HANTEI = "1";
+	private static final String HANTEI_TXT = "判定中";
+	private static final String MIHANTEI = "0";
+	private static final String MIHANTEI_TXT = "停止中";
 	private static final String YUKO = "1";
 	private static final String YUKO_TXT = "✔";
 	private static final String MUKO = "0";
@@ -76,10 +76,10 @@ public class SettingController {
 		logger.debug("設定一覧画面===開始");
 		try {
 			logger.debug("setting List Start");
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd/HH:mm");
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		    Date nowdate = new Date();
 		    String dateString = formatter.format(nowdate);
-		    model.addAttribute("date",dateString);
+		    model.addAttribute("date",dateString+" 現在");
 		} catch (Exception e) {
 			logger.debug(e.getMessage());
 		}
@@ -336,10 +336,10 @@ public class SettingController {
 
 		        cell = row.createCell(2);//終了判定
 		        cell.setCellStyle(bodyStyle);
-		        if(setting.getEndjdgsw()!=null&&setting.getEndjdgsw().equals(TEKIYO)) {
-		        	cell.setCellValue(TEKIYO_TXT);
-		        }else if(setting.getEndjdgsw().equals(MITEKIYO)) {
-		        	cell.setCellValue(MITEKIYO_TXT);
+		        if(setting.getEndjdgsw()!=null&&setting.getEndjdgsw().equals(HANTEI)) {
+		        	cell.setCellValue(HANTEI_TXT);
+		        }else if(setting.getEndjdgsw().equals(MIHANTEI)) {
+		        	cell.setCellValue(MIHANTEI_TXT);
 		        }
 
 		        cell = row.createCell(3);//使用開始日時

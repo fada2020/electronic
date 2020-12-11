@@ -4,8 +4,15 @@
 <mapper namespace="jp.co.info.ais.ops.mapper.postgre.SettingMapper">
 
 	<select id="settingList" resultType="jp.co.info.ais.ops.domain.Setting">
-		SELECT
-			(ROW_NUMBER() OVER()) AS rownum,
+		select (ROW_NUMBER() OVER()) AS rownum,
+	customerno,
+			customer,
+			status,
+			sitecd,
+			jdgsw,
+			endjdgsw,
+			starttime
+	from(SELECT
 			customerno,
 			customer,
 			status,
@@ -14,6 +21,7 @@
 			endjdgsw,
 			starttime
 		FROM tbl_jikahorenrakusettei
+		order by customerno asc) as foo;
 	</select>
 
 	<delete id="deleteCustomerno" parameterType="String">
@@ -28,14 +36,17 @@
 			<if test="status != null and !status.equals('')">
 				status=#{status},
 				starttime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
-				upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS'),
+				upoatime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
 				upoaid=#{upoaid},
 				upoaname=#{upoaname},
+				<if test="status == @jp.co.info.ais.ops.domain.Setting@STOP">
+					endjdgsw=#{status},
+				</if>
 			</if>
 
 			<if test="endjdgsw != null and !endjdgsw.equals('')">
 				endjdgsw=#{endjdgsw},
-				upoatime=TO_TIMESTAMP(#{upoatime}, 'YYYY/MM/DD HH24:MI:SS'),
+				upoatime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
 				upoaid=#{upoaid},
 				upoaname=#{upoaname}
 			</if>

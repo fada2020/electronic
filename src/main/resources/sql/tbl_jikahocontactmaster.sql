@@ -4,7 +4,7 @@ DROP TABLE IF EXISTS tbl_jikahocontactmaster;
 
 CREATE TABLE tbl_jikahocontactmaster
 (
-   contactcd character varying(3) NOT NULL,
+   contactcd serial NOT NULL,
    contactName character varying(50),
    contactphoneno character varying(20),
    contactmailaddress text,
