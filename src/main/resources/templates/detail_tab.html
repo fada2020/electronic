@@ -30,6 +30,8 @@ th{
 td{
 	text-align: left;
 }
+.highlight { background-color: #b0c4de; }
+.nonhighlighted { background: white; }
 </style>
 </head>
 
@@ -56,6 +58,11 @@ td{
 					<span style="color:red; font-size:1.6em; text-align: left;" th:disabled="${errMsg != null}" th:text="${errMsg}"></span>
                 </div>
                 <div class="col-sm-4">
+	                <div class="float-left" id="view-only" style="float: right; text-align: right; padding-top: 14px;">
+						<span style="padding-right:80px;"></span>
+						<input type="checkbox" checked data-toggle="modal" data-target="#checkModal">
+						<span style="font-size:1.4em;"> 有効（未入力項目がある場合、チェック不可）</span>
+					</div>
 	                <div class="float-right" id="view-only" style="float: right; text-align: right; margin-top: 10px; display:none;">
                         <button type="button" id="editViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                         <span style="padding-right:10px;"></span>
@@ -93,6 +100,8 @@ td{
                 </li>
             </ul>
             <div class="tab-content pl-3 p-1" id="myTabContent" style="padding-top: 20px !important;">
+
+            	<!-- 基本情報TAB -->
                 <div class="tab-pane fade show active" id="layer-1" role="tabpanel" aria-labelledby="home-tab">
                     <div class="col-6">
                         <!-- 基本情報 -->
@@ -112,12 +121,6 @@ td{
                                 <div class="col-4" style="font-size: 15px;">【住所】${Address}</div>
                                 <div class="col-8">
                                     <input type="text" id="address" name="address" class="form-control input-sm" th:value="${detailTab.address}">
-                                </div>
-                            </div>
-                            <div class="row form-group">
-                                <div class="col-12" style="font-size: 15px;">
-									<input type="checkbox" checked data-toggle="modal" data-target="#checkModal">
-									<span> 有効（未入力項目がある場合、チェック不可）</span>
                                 </div>
                             </div>
                         </div>
@@ -209,6 +212,7 @@ td{
                         </div>
                     </div>
                 </div>
+                <!-- 開始判定条件・連絡TAB -->
                 <div class="tab-pane fade" id="layer-2" role="layer-2" aria-labelledby="profile-tab">
                     <div class="col-6">
                         <h5>開始連絡</h5>
@@ -254,10 +258,8 @@ td{
                                     <input type="text" id="startsubject" name="startsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.startsubject}">
                                 </div>
                             </div>
-                            <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="vertical-align: top; font-size: 15px;">
-                                    メール 本文
-                                </div>
+                            <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
+                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
                                 <div class="col-9">
                                     <textarea name="startmailtext" id="startmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.startmailtext}></textarea>
                                 </div>
@@ -270,10 +272,11 @@ td{
                             <!-- 開始判定条件 -->
                             <div class="row form-group form-group-sm">
                                 <div class="col-6">
-                                    <textarea style="overflow:auto;" name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                    <textarea style="overflow:auto;" name="startCalTextarea" id="startCalTextarea" rows="2" placeholder="" class="form-control"></textarea>
                                 </div>
                                 <div class="col-6">
-                                    <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
+                                    <button type="button" class="btn btn-primary btn-sm btn_start_cal" style="margin-bottom: 10px; width: 150px;"
+                                    data-toggle="modal" data-target="#calModal" onclick="setTabId('1')"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
@@ -418,7 +421,7 @@ td{
                         </div>
                     </div>
                 </div>
-
+                <!-- 終了判定条件・連絡TAB -->
                 <div class="tab-pane fade" id="layer-3" role="layer-3" aria-labelledby="contact-tab">
                     <div class="col-6">
                         <h5>終了連絡</h5>
@@ -464,10 +467,8 @@ td{
                                     <input type="text" id="endsubject" name="endsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.endsubject}">
                                 </div>
                             </div>
-                            <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="vertical-align: top; font-size: 15px;">
-                                    メール 本文
-                                </div>
+                            <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
+                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
                                 <div class="col-9">
                                     <textarea name="endmailtext" id="endmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.endmailtext}></textarea>
                                 </div>
@@ -481,16 +482,17 @@ td{
                             <!-- 終了判定条件 -->
                             <div class="row form-group form-group-sm">
                                 <div class="col-5">
-                                    <textarea style="overflow:auto;" name="textarea-input" id="textarea-input" rows="2" placeholder="" class="form-control"></textarea>
+                                    <textarea style="overflow:auto;" name="endCalTextarea" id="endCalTextarea" rows="2" placeholder="" class="form-control"></textarea>
                                 </div>
                                 <div class="col-2" style="text-align: center; vertical-align: text-bottom; font-size: medium;">
                                     <span>AND</span>
                                 </div>
                                 <div class="col-2">
-                                    <textarea style="background-color:white;" name="textarea-input" id="ikitiZ_input" rows="2" class="form-control" disabled=true></textarea>
+                                    <textarea style="background-color:white;" name="ikitiZ_input" id="ikitiZ_input" rows="2" class="form-control" disabled=true></textarea>
                                 </div>
                                 <div class="col-3">
-                                        <button type="button" class="btn btn-primary btn-sm" style="margin-bottom: 10px; width: 150px;" data-toggle="modal" data-target="#calModal"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
+                                        <button type="button" class="btn btn-primary btn-sm btn_end_cal" style="margin-bottom: 10px; width: 150px;"
+                                        data-toggle="modal" data-target="#calModal" onclick="setTabId('2')"><i class="fa fa-list-ul"></i>&nbsp; 演算式設定</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
@@ -630,6 +632,7 @@ td{
                                             </tr>
                                         </tbody>
                                     </table>
+                                    <!-- アナログタグ -->
                                     <label for="" class="control-label mb-1">アナログタグ</label>
                                     <table class="table table-bordered table-sm" style="margin-bottom: 0px;">
                                         <thead>
@@ -644,19 +647,25 @@ td{
                                         </thead>
                                         <tbody>
                                             <tr>
-                                                <th scope="row">Z</th>
-                                                <td>大手町タワー#2</td>
-                                                <td>受電電力</td>
-                                                <th><select><option>＞</option><option>≧</option><option>≦</option><option>＜</option></select>
-                                                </th>
-                                                <th><input type=text id="ikitiZ" placeholder=4.000></th>
-                                                <th>
-                                                    <button type="button" class="btn btn-primary btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
-                                                    <button type="button" class="btn btn-danger btn-sm" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
-                                                </th>
+                                                <td scope="row" style="text-align: center; vertical-align: middle;">Z</td>
+                                                <td style="text-align: center; vertical-align: middle;">大手町タワー#2</td>
+                                                <td style="text-align: center; vertical-align: middle;">受電電力</td>
+                                                <td style="text-align: center; vertical-align: middle;">
+                                                	<select id="ikitiZSlt" name="ikitiZSlt">
+                                                		<option value="＞">＞</option>
+                                                		<option value="≧">≧</option>
+                                                		<option value="≦">≦</option>
+                                                		<option value="＜">＜</option>
+                                                	</select>
+                                                </td>
+                                                <td style="text-align: center; vertical-align: middle;"><input type=text id="ikitiZ" placeholder=4.000></td>
+                                                <td style="text-align: center; vertical-align: middle;">
+                                                    <button type="button" class="btn btn-primary btn-sm btn_analog_add" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagModal"><i class="fa fa-cog"></i>&nbsp; タグ設定</button>
+                                                    <button type="button" class="btn btn-danger btn-sm btn_analog_del" style="width: 100px; height: 30px;" data-toggle="modal" data-target="#tagDeleteModal"><i class="fa fa-eraser"></i>&nbsp; タグ削除</button>
+                                                </td>
                                             </tr>
                                         </tbody>
-                                    </table>
+                                    </table><!-- .アナログタグ -->
                                 </div>
                             </div>
                         </div>
@@ -789,7 +798,6 @@ td{
 </form>
 </div>
 <!-- 責任者ユーザー選択Modal Start-->
-
 <!-- User Select Modal Start-->
 <div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id="userForm">
@@ -850,7 +858,6 @@ td{
 </form>
 </div>
 <!-- User Select Modal End-->
-
 <!-- Cal Modal Start-->
 <div class="modal fade" id="calModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -867,180 +874,168 @@ td{
                         <div class="card-header">
                             <div class="form-group form-inline">
                                 <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">演算式</label>
-                                <textarea style="background-color:lightyellow;" name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control" disabled=true>( A OR B ) AND C</textarea>
+                                <textarea style="background-color:lightyellow;" name="calTextarea" id="calTextarea"
+                                 rows="2" cols="100%" placeholder="" class="form-control" disabled></textarea>
                             </div><!--/.form-group -->
                         </div>
                         <div class="card-body">
-                            <table id="bootstrap-data-table-export" class="table table-striped table-bordered table-sm">
+                            <table id="calTabTable" class="table table-bordered table-sm">
                                 <thead>
                                     <tr style="background-color: #000033; color:white;">
                                         <th style="text-align:center; width: 10%; font-size: 14px;">No</th>
-                                        <th colspan="4" style="text-align:center;width: 90%; font-size: 14px;">演算子 (       )</th>
+                                        <th colspan="4" style="text-align:center;width: 90%; font-size: 14px;">演算子 (　　　　　　　　　)</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">1</th>
-                                        <td style="width: 10%; font-size: 12px;">
-
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo1"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                    <tr style="height: 40px;">
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">1</td>
+                                        <td style="width: 15%; font-size: 12px; text-align: center;"></td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">A</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">2</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">2</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow2" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo2"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">B</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">3</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">3</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow3" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo3"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">C</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">4</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">4</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow4" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo4"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">D</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">5</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">5</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow5" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo5"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">E</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">6</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">6</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow6" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo6"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">F</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">7</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">7</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow7" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo7"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">G</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">8</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">8</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow8" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo8"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">H</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">9</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">9</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow9" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo9"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">I</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="text-align:center;padding-left: 10px;">10</th>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>OR</option><option>AND</option></select>
+                                        <td scope="row" style="text-align:center;padding-left: 12px; vertical-align:middle;">10</td>
+                                        <td style="width: 15%; font-size: 11px; text-align: center;">
+			                                <select id="sltRow10" class="form-control form-control-sm" onchange="changeClatext()">
+			                                    <option value="0">   </option>
+			                                    <option value="OR">OR</option>
+			                                    <option value="AND">AND</option>
+			                                </select>
                                         </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>( </option><option> )</option></select>
-                                        </td>
-                                        <td style="width: 60%; font-size: 12px;">
-                                            <select id="tagNo10"></select>
-                                        </td>
-                                        <td style="width: 10%; font-size: 12px;">
-                                            <select><option> </option><option>) </option><option> (</option></select>
-                                        </td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
+                                        <td style="width: 45%; font-size: 14px; text-align: center; vertical-align:middle;">J</td>
+                                        <td style="width: 15%; font-size: 14px; text-align: center; vertical-align:middle;"> </td>
                                     </tr>
                                 </tbody>
+                             </table>
+                             <table class="table table-bordered table-sm" style="margin-bottom: 0px;">
+                                <tbody>
+                                	<tr>
+	                                	<td style="text-align: center;">
+											<button type="button" class="btn btn-dark btn_left_add" style="width: 120px; text-align: center;"> ( </button>
+											<button type="button" class="btn btn-dark btn_right_add" style="width: 120px; text-align: center;"> ) </button>
+											<button type="button" class="btn btn-dark btn_left_del" style="width: 120px; text-align: center;"> ( DEL </button>
+											<button type="button" class="btn btn-dark btn_right_del" style="width: 120px; text-align: center;"> ) DEL </button>
+											<button type="button" class="btn btn-danger btn_clear" style="width: 120px; text-align: center;"> クリア </button>
+	                                	</td>
+                                	</tr>
+                                </tbody>
                             </table>
-                            <div class="form-group form-inline" style="margin-bottom: 0px;">
+                            <div class="form-group form-inline" style="margin-top: 10px; margin-bottom: 0px;">
                                 <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">コメント</label>
-                                <textarea name="textarea-input" id="textarea-input" rows="2" cols="100%" placeholder="" class="form-control"></textarea>
+                                <textarea name="calComment" id="calComment" rows="2" cols="100%" placeholder="" class="form-control"></textarea>
                             </div><!--/.form-group -->
                         </div>
                     </div><!-- /.card-->
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">設定</button>
+                <button type="button" class="btn btn-secondary btn_set_cal" data-dismiss="modal">設定</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
@@ -1258,15 +1253,13 @@ td{
                 </button>
             </div>
             <div class="modal-body" style="text-align: center;">
-                <p>
-                    データを保存します。
-                    <div class="row form-group">
-                        <div class="col-4" style="margin-top: 10px;"><span style="font-size: 12px;">アカウント</span></div>
-                        <div class="col-8">
-                            <input type="text" id="checkId" name="checkId" placeholder="" class="form-control input-sm">
-                        </div>
+                <p>データを保存します。</p>
+                <div class="row form-group">
+                    <div class="col-4" style="margin-top: 10px;"><span style="font-size: 12px;">アカウント</span></div>
+                    <div class="col-8">
+                        <input type="text" id="checkId" name="checkId" placeholder="" class="form-control input-sm">
                     </div>
-                </p>
+                </div>
             </div>
             <div class="alert alert-danger alert-dismissable text-left" id="idErr" hidden="true">アカウントが一致しません。</div>
             <div class="modal-footer">
@@ -1375,9 +1368,10 @@ td{
 
         </div> <!-- .content -->
 
+<form id="hidTabForm">
+<input type="hidden" id="tabId" name="tabId">
+</form>
     </div><!-- /#right-panel -->
-
-    <!-- Right Panel -->
 
     <script src="../static/vendors/jquery/dist/jquery.js"></script>
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
@@ -1390,7 +1384,6 @@ td{
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 	<script type="text/javascript" src="../static/vendors/Select-1.3.1/js/dataTables.select.js"></script>
 
-
 <script th:inline="javascript">
 /*<![CDATA[*/
 var enable = /*[[${session.enable}]]*/ 'default';
@@ -1402,6 +1395,7 @@ const viewEditOk = document.getElementById("editOkDiv");
 
 jQuery(document).ready(function($) {
 
+	var selectedIdx = 0;
 	//画面表示初期化
 	viewSet(enable);
 
@@ -1443,7 +1437,7 @@ jQuery(document).ready(function($) {
  	});
 
 	//責任者ユーザー選択のDataTable Option設定
-    var tableSite = $('#adminList').DataTable( {
+    var tableAdmin = $('#adminList').DataTable( {
     	responsive: true,
  	    searching: false,
         paging: false,
@@ -1483,7 +1477,6 @@ jQuery(document).ready(function($) {
  	});
 
     $(".dataTables_scrollBody").width($(".dataTables_scrollHead").width());
-
     $('#button').click( function () {
         table.row('.selected').remove().draw( false );
     } );
@@ -1572,27 +1565,76 @@ jQuery(document).ready(function($) {
     	$('#userSelectModal').find('form')[0].reset()
 	});
 
+    //演算式設定関連関数===================================
+    //アナログタグ中、演算子更新
+	$("#ikitiZSlt").on('change', function (e) {
+		var ikiti = $('#ikitiZ').val();
+		if(ikiti != ''){
+			$('#ikitiZ_input').val('');
+			var r = $('[name=ikitiZSlt] option:selected').text();
+		    $('#ikitiZ_input').val('Z '+ r + ' '+ ikiti);
+		}
+	});
+    //アナログタグ中、閾値更新
+	$('#ikitiZ').keyup(function() {
+		var ikiti = $('#ikitiZ').val();
+		if(ikiti != ''){
+			$('#ikitiZ_input').val('');
+			var r = $('[name=ikitiZSlt] option:selected').text();
+		    $('#ikitiZ_input').val('Z '+ r + ' '+ ikiti);
+		}
+    });
+
+    $('#calTabTable tr').on('click', function (e) {
+        var selected = $(this).hasClass("highlight");
+        rowno = $(this).closest('tr').index();
+        selectedIdx = rowno+1;
+        $("#calTabTable tr").removeClass("highlight");
+        if(!selected){
+            $(this).addClass("highlight");
+        }
+    });
+
+    $(".btn_left_add").click(function(){
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text('(');
+        changeClatext();
+    });
+    $(".btn_right_add").click(function(){
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text(')');
+        changeClatext();
+    });
+    $(".btn_left_del").click(function(){
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text('');
+        changeClatext();
+    });
+    $(".btn_right_del").click(function(){
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text('');
+        changeClatext();
+    });
+    $(".btn_clear").click(function(){
+        $('#calTextarea').val('');
+    });
+    $(".btn_set_cal").click(function(){
+    	var tabID = $('#tabId').val();
+    	var getText = $('#calTextarea').val();
+    	if(tabID === '1'){
+    		alert('calMode-->'+tabID);
+        	$('#startCalTextarea').val('');
+        	$('#startCalTextarea').val(getText);
+    	}else{
+    		alert('calMode-->'+tabID);
+        	$('#endCalTextarea').val('');
+        	$('#endCalTextarea').val(getText);
+    	}
+    });
+	//演算式設定関連関数===================================
+
 });
 
 
-jQuery(function($){
-$('#ikitiZ').change(function() {
-        var ikiti = $(this).val();
-        if(ikiti != ""){
-        	document.getElementById('ikitiZ_input').innerHTML = "Z < " + ikiti;
-        }else{
-        	document.getElementById('ikitiZ_input').innerHTML = "";
-        }
 
-    });
-    $('#ikitiZ').keyup(function() {
-        var ikiti = $(this).val();
-        if(ikiti != ""){
-        	document.getElementById('ikitiZ_input').innerHTML = "Z < " + ikiti;
-        }else{
-        	document.getElementById('ikitiZ_input').innerHTML = "";
-        }
-    });
+
+jQuery(function($){
 	$('#calModal').on('show.bs.modal', function (event) {
 		var modal = $(this);
 		var itemIDs = [];
@@ -1833,7 +1875,6 @@ function viewChange(idx) {
 
 //TODO:必須入力チェック
 function checkValue(){
-
 	$("#mainFrom").find("input[type=text]").each(function(index, item){
         if ($(this).val().trim() == '') {
             return false;
@@ -1843,14 +1884,57 @@ function checkValue(){
     if(count == 0){
         return false;
     }
-
-/*
-    if($("#customerno").val() == ''){
-		return false;
-	}
- */
-
 }
+
+//選択されたタブを設定する。
+function setTabId(idx){
+	if(idx === '1'){
+    	$('#tabId').val('1');
+	}else{
+    	$('#tabId').val('2');
+	}
+}
+
+//演算式設を更新
+function changeClatext(){
+	var calText = '';
+    $('#calTextarea').val('');
+
+    for (var i=1; i < 11; i++) {
+    	var col1 = '';
+    	var col2 = $('#calTabTable tr').eq(i).children('td').eq(2).text();
+    	var col3 = $('#calTabTable tr').eq(i).children('td').eq(3).text();
+    	var col4 = $('#calTabTable tr').eq(i).children('td').eq(4).text();
+
+    	if(i === 1){
+    		if( col2 !== ''){
+    			calText += " "+col2;
+    		}
+    		if( col3 !== ''){
+    			calText += " "+col3;
+    		}
+    		if( col4 !== ''){
+    			calText += " "+col4;
+    		}
+    	}else{
+    		col1 = $('#sltRow'+i).val();
+    		if(col1 !== '0'){
+    			calText += " "+col1;
+    			if( col2 !== ''){
+    				calText += " "+col2;
+    			}
+    			if( col3 !== ''){
+    				calText += " "+col3;
+    			}
+    			if( col4 !== ''){
+    				calText += " "+col4;
+    			}
+    		}
+    	}
+	}
+    $('#calTextarea').val(calText);
+}
+
 
 </script>
 </body>
