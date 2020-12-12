@@ -42,7 +42,7 @@
 		text-align: left;
 	}
 	td{
-	 text-align: center;
+	 	text-align: center;
 	}
 	 th {
         text-align: center !important;
@@ -51,7 +51,11 @@
     	font-size:14px;
     }
     .cussorPoint{
-    pointer-events: none !important;
+    	pointer-events: none !important;
+    }
+    #nowTime{
+    	color:green;
+    	font-size:18px;
     }
 </style>
 </head>
@@ -139,7 +143,7 @@
 						<input type="text" id="view_time" disabled=true />
 					</div><!-- /.modal-body -->
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" id="genkyoChange" data-dismiss="modal" data-toggle="modal" data-target="#idCheck">はい</button>
+						<button type="button" class="btn btn-secondary" id="genkyoChange" data-dismiss="modal" data-status="0" data-toggle="modal" data-target="#idCheck">はい</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 					</div>
 				</div><!-- /.modal-content End-->
@@ -161,7 +165,7 @@
 						<label class="modalFont" id="jdgconformLabel"></label><br>
 					</div>
 					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" onClick="endjdgswChange();">はい</button>
+						<button type="button" class="btn btn-secondary" id="idButton" data-dismiss="modal" data-toggle="modal" data-status="1" data-target="#idjdgCheck">はい</button>
 						<button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
 					</div>
 				</div><!-- /.modal-content End-->
@@ -183,15 +187,35 @@
 						<div class="alert alert-danger alert-dismissable text-left" id="errMessage" hidden="true">
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" id="idCheckButton" onClick="submitId();">はい</button>
+							<button type="button" class="btn btn-secondary" id="idCheckButton" >はい</button>
 							<button type="button" class="btn btn-danger cancleButton" data-dismiss="modal">いいえ</button>
 						</div>
 					</div><!-- /.modal-content End-->
 				</div><!-- /.modal-dialog End-->
 			</div><!-- /.modal fade End-->
 		</div><!-- /#right-panel End-->
-		<!-- /現況変更モーダルのIDチェック End-->
 
+		<!-- 現況変更モーダルのIDチェック Start-->
+		<div class="modal fade" id="idjdgCheck" tabindex="-1" role="dialog" aria-labelledby="basicModal" aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title　myModalLabel">自家補連絡設定</h4>
+					</div>
+					<div class="modal-body" style="text-align:center;">
+						<label class="modalFont" id="jdgconformLabel">データを保存します。よろしいですか？</label><br>
+						<label class="modalFont" id="jdgstatusLabel">アカウント</label>
+						<input type="text"   id="jdguser" name="jdguser" />
+						<div class="alert alert-danger alert-dismissable text-left" id="jdgerrMessage" hidden="true">
+						</div>
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" id="idjdgCheckButton" >はい</button>
+							<button type="button" class="btn btn-danger cancleButton" data-dismiss="modal">いいえ</button>
+						</div>
+					</div><!-- /.modal-content End-->
+				</div><!-- /.modal-dialog End-->
+			</div><!-- /.modal fade End-->
+		</div><!-- /#right-panel End-->
 		<!-- 削除モーダル Start-->
 		<div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
 		    <div class="modal-dialog modal-sm" role="document">
@@ -235,6 +259,7 @@
 			<input type="hidden" id="statusu">
 			<input type="hidden" id="endjdgsw">
 			<input type="hidden" id="starttimeu">
+			<input type="hidden" id="customeru">
 		</form>
 
 	    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
@@ -248,32 +273,14 @@
 	</div><!-- /Right Panel End-->
 <script>
 
-/* $('#setList').on( 'length.dt', function ( e, settings, len ) {
-    console.log( 'New page length: '+len );
-} );
-
-$(function() {
-
-
-
-  //セレクトボックスが切り替わったら発動
-  $("#setList").change(function() {
-
-	  var Now = new Date();
-		var NowTime = Now.getFullYear();
-		NowTime += '/' + Now.getMonth() + 1 ;
-		NowTime += '/' + Now.getDate();
-		NowTime += ' ' + Now.getHours();
-		NowTime += ':' + Now.getMinutes();
-		alert(NowTime);
-		$('#nowTime').text(NowTime);
-  });
+$("#excelButton").click(function (){
+	$("#flag").val("excel");
+	$('#flagForm').submit();
 });
 
- */
 var errorMs = "アカウントが一致しません。";
 var myDataTables = $("#setList").DataTable({
-
+	select: true,
     /*datatableのオプション*/
 	autoWidth: true,
     searching: false,
@@ -304,9 +311,9 @@ var myDataTables = $("#setList").DataTable({
         }},
         {targets: [2], data: function ( d ) {
         	if(d.endjdgsw == '1') {
-        		return '適用中';
+        		return '判定中';
         	} else {
-        		return '未適用';
+        		return '停止中';
         	}
         }},
         {targets: [3], data: function ( d ) {
@@ -349,9 +356,13 @@ var myDataTables = $("#setList").DataTable({
 	    rowCallback: function( row, data, dataIndex ) {
 	        if ( data.status == '1') {
 	          $(row).find('td:eq(1)').css('color','red');
+
 	          $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
 	          $(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
 	          $(row).find('.btn_change_end_judg').attr('disabled',false);
+	          if(data.starttime!=null){
+	        	  $(row).find('td:eq(3)').css('color','red');
+	          }
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	          $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
@@ -363,6 +374,7 @@ var myDataTables = $("#setList").DataTable({
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
 		        }
+
 	    }
 	});
 
@@ -412,16 +424,19 @@ $('#setList').on('click', '.updateButton', function() {
 $('#setList').on('click', '.btn_change_end_judg', function() {
 	var customerno = $(this).closest('tr').find('td:eq(5)').text();
 	var endjdgsw = $(this).closest('tr').find('td:eq(2)').text();
-
+	var customer = $(this).closest('tr').find('td:eq(6)').text();
+	var starttime = getCurrentTime();
+	$('#starttimeu').val(starttime);
 	$('#customernou').val(customerno);
+	$('#customeru').val(customer);
 	$('#endjdgsw').val(endjdgsw);
 	if(endjdgsw=='適用中'){
 		$("#endjdgswLabel").text(endjdgsw);
 		$("#endjdgswLabel").css('color','red');
-		$("#jdgbeforeConform").text('未適用に変更しますか？');
+		$("#jdgbeforeConform").text('停止中に変更しますか？');
 	}else{
 		$("#endjdgswLabel").text(endjdgsw);
-		$("#jdgbeforeConform").text('適用中');
+		$("#jdgbeforeConform").text('判定中');
 		$("#jdgbeforeConform").css('color','red');
 		$("#jdgconformLabel").text('に変更しますか？');
 	}
@@ -429,9 +444,11 @@ $('#setList').on('click', '.btn_change_end_judg', function() {
 // 現況変更モーダルの内容表示の出し分け
 $('#setList').on('click', '.btn_change_genkyo', function() {
 	var customerno = $(this).closest('tr').find('td:eq(5)').text();
+	var customer = $(this).closest('tr').find('td:eq(6)').text();
 	var status = $(this).closest('tr').find('td:eq(1)').text();
 	var starttime = getCurrentTime();
 	$('#customernou').val(customerno);
+	$('#customeru').val(customer);
 	$('#statusu').val(status);
 	$('#starttimeu').val(starttime);
 	if(status=='使用中'){
@@ -465,43 +482,83 @@ function padZero(num) {
 }
 
 $('.cancleButton').on('click', function() {
+	$('#user').val('');
 	$("#errMessage").text('');
 	$("#errMessage")[0].hidden = true;
-
+	$('#jdguser').val('');
+	$("#jdgerrMessage").text('');
+	$("#jdgerrMessage")[0].hidden = true;
 });
+
 /*sessionidと入力したIDを比較*/
-function submitId(){
+
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) //モーダルを呼び出すときに使われたボタンを取得
+  var recipient = button.data('whatever') //data-whatever の値を取得
+
+  //Ajaxの処理はここに
+
+  var modal = $(this)  //モーダルを取得
+  modal.find('.modal-title').text('New message to ' + recipient) //モーダルのタイトルに値を表示
+  modal.find('.modal-body input#recipient-name').val(recipient) //inputタグにも表示
+});
+
+$('#idCheckButton').on('click', function() {
 	var user=$('#user').val();
 	var sessionId=$('#sessionId').val();
 	if(sessionId==""||sessionId==null){
 		alert("ログインしてほしいです。");
 		return false;
 	}
+
 	if(user===sessionId){
-		genkyoChange();
 		$("#errMessage").val('');
 		$("#errMessage")[0].hidden = true;
+		genkyoChange();
 	}else{
 		$("#errMessage").text(errorMs);
 		$("#errMessage")[0].hidden = false;
 	}
 
-}
+});
+$('#idjdgCheckButton').on('click', function() {
+	var jdguser=$('#jdguser').val();
+	var sessionId=$('#sessionId').val();
+	if(sessionId==""||sessionId==null){
+		alert("ログインしてほしいです。");
+		return false;
+	}
+	if(jdguser===sessionId){
+		$("#jdgerrMessage").val('');
+		$("#jdgerrMessage")[0].hidden = true;
+		endjdgswChange();
+	}else{
+		$("#jdgerrMessage").text(errorMs);
+		$("#jdgerrMessage")[0].hidden = false;
+	}
+
+});
 /*終了判定を変更する*/
 function endjdgswChange(){
 	var obj = new Object();
 	var customerno = $('#customernou').val();
 	var nowendjdgsw = $('#endjdgsw').val();
 	var endjdgsw = "";
-
-	if(nowendjdgsw == '適用中'){
+	var customer = $('#customeru').val();
+	var eventid="";
+	var starttime = $('#starttimeu').val();
+	if(nowendjdgsw == '判定中'){
 		endjdgsw = 0;
+		eventid="U004";
 	}else{
 		endjdgsw = 1;
+		eventid="U003";
 	}
+	obj.customer = customer;
+	obj.eventid = eventid;
 	obj.endjdgsw = endjdgsw;
 	obj.customerno = customerno;
-
+	obj.starttime=starttime;
 	var jsonData = JSON.stringify(obj);
 
 	$.ajax({
@@ -524,17 +581,21 @@ function endjdgswChange(){
 function genkyoChange(){
 
 	var obj = new Object();
+	var customer = $('#customeru').val();
 	var genkyostatus = $('#statusu').val();
 	var customerno = $('#customernou').val();
 	var starttime = $('#starttimeu').val();
 	var status="";
-
+	var eventid="";
 	if(genkyostatus=='使用中'){
 		status=0;
+		eventid="U002";
 	}else{
 		status=1;
+		eventid="U001";
 	}
-
+	obj.customer = customer;
+	obj.eventid = eventid;
 	obj.status=status;
 	obj.customerno=customerno;
 	obj.starttime=starttime;

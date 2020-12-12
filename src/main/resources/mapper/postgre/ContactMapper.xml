@@ -14,7 +14,8 @@
 			rs.startcontactcd as startcontactcd,
 			rs.endcontactcd as endcontactcd
 		FROM tbl_jikahocontactmaster cm LEFT OUTER JOIN tbl_jikahorenrakusettei rs
-        ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd;
+        ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd
+        order by cm.contactcd asc;
 	</select>
 
 	<!--リスト表示(詳細設定)  -->

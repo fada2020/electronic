@@ -10,6 +10,7 @@
 			username,
 			usernamekana
 		FROM sys_user
+		order by loginuser asc
 	</select>
 
 	<!--リスト表示  -->

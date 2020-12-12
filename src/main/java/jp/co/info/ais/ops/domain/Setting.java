@@ -1,6 +1,7 @@
 package jp.co.info.ais.ops.domain;
 
 public class Setting {
+	public static final String STOP = "0";
 	private int rownum;//No
 	private String customerno;//お客様番号
 	private String customer;//施設名
@@ -15,7 +16,11 @@ public class Setting {
 	private String upoatime;//更新時間
 	private int startcontactcd;//更新Start時点
 	private int endcontactcd;//更新End時点
-
+	private String eventid;//イベントID
+	private String eventkind;//イベント区分
+	private String eventname;//イベント名称
+	private String comments;//イベントコメント
+	private String eventstatus;//event現況
 	public int getRownum() {
 		return rownum;
 	}
@@ -128,12 +133,60 @@ public class Setting {
 		this.endcontactcd = endcontactcd;
 	}
 
+	public String getEventid() {
+		return eventid;
+	}
+
+	public void setEventid(String eventid) {
+		this.eventid = eventid;
+	}
+
+	public String getEventkind() {
+		return eventkind;
+	}
+
+	public void setEventkind(String eventkind) {
+		this.eventkind = eventkind;
+	}
+
+	public String getEventname() {
+		return eventname;
+	}
+
+	public void setEventname(String eventname) {
+		this.eventname = eventname;
+	}
+
+	public String getComments() {
+		return comments;
+	}
+
+	public void setComments(String comments) {
+		this.comments = comments;
+	}
+
+	public String getEventstatus() {
+		return eventstatus;
+	}
+
+	public void setEventstatus(String eventstatus) {
+		this.eventstatus = eventstatus;
+	}
+
 	@Override
 	public String toString() {
 		return "Setting [rownum=" + rownum + ", customerno=" + customerno + ", customer=" + customer + ", sitecd="
 				+ sitecd + ", jdgsw=" + jdgsw + ", status=" + status + ", endjdgsw=" + endjdgsw + ", starttime="
 				+ starttime + ", sitename=" + sitename + ", upoaid=" + upoaid + ", upoaname=" + upoaname + ", upoatime="
-				+ upoatime + ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + "]";
+				+ upoatime + ", startcontactcd=" + startcontactcd + ", endcontactcd=" + endcontactcd + ", eventid="
+				+ eventid + ", eventkind=" + eventkind + ", eventname=" + eventname + ", comments=" + comments
+				+ ", eventstatus=" + eventstatus + "]";
 	}
+
+
+
+
+
+
 
 }

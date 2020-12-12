@@ -53,4 +53,40 @@
 		ORDER BY tl.occurtime DESC
 	</select>
 
+	<select id="eventKind"  parameterType="jp.co.info.ais.ops.domain.Setting" resultType="jp.co.info.ais.ops.domain.Setting">
+	select
+		eventid,
+		eventkind,
+		eventname
+		from tbl_jikahoeventid
+		where eventid=#{eventid}
+	</select>
+
+		<!--eventリスト保存  -->
+	<insert id ="updateEvent"  parameterType="jp.co.info.ais.ops.domain.Setting">
+			insert into tbl_jikahoeventlist
+		    (
+			    occurtime,
+			    eventid,
+			    customerno,
+			    status,
+			    customer,
+			    comments,
+			    upoaid,
+			    upoaname,
+			    upoatime
+		    )
+		    VALUES(
+				TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
+				#{eventid},
+				#{customerno},
+				#{eventstatus},
+				#{customer},
+				#{comments},
+				#{upoaid},
+				#{upoaname},
+				TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS')
+			)
+	</insert >
+
  </mapper>
