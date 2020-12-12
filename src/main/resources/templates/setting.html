@@ -356,9 +356,13 @@ var myDataTables = $("#setList").DataTable({
 	    rowCallback: function( row, data, dataIndex ) {
 	        if ( data.status == '1') {
 	          $(row).find('td:eq(1)').css('color','red');
+
 	          $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
 	          $(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
 	          $(row).find('.btn_change_end_judg').attr('disabled',false);
+	          if(data.starttime!=null){
+	        	  $(row).find('td:eq(3)').css('color','red');
+	          }
 	        } else {
 	          $(row).find('td:eq(1)').css('color','black');
 	          $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
@@ -370,6 +374,7 @@ var myDataTables = $("#setList").DataTable({
 		        } else {
 		          $(row).find('td:eq(2)').css('color','black');
 		        }
+
 	    }
 	});
 
@@ -484,6 +489,7 @@ $('.cancleButton').on('click', function() {
 	$("#jdgerrMessage").text('');
 	$("#jdgerrMessage")[0].hidden = true;
 });
+
 /*sessionidと入力したIDを比較*/
 
 $('#exampleModal').on('show.bs.modal', function (event) {

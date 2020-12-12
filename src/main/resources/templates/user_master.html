@@ -121,22 +121,22 @@ $('.searchButton').on('click', function() {
 	var keywordKana = $('#userkana').val();
 	var keywordName = $('#username').val();
 	 $("#masterList tr").each(function(index) {
-	        if (index != 0) {
-	            $row = $(this);
-	            if (keywordKana == "" && keywordName == "") {
-	            	$(this).show();
-	     		        } else {
-	     		        	$(this).hide();
+        if (index != 0) {
+            $row = $(this);
+            if (keywordKana == "" && keywordName == "") {
+            	$(this).show();
+     		        } else {
+     		        	$(this).hide();
 
-	     		        	if(keywordKana != ""){
-	     		        	   $(".findkana:contains('"+keywordKana+"')").parents('tr').show();
-	     		        	}
-	     		        	if(keywordName != ""){
-	     	           		   $(".findname:contains('"+keywordName+"')").parents('tr').show();
-	     		        	}
-	     		        }
-	        }
-	    });
+     		        	if(keywordKana != ""){
+     		        	   $(".findkana:contains('"+keywordKana+"')").parents('tr').show();
+     		        	}
+     		        	if(keywordName != ""){
+     	           		   $(".findname:contains('"+keywordName+"')").parents('tr').show();
+     		        	}
+     		        }
+        }
+    });
 });
 
 $('.cancelButton').click(function(){
