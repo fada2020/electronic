@@ -1036,13 +1036,12 @@ td{
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn_set_cal" data-dismiss="modal">設定</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="clearClatext()">キャンセル</button>
             </div>
         </div>
     </div>
 </div>
 <!-- Cal Modal End-->
-
 <!-- 連絡先マスタ Modal Start -->
 <div class="modal fade" id="masterModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg" role="document">
@@ -1137,7 +1136,6 @@ td{
     </div>
 </div>
 <!-- 連絡先マスタ Modal End -->
-
 <!-- Master Add Modal Part Start-->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-md" role="document">
@@ -1170,7 +1168,6 @@ td{
     </div>
 </div>
 <!-- Master Add Modal Part End-->
-
 <!-- Tag Modal Start-->
 <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id="tagForm">
@@ -1241,7 +1238,6 @@ td{
 </form>
 </div>
 <!-- Tag Modal End-->
-
 <!-- Modal Part Start-->
 <div class="modal fade" id="saveModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm" role="document">
@@ -1270,7 +1266,6 @@ td{
     </div>
 </div>
 <!-- Modal Part End-->
-
 <!-- Tag Delete Modal Part Start-->
 <div class="modal fade" id="tagDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm" role="document">
@@ -1294,7 +1289,6 @@ td{
     </div>
 </div>
 <!-- Tag Delete Modal Part End-->
-
 <!-- Cancel Modal Part Start-->
 <div class="modal fade" id="cancelModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm" role="document">
@@ -1612,27 +1606,23 @@ jQuery(document).ready(function($) {
         changeClatext();
     });
     $(".btn_clear").click(function(){
-        $('#calTextarea').val('');
+    	clearClatext();
     });
     $(".btn_set_cal").click(function(){
     	var tabID = $('#tabId').val();
     	var getText = $('#calTextarea').val();
     	if(tabID === '1'){
-    		alert('calMode-->'+tabID);
         	$('#startCalTextarea').val('');
         	$('#startCalTextarea').val(getText);
     	}else{
-    		alert('calMode-->'+tabID);
         	$('#endCalTextarea').val('');
         	$('#endCalTextarea').val(getText);
     	}
+    	clearClatext();
     });
 	//演算式設定関連関数===================================
 
 });
-
-
-
 
 jQuery(function($){
 	$('#calModal').on('show.bs.modal', function (event) {
@@ -1787,7 +1777,9 @@ jQuery(function($){
     });
     //キャンセル処理を行う。
     $('.btn_cancle').on('click', function() {
-		alert('CANCLE START');
+		//TODO
+    	alert('CANCLE START');
+
     });
 
 })
@@ -1935,6 +1927,16 @@ function changeClatext(){
     $('#calTextarea').val(calText);
 }
 
+function clearClatext(){
+	$('#calTextarea').val('');
+    for (var i=1; i < 11; i++) {
+    	$('#calTabTable tr').eq(i).children('td').eq(2).text('');
+    	$('#calTabTable tr').eq(i).children('td').eq(4).text('');
+    	if(i > 1){
+    		$('#sltRow'+i).find('option:first').attr('selected', 'selected');
+    	}
+    }
+}
 
 </script>
 </body>
