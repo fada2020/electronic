@@ -477,9 +477,12 @@ function padZero(num) {
 }
 
 $('.cancleButton').on('click', function() {
+	$('#user').val('');
 	$("#errMessage").text('');
 	$("#errMessage")[0].hidden = true;
-
+	$('#jdguser').val('');
+	$("#jdgerrMessage").text('');
+	$("#jdgerrMessage")[0].hidden = true;
 });
 /*sessionidと入力したIDを比較*/
 

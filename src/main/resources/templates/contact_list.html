@@ -229,7 +229,7 @@
 	/*メールパターン*/
 	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	/*電話番号パターン*/
-	var phone = RegExp(/^[0-9 \-]+$/);
+	var phone = RegExp(/^[0-9]+$/);
 	/*名称パターン*/
 	var engname = RegExp(/^[a-zA-Z]*$/);
 	var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
@@ -320,13 +320,13 @@
 	        $("#contactname").focus();
 	      return false;
 	    }
-	    //名称の検査
+	/*     //名称の検査
 	    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
 	    	$("#errMessage").html(errOkName);
 	    	$("#errMessage")[0].hidden = false;
 	        $("#contactname").focus();
 	      return false;
-	    }
+	    } */
 	    //名称の桁数検査
 	    if(name.length>nameLength){
 	    	$("#errMessage").html("名称は"+nameLength+errLength);
@@ -420,13 +420,13 @@
 	      $("#contactnameu").focus();
 	    return false;
 	  }
-	  //名称の検査
+	/*   //名称の検査
 	  if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
 	  	$("#errMessageu").html(errOkName);
 	  	$("#errMessageu")[0].hidden = false;
 	      $("#contactnameu").focus();
 	    return false;
-	  }
+	  } */
 
 	  //名称の桁数検査
 	  if(name.length>nameLength){

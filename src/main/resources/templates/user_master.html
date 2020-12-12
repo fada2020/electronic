@@ -125,15 +125,14 @@ $('.searchButton').on('click', function() {
             $row = $(this);
 
             if (keywordKana == "" && keywordName == "") {
-            	$('tr').show();
+            	$(this).show();
      		        } else {
-     		        	$('tr').hide();
+     		        	$(this).hide();
      		        	if(keywordKana != ""){
-     		        		$("td:contains(kawa)").parents('tr').show();
-     		        	   $("#masterList tr:contains('"+keywordKana+"')").show();
+     		        	   $(".findkana:contains('"+keywordKana+"')").parents('tr').show();
      		        	}
      		        	if(keywordName != ""){
-     	           		   $("#masterList tr:contains('"+keywordName+"')").show();
+     	           		   $(".findname:contains('"+keywordName+"')").parents('tr').show();
      		        	}
      		        }
         }
@@ -174,8 +173,8 @@ var myDataTables = $("#masterList").DataTable({
    			return html;
     }
 	},
-    	{ targets:[1], data: "username"},
-    	{ targets:[2], data: "usernamekana"},
+    	{className:"findname", targets:[1], data: "username"},
+    	{className:"findkana", targets:[2], data: "usernamekana"},
     	{className:"loginuser", targets:[3], data: "loginuser"}
 
     ],
