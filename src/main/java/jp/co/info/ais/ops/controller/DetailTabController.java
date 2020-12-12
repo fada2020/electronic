@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import jp.co.info.ais.ops.domain.Contact;
 import jp.co.info.ais.ops.domain.DetailTab;
+import jp.co.info.ais.ops.domain.DetailTabSample;
 import jp.co.info.ais.ops.domain.Site;
 import jp.co.info.ais.ops.domain.UserMaster;
 import jp.co.info.ais.ops.service.ContactService;
@@ -37,10 +38,13 @@ public class DetailTabController {
 	private static final String UPDATE_FLAG = "edit";
 	private static final String ERROR_MSG = "＊登録済みのお客様番号です。 ご確認ください。";
 	private static final String SYS_ERROR_MSG = "＊登録・編集処理中にエラーに障害が発生しました。";
+	//開始判定条件・連絡コード
+	private static final String SAMPLE_KIND_1 = "01";
+	//終了判定条件・連絡コード
+	private static final String SAMPLE_KIND_2 = "02";
 
 	@Autowired
 	DetailTabController detailTabController;
-
 	@Autowired
 	DetailTabService detailTabService;
 	@Autowired
@@ -71,6 +75,21 @@ public class DetailTabController {
 				model.addAttribute("detailTab", detailTab);
 			}else {
 			    //新規
+				//TAB-2のSample取得
+				DetailTabSample startTabData = new DetailTabSample();
+				startTabData = detailTabService.getDetailTabSamle(SAMPLE_KIND_1);
+				detailTab.setStartvoicecycl(startTabData.getVoicecycl());
+				detailTab.setStartvoicecnt(startTabData.getVoicecnt());
+				detailTab.setStartsubject(startTabData.getSubject());
+				detailTab.setStartmailtext(startTabData.getMailtext());
+				//TAB-3のSample取得
+				DetailTabSample endTabData = new DetailTabSample();
+				endTabData = detailTabService.getDetailTabSamle(SAMPLE_KIND_2);
+				detailTab.setEndvoicecycl(endTabData.getVoicecycl());
+				detailTab.setEndvoicecnt(endTabData.getVoicecnt());
+				detailTab.setEndsubject(endTabData.getSubject());
+				detailTab.setEndmailtext(endTabData.getMailtext());
+
 				model.addAttribute("viewFlag", INSERT_FLAG);
 				model.addAttribute("detailTab", detailTab);
 			}
