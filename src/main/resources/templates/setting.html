@@ -30,10 +30,16 @@
 	table{
 		table-layout: fixed;
 	}
+	thead{
+	font-size:12px !important;
+	}
     td{
     	white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+		vertical-align: middle !important;
+		text-align: center;
+		font-size:14px !important;
 		}
 	html.touch *:hover {
 		pointer-events: none !important;
@@ -41,10 +47,8 @@
 	.customerClass, .sitNameClass{
 		text-align: left;
 	}
-	td{
-	 	text-align: center;
-	}
 	 th {
+
         text-align: center !important;
     }
     .modalFont{
@@ -103,14 +107,14 @@
 	                        <table id="setList" class="table table-striped table-bordered table-sm">
 	                            <thead>
 	                                <tr style="background-color: #000033; color:white;">
-	                                    <th style="width:5%;text-align:center;">No</th>
+	                                    <th style="width:5%;">No</th>
 	                                    <th style="width:5%;" id="status">現況</th>
-	                                    <th style="width:5%;" id="endjdgsw">終了判定</th>
+	                                    <th style="width:7%;" id="endjdgsw">終了判定</th>
 	                                    <th style="width:10%;" id="starttime">使用開始日時</th>
 	                                    <th style="width:5%;" id="jdgsw">有効</th>
-	                                    <th style="width:10%;" id="customerno">お客様番号</th>
-	                                    <th style="width:15%;" id="customer">施設名</th>
-	                                    <th style="width:5%;" id="sitecd">サイトID</th>
+	                                    <th style="width:8%;" id="customerno">お客様番号</th>
+	                                    <th style="width:13%;" id="customer">施設名</th>
+	                                    <th style="width:7%;" id="sitecd">サイトID</th>
 	                                    <th style="width:15%;" id="sitename">サイト名</th>
 	                                    <th style="width:25%;"></th>
 	                                </tr>
