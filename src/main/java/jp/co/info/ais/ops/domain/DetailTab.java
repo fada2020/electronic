@@ -1,5 +1,7 @@
 package jp.co.info.ais.ops.domain;
 
+import jp.co.info.ais.ops.helper.DateHelper;
+
 /**
  * 自家補連絡設定テーブル
  * @author ais-info
@@ -103,7 +105,7 @@ public class DetailTab {
 		this.upoaname = upoaname;
 	}
 	public String getUpoatime() {
-		return upoatime;
+		return DateHelper.getDateStr(upoatime);
 	}
 	public void setUpoatime(String upoatime) {
 		this.upoatime = upoatime;

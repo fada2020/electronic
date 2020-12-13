@@ -75,6 +75,9 @@ public class DetailTabController {
 				model.addAttribute("detailTab", detailTab);
 			}else {
 			    //新規
+				detailTab.setUpoaid((String)session.getAttribute("id"));
+				detailTab.setUpoaname((String)session.getAttribute("name"));
+
 				//TAB-2のSample取得
 				DetailTabSample startTabData = new DetailTabSample();
 				startTabData = detailTabService.getDetailTabSamle(SAMPLE_KIND_1);
@@ -106,6 +109,7 @@ public class DetailTabController {
 			List<Contact> contactList = new ArrayList<Contact>();
 			contactList = contactService.contactAllList();
 			model.addAttribute("contList", contactList);
+
 			//エラーメッセージ出力のため
 			model.addAttribute("errMsg", null);
 		}catch (Exception e) {
@@ -123,6 +127,9 @@ public class DetailTabController {
 
 		boolean ref = true;
 		try {
+			String upUserId = request.getParameter("upUserId");
+			String upUserName = request.getParameter("upUserName");
+
 			DetailTab detailTab = new DetailTab();
 			int result=0;
 
@@ -141,6 +148,7 @@ public class DetailTabController {
 			//TODO:変換処理(セミコロン(;)区切り)
 			detailTab.setOutermailaddr(request.getParameter("outermailaddr").replaceAll("\r\n", ";"));
 			detailTab.setIntermailaddr(request.getParameter("intermailaddr").replaceAll("\r\n", ";"));
+
 			//TODO:END
 			detailTab.setAdminuserid(request.getParameter("adminuserid"));
 			detailTab.setAdminusername(request.getParameter("adminusername"));
@@ -174,6 +182,8 @@ public class DetailTabController {
 			}
 			detailTab.setEndsubject(request.getParameter("endsubject"));
 			detailTab.setEndmailtext(request.getParameter("endmailtext"));
+			detailTab.setUpoaid(upUserId);
+			detailTab.setUpoaname(upUserName);
 
 			if(viewFlag.equals(INSERT_FLAG)) {
 				logger.debug("詳細設定-登録 開始 ===========");

@@ -24,6 +24,18 @@
 				,upoaid
 				,upoaname
 				,upoatime
+				,startcontactcd
+				,startvoicepath
+				,startvoicecycl
+				,startvoicecnt
+				,startsubject
+				,startmailtext
+				,endcontactcd
+				,endvoicepath
+				,endvoicecycl
+				,endvoicecnt
+				,endsubject
+				,endmailtext
 		FROM tbl_jikahorenrakusettei
 	   WHERE customerno =#{id}
 	</select>
@@ -45,6 +57,18 @@
 			,upoaid
 			,upoaname
 			,upoatime
+			,startcontactcd
+			,startvoicepath
+			,startvoicecycl
+			,startvoicecnt
+			,startsubject
+			,startmailtext
+			,endcontactcd
+			,endvoicepath
+			,endvoicecycl
+			,endvoicecnt
+			,endsubject
+			,endmailtext
 		) values(
 			#{customerno}
 			,#{customer}
@@ -60,6 +84,18 @@
 			,#{upoaid}
 			,#{upoaname}
 			,current_timestamp
+			,#{startcontactcd}
+			,#{startvoicepath}
+			,#{startvoicecycl}
+			,#{startvoicecnt}
+			,#{startsubject}
+			,#{startmailtext}
+			,#{endcontactcd}
+			,#{endvoicepath}
+			,#{endvoicecycl}
+			,#{endvoicecnt}
+			,#{endsubject}
+			,#{endmailtext}
 		)
 	</insert>
 
@@ -78,6 +114,18 @@
 			,upoaid=#{upoaid}
 			,upoaname=#{upoaname}
 			,upoatime=current_timestamp
+			,startcontactcd=#{startcontactcd}
+			,startvoicepath=#{startvoicepath}
+			,startvoicecycl=#{startvoicecycl}
+			,startvoicecnt=#{startvoicecnt}
+			,startsubject=#{startsubject}
+			,startmailtext=#{startmailtext}
+			,endcontactcd=#{endcontactcd}
+			,endvoicepath=#{endvoicepath}
+			,endvoicecycl=#{endvoicecycl}
+			,endvoicecnt=#{endvoicecnt}
+			,endsubject=#{endsubject}
+			,endmailtext=#{endmailtext}
 		WHERE
 			customerno=#{customerno}
 	</update>
