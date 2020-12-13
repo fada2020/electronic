@@ -344,9 +344,10 @@ public class EventController {
 		        }else {
 			        cell.setCellValue('-');
 		        }
+		        //補足:comments
 		        cell = row.createCell(5);
 		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getUpoaname());
+		        cell.setCellValue(eventlist.getComments());
 		    }
 
 		    // コンテンツタイプとファイル名指定
