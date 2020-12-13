@@ -4,9 +4,9 @@ DROP TABLE IF EXISTS tbl_jikahorenrakusettei;
 
 CREATE TABLE tbl_jikahorenrakusettei
 (
-   customercd character varying(10) NOT NULL,
+   customerno character varying(10) NOT NULL,
    customer character varying(48) NOT NULL,
-   sitecd character varying(5) NOT NULL,
+   sitecd integer  NOT NULL,
    sitename character varying(60) NOT NULL,
    jdgsw character varying(1) NOT NULL DEFAULT '0',
    status character varying(1) NOT NULL DEFAULT '0',
@@ -15,13 +15,13 @@ CREATE TABLE tbl_jikahorenrakusettei
    upoaid character varying(15),
    upoaname character varying(15),
    upoatime timestamp without time zone,
-   startcontactcd  character varying(3),
+   startcontactcd  integer,
    startvoicepath character varying(255),
    startvoicecycl integer,
    startvoicecnt integer,
    startsubject text,
    startmailtext text,
-   endcontactcd  character varying(3),
+   endcontactcd  integer,
    endvoicepath character varying(255),
    endvoicecycl integer,
    endvoicecnt integer,

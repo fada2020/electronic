@@ -764,10 +764,10 @@ td{
                         <div class="card-body">
                         	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
-                                    <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 120px; font-size: 14px;">氏名</th>
-                                        <th style="text-align:center; width: 350px; font-size: 14px;">メールアドレス</th>
-                                        <th style="text-align:center; width: 150px; font-size: 14px;">電話番号</th>
+                                    <tr style="width: 100%; background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 20%; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center; width: 60%; font-size: 14px;">メールアドレス</th>
+                                        <th style="text-align:center; width: 20%; font-size: 14px;">電話番号</th>
 										<th style="text-align:center; display: none;"></th>
                                     </tr>
                                 </thead>
@@ -779,10 +779,10 @@ td{
                                     </tr>
                                 </thead>
                                 <tbody>
-<tr th:each="admin : ${userList}">
-    <td style="width: 112px; font-size: 12px; text-align:center;" th:text="${admin.username}"></td>
-    <td style="width: 350px; font-size: 12px;" th:text="${admin.mailaddr}"></td>
-    <td style="width: 150px; font-size: 12px;" th:text="${admin.mobiletel}"></td>
+<tr th:each="admin : ${userList}" style="width: 100%;">
+    <td style="width: 20%; font-size: 12px; text-align:center;" th:text="${admin.username}"></td>
+    <td style="width: 60%; font-size: 12px;" th:text="${admin.mailaddr}"></td>
+    <td style="width: 20%; font-size: 12px;" th:text="${admin.mobiletel}"></td>
 	<td style="display: none;" th:text="${admin.loginuser}"></td>
 </tr>
                                 </tbody>
@@ -824,10 +824,10 @@ td{
                         <div class="card-body">
                         	<table class="table table-striped table-bordered table-sm" style="width: 100%; margin-bottom: 0px !important;">
                                 <thead>
-                                    <tr style="background-color: #000033; color:white;">
-                                        <th style="text-align:center; width: 80px; font-size: 14px;"></th>
-                                        <th style="text-align:center; width: 300px; font-size: 14px;">氏名</th>
-                                        <th style="text-align:center; width: 500px; font-size: 14px;">メールアドレス</th>
+                                    <tr style="width: 100%; background-color: #000033; color:white;">
+                                        <th style="text-align:center; width: 10%; font-size: 14px;"></th>
+                                        <th style="text-align:center; width: 40%; font-size: 14px;">氏名</th>
+                                        <th style="text-align:center; width: 50%; font-size: 14px;">メールアドレス</th>
                                     </tr>
                                 </thead>
                         	</table>
@@ -838,12 +838,12 @@ td{
                                     </tr>
                                 </thead>
                                 <tbody>
-<tr th:each="user : ${userList}">
-	<td scope="row" style="width: 75px;text-align:center;">
+<tr th:each="user : ${userList}" style="width: 100%;">
+	<td scope="row" style="width: 10%; text-align:center;">
 	    <input type="checkbox" id="userCheck" name="userCheck" value="option1">
 	</td>
-    <td style="width: 326px; font-size: 12px;"th:text="${user.username}"></td>
-    <td style="width: 500px; font-size: 12px;"th:text="${user.mailaddr}"></td>
+    <td style="width: 40%; font-size: 12px;"th:text="${user.username}"></td>
+    <td style="width: 50%; font-size: 12px;"th:text="${user.mailaddr}"></td>
 </tr>
                                 </tbody>
                             </table>
