@@ -58,7 +58,7 @@ public class DateHelper {
      */
     public static String getDateStr(String sDate) {
     	String result = "";
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        DateFormat format = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         result = format.format(new Date());
         return result;
     }
