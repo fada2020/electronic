@@ -60,24 +60,24 @@ td{
                 <div class="col-sm-4">
 	                <div class="float-left" id="view-only" style="float: right; text-align: right; padding-top: 14px;">
 						<span style="padding-right:80px;"></span>
-						<input type="checkbox" checked data-toggle="modal" data-target="#checkModal">
+						<input type="checkbox" id="chkInput" name="chkInput" checked>
 						<span style="font-size:1.4em;"> 有効（未入力項目がある場合、チェック不可）</span>
 					</div>
 	                <div class="float-right" id="view-only" style="float: right; text-align: right; margin-top: 10px; display:none;">
                         <button type="button" id="editViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                         <span style="padding-right:10px;"></span>
-                        <button type="button" class="btn btn-secondary btn-sm" data-toggle="modal"><i class="fa fa-save"></i>&nbsp; 保存</button>
+                        <button type="button" class="btn btn-secondary btn-sm"><i class="fa fa-save"></i>&nbsp; 保存</button>
                         <span style="padding-right:10px;"></span>
-	                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+	                    <button type="button" id="viewCancleBtn" class="btn btn-danger btn-sm"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 		        	</div>
 	                <div class="float-right" id="view-edit" style="float: right; text-align: right; margin-top: 10px; display:none;">
                         <button type="button" id="modeEditBtn" class="btn btn-primary btn-sm" style="display: none;"><i class="fa fa-edit"></i>&nbsp; 編集中</button>
                         <button type="button" id="modeViewBtn" class="btn btn-warning btn-sm"><i class="fa fa-tag"></i>&nbsp; 参照中</button>
                         <span style="padding-right:10px;"></span>
-	                    <button type="button" id="saveOkBtn" class="btn btn-success btn-sm" data-toggle="modal" data-target="#saveModal" style="display:none;"><i class="fa fa-save"></i>&nbsp; 保存</button>
+	                    <button type="button" id="saveOkBtn" class="btn btn-success btn-sm" data-toggle="modal" style="display:none;"><i class="fa fa-save"></i>&nbsp; 保存</button>
                         <button type="button" id="saveNgBtn" class="btn btn-secondary btn-sm"><i class="fa fa-save"></i>&nbsp; 保存</button>
                         <span style="padding-right:10px;"></span>
-	                    <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#cancelModal"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
+	                    <button type="button" id="editCancleBtn" class="btn btn-danger"><i class="fa fa-repeat"></i>&nbsp; キャンセル</button>
 		        	</div>
                 </div>
 	        </div>
@@ -115,14 +115,14 @@ td{
 									<button type="button" id="siteOkBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal" style="display:none;"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" id="sitename" name="sitename" class="form-control input-sm" th:value="${detailTab.sitename}">
-                                    <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm" th:value="${detailTab.sitecd}">
+                                    <input type="text" id="sitename" name="sitename" class="form-control input-sm required" th:value="${detailTab.sitename}">
+                                    <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm required" th:value="${detailTab.sitecd}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【住所】${Address}</div>
                                 <div class="col-8">
-                                    <input type="text" id="address" name="address" class="form-control input-sm" th:value="${detailTab.address}">
+                                    <input type="text" id="address" name="address" class="form-control input-sm required" th:value="${detailTab.address}">
                                 </div>
                             </div>
                         </div>
@@ -132,13 +132,13 @@ td{
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【お客様番号】</div>
                                 <div class="col-8">
-                                    <input type="text" id="customerno" name="customerno" class="form-control input-sm"  th:value="${detailTab.customerno}">
+                                    <input type="text" id="customerno" name="customerno" class="form-control input-sm required"  th:value="${detailTab.customerno}">
                                 </div>
                             </div>
                             <div class="row form-group">
                                 <div class="col-4" style="font-size: 15px;">【施設名】${Customer}</div>
                                 <div class="col-8">
-                                    <input type="text" id="customer" name="customer" class="form-control input-sm" th:value="${detailTab.customer}">
+                                    <input type="text" id="customer" name="customer" class="form-control input-sm required" th:value="${detailTab.customer}">
                                 </div>
                             </div>
                         </div>
@@ -147,7 +147,7 @@ td{
                         <div class="card card-body">
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社外アドレス<br>連絡メールのみ</div>
-                                <div class="col-9"><textarea name="outermailaddr" id="outermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.outermailaddr}"></textarea></div>
+                                <div class="col-9"><textarea name="outermailaddr" id="outermailaddr" rows="2" placeholder="" class="form-control required" th:text="${detailTab.outermailaddr}"></textarea></div>
                             </div>
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
@@ -155,7 +155,7 @@ td{
                                     <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
                                 <div class="col-9">
-                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control" th:text="${detailTab.intermailaddr}"></textarea>
+                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control required" th:text="${detailTab.intermailaddr}"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -176,11 +176,11 @@ td{
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
                                        <input type="hidden" class="form-control input-sm" id="adminuserid" name="adminuserid" style="" th:value="${detailTab.adminuserid}">
-                                       <input type="text" class="form-control input-sm" id="adminusername" name="adminusername" style="" th:value="${detailTab.adminusername}">
+                                       <input type="text" class="form-control input-sm required" id="adminusername" name="adminusername" style="" th:value="${detailTab.adminusername}">
                                    </div>
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
-                                       <input type="text" class="form-control input-sm" id="adminphoneno" name="adminphoneno" style="" th:value="${detailTab.adminphoneno}">
+                                       <input type="text" class="form-control input-sm required" id="adminphoneno" name="adminphoneno" style="" th:value="${detailTab.adminphoneno}">
                                    </div>
                                </div>
                                </div>
@@ -189,7 +189,7 @@ td{
                             	</div>
                                 <div class="col-9" style="padding: 20px 30px 30px;">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
-                                       <input type="text" class="form-control input-sm" id="adminmailaddress" name="adminmailaddress" style="" th:value="${detailTab.adminmailaddress}">
+                                       <input type="text" class="form-control input-sm required" id="adminmailaddress" name="adminmailaddress" style="" th:value="${detailTab.adminmailaddress}">
                                    </div>
                                </div>
                            </div><!-- row form-group form-group-sm-->
@@ -225,7 +225,7 @@ td{
                                     連絡先
                                 </div>
                                 <div class="col-9">
-								    <select id="startcontactcd" name="startcontactcd" class="form-control" style="width: 100%; ">
+								    <select id="startcontactcd" name="startcontactcd" class="form-control required" style="width: 100%; ">
 								        <option value="-1"></option>
 								        <option th:each="scont : ${contList}" th:value="${scont.contactcd}" th:selected="${scont.contactcd} == ${detailTab.startcontactcd}" th:inline="text">[[${scont.contactname}]]</option>
 								    </select>
@@ -236,7 +236,7 @@ td{
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm" style="width: 300px;" th:value="${detailTab.startvoicepath}">
+                                    <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.startvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
@@ -246,9 +246,9 @@ td{
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="startvoicecycl" name="startvoicecycl" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.startvoicecycl}">
+                                    <input type="text" id="startvoicecycl" name="startvoicecycl" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.startvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
-                                    <input type="text" id="startvoicecnt" name="startvoicecnt" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.startvoicecnt}">
+                                    <input type="text" id="startvoicecnt" name="startvoicecnt" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.startvoicecnt}">
                                     <span style="margin-left: 10px; font-size: 14px;">回</span>
                                 </div>
                             </div>
@@ -257,13 +257,13 @@ td{
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="startsubject" name="startsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.startsubject}">
+                                    <input type="text" id="startsubject" name="startsubject" class="form-control input-sm required" style="width: 100%;" th:value="${detailTab.startsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
                                 <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
                                 <div class="col-9">
-                                    <textarea name="startmailtext" id="startmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.startmailtext}></textarea>
+                                    <textarea name="startmailtext" id="startmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control required" th:text=${detailTab.startmailtext}></textarea>
                                 </div>
                             </div>
                         </div>
@@ -434,7 +434,7 @@ td{
                                     連絡先
                                 </div>
                                 <div class="col-9">
-								    <select id="endcontactcd" name="endcontactcd" class="form-control" style="width: 100%; ">
+								    <select id="endcontactcd" name="endcontactcd" class="form-control required" style="width: 100%; ">
 								        <option value="-1"></option>
 								        <option th:each="econt : ${contList}" th:value="${econt.contactcd}" th:selected="${econt.contactcd} == ${detailTab.endcontactcd}" th:inline="text">[[${econt.contactname}]]</option>
 								    </select>
@@ -445,7 +445,7 @@ td{
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm" style="width: 300px;" th:value="${detailTab.endvoicepath}">
+                                    <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.endvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
@@ -455,9 +455,9 @@ td{
                                     電話番号　リトライ回数
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="endvoicecycl" name="endvoicecycl" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.endvoicecycl}">
+                                    <input type="text" id="endvoicecycl" name="endvoicecycl" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.endvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
-                                    <input type="text" id="endvoicecnt" name="endvoicecnt" class="form-control input-sm" style="width: 100px;" th:value="${detailTab.endvoicecnt}">
+                                    <input type="text" id="endvoicecnt" name="endvoicecnt" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.endvoicecnt}">
                                     <span style="margin-left: 10px; font-size: 14px;">回</span>
                                 </div>
                             </div>
@@ -466,13 +466,13 @@ td{
                                     メール タイトル
                                 </div>
                                 <div class="col-9">
-                                    <input type="text" id="endsubject" name="endsubject" class="form-control input-sm" style="width: 100%;" th:value="${detailTab.endsubject}">
+                                    <input type="text" id="endsubject" name="endsubject" class="form-control input-sm required" style="width: 100%;" th:value="${detailTab.endsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
                                 <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
                                 <div class="col-9">
-                                    <textarea name="endmailtext" id="endmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control" th:text=${detailTab.endmailtext}></textarea>
+                                    <textarea name="endmailtext" id="endmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control required" th:text=${detailTab.endmailtext}></textarea>
                                 </div>
                             </div>
 
@@ -1307,7 +1307,28 @@ td{
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">終了</button>
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">終了</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="cancelViewModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
+    <div class="modal-dialog modal-sm" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="staticModalLabel">自家補連絡設定</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="OK">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <p>
+                    データの参照を終了します。<br>よろしいですか？
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">終了</button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
             </div>
         </div>
@@ -1338,7 +1359,7 @@ td{
 </div>
 <!-- Check Modal Part End-->
 
-<!-- Delete1 Modal Part Start-->
+<!-- Delete Modal Part Start-->
 <div class="modal fade" id="subDeleteModal" tabindex="-1" role="dialog" aria-labelledby="staticModalLabel" aria-hidden="true" data-backdrop="static">
     <div class="modal-dialog modal-sm" role="document">
         <div class="modal-content">
@@ -1360,22 +1381,26 @@ td{
         </div>
     </div>
 </div>
-<!-- Cancel Modal Part End-->
+<!-- Delete Modal Part End-->
 
         </div> <!-- .content -->
 
 <form id="hidTabForm">
 <input type="hidden" id="tabId" name="tabId">
 </form>
+<form th:action="@{/setting/}" name="hidBackForm" id="hidBackForm" method="post">
+	<input type="hidden" id="flag" name="flag">
+</form>
+
     </div><!-- /#right-panel -->
 
+	<!-- datetimepicker -->
+    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
+    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
     <script src="../static/vendors/jquery/dist/jquery.js"></script>
     <script src="../static/vendors/popper.js/dist/umd/popper.min.js"></script>
     <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
-	<!-- datetimepicker -->
-    <script src="../static/assets/js/datetimepicker/jquery.js"></script>
-    <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- dataTable -->
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 	<script type="text/javascript" src="../static/vendors/Select-1.3.1/js/dataTables.select.js"></script>
@@ -1624,6 +1649,36 @@ jQuery(document).ready(function($) {
     });
 	//演算式設定関連関数===================================
 
+	//有効チェックおよび未入力項目チェックを行う。
+	$("#saveOkBtn").click(function(){
+    	if($('#chkInput').is(":checked") == true){
+			if(checkValue()){
+	    		$("#saveModal").modal("show");
+			}else{
+	    		$("#checkModal").modal("show");
+			}
+    	}else{
+    		if($('#customerno').val() == ''){
+	    		$("#checkModal").modal("show");
+    		}else{
+       			$("#saveModal").modal("show");
+    		}
+    	}
+    });
+
+	//参照キャンセル処理を行う。
+	$("#viewCancleBtn").click(function(){
+		$("#cancelViewModal").modal("show");
+	});
+	//編集キャンセル処理を行う。
+	$("#editCancleBtn").click(function(){
+		if($('#statusFlg').val() === '0'){
+	    	$("#cancelViewModal").modal("show");
+		}else{
+	    	$("#cancelModal").modal("show");
+		}
+	});
+
 });
 
 jQuery(function($){
@@ -1762,6 +1817,7 @@ jQuery(function($){
 
     //詳細設定保存処理
     $('.btn_save').on('click', function() {
+
 		var inUserId = $('#checkId').val();
 		if(inUserId != login_id){
 			//チェックエラー
@@ -1777,13 +1833,6 @@ jQuery(function($){
 			$("#mainFrom").submit();
 		}
     });
-    //キャンセル処理を行う。
-    $('.btn_cancle').on('click', function() {
-		//TODO
-    	alert('CANCLE START');
-
-    });
-
 })
 
 //画面の初期化処理
@@ -1867,16 +1916,17 @@ function viewChange(idx) {
     }
 }
 
-//TODO:必須入力チェック
+//必須入力項目をチェック
 function checkValue(){
-	$("#mainFrom").find("input[type=text]").each(function(index, item){
-        if ($(this).val().trim() == '') {
+    var requiredFlag = true;
+    $('.required').each(function(){
+        if ( $(this).is(':text, textarea, select') && $(this).val().length < 1 ) {
+            requiredFlag = false;
             return false;
         }
     });
-    var count=$('select option:selected').val();
-    if(count == 0){
-        return false;
+    if( requiredFlag == true) {
+        return true;
     }
 }
 
@@ -1938,6 +1988,11 @@ function clearClatext(){
     		$('#sltRow'+i).find('option:first').attr('selected', 'selected');
     	}
     }
+}
+
+//キャンセル時の設定一覧で遷移
+function backSetting(){
+	$('#hidBackForm').submit();
 }
 
 </script>
