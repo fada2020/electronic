@@ -87,6 +87,7 @@ public class DetailTabController {
 			    //新規
 				detailTab.setUpoaid((String)session.getAttribute("id"));
 				detailTab.setUpoaname((String)session.getAttribute("name"));
+				detailTab.setJdgsw("0"); //0:使用しない
 
 				//TAB-2のSample取得
 				DetailTabSample startTabData = new DetailTabSample();
@@ -156,6 +157,8 @@ public class DetailTabController {
 			}
 			detailTab.setCustomer(request.getParameter("customer"));
 			detailTab.setAddress(request.getParameter("address"));
+			detailTab.setJdgsw(request.getParameter("jdgsw"));
+
 			//TODO:変換処理(セミコロン(;)区切り)
 			detailTab.setOutermailaddr(request.getParameter("outermailaddr").replaceAll("\r\n", ";"));
 			detailTab.setIntermailaddr(request.getParameter("intermailaddr").replaceAll("\r\n", ";"));
