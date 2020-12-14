@@ -289,7 +289,53 @@ $('#searchBtn').on('click', function() {
 });
 //チェックボックス処理を行う。
 $('.checkbox-input').on('change', function() {
-	callAjaxList();
+	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+
+ 	 if(tDateTime != '' && fDateTime != ''){
+ 	 	 if(tDateTime < fDateTime){
+			 return false;
+ 	 	 }
+ 	 }
+ 	 setFormData();
+ 	 $('#flag').val('search');
+ 	 $('#hidSearchForm').submit();
+});
+//チェックボックス処理が間違ったときinput条件
+$('.form-control').keyup(function() {
+	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+
+ 	if(tDateTime != '' && fDateTime != ''){
+ 	 	 if(tDateTime < fDateTime){
+			$('.checkbox-input').prop("disabled",true);
+			return false;
+		}
+ 	 	 if(tDateTime > fDateTime){
+ 	 		$('.checkbox-input').prop("disabled",false);
+		}
+ 	}
+ 		if(tDateTime != '' || fDateTime != ''){
+ 			$('.checkbox-input').prop("disabled",false);
+ 		}
+});
+//チェックボックス処理が間違ったときcheck条件
+$('.form-control').change(function() {
+	 var fDateTime = $('#fromDate').val();
+ 	 var tDateTime = $('#toDate').val();
+
+ 	if(tDateTime != '' && fDateTime != ''){
+ 	 	 if(tDateTime < fDateTime){
+ 	 		$('.checkbox-input').prop("disabled",true);
+			return false;
+ 	 	}
+ 	 	 if(tDateTime > fDateTime){
+ 	 		$('.checkbox-input').prop("disabled",false);
+		}
+ 	}
+ 		if(tDateTime != '' || fDateTime != ''){
+ 	 		$('.checkbox-input').prop("disabled",false);
+ 	 	}
 });
 
 //エクセルファイル出力処理を行う。
