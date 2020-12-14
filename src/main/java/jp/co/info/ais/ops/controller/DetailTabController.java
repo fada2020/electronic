@@ -1,7 +1,12 @@
 package jp.co.info.ais.ops.controller;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -10,10 +15,14 @@ import javax.servlet.http.HttpSession;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import jp.co.info.ais.ops.domain.Contact;
 import jp.co.info.ais.ops.domain.DetailTab;
@@ -42,6 +51,7 @@ public class DetailTabController {
 	private static final String SAMPLE_KIND_1 = "01";
 	//終了判定条件・連絡コード
 	private static final String SAMPLE_KIND_2 = "02";
+	private static final String FILE_PATH = "/Users/kimjm/01.WORK_APP/audio";
 
 	@Autowired
 	DetailTabController detailTabController;
@@ -129,6 +139,7 @@ public class DetailTabController {
 		try {
 			String upUserId = request.getParameter("upUserId");
 			String upUserName = request.getParameter("upUserName");
+			String hidCustomerno = request.getParameter("hidCustomerno");
 
 			DetailTab detailTab = new DetailTab();
 			int result=0;
@@ -156,7 +167,7 @@ public class DetailTabController {
 			detailTab.setAdminphoneno(request.getParameter("adminphoneno"));
 
 			//TAB-2
-			detailTab.setStartcontactcd(request.getParameter("startcontactcd"));
+			detailTab.setStartcontactcd(Integer.parseInt(request.getParameter("startcontactcd")));
 			detailTab.setStartvoicepath(request.getParameter("startvoicepath"));
 			String startvoicecycl = request.getParameter("startvoicecycl");
 			if(!startvoicecycl.isEmpty()) {
@@ -170,7 +181,7 @@ public class DetailTabController {
 			detailTab.setStartmailtext(request.getParameter("startmailtext"));
 
 			//TAB-3
-			detailTab.setEndcontactcd(request.getParameter("endcontactcd"));
+			detailTab.setEndcontactcd(Integer.parseInt(request.getParameter("endcontactcd")));
 			detailTab.setEndvoicepath(request.getParameter("endvoicepath"));
 			String endvoicecycl = request.getParameter("endvoicecycl");
 			if(!endvoicecycl.isEmpty()) {
@@ -239,5 +250,55 @@ public class DetailTabController {
 			return "detail_tab";
 		}
 	}
+
+    /**
+     * ファイルアップロード
+     * @param uploadFile
+     * @return
+     */
+    @PostMapping("/uploadwav")
+   public ResponseEntity< byte[]> uploadWav(@RequestParam("startFileName") final MultipartFile uploadFile) {
+
+	    //logger.debug("詳細設定画面===FILE UPLOAD");
+		System.out.println("詳細設定画面===FILE UPLOAD");
+
+       if(uploadFile.isEmpty ())  {
+           return ResponseEntity.of(Optional.empty());
+       }
+       final Path path = Paths.get (FILE_PATH, uploadFile.getOriginalFilename());
+       final byte[] bytes ;
+       try  {
+           bytes = uploadFile.getBytes();
+           Files.write(path, bytes);
+       }catch(IOException e){
+           return ResponseEntity.of(Optional.empty());
+       }
+       return ResponseEntity.ok(bytes);
+   }
+
+   /**
+    * ファイルアップロード
+    * @param uploadFile
+    * @return
+    */
+   @PostMapping("/uploadendwav")
+  public ResponseEntity< byte[]> uploadEndWav(@RequestParam("endFileName") final MultipartFile uploadFile) {
+
+	    //logger.debug("詳細設定画面===FILE END UPLOAD");
+		System.out.println("詳細設定画面===FILE UPLOAD");
+
+      if(uploadFile.isEmpty ())  {
+          return ResponseEntity.of(Optional.empty());
+      }
+      final Path path = Paths.get (FILE_PATH, uploadFile.getOriginalFilename());
+      final byte[] bytes ;
+      try  {
+          bytes = uploadFile.getBytes();
+          Files.write(path, bytes);
+      }catch(IOException e){
+          return ResponseEntity.of(Optional.empty());
+      }
+      return ResponseEntity.ok(bytes);
+  }
 
 }

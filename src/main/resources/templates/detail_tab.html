@@ -89,6 +89,9 @@ td{
 <input type="hidden" id="viewFlag" name="viewFlag" th:value="${viewFlag}">
 <input type="hidden" id="upUserId" name="upUserId" th:value="${session.id}">
 <input type="hidden" id="upUserName" name="upUserName" th:value="${session.name}">
+<input type="hidden" id="hidCustomerno" name="hidCustomerno" th:value="${detailTab.customerno}">
+
+
 
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -147,17 +150,19 @@ td{
                         <h5>メール送付先</h5>
                         <div class="card card-body">
                             <div class="row form-group form-group-sm">
-                                <div class="col-3" style="font-size: 15px;">社外アドレス<br>連絡メールのみ</div>
-                                <div class="col-9"><textarea name="outermailaddr" id="outermailaddr" rows="2" placeholder="" class="form-control required" th:text="${detailTab.outermailaddr}"></textarea></div>
-                            </div>
-                            <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">社内ユーザー<br><br>
                                     <button type="button" id="userMOkBtn" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal" style="display:none;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                     <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
                                 <div class="col-9">
-                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder="" class="form-control required" th:text="${detailTab.intermailaddr}"></textarea>
+                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder=""
+									class="form-control required" th:text="${detailTab.intermailaddr}"
+									style="background-color:#fffacd !important; color: #000000;" readonly></textarea>
                                 </div>
+                            </div>
+                            <div class="row form-group form-group-sm">
+                                <div class="col-3" style="font-size: 15px;">社外アドレス<br>連絡メールのみ<br>(セミコロン；区切り)</div>
+                                <div class="col-9"><textarea name="outermailaddr" id="outermailaddr" rows="2" placeholder="" class="form-control required" th:text="${detailTab.outermailaddr}"></textarea></div>
                             </div>
                         </div>
                     </div>
@@ -237,9 +242,13 @@ td{
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
+									<input type="file"  name="startFileName" id="startFileName" />
+									<audio id="wav1">
+									  <source src="" type="audio/wav">
+									</audio>
                                     <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.startvoicepath}">
-                                    <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
-                                    <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
+                                    <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'startFileName', '0')" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
+                                    <button type="button" class="btn btn-danger btn-sm" id="startPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -446,9 +455,13 @@ td{
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
+									<input type="file"  name="endFileName" id="endFileName" />
+									<audio id="wav2">
+									  <source src=""  type="audio/wav">
+									</audio>
                                     <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.endvoicepath}">
-                                    <button type="button" class="btn btn-success btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
-                                    <button type="button" class="btn btn-danger btn-sm" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
+                                    <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'endFileName', '1')"  style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
+                                    <button type="button" class="btn btn-danger btn-sm" id="endPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
@@ -1579,7 +1592,7 @@ jQuery(document).ready(function($) {
 			if(emailArr == ''){
 				emailArr = email;
 			}else{
-				emailArr += ';'+email;
+				emailArr += ','+email;
 			}
 		});
 		$('#intermailaddr').val(emailArr);
@@ -1678,6 +1691,41 @@ jQuery(document).ready(function($) {
 		}else{
 	    	$("#cancelModal").modal("show");
 		}
+	});
+
+	//開始音声再生
+	startPlayBtn.addEventListener("click", ()=>{
+	    // pausedがtrue=>停止, false=>再生中
+	    if(!wav1.paused ){
+		  startPlayBtn.innerHTML = '<i class="fa fa-play"></i> 再生';  // 「再生ボタン」に切り替え
+	      wav1.pause();
+	    }else{
+		  startPlayBtn.innerHTML = '<i class="fa fa-play"></i> 再生';  // 「再生ボタン」に切り替え
+	      wav1.play();
+		}
+	});
+	/**
+	 * [event] 再生終了時に実行  <i class="fas fa-pause"></i>
+	 */
+	 wav1.addEventListener("ended", ()=>{
+		wav1.currentTime = 500;
+	});
+	//終了音声再生
+	endPlayBtn.addEventListener("click", ()=>{
+	    // pausedがtrue=>停止, false=>再生中
+	    if(!wav2.paused ){
+		  endPlayBtn.innerHTML = '<i class="fa fa-play"></i> 再生';  // 「再生ボタン」に切り替え
+	      wav2.pause();
+		}else{
+		  endPlayBtn.innerHTML = '<i class="fa fa-play"></i> 再生';  // 「再生ボタン」に切り替え
+	      wav2.play();
+		}
+	});
+	/**
+	* [event] 再生終了時に実行
+	*/
+	wav2.addEventListener("ended", ()=>{
+		wav2.currentTime = 500;
 	});
 
 });
@@ -1843,6 +1891,18 @@ function viewSet(idx) {
     const viewEdit = document.getElementById("view-edit");
     const status = $('#statusFlg').val();
 
+    //音声ファイル設定
+	var audio_1 = $('#startvoicepath').val();
+	if(audio_1 != ''){
+		var audioFile = location.protocol+'//'+location.host+'/audio/'+audio_1;
+		$("#wav1").attr('src',audioFile);
+	}
+	var audio_2 = $('#endvoicepath').val();
+	if(audio_2 != ''){
+		var audioFile = location.protocol+'//'+location.host+'/audio/'+audio_2;
+		$("#wav2").attr('src',audioFile);
+	}
+
     if(idx == '3'){
 	//管理者権限
     	if(viewOnly.style.display=="block"){
@@ -1872,7 +1932,7 @@ function viewChange(idx) {
 		$("#sitename").attr("disabled",true);
 		$("#address").attr("disabled",true);
 		$("#outermailaddr").attr("disabled",true);
-		$("#intermailaddr").attr("disabled",true);
+		//$("#intermailaddr").attr("disabled",true);
 		$("#adminusername").attr("disabled",true);
 		$("#adminmailaddress").attr("disabled",true);
 		$("#adminphoneno").attr("disabled",true);
@@ -1891,14 +1951,12 @@ function viewChange(idx) {
     }else{
         //編集モード
     	//Tab-1
-    	if($("#viewFlag").val() == "add"){
-            $("#customerno").removeAttr("disabled");
-    	}
+        $("#customerno").removeAttr("disabled");
         $("#customer").removeAttr("disabled");
         $("#sitename").removeAttr("disabled");
         $("#address").removeAttr("disabled");
         $("#outermailaddr").removeAttr("disabled");
-        $("#intermailaddr").removeAttr("disabled");
+        //$("#intermailaddr").removeAttr("disabled");
         $("#adminusername").removeAttr("disabled");
         $("#adminmailaddress").removeAttr("disabled");
         $("#adminphoneno").removeAttr("disabled");
@@ -1995,6 +2053,48 @@ function clearClatext(){
 function backSetting(){
 	$('#hidBackForm').submit();
 }
+
+//音声ファイルアップロード
+function uploadFile(wavForm, item, flag){
+
+	var file = document.getElementById(item);
+	var filePath = file.value;
+	var filePathSplit = filePath.split('\\');
+	var filePathLength = filePathSplit.length;
+	var fileNameSplit = filePathSplit[filePathLength-1].split('.');
+	var fileName = fileNameSplit[0];
+	var fileExt = fileNameSplit[1];
+	var fileSize = file.files[0].size;
+
+	const formData=new FormData(document.getElementById(wavForm));
+    const request=new XMLHttpRequest();
+
+    request.onreadystatechange =function(){
+	    if(this.readyState==4 && this.status==200){
+
+	    	if(flag == '0'){
+				$('#startvoicepath').val(fileName+'.'+fileExt);
+				var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
+				console.log(audioFile);
+				$("#wav1").attr('src',audioFile);
+	    	}else{
+				$('#endvoicepath').val(fileName+'.'+fileExt);
+				var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
+				console.log(audioFile);
+				$("#wav2").attr('src',audioFile);
+	    	}
+
+	    }
+    }
+	if(flag == '0'){
+	    request.open("POST","/ops/detail/uploadwav");
+	}else{
+	    request.open("POST","/ops/detail/uploadendwav");
+	}
+    request.responseType='blob';
+    request.send(formData);
+}
+
 
 </script>
 </body>
