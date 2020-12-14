@@ -227,24 +227,13 @@
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
 
 <script>
-	/*メールパターン*/
-	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+
 	/*電話番号パターン*/
 	var phone = RegExp(/^[0-9]+$/);
-	/*名称パターン*/
-	var engname = RegExp(/^[a-zA-Z]*$/);
-	var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
-	var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
-	var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
-	var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
-	var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
 
-	var errNeedsMail = 'メールは必須項目です。';
 	var errOkMail = '正しいメールではありません。';
-	var errNeedsPhone = '電話番号は必須項目です。';
 	var errOkPhone = '正しい電話番号ではありません。';
 	var errNeedsName = '名称は必須項目です。';
-	var errOkName = '正しい名称ではありません。';
 	var errLength = '桁まで入力できます。';
 	var nameLength = 50;
 	var phoneLength = 20;
@@ -321,13 +310,7 @@
 	        $("#contactname").focus();
 	      return false;
 	    }
-	/*     //名称の検査
-	    if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
-	    	$("#errMessage").html(errOkName);
-	    	$("#errMessage")[0].hidden = false;
-	        $("#contactname").focus();
-	      return false;
-	    } */
+
 	    //名称の桁数検査
 	    if(name.length>nameLength){
 	    	$("#errMessage").html("名称は"+nameLength+errLength);
@@ -336,28 +319,6 @@
 	      return false;
 	    }
 
-		  //メールの空白確認
-	    if($("#contactmailaddress").val() == ""){
-	    	$("#errMessage").html(errNeedsMail);
-	    	$("#errMessage")[0].hidden = false;
-	        $("#contactmailaddress").focus();
-	      return false;
-	    }
-	    //メールの検査
-	    if(!getMail.test($("#contactmailaddress").val())){
-	    	$("#errMessage").html(errOkMail);
-	    	$("#errMessage")[0].hidden = false;
-	        $("#contactmailaddress").focus();
-	      return false;
-	    }
-
-		  //電話番号の空白確認
-	    if($("#contactphoneno").val() == ""){
-	    	$("#errMessage").html(errNeedsPhone);
-	    	$("#errMessage")[0].hidden = false;
-	        $("#contactphoneno").focus();
-	      return false;
-	    }
 	    //電話番号の検査
 	    if(!phone.test($("#contactphoneno").val())){
 	    	$("#errMessage").html(errOkPhone);
@@ -365,7 +326,8 @@
 	        $("#contactphoneno").focus();
 	      return false;
 		    }
-	    //電話番号の検査
+
+	    //電話番号の桁数検査
 	 　　 if($("#contactphoneno").val().length>phoneLength){
 	    	$("#errMessage").html("電話番号は"+phoneLength+errLength);
 	    	$("#errMessage")[0].hidden = false;
@@ -421,13 +383,6 @@
 	      $("#contactnameu").focus();
 	    return false;
 	  }
-	/*   //名称の検査
-	  if(!(engname.test(name)||kanjiname.test(name)||furikananame.test(name)||katakananame.test(name)||kataname.test(name)||engbiganame.test(name))){
-	  	$("#errMessageu").html(errOkName);
-	  	$("#errMessageu")[0].hidden = false;
-	      $("#contactnameu").focus();
-	    return false;
-	  } */
 
 	  //名称の桁数検査
 	  if(name.length>nameLength){
@@ -436,27 +391,7 @@
 	      $("#contactnameu").focus();
 	    return false;
 	  }
-		  //メールの空白確認
-	  if($("#contactmailaddressu").val() == ""){
-	  	$("#errMessageu").html(errNeedsMail);
-	  	$("#errMessageu")[0].hidden = false;
-	      $("#contactmailaddressu").focus();
-	    return false;
-	  }
-	  //メールの検査
-	  if(!getMail.test($("#contactmailaddressu").val())){
-	  	$("#errMessageu").html(errOkMail);
-	  	$("#errMessageu")[0].hidden = false;
-	      $("#contactmailaddressu").focus();
-	    return false;
-	  }
-		  //電話番号の空白確認
-	  if($("#contactphonenou").val() == ""){
-	  	$("#errMessageu").html(errNeedsPhone);
-	  	$("#errMessageu")[0].hidden = false;
-	      $("#contactphonenou").focus();
-	    return false;
-	  }
+
 	  //電話番号の検査
 	  if(!phone.test($("#contactphonenou").val())){
 	  	$("#errMessageu").html(errOkPhone);
@@ -464,8 +399,9 @@
 	      $("#contactphonenou").focus();
 	    return false;
 	  }
-	  //電話番号の検査
-	　 if($("#contactphonenou").val().length>phoneLength){
+
+	  //電話番号の桁数検査
+	 if($("#contactphonenou").val().length>phoneLength){
 	  	$("#errMessageu").html("電話番号は"+phoneLength+errLength);
 	  	$("#errMessageu")[0].hidden = false;
 	      $("#contactphonenou").focus();

@@ -5,8 +5,16 @@
 
 	<!--リスト表示  -->
 	<select id="contactList" resultType="jp.co.info.ais.ops.domain.Contact">
-		SELECT
-			(ROW_NUMBER() OVER()) AS rownum,
+
+	select (ROW_NUMBER() OVER()) AS rownum,
+		    contactcd,
+			contactname,
+			contactphoneno,
+			contactmailaddress,
+			startcontactcd,
+			endcontactcd
+	from (
+			SELECT
 			cm.contactcd as contactcd,
 			cm.contactname as contactname,
 			cm.contactphoneno as contactphoneno,
@@ -15,7 +23,8 @@
 			rs.endcontactcd as endcontactcd
 		FROM tbl_jikahocontactmaster cm LEFT OUTER JOIN tbl_jikahorenrakusettei rs
         ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd
-        order by cm.contactcd asc;
+         order by cm.contactcd asc
+        ) foo ;
 	</select>
 
 	<!--リスト表示(詳細設定)  -->
