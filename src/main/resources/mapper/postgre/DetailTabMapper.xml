@@ -13,7 +13,11 @@
 		SELECT
 				customerno
 				,customer
+				,sitecd
 				,sitename
+				,jdgsw
+				,status
+				,endjdgsw
 				,address
 				,outermailaddr
 				,intermailaddr
@@ -47,6 +51,9 @@
 			,customer
 			,sitecd
 			,sitename
+			,jdgsw
+			,status
+			,endjdgsw
 			,address
 			,outermailaddr
 			,intermailaddr
@@ -74,6 +81,9 @@
 			,#{customer}
 			,#{sitecd}
 			,#{sitename}
+			,#{jdgsw}
+			,'0'
+			,'0'
 			,#{address}
 			,#{outermailaddr}
 			,#{intermailaddr}
@@ -104,6 +114,7 @@
 			customer=#{customer}
 			,sitecd=#{sitecd}
 			,sitename=#{sitename}
+			,jdgsw=#{jdgsw}
 			,address=#{address}
 			,outermailaddr=#{outermailaddr}
 			,intermailaddr=#{intermailaddr}
