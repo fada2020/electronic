@@ -61,8 +61,8 @@ td{
                 <div class="col-sm-4">
 	                <div class="float-left" id="view-only" style="float: right; text-align: right; padding-top: 14px;">
 						<span style="padding-right:80px;"></span>
-						<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.sitename}">
-						<input type="checkbox" id="chkInput" name="chkInput" checked>
+						<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
+						<input type="checkbox" id="chkInput" name="chkInput" th:checked="${detailTab.jdgsw} == '1'" >
 						<span style="font-size:1.4em;"> 有効（未入力項目がある場合、チェック不可）</span>
 					</div>
 	                <div class="float-right" id="view-only" style="float: right; text-align: right; margin-top: 10px; display:none;">
