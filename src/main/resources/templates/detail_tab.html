@@ -61,6 +61,7 @@ td{
                 <div class="col-sm-4">
 	                <div class="float-left" id="view-only" style="float: right; text-align: right; padding-top: 14px;">
 						<span style="padding-right:80px;"></span>
+						<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.sitename}">
 						<input type="checkbox" id="chkInput" name="chkInput" checked>
 						<span style="font-size:1.4em;"> 有効（未入力項目がある場合、チェック不可）</span>
 					</div>
@@ -242,7 +243,7 @@ td{
                                     電話番号　音声ファイル
                                 </div>
                                 <div class="col-9">
-									<input type="file" name="startFileName" id="startFileName" style="display: none;"/>
+									<input type="file" name="startFileName" id="startFileName"/>
 									<audio id="wav1">
 									  <source src="" type="audio/wav">
 									</audio>
@@ -1679,6 +1680,15 @@ jQuery(document).ready(function($) {
     		}
     	}
     });
+
+	//有効チェックボックストグル
+	$('#chkInput').on('change', function () {
+	    if ($(this).prop('checked')) {
+    		$("#jdgsw").val('1');
+	    } else {
+    		$("#jdgsw").val('0');
+	    }
+	});
 
 	//参照キャンセル処理を行う。
 	$("#viewCancleBtn").click(function(){
