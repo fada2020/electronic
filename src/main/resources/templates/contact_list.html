@@ -228,16 +228,16 @@
 
 <script>
 	/*メールパターン*/
-	var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
+	//var getMail = RegExp(/^[A-Za-z0-9_\.\-]+@[A-Za-z0-9\-]+\.[A-Za-z0-9\-]+/);
 	/*電話番号パターン*/
 	var phone = RegExp(/^[0-9]+$/);
 	/*名称パターン*/
-	var engname = RegExp(/^[a-zA-Z]*$/);
-	var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
-	var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
-	var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
-	var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
-	var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
+	//var engname = RegExp(/^[a-zA-Z]*$/);
+	//var kanjiname = RegExp(/^[ぁ-んァ-ヶー一-龠]+$/);
+	//var furikananame = RegExp(/^[あ-ん゛゜ぁ-ぉゃ-ょー「」、]+/);
+	//var katakananame = RegExp(/^[ア-ン゛゜ァ-ォャ-ョー「」、]+$/);
+	//var kataname = RegExp(/^[ｱ-ﾝﾞﾟｧ-ｫｬ-ｮｰ｡｢｣､]+$/);
+	//var engbiganame = RegExp(/^[Ａ-Ｚ]+$/);
 
 	var errNeedsMail = 'メールは必須項目です。';
 	var errOkMail = '正しいメールではありません。';
@@ -336,7 +336,7 @@
 	      return false;
 	    }
 
-		  //メールの空白確認
+/* 		  //メールの空白確認
 	    if($("#contactmailaddress").val() == ""){
 	    	$("#errMessage").html(errNeedsMail);
 	    	$("#errMessage")[0].hidden = false;
@@ -349,15 +349,15 @@
 	    	$("#errMessage")[0].hidden = false;
 	        $("#contactmailaddress").focus();
 	      return false;
-	    }
+	    } */
 
-		  //電話番号の空白確認
+/* 		  //電話番号の空白確認
 	    if($("#contactphoneno").val() == ""){
 	    	$("#errMessage").html(errNeedsPhone);
 	    	$("#errMessage")[0].hidden = false;
 	        $("#contactphoneno").focus();
 	      return false;
-	    }
+	    } */
 	    //電話番号の検査
 	    if(!phone.test($("#contactphoneno").val())){
 	    	$("#errMessage").html(errOkPhone);
@@ -436,7 +436,7 @@
 	      $("#contactnameu").focus();
 	    return false;
 	  }
-		  //メールの空白確認
+	/* 	  //メールの空白確認
 	  if($("#contactmailaddressu").val() == ""){
 	  	$("#errMessageu").html(errNeedsMail);
 	  	$("#errMessageu")[0].hidden = false;
@@ -449,14 +449,14 @@
 	  	$("#errMessageu")[0].hidden = false;
 	      $("#contactmailaddressu").focus();
 	    return false;
-	  }
-		  //電話番号の空白確認
+	  } */
+/* 		  //電話番号の空白確認
 	  if($("#contactphonenou").val() == ""){
 	  	$("#errMessageu").html(errNeedsPhone);
 	  	$("#errMessageu")[0].hidden = false;
 	      $("#contactphonenou").focus();
 	    return false;
-	  }
+	  } */
 	  //電話番号の検査
 	  if(!phone.test($("#contactphonenou").val())){
 	  	$("#errMessageu").html(errOkPhone);
