@@ -814,7 +814,7 @@ td{
     </div>
 </form>
 </div>
-<!-- 責任者ユーザー選択Modal Start-->
+<!-- 責任者ユーザー選択Modal End-->
 <!-- User Select Modal Start-->
 <div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id="userForm">
@@ -1540,8 +1540,8 @@ jQuery(document).ready(function($) {
         	$('#sitename').val(selectedSiteName);
         	$('#sitecd').val(selectedSiteCd);
     	}
-    	tableSite.$('tr.selected').removeClass('selected');
-    	$('#siteSearchModal').find('form')[0].reset()
+    	//tableSite.$('tr.selected').removeClass('selected');
+    	//$('#siteSearchModal').find('form')[0].reset()
 
     });
 
@@ -1597,8 +1597,8 @@ jQuery(document).ready(function($) {
 			}
 		});
 		$('#intermailaddr').val(emailArr);
-    	tableUser.$('tr.selected').removeClass('selected');
-    	$('#userSelectModal').find('form')[0].reset()
+    	//tableUser.$('tr.selected').removeClass('selected');
+    	//$('#userSelectModal').find('form')[0].reset()
 	});
 
     //演算式設定関連関数===================================
