@@ -120,7 +120,7 @@ td{
 									<button type="button" id="siteOkBtn" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#siteSearchModal" style="display:none;"><i class="fa fa-sitemap"></i>&nbsp; サイト選択</button>
                                 </div>
                                 <div class="col-8">
-                                    <input type="text" id="sitename" name="sitename" class="form-control input-sm required" th:value="${detailTab.sitename}" >
+                                    <input type="text" id="sitename" name="sitename" class="form-control input-sm required" style="background-color:#fffacd !important; color: #000000;" readonly th:value="${detailTab.sitename}" >
                                     <input type="hidden" id="sitecd" name="sitecd" class="form-control input-sm required" th:value="${detailTab.sitecd}">
                                 </div>
                             </div>
@@ -183,11 +183,11 @@ td{
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">名称</label>
                                        <input type="hidden" class="form-control input-sm" id="adminuserid" name="adminuserid" style="" th:value="${detailTab.adminuserid}">
-                                       <input type="text" class="form-control input-sm required" id="adminusername" name="adminusername" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminusername}">
+                                       <input type="text" class="form-control input-sm required" id="adminusername" name="adminusername" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminusername}" readonly>
                                    </div>
                                    <div class="col-6">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">電話番号</label>
-                                       <input type="text" class="form-control input-sm required" id="adminphoneno" name="adminphoneno" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminphoneno}">
+                                       <input type="text" class="form-control input-sm required" id="adminphoneno" name="adminphoneno" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminphoneno}" readonly>
                                    </div>
                                </div>
                                </div>
@@ -196,7 +196,7 @@ td{
                             	</div>
                                 <div class="col-9" style="padding: 20px 30px 30px;">
                                        <label for="" class="control-label mb-1" style="font-size: 14px;">メールアドレス</label>
-                                       <input type="text" class="form-control input-sm required" id="adminmailaddress" name="adminmailaddress" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminmailaddress}">
+                                       <input type="text" class="form-control input-sm required" id="adminmailaddress" name="adminmailaddress" style="background-color:#fffacd !important; color: #000000;" th:value="${detailTab.adminmailaddress}" readonly>
                                    </div>
                                </div>
                            </div><!-- row form-group form-group-sm-->
@@ -1939,13 +1939,13 @@ function viewChange(idx) {
     	//Tab-1
 		$("#customerno").attr("disabled",true);
 		$("#customer").attr("disabled",true);
-		$("#sitename").attr("disabled",true);
+		//$("#sitename").attr("disabled",true);
 		$("#address").attr("disabled",true);
 		$("#outermailaddr").attr("disabled",true);
 		//$("#intermailaddr").attr("disabled",true);
-		$("#adminusername").attr("disabled",true);
-		$("#adminmailaddress").attr("disabled",true);
-		$("#adminphoneno").attr("disabled",true);
+		//$("#adminusername").attr("disabled",true);
+		//$("#adminmailaddress").attr("disabled",true);
+		//$("#adminphoneno").attr("disabled",true);
 		$("#startcontactcd").attr("disabled",true);
 		$("#startvoicepath").attr("disabled",true);
 		$("#startvoicecycl").attr("disabled",true);
@@ -1963,13 +1963,13 @@ function viewChange(idx) {
     	//Tab-1
         $("#customerno").removeAttr("disabled");
         $("#customer").removeAttr("disabled");
-        $("#sitename").removeAttr("disabled");
         $("#address").removeAttr("disabled");
         $("#outermailaddr").removeAttr("disabled");
+        //$("#sitename").removeAttr("disabled");
         //$("#intermailaddr").removeAttr("disabled");
-        $("#adminusername").removeAttr("disabled");
-        $("#adminmailaddress").removeAttr("disabled");
-        $("#adminphoneno").removeAttr("disabled");
+        //$("#adminusername").removeAttr("disabled");
+        //$("#adminmailaddress").removeAttr("disabled");
+        //$("#adminphoneno").removeAttr("disabled");
         $("#startcontactcd").removeAttr("disabled");
         $("#startvoicepath").removeAttr("disabled");
         $("#startvoicecycl").removeAttr("disabled");
