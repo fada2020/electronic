@@ -14,12 +14,14 @@
                 </div>
         -->
             </div>
-            <div class="col-sm-5">
-
-			<a th:if="${session.id == null}" href="/">Login</a>
-
-                <div class="user-area dropdown float-right" th:if="${session.id != null}" th:text="${session.id}"style="font-size: 1.5em;"></div>
-<div class="user-area dropdown float-left"th:if="${session.id != null}"><a href="/logout">Logout</a></div>
+            <div class="col-sm-5 float-right" >
+            	<div class="float-right">
+            		<span class="float-left" th:if="${session.id != null}" th:text="|${session.name}(${session.id})|" style="font-size: 2.0em; padding-right: 20px;"></span>
+	           		<button type="button" th:if="${session.id != null}" id="executeBtn" class="float-right btn btn-sm btn-warning"
+	           		  style="font-size: 1.5em;" onclick="location.href='/ops/logout'"><i class="fa fa-sign-out"></i> ログアウト</button>
+	           		  <button type="button" th:if="${session.id == null}" id="loginBtn" class="float-right btn btn-sm btn-warning"
+	           		  style="font-size: 1.5em;" onclick="location.href='/ops/'"><i class="fa fa-sign-out"></i> ログイン</button>
+            	</div>
             </div>
         </div>
     </header><!-- /header -->

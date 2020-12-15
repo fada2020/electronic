@@ -233,7 +233,7 @@ td{
                                 </div>
                                 <div class="col-9">
 								    <select id="startcontactcd" name="startcontactcd" class="form-control required" style="width: 100%; ">
-								        <option value="-1"></option>
+								        <option value=""></option>
 								        <option th:each="scont : ${contList}" th:value="${scont.contactcd}" th:selected="${scont.contactcd} == ${detailTab.startcontactcd}" th:inline="text">[[${scont.contactname}]]</option>
 								    </select>
                                 </div>
@@ -446,7 +446,7 @@ td{
                                 </div>
                                 <div class="col-9">
 								    <select id="endcontactcd" name="endcontactcd" class="form-control required" style="width: 100%; ">
-								        <option value="-1"></option>
+								        <option value=""></option>
 								        <option th:each="econt : ${contList}" th:value="${econt.contactcd}" th:selected="${econt.contactcd} == ${detailTab.endcontactcd}" th:inline="text">[[${econt.contactname}]]</option>
 								    </select>
                                 </div>
@@ -854,9 +854,10 @@ td{
                                     </tr>
                                 </thead>
                                 <tbody>
-<tr th:each="user : ${userList}" style="width: 100%;">
+
+<tr th:each="user : ${userList}" style="width: 100%;" th:with="isExist = ${detailTab.intermailaddr != null}">
 	<td scope="row" style="width: 10%; text-align:center;">
-	    <input type="checkbox" id="userCheck" name="userCheck" value="option1">
+	    <input type="checkbox" id="userCheck" name="userCheck" value="option1" th:checked="${isExist and (#strings.contains(detailTab.intermailaddr, user.mailaddr.toString()))}">
 	</td>
     <td style="width: 40%; font-size: 12px;"th:text="${user.username}"></td>
     <td style="width: 50%; font-size: 12px;"th:text="${user.mailaddr}"></td>
