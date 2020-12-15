@@ -168,9 +168,9 @@ td{
                         </div>
                     </div>
                     <div class="col-6">
-                        <h5>責任者</h5>
+                        <h5>管理者</h5>
                         <div class="card card-body">
-                            <!-- 責任者 -->
+                            <!-- 管理者 -->
                            <div class="row form-group form-group-sm">
                          	<div style="width:100%;">
                                <div class="col-3">
@@ -750,7 +750,7 @@ td{
 </form>
 </div>
 <!-- Site Search Modal End-->
-<!-- 責任者ユーザー選択Modal Start-->
+<!-- 管理者ユーザー選択Modal Start-->
 <div class="modal fade" id="adminSearchModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id='adminForm'>
 <input type="hidden" id="hidAdminId">
@@ -814,7 +814,7 @@ td{
     </div>
 </form>
 </div>
-<!-- 責任者ユーザー選択Modal End-->
+<!-- 管理者ユーザー選択Modal End-->
 <!-- User Select Modal Start-->
 <div class="modal fade" id="userSelectModal" tabindex="-1" role="dialog" aria-labelledby="mediumModalLabel" aria-hidden="true">
 <form id="userForm">
@@ -1318,12 +1318,12 @@ td{
             </div>
             <div class="modal-body" style="text-align: center;">
                 <p>
-                    データを保存せずに終了しました。<br>よろしいですか？
+                    データを保存せずに終了します。<br>よろしいですか?
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">終了</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい(Y)</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ(N)</button>
             </div>
         </div>
     </div>
@@ -1343,8 +1343,8 @@ td{
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">終了</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">キャンセル</button>
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい(Y)</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ(N)</button>
             </div>
         </div>
     </div>
@@ -1472,7 +1472,7 @@ jQuery(document).ready(function($) {
      	}
  	});
 
-	//責任者ユーザー選択のDataTable Option設定
+	//管理者ユーザー選択のDataTable Option設定
     var tableAdmin = $('#adminList').DataTable( {
     	responsive: true,
  	    searching: false,
@@ -1545,7 +1545,7 @@ jQuery(document).ready(function($) {
 
     });
 
-	//責任者のユーザー選択、設定ボタンをクリックすると親ウィンドウに値をセット
+	//管理者のユーザー選択、設定ボタンをクリックすると親ウィンドウに値をセット
     $('#adminList tr').on('click', function (e) {
         var str = ""
         var tdArr = new Array();
@@ -1823,7 +1823,7 @@ jQuery(function($){
     	}
 
     });
-    //責任者ユーザー選択区分
+    //管理者ユーザー選択区分
     $('.btn_admin_search').on('click', function() {
     	var adminKeyword = $('#adminKeyword').val();
     	if(adminKeyword == ''){
