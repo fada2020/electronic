@@ -10,6 +10,7 @@ CREATE TABLE tbl_jikahonoticemailinfo
    customer character varying(48),
    begintimefrom timestamp without time zone,
    begintimeto timestamp without time zone,
+   endconditionstatus character varying(1),
    CONSTRAINT tbl_jikahonoticemailinfo_pkey PRIMARY KEY (mailid)
 )
 TABLESPACE public

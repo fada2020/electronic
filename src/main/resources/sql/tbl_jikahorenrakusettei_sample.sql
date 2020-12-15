@@ -5,10 +5,11 @@ DROP TABLE IF EXISTS tbl_jikahorenrakusettei_sample;
 CREATE TABLE tbl_jikahorenrakusettei_sample
 (
    samplekind character varying(2) NOT NULL,
-   voicecycl number NOT NULL,
-   voicecnt number,
+   voicecycl number NOT NULL default 1,
+   voicecnt number default 3,
    subject text,
    mailtext text,
+
    CONSTRAINT tbl_jikahorenrakusettei_sample_pkey PRIMARY KEY (samplekind)
 )
 TABLESPACE public
