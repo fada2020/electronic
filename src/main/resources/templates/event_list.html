@@ -19,7 +19,11 @@
 	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
 	<!-- dataTable -->
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
-
+<style>
+	.alignCenter{
+		text-align:center;
+	}
+</style>
 </head>
  <body>
     <!-- Left Panel -->
@@ -109,47 +113,6 @@
                                     </tr>
                                 </thead>
                                 <tbody style="font-size: 14px;">
-                                      <tr th:each="list : ${list}">
-                                        <td style="text-align:center;" th:text="${list.occurtime}"></td>
-                                        <td th:text="${list.customer}"></td>
-                                        <td th:text="${list.eventname}" th:style="${list.eventkind == '4'}
-                                        									    ? 'color: red;'
-                                        									    : (${list.eventkind == '2'}
-                                        									    ? 'color: blue;'
-                                        									    : 'color: black;')"></td>
-                                        <td th:switch="${list.eventkind}" th:style="${list.eventkind == '1'}
-                                        									    ? 'color: red; text-align:center;'
-                                        									    : (${list.eventkind == '2'}
-                                        									    ? 'color: blue; text-align:center;'
-                                        									    : 'color: black; text-align:center;')">
-                                        									    <span th:case == "1">メール</span>
-                                        									    <span th:case == "2">電話</span>
-                                        									    <span th:case == '3'>判定</span>
-                                        									    <span th:case == '4'>操作</span>
- 										</td>
-                                        <td style="text-align:center;" th:switch="${list.status}">
-                                        <span th:case == "0">ー</span>
-          								<span th:case == "1">正常終了</span>
-          								<span th:case == '2'>失敗</span>
-                                        </td>
-                                        <td th:text="${list.comments}"></td>
-                            		    <td style="text-align:center;" th:value="${list.customer}" id="mailid">
-                                          <button type="button" class="btn btn-sm btn-success btn_emailview"
-                                            data-toggle="modal" data-target="#exampleModalScrollable" id="mailid"
-                                            th:attr="data-mailid=${list.mailid},
-                                                     data-maildate=${list.maildatetime},
-                                                     date-mailfrom=${list.mailfrom},
-                                                     date-subject=${list.mailsubject},
-                                                     date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},
- 													 date-mailcc=${#strings.replace(list.mailcc, ' ', '&#10')},
-                                                     date-mailtext=${list.mailtext}"
-                                            th:style="${list.eventkind} == '1' ? 'display:block text-align:center;' : 'display:none'"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                          <button disabled="disabled" th:style="${list.eventkind} != '1' ? 'display:block text-align:center; background-color: #6c757d; border-color: #6c757d;' : 'display:none'" class="btn btn-sm btn-success btn_emailview"><i class="fa fa-envelope"></i>メール内容確認</button>
-                                        </td>
-                                    </tr>
-                                    <tr th:unless="${not #lists.isEmpty( list )}">
-									 <td colspan="7">検索リストが存在しません</td>
-									</tr>
                                 </tbody>
                             </table>
                         </div>
@@ -247,6 +210,141 @@
 
 <script>
 
+
+var table = $('#eventList').DataTable({
+		autoWidth: true,
+	    fixedHeader: true,
+	    searching: false,
+	    scrollY: 450,
+	    scrollerCollapse: true,
+	    lengthMenu: [ 15, 30, 50 ],
+	    order: [ 0, "DESC" ],
+	    fnStandingRedraw: true,
+	    bStateSave: true,
+	    language: {
+	        "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json",
+	    },
+        ajax:{
+    	  url:  /*[[@{/getListAuto}]]*/ 'getListAuto',
+    	  type: "POST",
+    	  data: function ( d ) {
+	    		  d.fromDateTime=$("#fromDateTime").val();
+	    		  d.toDateTime=$("#toDateTime").val();
+	    		  d.chkStatus0=$("#chkStatus0").val();
+	    		  d.chkStatus1=$("#chkStatus1").val();
+	    		  d.chkStatus2=$("#chkStatus2").val();
+	    		  d.chkKind1=$("#chkKind1").val();
+	    		  d.chkKind2=$("#chkKind2").val();
+	    		  d.chkKind3=$("#chkKind3").val();
+                  return JSON.stringify(d);
+              },
+    	  dataType: "json",
+    	  contentType : "application/json; charset=UTF-8",
+    	  cache: false,
+    	  dataSrc: ''
+    	  },
+    	  columnDefs:[
+    	   		{className:"alignCenter", targets: [0], data: "occurtime"},
+    	        {targets: [1], data: "customer"},
+    	        {targets: [2], data: "eventname"},
+    	        {className:"alignCenter", targets: [3], data:  function ( d ) {
+    	        	 switch (d.eventkind) {
+		    	        case "1":
+		   			    	  return 'メール';
+		   			  		  break;
+		   			    case "2":
+		   			    	  return '電話';
+		   					  break;
+		   			    case "3":
+		   			    	　　return '判定';
+		   					  break;
+		   			  	case "4":
+					    	　　return '操作';
+							  break;
+		   				default:
+		   					  return '-';
+		   					  break;
+	    	        }
+    	        }},
+    	   	   	{className:"alignCenter", targets: [4], data: function ( d ) {
+    	   		  switch (d.status) {
+    			    case "0":
+    			    	  return '-';
+    			  		  break;
+    			    case "1":
+    			    	  return '正常終了';
+    					  break;
+    			    case "2":
+    			    	　　return '失敗';
+    					  break;
+
+    				default:
+    					  return '-';
+    					  break;
+    	   		  }
+
+    	   	   	}},
+    	    	{targets: [5], data: function ( d ) {
+    	           	if(d.comments === null || d.comment === '') {
+    	           		return '';
+    	           	} else {
+    	           		return d.comments;
+    	           	}
+    	        }},
+    	    	/*renderを利用してボタンを生成*/
+    			{targets: [6],
+    	    		data: "description_u",
+    	               render: function ( data, type, row, meta ) {
+    	               	if(row.eventkind=='1'){
+    	               	   return "<button type='button' class='btn btn-sm btn-success btn_emailview'"
+    	                   +"data-toggle='modal' data-target='#exampleModalScrollable'"
+    	                   +"data-mailid='"+row.mailid+"',data-maildate='"+row.maildatetime+"',date-mailfrom='"+row.mailfrom+"',date-subject='"+row.mailsubject+"',date-mailto='"+row.mailto+"',date-mailcc='#strings.replace("+row.mailcc+", ' ', '&#10')',date-mailtext='"+row.mailtext+"'>"
+    	     			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
+    	               	}else{
+    	               		 return "<button type='button' class='btn btn-sm btn-secondary'>"
+    		    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
+    	               	}
+    	               }
+    			},
+
+    	    ],
+    	    rowCallback: function( row, data, dataIndex ) {
+    	    	  switch (data.eventkind) {
+    			    case "1":
+    			          $(row).find('td:eq(3)').css('color','red');
+    	         		 break;
+    			    case "2":
+    			    	 $(row).find('td:eq(2)').css('color','blue');
+    			    	 $(row).find('td:eq(3)').css('color','blue');
+    			    	break;
+    			    case "3":
+    			    	break;
+    			    case "4":
+    			    	   $(row).find('td:eq(2)').css('color','red');
+    			    	break;
+    	    	  }
+    	    }
+    });
+
+
+//メール内容確認
+$('#eventList').on('click','.btn_emailview', function() {
+	  var mail_id = $(this).attr('data-mailid');
+	  var mail_datetime = $(this).attr('data-maildate');
+	  var mail_from = $(this).attr('date-mailfrom');
+	  var mail_subject = $(this).attr('date-subject');
+	  var mail_to = $(this).attr('date-mailto');
+	  var mail_cc = $(this).attr('date-mailcc');
+	  var mail_text = $(this).attr('date-mailtext');
+	  $('#mMailId').text(mail_id);
+	  $('#mMailDatetime').text(mail_datetime);
+	  $('#mMailFrom').text(mail_from);
+	  $('#mMailSubject').text(mail_subject);
+	  $('#mMailTo').text(mail_to);
+	  $('#mMailCc').text(mail_cc);
+	  $("#mMailText").val(mail_text); //textarea改行処理
+});
+
 jQuery(document).ready(function($) {
     $.datetimepicker.setLocale("ja");
  	$('#fromDate').datetimepicker({
@@ -254,21 +352,6 @@ jQuery(document).ready(function($) {
  	});
  	$('#toDate').datetimepicker({
  	    lang:'ja'
- 	});
-	//DataTable Option設定
-    var table = $('#eventList').DataTable( {
-    	autoWidth: true,
- 	    fixedHeader: true,
- 	    searching: false,
- 	    scrollY: 450,
- 	    scrollerCollapse: true,
- 	    lengthMenu: [ 15, 30, 50 ],
- 	    order: [ 0, "desc" ],
-        fnStandingRedraw: true,
-        bStateSave: true,
-        language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json",
-        }
  	});
 });
 
@@ -285,7 +368,8 @@ $('#searchBtn').on('click', function() {
  	 }
  	 setFormData();
  	 $('#flag').val('search');
- 	 $('#hidSearchForm').submit();
+
+ 	$('#eventList').DataTable().ajax.reload();
 });
 //チェックボックス処理を行う。
 $('.checkbox-input').on('change', function() {
@@ -299,7 +383,7 @@ $('.checkbox-input').on('change', function() {
  	 }
  	 setFormData();
  	 $('#flag').val('search');
- 	 $('#hidSearchForm').submit();
+ 	$('#eventList').DataTable().ajax.reload();
 });
 //チェックボックス処理が間違ったときinput条件
 $('.form-control').keyup(function() {
@@ -371,143 +455,30 @@ $('#executeStopBtn').on('click', function() {
 	stopAutoRenew();
 });
 
-startAutoRenew = function() {
-	  playRenew = setInterval(function() {
-  	  	 callAjaxList();
-	 	 $('#flag').val('search');
-	 	 //$('#hidSearchForm').submit();
-	  }, 5000);
-};
+function startAutoRenew() {
 
-stopAutoRenew = function() {
-   	   setFormData();
-	   clearInterval(playRenew);
-};
+	 $('#flag').val('search');
+	  timerID = setInterval("callAjaxList()", 5000);
+}
 
+function stopAutoRenew() {
 
-function callAjaxList() {
-	setFormData()
-	//var queryString = $("#hidSearchForm").serialize();
-    var hostUrl= /*[[@{/getListAuto}]]*/ 'getListAuto';
-    var param = {
-    	    "fromDateTime" : $("#fromDateTime").val(),
-    	    "toDateTime" : $("#toDateTime").val(),
-    	    "chkStatus0" : $("#chkStatus0").val(),
-    	    "chkStatus1" : $("#chkStatus1").val(),
-    	    "chkStatus2" : $("#chkStatus2").val(),
-    	    "chkKind1" : $("#chkKind1").val(),
-    	    "chkKind2" : $("#chkKind2").val(),
-    	    "chkKind3" : $("#chkKind3").val()
-    };
-    $.ajax({
-	  url: hostUrl,
-	  type: "POST",
-	  data:JSON.stringify(param),
-	  dataType: "json",
-	  contentType : "application/json; charset=UTF-8",
-	  cache: false,
-	  success: function(data, textStatus){
-		  var dataLen = data.length;
-          if(!data || dataLen < 1 ){
-        	  //TODO:
-              $('#eventList').find("tr:gt(0)").remove();
-              var data = ["<tr th:unless='${not #lists.isEmpty( list )}'><td colspan='7'>検索リストが存在しません</td></tr>"];
-              $('#eventList').append(data);
-          }else{
-              // 画面のtableタグの全てのtrタグを削除
-              $('#eventList').find("tr:gt(0)").remove();
-              // 該当するデータがあった場合は、取得したEventListオブジェクトのリストを
-              // 画面のtableタグに表示
-              let i = 0;
-              for(i = 0; i < dataLen; i++){
-            	  var status = data[i].status;
-            	  var kind = data[i].eventkind;
-            	  var comments = data[i].comments;
-                  let trTag = $("<tr/>");
-                  //発生時刻(1)
-                  trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].occurtime));
-    			  //施設名(2)
-                  trTag.append($("<td style='width:20%;'></td>").text(data[i].customer));
-    			  //イベント名称(3),区分(4)
-    			  switch (kind) {
-      			    case "1":
-    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='text-align:center; color:red; width:10%;'></td>").text('メール'));
-    		            break;
-       			  	case "2":
-    	   			  	trTag.append($("<td style='color:blue; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='text-align:center; color:blue; width:10%;'></td>").text('電話'));
-    	   			  	break;
-       			  	case "3":
-    	   			  	trTag.append($("<td style='color:black; width:20%;'></td>").text(data[i].eventname));
-    		            trTag.append($("<td style='text-align:center; width:10%;'></td>").text('判定'));
-    	   			  	break;
-       			  	case "4":
-       			  		trTag.append($("<td style='color:red; width:20%;'></td>").text(data[i].eventname));
-      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('操作'));
-       			  		break;
-    				default:
-    					trTag.append($("<td style='width:20%;'></td>").text(data[i].eventname));
-    				    trTag.append($("<td style='text-align:center; width:10%;'></td>").text(data[i].eventkind));
-    				    break;
-    			  }
-                  //状態(5)
-    			  switch (status) {
-    			    case "0":
-      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
-    		            break;
-      			    case "1":
-      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('正常終了'));
-    		            break;
-       			  	case "2":
-      	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('失敗'));
-    	   			  	break;
-    				default:
-    	                trTag.append($("<td style='text-align:center; width:10%;'></td>").text('-'));
-    				    break;
-    			  }
-    			  //補足(6)
-    			  if(comments === null || comment === ''){
-                      trTag.append($("<td style='width:20%;'></td>").text(''));
-    			  }else{
-                      trTag.append($("<td style='width:20%;'></td>").text(comments));
-    			  }
-    			  //ボタン(7)
-                  trTag.append($("<td style='text-align:center; width:10%;'>"
-                  +"<button type='button' class='btn btn-sm btn-success btn_emailview'"
-                  +"data-toggle='modal' data-target='#exampleModalScrollable' id='mailid'"
-                  +"th:attr='data-mailid=${list.mailid},data-maildate=${list.maildatetime},date-mailfrom=${list.mailfrom},date-subject=${list.mailsubject},date-mailto=${#strings.replace(list.mailto, ' ', '&#10')},date-mailcc=${list.mailcc},date-mailtext=${list.mailtext}'>"
-    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>"
-                  +"</td>"));
-                  $('#eventList').append(trTag);
-              }
-          }
-	  },
-	  error: function(xhr, textStatus, errorThrown){
-		  alert("エラーが発生し、データが取得できませんでした。");
-	  }
-	});
+  	   setFormData();
+  		clearInterval(timerID);
 }
 
 
-//メール内容確認
-$('.btn_emailview').on('click', function() {
-	  var mail_id = $(this).attr('data-mailid');
-	  var mail_datetime = $(this).attr('data-maildate');
-	  var mail_from = $(this).attr('date-mailfrom');
-	  var mail_subject = $(this).attr('date-subject');
-	  var mail_to = $(this).attr('date-mailto');
-	  var mail_cc = $(this).attr('date-mailcc');
-	  var mail_text = $(this).attr('date-mailtext');
+function callAjaxList() {
+	setFormData();
+	//$('#eventList').dataTable().fnClearTable();
 
-	  $('#mMailId').text(mail_id);
-	  $('#mMailDatetime').text(mail_datetime);
-	  $('#mMailFrom').text(mail_from);
-	  $('#mMailSubject').text(mail_subject);
-	  $('#mMailTo').text(mail_to);
-	  $('#mMailCc').text(mail_cc);
-	  $("#mMailText").val(mail_text); //textarea改行処理
-});
+	$('#eventList').DataTable().ajax.reload();
+	//var queryString = $("#hidSearchForm").serialize();
+
+}
+
+
+
 
 //検索条件設定
 function setFormData(){

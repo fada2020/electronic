@@ -21,8 +21,6 @@ import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Workbook;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.fasterxml.jackson.databind.JsonMappingException;
 
+import jp.co.info.ais.ops.domain.EventId;
 import jp.co.info.ais.ops.domain.EventList;
 import jp.co.info.ais.ops.service.EventService;
 
@@ -224,11 +223,7 @@ public class EventController {
 				ExcelDown(list, response);
 			}
 
-			//戻り値
-			model.addAttribute("flag", flag);
-			model.addAttribute("fromDate", fromDate);
-			model.addAttribute("toDate", toDate);
-			model.addAttribute("list", list);
+
 
 		}catch (Exception e) {
 			logger.error(e.getMessage());
@@ -377,28 +372,28 @@ public class EventController {
      */
     @ResponseBody
     @PostMapping("/getListAuto")
-    public List<EventList> ajaxGetList(@RequestBody String json) throws JsonMappingException, IOException  {
+    public List<EventList> ajaxGetList(@RequestBody EventId eventid) throws JsonMappingException, IOException  {
 
     	logger.debug("ajaxGetList Start===========");
 		List<EventList> list = new ArrayList<EventList>();
 
 		try {
-
-			JSONParser pJson = new JSONParser();
-			JSONObject obj = (JSONObject)pJson.parse(json);
+			System.out.println(eventid);
+			System.out.println("1");
 			List<String> statusList = new ArrayList<>();
 			List<String> arrayKind = new ArrayList<>();
-
+			System.out.println("2");
 			//パラメータ設定
-			String fromDate = (String) obj.get("fromDateTime");
-			String toDate = (String) obj.get("toDateTime");
-			String chkStatus0 = (String) obj.get("chkStatus0");
-			String chkStatus1 = (String) obj.get("chkStatus1");
-			String chkStatus2 = (String) obj.get("chkStatus2");
-			String chkKind1 = (String) obj.get("chkKind1");
-			String chkKind2 = (String) obj.get("chkKind2");
-			String chkKind3 = (String) obj.get("chkKind3");
 
+			String fromDate = eventid.getFromDateTime();
+			String toDate = eventid.getToDateTime();
+			String chkStatus0 = eventid.getChkStatus0();
+			String chkStatus1 = eventid.getChkStatus1();
+			String chkStatus2 = eventid.getChkStatus2();
+			String chkKind1 = eventid.getChkKind1();
+			String chkKind2 = eventid.getChkKind2();
+			String chkKind3 = eventid.getChkKind3();
+			System.out.println(fromDate+toDate);
 			if(!chkStatus0.isEmpty()) {
 				statusList.add(chkStatus0);
 			}
@@ -417,7 +412,7 @@ public class EventController {
 			if(!chkKind3.isEmpty()) {
 				arrayKind.add(chkKind3);
 			}
-
+			System.out.println("3");
 			//パラメータ格納
 			Map<String, Object> paraMap = new HashMap<>();
 			paraMap.put("fromDate", fromDate);
@@ -432,11 +427,11 @@ public class EventController {
 			}else {
 				paraMap.put("kinds", null);
 			}
-
-
+			System.out.println(paraMap);
+			System.out.println("4");
 			//一覧データ取得（全データ）
 			list = eventService.selectEventList(paraMap);
-
+			System.out.println(list);
 			//一覧の施設名とイベント名称の文字数制限
 			for (EventList lengthcheck : list) {
 				if(lengthcheck.getCustomer().length()>29) {
