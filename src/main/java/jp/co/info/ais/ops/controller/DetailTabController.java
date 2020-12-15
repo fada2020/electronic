@@ -161,18 +161,23 @@ public class DetailTabController {
 			detailTab.setJdgsw(request.getParameter("jdgsw"));
 
 			String intermailaddr = request.getParameter("intermailaddr");
+			String interusername = request.getParameter("interusername");
 			String loginuser = request.getParameter("loginuser");
 			detailTab.setIntermailaddr(intermailaddr);
+			detailTab.setInterusername(interusername);
 			detailTab.setOutermailaddr(request.getParameter("outermailaddr"));
 
-			//TODO:END
 			detailTab.setAdminuserid(request.getParameter("adminuserid"));
 			detailTab.setAdminusername(request.getParameter("adminusername"));
 			detailTab.setAdminmailaddress(request.getParameter("adminmailaddress"));
 			detailTab.setAdminphoneno(request.getParameter("adminphoneno"));
 
 			//TAB-2
-			detailTab.setStartcontactcd(Integer.parseInt(request.getParameter("startcontactcd")));
+			String startcontactcd = request.getParameter("startcontactcd");
+			if(!startcontactcd.isEmpty()) {
+				detailTab.setStartcontactcd(Integer.parseInt(startcontactcd));
+			}
+
 			detailTab.setStartvoicepath(request.getParameter("startvoicepath"));
 			String startvoicecycl = request.getParameter("startvoicecycl");
 			if(!startvoicecycl.isEmpty()) {
@@ -186,7 +191,10 @@ public class DetailTabController {
 			detailTab.setStartmailtext(request.getParameter("startmailtext"));
 
 			//TAB-3
-			detailTab.setEndcontactcd(Integer.parseInt(request.getParameter("endcontactcd")));
+			String endcontactcd = request.getParameter("endcontactcd");
+			if(!endcontactcd.isEmpty()) {
+				detailTab.setEndcontactcd(Integer.parseInt(endcontactcd));
+			}
 			detailTab.setEndvoicepath(request.getParameter("endvoicepath"));
 			String endvoicecycl = request.getParameter("endvoicecycl");
 			if(!endvoicecycl.isEmpty()) {
@@ -286,8 +294,7 @@ public class DetailTabController {
     @PostMapping("/uploadwav")
    public ResponseEntity< byte[]> uploadWav(@RequestParam("startFileName") final MultipartFile uploadFile) {
 
-	    //logger.debug("詳細設定画面===FILE UPLOAD");
-		System.out.println("詳細設定画面===FILE UPLOAD");
+	   logger.debug("詳細設定画面===FILE UPLOAD");
 
        if(uploadFile.isEmpty ())  {
            return ResponseEntity.of(Optional.empty());
@@ -311,8 +318,7 @@ public class DetailTabController {
    @PostMapping("/uploadendwav")
   public ResponseEntity< byte[]> uploadEndWav(@RequestParam("endFileName") final MultipartFile uploadFile) {
 
-	    //logger.debug("詳細設定画面===FILE END UPLOAD");
-		System.out.println("詳細設定画面===FILE UPLOAD");
+	  logger.debug("詳細設定画面===FILE END UPLOAD");
 
       if(uploadFile.isEmpty ())  {
           return ResponseEntity.of(Optional.empty());
