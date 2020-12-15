@@ -21,7 +21,7 @@ public class DateHelper {
     }
 
     public static Date convStrToDate(String tDate) {
-        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         Date date = null;
 		try {
 			date = sdFormat.parse(tDate);
