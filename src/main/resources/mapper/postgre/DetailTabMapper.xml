@@ -141,4 +141,22 @@
 			customerno=#{customerno}
 	</update>
 
+	<!--jikahoinformuserlist登録 -->
+	<insert id="insertMailAddr" parameterType="map">
+		insert into tbl_jikahoinformuserlist
+		(
+			customerno
+			,loginuser
+		) values(
+			#{customerno}
+			,#{loginuser}
+		)
+	</insert>
+	<!--jikahoinformuserlist削除  -->
+	<delete id="deleteMailList" parameterType="string">
+    	DELETE FROM tbl_jikahoinformuserlist
+    	WHERE
+    		customerno =#{id}
+    </delete>
+
  </mapper>

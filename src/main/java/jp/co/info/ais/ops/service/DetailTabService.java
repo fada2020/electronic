@@ -1,5 +1,7 @@
 package jp.co.info.ais.ops.service;
 
+import java.util.Map;
+
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +28,30 @@ public class DetailTabService {
 
 
 	public DetailTab selectInfo(String userid) throws Exception {
-		logger.debug("ContactaddService selectInfo START");
+		logger.debug("DetailTabService selectInfo START");
 		return detailTabMapper.selectInfo(userid);
 	}
 
 
 	public int insertDetail(DetailTab detailTab) throws Exception{
-		logger.debug("ContactaddService insertDetail START");
+		logger.debug("DetailTabService insertDetail START");
 		return detailTabMapper.insertDetail(detailTab);
 	}
 
 	public int updateDetail(DetailTab detailTab) throws Exception{
-		logger.debug("ContactupdateService updateDetail START");
+		logger.debug("DetailTabService updateDetail START");
 		return detailTabMapper.updateDetail(detailTab);
 	}
 
+	public int insertMailAddr(Map<String, Object> params) throws Exception{
+		logger.debug("DetailTabService insertMailAddr START");
+		return detailTabMapper.insertMailAddr(params);
+	}
+
+	public int deleteMailList(String id) throws Exception{
+		logger.debug("DetailTabService START");
+		return detailTabMapper.deleteMailList(id);
+	}
 
 	/**
 	 * 新規の場合、サンプルデータ取得
