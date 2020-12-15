@@ -63,20 +63,20 @@ tr,td {
 				  <div class="card-header" style="float:right;">
                          <div class="col-7" style="float: left; text-align: left;">
                         <div class="form-group form-inline" style="margin-bottom:0px;">
-                              <div class="input-group">
+
+                            <div class="input-group">
+                                <label style="font-size:15px; margin-right:15px; margin-left:20px;" >
+                                アカウント
+                                </label>
+                                <input class="form-control input-sm" id="account" name="account"type="text"
+                                maxlength="15;" style="margin-right:15px; width:150px;  "/>
+                            </div>
+       						<div class="input-group">
                                 <label style="font-size:15px; margin-right:15px; margin-left:20px;" >
                                 ユーザー名称
                                 </label>
                                 <input class="form-control input-sm" type="text"  style="margin-right:50px; width:150px;" id ="username" name = "username" />
                             </div>
-                            <div class="input-group">
-                                <label style="font-size:15px; margin-right:15px; margin-left:20px;" >
-                                ユーザーカナ
-                                </label>
-                                <input class="form-control input-sm" id="userkana" name="userkana"type="text"
-                                maxlength="15;" style="margin-right:15px; width:150px;  "/>
-                            </div>
-
                             <button type="button" class="btn btn-sm btn-primary searchButton" id="searchButton" name="searchButton"><i class="fa fa-search"></i> 検索</button>
                         </div>
                     </div>
@@ -122,18 +122,18 @@ tr,td {
 <script>
 
 $('.searchButton').on('click', function() {
-	var keywordKana = $('#userkana').val();
+	var keywordAccount = $('#account').val();
 	var keywordName = $('#username').val();
 	 $("#masterList tr").each(function(index) {
         if (index != 0) {
             $row = $(this);
-            if (keywordKana == "" && keywordName == "") {
+            if (keywordAccount == "" && keywordName == "") {
             	$(this).show();
      		        } else {
      		        	$(this).hide();
 
-     		        	if(keywordKana != ""){
-     		        	   $(".findkana:contains('"+keywordKana+"')").parents('tr').show();
+     		        	if(keywordAccount != ""){
+     		        	   $(".finduser:contains('"+keywordAccount+"')").parents('tr').show();
      		        	}
      		        	if(keywordName != ""){
      	           		   $(".findname:contains('"+keywordName+"')").parents('tr').show();
@@ -179,7 +179,7 @@ var myDataTables = $("#masterList").DataTable({
 	},
     	{className:"findname", targets:[1], data: "username"},
     	{className:"findkana", targets:[2], data: "usernamekana"},
-    	{className:"loginuser", targets:[3], data: "loginuser"}
+    	{className:"finduser", targets:[3], data: "loginuser"}
 
     ],
     rowCallback: function( row, data, dataIndex ) {
