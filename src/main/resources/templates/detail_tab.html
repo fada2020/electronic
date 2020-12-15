@@ -1641,19 +1641,27 @@ jQuery(document).ready(function($) {
     });
 
     $(".btn_left_add").click(function(){
-		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text('(');
+    	var txt = $('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text();
+    	txt = txt+"(";
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text(txt);
         changeClatext();
     });
     $(".btn_right_add").click(function(){
-		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text(')');
+    	var txt = $('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text();
+    	txt = txt+")";
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text(txt);
         changeClatext();
     });
     $(".btn_left_del").click(function(){
-		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text('');
+    	var txt = $('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text();
+    	txt = txt.slice(0, -1);
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(2).text(txt);
         changeClatext();
     });
     $(".btn_right_del").click(function(){
-		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text('');
+    	var txt = $('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text();
+    	txt = txt.slice(0, -1);
+		$('#calTabTable tr').eq(selectedIdx).children('td').eq(4).text(txt);
         changeClatext();
     });
     $(".btn_clear").click(function(){
