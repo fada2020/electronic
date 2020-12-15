@@ -154,6 +154,8 @@ td{
                                     <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
                                 <div class="col-9">
+                                    <input type="hidden" id="loginuser" name="loginuser" th:value="${detailTab.loginuser}">
+
                                 	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder=""
 									class="form-control required" th:text="${detailTab.intermailaddr}"
 									style="background-color:#fffacd !important; color: #000000;" readonly></textarea>
@@ -841,13 +843,14 @@ td{
                                         <th style="text-align:center; width: 10%; font-size: 14px;"></th>
                                         <th style="text-align:center; width: 40%; font-size: 14px;">氏名</th>
                                         <th style="text-align:center; width: 50%; font-size: 14px;">メールアドレス</th>
+                                        <th style="text-align:center; width: 0%; font-size: 14px; display:none;"></th>
                                     </tr>
                                 </thead>
                         	</table>
                             <table id="userList" class="table table-striped table-bordered table-sm" style="width: 100%; margin-top: 0px !important;">
                                 <thead style="display:none;">
                                     <tr>
-                                        <td></td><td></td><td></td>
+                                        <td></td><td></td><td></td><td style="display:none;"></td>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -857,6 +860,7 @@ td{
 	</td>
     <td style="width: 40%; font-size: 12px;"th:text="${user.username}"></td>
     <td style="width: 50%; font-size: 12px;"th:text="${user.mailaddr}"></td>
+    <td style="width: 0%; font-size: 12px; display:none;"th:text="${user.loginuser}"></td>
 </tr>
                                 </tbody>
                             </table>
@@ -1582,19 +1586,25 @@ jQuery(document).ready(function($) {
 		var checkbox = $("input[name=userCheck]:checked");
 		var name = '';
 		var email = '';
+		var id = '';
 		let emailArr = '';
+		let idArr = '';
 		checkbox.each(function(i){
 			var tr = checkbox.parent().parent().eq(i);
 			var td = tr.children();
 			name = td.eq(1).text();
 			email = td.eq(2).text();
+			id = td.eq(3).text();
 			if(emailArr == ''){
 				emailArr = email;
+				idArr = id;
 			}else{
 				emailArr += ','+email;
+				idArr += ','+id;
 			}
 		});
 		$('#intermailaddr').val(emailArr);
+		$('#loginuser').val(idArr);
     	//tableUser.$('tr.selected').removeClass('selected');
     	//$('#userSelectModal').find('form')[0].reset()
 	});
@@ -1959,8 +1969,12 @@ function viewChange(idx) {
     }else{
         //編集モード
     	//Tab-1
-        $("#customerno").removeAttr("disabled");
-		$("#customerno").attr("readonly",true);
+    	if($('#viewFlag').val() == 'add'){
+            $("#customerno").removeAttr("disabled");
+    	}else{
+            $("#customerno").removeAttr("disabled");
+    		$("#customerno").attr("readonly",true);
+    	}
         $("#customer").removeAttr("disabled");
         $("#address").removeAttr("disabled");
         $("#outermailaddr").removeAttr("disabled");

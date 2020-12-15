@@ -1,5 +1,7 @@
 package jp.co.info.ais.ops.mapper.postgre;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
@@ -17,5 +19,8 @@ public interface DetailTabMapper {
 
 	int checkCustomerNo(String id)throws Exception;
 
+	public int insertMailAddr(Map<String, Object> params)throws Exception;
+
+	public int deleteMailList(String id)throws Exception;
 
 }

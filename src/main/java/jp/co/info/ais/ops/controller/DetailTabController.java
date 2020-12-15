@@ -5,7 +5,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
@@ -158,9 +160,10 @@ public class DetailTabController {
 			detailTab.setAddress(request.getParameter("address"));
 			detailTab.setJdgsw(request.getParameter("jdgsw"));
 
-			//TODO:変換処理(セミコロン(;)区切り)
-			detailTab.setOutermailaddr(request.getParameter("outermailaddr").replaceAll("\r\n", ";"));
-			detailTab.setIntermailaddr(request.getParameter("intermailaddr").replaceAll("\r\n", ";"));
+			String intermailaddr = request.getParameter("intermailaddr");
+			String loginuser = request.getParameter("loginuser");
+			detailTab.setIntermailaddr(intermailaddr);
+			detailTab.setOutermailaddr(request.getParameter("outermailaddr"));
 
 			//TODO:END
 			detailTab.setAdminuserid(request.getParameter("adminuserid"));
@@ -201,8 +204,18 @@ public class DetailTabController {
 			if(viewFlag.equals(INSERT_FLAG)) {
 				logger.debug("詳細設定-登録 開始 ===========");
 				if (detailTabService.checkCustomerNo(customerNo) < 1) {
-					//登録処理を呼ぶ
+					//自家補連絡設定情報を登録
 					result = detailTabService.insertDetail(detailTab);
+					//自自家補連絡展開ユーザーリストを登録
+					if(!loginuser.isEmpty()) {
+				        String[] luseer = loginuser.split(",");
+				        for (String id : luseer) {
+							Map<String, Object> paraMap = new HashMap<>();
+							paraMap.put("customerno", customerNo);
+							paraMap.put("loginuser", id);
+				        	detailTabService.insertMailAddr(paraMap);
+				        }
+					}
 					//エラーメッセージ出力のため
 				    if(result < 1) {
 				    	ref = false;
@@ -219,6 +232,18 @@ public class DetailTabController {
 				logger.debug("詳細設定-編集 開始 ===========");
 				//編集処理を呼ぶ
 				result = detailTabService.updateDetail(detailTab);
+				if(!intermailaddr.isEmpty()) {
+					detailTabService.deleteMailList(customerNo);
+					if(!loginuser.isEmpty()) {
+				        String[] luseer = loginuser.split(",");
+				        for (String id : luseer) {
+							Map<String, Object> paraMap = new HashMap<>();
+							paraMap.put("customerno", customerNo);
+							paraMap.put("loginuser", id);
+				        	detailTabService.insertMailAddr(paraMap);
+				        }
+					}
+				}
 			    if(result < 1) {
 			    	ref = false;
 					model.addAttribute("errMsg", SYS_ERROR_MSG);
