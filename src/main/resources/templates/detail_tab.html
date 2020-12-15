@@ -155,10 +155,8 @@ td{
                                 </div>
                                 <div class="col-9">
                                     <input type="hidden" id="loginuser" name="loginuser" th:value="${detailTab.loginuser}">
-
-                                	<textarea name="intermailaddr" id="intermailaddr" rows="2" placeholder=""
-									class="form-control required" th:text="${detailTab.intermailaddr}"
-									style="background-color:#fffacd !important; color: #000000;" readonly></textarea>
+                                    <input type="hidden" id="intermailaddr" name="intermailaddr" th:value="${detailTab.intermailaddr}">
+                                    <input type="text" id="interusername" name="interusername" class="form-control input-sm required" style="background-color:#fffacd !important; color: #000000;" readonly th:value="${detailTab.interusername}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
@@ -239,23 +237,20 @@ td{
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="font-size: 15px;">
-                                    電話番号　音声ファイル
-                                </div>
+                                <div class="col-3" style="font-size: 15px;">電話番号音声ファイル</div>
                                 <div class="col-9">
 									<input type="file" name="startFileName" id="startFileName"/>
 									<audio id="wav1">
 									  <source src="" type="audio/wav">
 									</audio>
+                                    <br>
                                     <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.startvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'startFileName', '0')" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="startPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="font-size: 15px;">
-                                    電話番号　リトライ回数
-                                </div>
+                                <div class="col-3" style="font-size: 15px;">電話番号リトライ回数</div>
                                 <div class="col-9">
                                     <input type="text" id="startvoicecycl" name="startvoicecycl" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.startvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
@@ -264,15 +259,13 @@ td{
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3"style="font-size: 15px;">
-                                    メール タイトル
-                                </div>
+                                <div class="col-3"style="font-size: 15px;">メールタイトル</div>
                                 <div class="col-9">
                                     <input type="text" id="startsubject" name="startsubject" class="form-control input-sm required" style="width: 100%;" th:value="${detailTab.startsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
-                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
+                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール本文</div>
                                 <div class="col-9">
                                     <textarea name="startmailtext" id="startmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control required" th:text=${detailTab.startmailtext}></textarea>
                                 </div>
@@ -452,23 +445,20 @@ td{
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="font-size: 15px;">
-                                    電話番号　音声ファイル
-                                </div>
+                                <div class="col-3" style="font-size: 15px;">電話番号音声ファイル</div>
                                 <div class="col-9">
 									<input type="file"  name="endFileName" id="endFileName" />
 									<audio id="wav2">
 									  <source src=""  type="audio/wav">
 									</audio>
+									<br>
                                     <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm required" style="width: 300px;" th:value="${detailTab.endvoicepath}">
                                     <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'endFileName', '1')"  style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; 登録</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="endPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="font-size: 15px;">
-                                    電話番号　リトライ回数
-                                </div>
+                                <div class="col-3" style="font-size: 15px;">電話番号リトライ回数</div>
                                 <div class="col-9">
                                     <input type="text" id="endvoicecycl" name="endvoicecycl" class="form-control input-sm required" style="width: 100px;" th:value="${detailTab.endvoicecycl}">
                                     <span style="margin-left: 10px; margin-right: 10px; font-size: 14px;">分間隔</span>
@@ -477,15 +467,13 @@ td{
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline">
-                                <div class="col-3" style="font-size: 15px;">
-                                    メール タイトル
-                                </div>
+                                <div class="col-3" style="font-size: 15px;">メールタイトル</div>
                                 <div class="col-9">
                                     <input type="text" id="endsubject" name="endsubject" class="form-control input-sm required" style="width: 100%;" th:value="${detailTab.endsubject}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm form-inline" style="vertical-align:top;">
-                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール 本文</div>
+                                <div class="col-3" style="height: 400px; vertical-align:top; font-size: 15px;">メール本文</div>
                                 <div class="col-9">
                                     <textarea name="endmailtext" id="endmailtext" rows="5" style="width: 100%; height: 400px;" placeholder="" class="form-control required" th:text=${detailTab.endmailtext}></textarea>
                                 </div>
@@ -1590,6 +1578,7 @@ jQuery(document).ready(function($) {
 		var id = '';
 		let emailArr = '';
 		let idArr = '';
+		let userArr = '';
 		checkbox.each(function(i){
 			var tr = checkbox.parent().parent().eq(i);
 			var td = tr.children();
@@ -1599,11 +1588,14 @@ jQuery(document).ready(function($) {
 			if(emailArr == ''){
 				emailArr = email;
 				idArr = id;
+				userArr = name;
 			}else{
 				emailArr += ','+email;
 				idArr += ','+id;
+				userArr += ','+name;
 			}
 		});
+		$('#interusername').val(userArr);
 		$('#intermailaddr').val(emailArr);
 		$('#loginuser').val(idArr);
     	//tableUser.$('tr.selected').removeClass('selected');

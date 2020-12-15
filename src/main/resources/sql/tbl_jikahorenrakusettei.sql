@@ -34,6 +34,7 @@ CREATE TABLE tbl_jikahorenrakusettei
    adminmailaddress text,
    address text,
    adminphoneno character varying(20),
+   interusername text,
    CONSTRAINT tbl_jikahorenrakusettei_pkey PRIMARY KEY (customerno)
 )
 TABLESPACE public
@@ -129,4 +130,6 @@ COMMENT ON COLUMN tbl_jikahorenrakusettei.address
 COMMENT ON COLUMN tbl_jikahorenrakusettei.adminphoneno
     IS '管理者電話番号';
 
+COMMENT ON COLUMN tbl_jikahorenrakusettei.interusername
+    IS '社内展開ユーザー名称';
 
