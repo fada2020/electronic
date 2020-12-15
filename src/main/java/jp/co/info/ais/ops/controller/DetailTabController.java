@@ -233,8 +233,8 @@ public class DetailTabController {
 				//編集処理を呼ぶ
 				result = detailTabService.updateDetail(detailTab);
 				if(!intermailaddr.isEmpty()) {
-					detailTabService.deleteMailList(customerNo);
 					if(!loginuser.isEmpty()) {
+						detailTabService.deleteMailList(customerNo);
 				        String[] luseer = loginuser.split(",");
 				        for (String id : luseer) {
 							Map<String, Object> paraMap = new HashMap<>();

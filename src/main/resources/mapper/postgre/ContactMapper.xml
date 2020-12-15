@@ -32,6 +32,8 @@
 		SELECT
 			  contactcd
 			 ,contactname
+			 ,contactphoneno
+			 ,contactmailaddress
 		  FROM tbl_jikahocontactmaster
 	</select>
 
