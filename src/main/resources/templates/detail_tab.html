@@ -61,7 +61,6 @@ td{
                 <div class="col-sm-6">
 	                <div class="float-left" id="view-only" style="float: right; text-align: right; padding-top: 14px;">
 						<span style="padding-right:80px;"></span>
-						<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
 						<input type="checkbox" id="chkInput" name="chkInput" th:checked="${detailTab.jdgsw} == '1'" >
 						<span style="font-size:1.4em;"> 有効（未入力項目がある場合、チェック不可）</span>
 					</div>
@@ -90,8 +89,7 @@ td{
 <input type="hidden" id="viewFlag" name="viewFlag" th:value="${viewFlag}">
 <input type="hidden" id="upUserId" name="upUserId" th:value="${session.id}">
 <input type="hidden" id="upUserName" name="upUserName" th:value="${session.name}">
-<input type="hidden" id="hidCustomerno" name="hidCustomerno" th:value="${detailTab.customerno}">
-
+<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
 
 
         <div class="content mt-3">
@@ -1962,6 +1960,7 @@ function viewChange(idx) {
         //編集モード
     	//Tab-1
         $("#customerno").removeAttr("disabled");
+		$("#customerno").attr("readonly",true);
         $("#customer").removeAttr("disabled");
         $("#address").removeAttr("disabled");
         $("#outermailaddr").removeAttr("disabled");

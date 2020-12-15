@@ -140,7 +140,6 @@ public class DetailTabController {
 		try {
 			String upUserId = request.getParameter("upUserId");
 			String upUserName = request.getParameter("upUserName");
-			String hidCustomerno = request.getParameter("hidCustomerno");
 
 			DetailTab detailTab = new DetailTab();
 			int result=0;
