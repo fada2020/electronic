@@ -5,10 +5,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 @ConfigurationProperties("constant")
-
 public class AppConstant {
 
-	public final static String APP_NAME = "自動補給電力使用 自動連絡システム";
-
+	//定数
+	public static final String APP_NAME = "自動補給電力使用 自動連絡システム";
+	public static final String FILE_PATH = "/Users/kimjm/01.WORK_APP/audio";
 
 }

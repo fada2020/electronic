@@ -26,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import jp.co.info.ais.ops.common.AppConstant;
 import jp.co.info.ais.ops.domain.Contact;
 import jp.co.info.ais.ops.domain.DetailTab;
 import jp.co.info.ais.ops.domain.DetailTabSample;
@@ -53,7 +54,6 @@ public class DetailTabController {
 	private static final String SAMPLE_KIND_1 = "01";
 	//終了判定条件・連絡コード
 	private static final String SAMPLE_KIND_2 = "02";
-	private static final String FILE_PATH = "/Users/kimjm/01.WORK_APP/audio";
 
 	@Autowired
 	DetailTabController detailTabController;
@@ -299,7 +299,7 @@ public class DetailTabController {
        if(uploadFile.isEmpty ())  {
            return ResponseEntity.of(Optional.empty());
        }
-       final Path path = Paths.get (FILE_PATH, uploadFile.getOriginalFilename());
+       final Path path = Paths.get (AppConstant.FILE_PATH, uploadFile.getOriginalFilename());
        final byte[] bytes ;
        try  {
            bytes = uploadFile.getBytes();
@@ -323,7 +323,7 @@ public class DetailTabController {
       if(uploadFile.isEmpty ())  {
           return ResponseEntity.of(Optional.empty());
       }
-      final Path path = Paths.get (FILE_PATH, uploadFile.getOriginalFilename());
+      final Path path = Paths.get (AppConstant.FILE_PATH, uploadFile.getOriginalFilename());
       final byte[] bytes ;
       try  {
           bytes = uploadFile.getBytes();
