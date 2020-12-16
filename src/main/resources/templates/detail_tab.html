@@ -103,7 +103,6 @@ td{
 <input type="hidden" id="upUserName" name="upUserName" th:value="${session.name}">
 <input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
 
-
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item">
@@ -251,17 +250,22 @@ td{
                             <div class="row form-group form-group-sm form-inline">
                                 <div class="col-3" style="font-size: 15px;">電話番号音声ファイル</div>
                                 <div class="col-9">
-
 									<audio id="wav1">
 									  <source src="" type="audio/wav">
 									</audio>
                                     <br>
-                                    <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm required" style="width: 250px;" th:value="${detailTab.startvoicepath}">
-                                    <div class="file btn btn-sm btn-primary">
+                                    <input type="text" id="startvoicepath" name="startvoicepath" class="form-control input-sm required"
+                                    style="width: 250px; background-color:#fffacd !important; color: #000000;" readonly
+                                    th:value="${detailTab.startvoicepath}">
+                                    <div id="fileSerach1NgBtn" class="file btn btn-sm btn-secondary">
+										<i class="fa fa-list-ul"></i>&nbsp; 選択
+									</div>
+                                    <div id="fileSerach1OkBtn" class="file btn btn-sm btn-primary" style="display: none;">
 										<i class="fa fa-list-ul"></i>&nbsp; 選択
 										<input type="file" name="startFileName" id="startFileName"/>
 									</div>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'startFileName', '0')" style="margin-bottom: 10px; width: 120px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
+                                    <button type="button" id="fileUp1NgBtn" class="btn btn-secondary btn-sm" style="margin-bottom: 10px; width: 120px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
+                                    <button type="button" id="fileUp1OkBtn" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'startFileName', '0')" style="margin-bottom: 10px; width: 120px; margin-top: 10px; display:none;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="startPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
@@ -463,17 +467,22 @@ td{
                             <div class="row form-group form-group-sm form-inline">
                                 <div class="col-3" style="font-size: 15px;">電話番号音声ファイル</div>
                                 <div class="col-9">
-
 									<audio id="wav2">
 									  <source src=""  type="audio/wav">
 									</audio>
 									<br>
-                                    <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm required" style="width: 250px;" th:value="${detailTab.endvoicepath}">
-                                     <div class="file btn btn-sm btn-primary">
+                                    <input type="text" id="endvoicepath" name="endvoicepath" class="form-control input-sm required"
+                                     style="width: 250px; background-color:#fffacd !important; color: #000000;" readonly
+                                     th:value="${detailTab.endvoicepath}">
+                                    <div id="fileSerach2NgBtn" class="file btn btn-sm btn-secondary">
+										<i class="fa fa-list-ul"></i>&nbsp; 選択
+									</div>
+                                    <div id="fileSerach2OkBtn" class="file btn btn-sm btn-primary" style="display: none;">
 										<i class="fa fa-list-ul"></i>&nbsp; 選択
 										<input type="file"  name="endFileName" id="endFileName" />
 									</div>
-                                    <button type="button" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'endFileName', '1')"  style="margin-bottom: 10px; width: 120px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
+                                    <button type="button" id="fileUp2NgBtn" class="btn btn-secondary btn-sm" style="margin-bottom: 10px; width: 120px; margin-top: 10px;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
+                                    <button type="button" id="fileUp2OkBtn" class="btn btn-success btn-sm" onclick="uploadFile('mainFrom', 'startFileName', '1')" style="margin-bottom: 10px; width: 120px; margin-top: 10px; display:none;"><i class="fa fa-upload"></i>&nbsp; アップロード</button>
                                     <button type="button" class="btn btn-danger btn-sm" id="endPlayBtn" style="margin-bottom: 10px; width: 70px; margin-top: 10px;"><i class="fa fa-play"></i>&nbsp; 再生</button>
                                 </div>
                             </div>
@@ -1813,34 +1822,51 @@ jQuery(function($){
 
     $('#modeEditBtn').on('click', function() {
 
+		//非活性化
         $('#modeEditBtn').hide();
         $('#modeViewBtn').show();
         $('#saveOkBtn').hide();
         $('#siteOkBtn').hide();
         $('#userMOkBtn').hide();
         $('#userSOkBtn').hide();
-
+        $('#fileUp1OkBtn').hide();
+        $('#fileUp2OkBtn').hide();
+        $('#fileSerach1OkBtn').hide();
+        $('#fileSerach2OkBtn').hide();
+		//活性化
         $('#saveNgBtn').show();
         $('#siteNgBtn').show();
         $('#userMNgBtn').show();
         $('#userSNgBtn').show();
+        $('#fileUp1NgBtn').show();
+        $('#fileUp2NgBtn').show();
+        $('#fileSerach1NgBtn').show();
+        $('#fileSerach2NgBtn').show();
 
         $('#statusFlg').val('0');
 		viewChange('0');
     });
     $('#modeViewBtn').on('click', function() {
-
+		//非活性化
         $('#modeViewBtn').hide();
         $('#modeEditBtn').show();
         $('#saveNgBtn').hide();
         $('#siteNgBtn').hide();
         $('#userMNgBtn').hide();
         $('#userSNgBtn').hide();
-
+        $('#fileUp1NgBtn').hide();
+        $('#fileUp2NgBtn').hide();
+        $('#fileSerach1NgBtn').hide();
+        $('#fileSerach2NgBtn').hide();
+		//活性化
         $('#saveOkBtn').show();
         $('#siteOkBtn').show();
         $('#userMOkBtn').show();
         $('#userSOkBtn').show();
+        $('#fileUp1OkBtn').show();
+        $('#fileUp2OkBtn').show();
+        $('#fileSerach1OkBtn').show();
+        $('#fileSerach2OkBtn').show();
 
         $('#statusFlg').val('1');
 		viewChange('1');
@@ -2128,33 +2154,37 @@ function uploadFile(wavForm, item, flag){
 	var fileExt = fileNameSplit[1];
 	var fileSize = file.files[0].size;
 
-	const formData=new FormData(document.getElementById(wavForm));
-    const request=new XMLHttpRequest();
-
-    request.onreadystatechange =function(){
-	    if(this.readyState==4 && this.status==200){
-
-	    	if(flag == '0'){
-				$('#startvoicepath').val(fileName+'.'+fileExt);
-				var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
-				console.log(audioFile);
-				$("#wav1").attr('src',audioFile);
-	    	}else{
-				$('#endvoicepath').val(fileName+'.'+fileExt);
-				var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
-				console.log(audioFile);
-				$("#wav2").attr('src',audioFile);
-	    	}
-
-	    }
-    }
-	if(flag == '0'){
-	    request.open("POST","/ops/detail/uploadwav");
+	if(filePath == ''){
+		alert('アップロードする音声ファイルを選択してください。');
 	}else{
-	    request.open("POST","/ops/detail/uploadendwav");
+		const formData=new FormData(document.getElementById(wavForm));
+	    const request=new XMLHttpRequest();
+
+	    request.onreadystatechange =function(){
+		    if(this.readyState==4 && this.status==200){
+
+		    	if(flag == '0'){
+					$('#startvoicepath').val(fileName+'.'+fileExt);
+					var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
+					console.log(audioFile);
+					$("#wav1").attr('src',audioFile);
+		    	}else{
+					$('#endvoicepath').val(fileName+'.'+fileExt);
+					var audioFile = location.protocol+'//'+location.host+'/audio/'+fileName+'.'+fileExt;
+					console.log(audioFile);
+					$("#wav2").attr('src',audioFile);
+		    	}
+
+		    }
+	    }
+		if(flag == '0'){
+		    request.open("POST","/ops/detail/uploadwav");
+		}else{
+		    request.open("POST","/ops/detail/uploadendwav");
+		}
+	    request.responseType='blob';
+	    request.send(formData);
 	}
-    request.responseType='blob';
-    request.send(formData);
 }
 
 
