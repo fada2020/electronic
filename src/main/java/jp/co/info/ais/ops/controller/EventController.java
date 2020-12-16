@@ -151,6 +151,7 @@ public class EventController {
 			String fromDate = request.getParameter("fromDateTime");
 			String toDate = request.getParameter("toDateTime");
 			String chkStatus0 = request.getParameter("chkStatus0");
+
 			if(!chkStatus0.isEmpty()) {
 				statusList.add(chkStatus0);
 			}

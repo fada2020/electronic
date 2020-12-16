@@ -207,10 +207,9 @@
 	<input type="hidden" id="chkKind3" name="chkKind3">
 </form>
 
-
 <script>
 
-
+/*画面初期*/
 var table = $('#eventList').DataTable({
 		autoWidth: true,
 	    fixedHeader: true,
@@ -282,7 +281,6 @@ var table = $('#eventList').DataTable({
     					  return '-';
     					  break;
     	   		  }
-
     	   	   	}},
     	    	{targets: [5], data: function ( d ) {
     	           	if(d.comments === null || d.comment === '') {
@@ -298,15 +296,20 @@ var table = $('#eventList').DataTable({
     	               	if(row.eventkind=='1'){
     	               	   return "<button type='button' class='btn btn-sm btn-success btn_emailview'"
     	                   +"data-toggle='modal' data-target='#exampleModalScrollable'"
-    	                   +"data-mailid='"+row.mailid+"',data-maildate='"+row.maildatetime+"',date-mailfrom='"+row.mailfrom+"',date-subject='"+row.mailsubject+"',date-mailto='"+row.mailto+"',date-mailcc='#strings.replace("+row.mailcc+", ' ', '&#10')',date-mailtext='"+row.mailtext+"'>"
-    	     			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
+    	                   +"data-mailid='"+row.mailid
+    	                   +"'data-maildate='"+row.maildatetime
+    	                   +"'date-mailfrom='"+row.mailfrom
+    	                   +"'date-subject='"+row.mailsubject
+    	                   +"'date-mailto='"+row.mailto
+    	                   +"'date-mailcc='"+row.mailcc
+    	                   +"'date-mailtext='"+row.mailtext+"'>"
+    	     			   +"<i class='fa fa-envelope'></i>メール内容確認</button>";
     	               	}else{
-    	               		 return "<button type='button' class='btn btn-sm btn-secondary'>"
+    	               		 return "<button type='button' class='btn btn-sm btn-secondary' disabled>"
     		    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
     	               	}
     	               }
-    			},
-
+    			}
     	    ],
     	    rowCallback: function( row, data, dataIndex ) {
     	    	  switch (data.eventkind) {
@@ -326,7 +329,6 @@ var table = $('#eventList').DataTable({
     	    }
     });
 
-
 //メール内容確認
 $('#eventList').on('click','.btn_emailview', function() {
 	  var mail_id = $(this).attr('data-mailid');
@@ -334,7 +336,7 @@ $('#eventList').on('click','.btn_emailview', function() {
 	  var mail_from = $(this).attr('date-mailfrom');
 	  var mail_subject = $(this).attr('date-subject');
 	  var mail_to = $(this).attr('date-mailto');
-	  var mail_cc = $(this).attr('date-mailcc');
+	  var mail_cc = $(this).attr('date-mailcc').replaceAll(" ", "\n");
 	  var mail_text = $(this).attr('date-mailtext');
 	  $('#mMailId').text(mail_id);
 	  $('#mMailDatetime').text(mail_datetime);
@@ -455,30 +457,22 @@ $('#executeStopBtn').on('click', function() {
 	stopAutoRenew();
 });
 
+/*繰り返しスタート*/
 function startAutoRenew() {
-
-	 $('#flag').val('search');
+	  $('#flag').val('search');
 	  timerID = setInterval("callAjaxList()", 5000);
 }
-
+/*繰り返しストップ*/
 function stopAutoRenew() {
-
   	   setFormData();
   		clearInterval(timerID);
 }
 
-
+/*繰り返しデータ*/
 function callAjaxList() {
-	setFormData();
-	//$('#eventList').dataTable().fnClearTable();
-
+    setFormData();
 	$('#eventList').DataTable().ajax.reload();
-	//var queryString = $("#hidSearchForm").serialize();
-
 }
-
-
-
 
 //検索条件設定
 function setFormData(){
@@ -515,10 +509,6 @@ function setFormData(){
 		 $('#chkStatus0').attr('value', '');
 	 }
 }
-
 </script>
-
-
-
 </body>
 </html>
