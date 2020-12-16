@@ -243,7 +243,7 @@ td{
                                 <div class="col-9">
 								    <select id="startcontactcd" name="startcontactcd" class="form-control required" style="width: 100%; ">
 								        <option value=""></option>
-								        <option th:each="scont : ${contList}" th:value="${scont.contactcd}" th:selected="${scont.contactcd} == ${detailTab.startcontactcd}" th:inline="text">[[${scont.contactname}]]</option>
+								        <option th:each="scont : ${contList}" th:value="${scont.contactcd}" th:selected="${scont.contactcd} == ${detailTab.startcontactcd}" th:inline="text">[[${scont.contactname}]]/[[${scont.contactmailaddress}]]/[[${scont.contactphoneno}]]</option>
 								    </select>
                                 </div>
                             </div>
@@ -460,7 +460,7 @@ td{
                                 <div class="col-9">
 								    <select id="endcontactcd" name="endcontactcd" class="form-control required" style="width: 100%; ">
 								        <option value=""></option>
-								        <option th:each="econt : ${contList}" th:value="${econt.contactcd}" th:selected="${econt.contactcd} == ${detailTab.endcontactcd}" th:inline="text">[[${econt.contactname}]]</option>
+								        <option th:each="econt : ${contList}" th:value="${econt.contactcd}" th:selected="${econt.contactcd} == ${detailTab.endcontactcd}" th:inline="text">[[${econt.contactname}]]/[[${econt.contactmailaddress}]]/[[${econt.contactphoneno}]]</option>
 								    </select>
                                 </div>
                             </div>
@@ -1342,8 +1342,8 @@ td{
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい(Y)</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ(N)</button>
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
             </div>
         </div>
     </div>
@@ -1363,8 +1363,8 @@ td{
                 </p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい(Y)</button>
-                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ(N)</button>
+                <button type="button" class="btn btn-secondary" onclick="backSetting();" data-dismiss="modal">はい</button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">いいえ</button>
             </div>
         </div>
     </div>
