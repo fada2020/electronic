@@ -9,8 +9,14 @@ public class UserMaster {
 	private String mailaddr;   //MAILADDR
 	private String pcmailaddr; //PCMAILADDR
 	private String mobiletel;  //MOBILETEL
+	private String mailgroupname;
 
-
+	public String getMailgroupname() {
+		return mailgroupname;
+	}
+	public void setMailgroupname(String mailgroupname) {
+		this.mailgroupname = mailgroupname;
+	}
 	public String getEnable() {
 		return enable;
 	}
@@ -53,17 +59,13 @@ public class UserMaster {
 	public void setMobiletel(String mobiletel) {
 		this.mobiletel = mobiletel;
 	}
-
 	@Override
 	public String toString() {
-		return "Master [enable=" + enable +
-				", loginuser=" + loginuser +
-				", username=" + username +
-				", usernamekana="+ usernamekana +
-				", mailaddr="+ mailaddr +
-				", pcmailaddr="+ pcmailaddr +
-				", mobiletel="+ mobiletel +
-				"]";
+		return "UserMaster [enable=" + enable + ", loginuser=" + loginuser + ", username=" + username
+				+ ", usernamekana=" + usernamekana + ", mailaddr=" + mailaddr + ", pcmailaddr=" + pcmailaddr
+				+ ", mobiletel=" + mobiletel + ", mailgroupname=" + mailgroupname + "]";
 	}
+
+
 
 }
