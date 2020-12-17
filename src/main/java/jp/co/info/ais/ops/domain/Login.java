@@ -2,8 +2,6 @@ package jp.co.info.ais.ops.domain;
 
 /**
  * ユーザーモデルクラス
- *
- * @author AIS-INFO
  */
 public class Login {
 

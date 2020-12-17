@@ -26,30 +26,23 @@ public class DetailTabService {
 	@Autowired
 	DetailTabSampleMapper detailTabSampleMapper;
 
-
 	public DetailTab selectInfo(String userid) throws Exception {
-		logger.debug("DetailTabService selectInfo START");
 		return detailTabMapper.selectInfo(userid);
 	}
 
-
 	public int insertDetail(DetailTab detailTab) throws Exception{
-		logger.debug("DetailTabService insertDetail START");
 		return detailTabMapper.insertDetail(detailTab);
 	}
 
 	public int updateDetail(DetailTab detailTab) throws Exception{
-		logger.debug("DetailTabService updateDetail START");
 		return detailTabMapper.updateDetail(detailTab);
 	}
 
 	public int insertMailAddr(Map<String, Object> params) throws Exception{
-		logger.debug("DetailTabService insertMailAddr START");
 		return detailTabMapper.insertMailAddr(params);
 	}
 
 	public int deleteMailList(String id) throws Exception{
-		logger.debug("DetailTabService START");
 		return detailTabMapper.deleteMailList(id);
 	}
 
@@ -57,14 +50,12 @@ public class DetailTabService {
 	 * 新規の場合、サンプルデータ取得
 	 *
 	 * @param kind
-	 * @return
+	 * @return DetailTabSample
 	 * @throws Exception
 	 */
 	public DetailTabSample getDetailTabSamle(String kind) throws Exception {
-		logger.debug("ContactaddService selectInfo START");
 		return detailTabSampleMapper.getDetailTabSamle(kind);
 	}
-
 
 	/**
 	 * CustomerNo存在チェック

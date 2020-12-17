@@ -38,32 +38,26 @@ public class UserMasterController {
 	UserGrantService usergrantService;
 
 	/**
-	 * 設定一覧画面出力
+	 * ユーザーマスタ画面出力
 	 * @param model
-	 * @return String　画面名
+	 * @return String 画面名
 	 */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String userMasterList(Model model) {
-		try {
-			logger.debug("権限設定画面＝＝＝開始");
-		}catch (Exception e) {
-			logger.debug(e.getMessage());
-		}
+
 		//戻り値
 		return "user_master";
 	}
 
-
 	/**
-	 * Masterをリストに表示する.
+	 * ユーザーマスタをリストに表示する.
 	 * @param なし
-	 * @return JSONArray　jArray
+	 * @return JSONArray jArray
 	 */
 	@ResponseBody
 	@PostMapping("/getUserMasterListAuto")
 	public JSONArray ajaxGetList() throws JsonMappingException, IOException {
-		logger.debug("ajaxGetList Start===========");
-		/*settingリスト生成*/
+		/*ユーザーマスタリスト生成*/
 		List<UserMaster> list = new ArrayList<UserMaster>();
 		/*jsonオブジェクト生成*/
 		JSONObject obj = new JSONObject();
@@ -80,26 +74,22 @@ public class UserMasterController {
 				sObject.put("usernamekana", list.get(i).getUsernamekana());
 				jArray.add(sObject);
 			}
-
 		} catch (Exception e) {
-
 			logger.error(e.getMessage());
 		}
-
-		//戻る値
+		//戻り値
 		return jArray;
 	}
 
 
 	/**
-	 * 新規のTODOを追加する.
-	 * @param todo 新規投稿TODO
-	 * @return 更新の反映されたTODO
+	 * 権限設定
+	 * @param List<UserMaster> list
+	 * @return int result
 	 */
 	@ResponseBody
 	@PostMapping("/saveEnable")
 	public int saveEnable(@RequestBody List<UserMaster> list) throws Exception {
-
 		List<String> map = null;
 		int result = 0;
 		try {
@@ -113,17 +103,14 @@ public class UserMasterController {
 					/*save*/
 					result += usergrantService.saveEnable(m);
 					}
-
 				}
 			}else {
 				result = usergrantService.allSaveEnable(list);
 			}
-
 		} catch (Exception e) {
-
 			logger.error(e.getMessage());
 		}
-		//戻る値
+		//戻り値
 		return result;
 	}
 

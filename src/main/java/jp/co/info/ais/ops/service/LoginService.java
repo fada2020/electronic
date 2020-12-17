@@ -28,13 +28,10 @@ public class LoginService {
 	 * @throws Exception
 	 */
 	public int selectLoginId(String id) throws Exception {
-
 		return loginMapper.selectId(id);
 	}
 
 	public Login selectLogin(String userid, String passwd) throws Exception {
-
 		return loginMapper.selectLogin(userid,passwd);
 	}
-
 }

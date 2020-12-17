@@ -30,7 +30,6 @@ public class SettingService {
 	SettingMapper settingMapper;
 
 	public List<Setting> settingList() throws Exception {
-		logger.debug("SettingListService START");
 			List<Setting>settingList = null;
 			List<Setting> sitecdList = null;
 			settingList = settingMapper.settingList();//postgreからのsettingList
@@ -41,20 +40,17 @@ public class SettingService {
 						if(site.getSitecd()==setting.getSitecd()) {
 							setting.setSitename(site.getSitename());//sitenameを設定
 						}
-
 					}
-
 				}
 			}
 		return settingList;
 	}
+
 	public int deleteCustomerno(String customerno)throws Exception  {
-		logger.debug("SettingdeleteService START");
 		return settingMapper.deleteCustomerno(customerno);
 	}
 
 	public int updateStatus(Setting setting) throws Exception  {
-		logger.debug("SettingUpdateStatusService START");
 		int result = 0;
 		result = settingMapper.updateStatus(setting);
 
@@ -62,7 +58,6 @@ public class SettingService {
 			setting.setEventkind(EVENT_KIND);
 			eventUpdate(setting);
 		}
-
 		return settingMapper.updateStatus(setting);
 	}
 

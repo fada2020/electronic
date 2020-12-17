@@ -2,25 +2,26 @@ package jp.co.info.ais.ops.domain;
 
 public class Setting {
 	public static final String STOP = "0";
-	private int rownum;//No
-	private String customerno;//お客様番号
-	private String customer;//施設名
-	private int sitecd;//サイトID
-	private String jdgsw;//有効
-	private String status;//現況
-	private String endjdgsw;//終了判定
-	private String starttime;//使用開始日時
-	private String sitename;//サイトname
-	private String upoaid;//更新者ID
-	private String upoaname;//更新者名前
-	private String upoatime;//更新時間
-	private int startcontactcd;//更新Start時点
-	private int endcontactcd;//更新End時点
-	private String eventid;//イベントID
-	private String eventkind;//イベント区分
-	private String eventname;//イベント名称
-	private String comments;//イベントコメント
-	private String eventstatus;//event現況
+	private int rownum;				//No
+	private String customerno;		//お客様番号
+	private String customer;		//施設名
+	private int sitecd;				//サイトID
+	private String jdgsw;			//有効
+	private String status;			//現況
+	private String endjdgsw;		//終了判定
+	private String starttime;		//使用開始日時
+	private String sitename;		//サイトname
+	private String upoaid;			//更新者ID
+	private String upoaname;		//更新者名前
+	private String upoatime;		//更新時間
+	private int startcontactcd;		//更新Start時点
+	private int endcontactcd;		//更新End時点
+	private String eventid;			//イベントID
+	private String eventkind;		//イベント区分
+	private String eventname;		//イベント名称
+	private String comments;		//イベントコメント
+	private String eventstatus;		//event現況
+
 	public int getRownum() {
 		return rownum;
 	}
@@ -182,11 +183,4 @@ public class Setting {
 				+ eventid + ", eventkind=" + eventkind + ", eventname=" + eventname + ", comments=" + comments
 				+ ", eventstatus=" + eventstatus + "]";
 	}
-
-
-
-
-
-
-
 }

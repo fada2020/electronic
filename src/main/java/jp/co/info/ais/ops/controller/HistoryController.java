@@ -15,20 +15,13 @@ public class HistoryController {
 	private static final Logger logger = LogManager.getLogger(HistoryController.class);
 
 	/**
-	 * 設定一覧画面出力
+	 * 操作履歴一覧画面出力
 	 *
 	 * @param model
-	 * @return String　画面名
+	 * @return String 画面名
 	 */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String SettingList(Model model) {
-		try {
-			//TODO:DBデータ取得及び加工処理追加
-			logger.debug("操作履歴一覧画面＝＝＝開始");
-
-		}catch (Exception e) {
-			logger.debug(e.getMessage());
-		}
 		//戻り値
 		return "action_history";
 	}

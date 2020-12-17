@@ -8,17 +8,20 @@ public class EventAndMail {
 	private String customer;
 	private String status;
 	private String mailid;
+	private String upoaid;
+	private String upoaname;
+	private String upoatime;
+	private String mailkind;
+	private String maildatetime;
+	private String mailsubject;
+	private String mailfrom;
+	private String mailto;
+	private String mailcc;
+	private String mailtext;
 	public String getOccurtime() {
 		return occurtime;
 	}
-	@Override
-	public String toString() {
-		return "EventAndMail [occurtime=" + occurtime + ", eventid=" + eventid + ", customerno=" + customerno
-				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
-				+ ", upoaname=" + upoaname + ", upoatime=" + upoatime + ", mailkind=" + mailkind + ", maildatetime="
-				+ maildatetime + ", mailsubject=" + mailsubject + ", mailfrom=" + mailfrom + ", mailto=" + mailto
-				+ ", mailcc=" + mailcc + ", mailtext=" + mailtext + "]";
-	}
+
 	public void setOccurtime(String occurtime) {
 		this.occurtime = occurtime;
 	}
@@ -112,14 +115,12 @@ public class EventAndMail {
 	public void setMailtext(String mailtext) {
 		this.mailtext = mailtext;
 	}
-	private String upoaid;
-	private String upoaname;
-	private String upoatime;
-	private String mailkind;
-	private String maildatetime;
-	private String mailsubject;
-	private String mailfrom;
-	private String mailto;
-	private String mailcc;
-	private String mailtext;
+	@Override
+	public String toString() {
+		return "EventAndMail [occurtime=" + occurtime + ", eventid=" + eventid + ", customerno=" + customerno
+				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
+				+ ", upoaname=" + upoaname + ", upoatime=" + upoatime + ", mailkind=" + mailkind + ", maildatetime="
+				+ maildatetime + ", mailsubject=" + mailsubject + ", mailfrom=" + mailfrom + ", mailto=" + mailto
+				+ ", mailcc=" + mailcc + ", mailtext=" + mailtext + "]";
+	}
 }

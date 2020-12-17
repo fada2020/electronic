@@ -71,14 +71,9 @@ public class DetailTabController {
 	 */
 	@RequestMapping(value = "", method = { RequestMethod.POST })
 	public String select(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception  {
-
-		logger.debug("詳細設定画面===開始");
-
 		try {
 			//パラメータ取得
 			String customerno = request.getParameter("customernou");
-			logger.debug("顧客番号："+customerno);
-
 			DetailTab detailTab = new DetailTab();
 			if(!customerno.isEmpty()) {
 				//編集
@@ -208,13 +203,11 @@ public class DetailTabController {
 			detailTab.setEndmailtext(request.getParameter("endmailtext"));
 			detailTab.setUpoaid(upUserId);
 			detailTab.setUpoaname(upUserName);
-
 			if(viewFlag.equals(INSERT_FLAG)) {
-				logger.debug("詳細設定-登録 開始 ===========");
 				if (detailTabService.checkCustomerNo(customerNo) < 1) {
 					//自家補連絡設定情報を登録
 					result = detailTabService.insertDetail(detailTab);
-					//自自家補連絡展開ユーザーリストを登録
+					//自家補連絡展開ユーザーリストを登録
 					if(!loginuser.isEmpty()) {
 				        String[] luseer = loginuser.split(",");
 				        for (String id : luseer) {
@@ -237,8 +230,7 @@ public class DetailTabController {
 					model.addAttribute("errMsg", ERROR_MSG);
 				}
 			}else {
-				logger.debug("詳細設定-編集 開始 ===========");
-				//編集処理を呼ぶ
+				//編集処理を呼び出し
 				result = detailTabService.updateDetail(detailTab);
 				if(!intermailaddr.isEmpty()) {
 					detailTabService.deleteMailList(customerNo);
@@ -278,7 +270,7 @@ public class DetailTabController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		//戻る値
+		//戻り値
 		if(ref) {
 			return "redirect:/setting/";
 		}else {
@@ -287,15 +279,12 @@ public class DetailTabController {
 	}
 
     /**
-     * ファイルアップロード
+     * ファイルアップロード:TAB-2
      * @param uploadFile
      * @return
      */
     @PostMapping("/uploadwav")
    public ResponseEntity< byte[]> uploadWav(@RequestParam("startFileName") final MultipartFile uploadFile) {
-
-	   logger.debug("詳細設定画面===FILE UPLOAD");
-
        if(uploadFile.isEmpty ())  {
            return ResponseEntity.of(Optional.empty());
        }
@@ -311,15 +300,12 @@ public class DetailTabController {
    }
 
    /**
-    * ファイルアップロード
+    * ファイルアップロード:TAB-3
     * @param uploadFile
     * @return
     */
    @PostMapping("/uploadendwav")
   public ResponseEntity< byte[]> uploadEndWav(@RequestParam("endFileName") final MultipartFile uploadFile) {
-
-	  logger.debug("詳細設定画面===FILE END UPLOAD");
-
       if(uploadFile.isEmpty ())  {
           return ResponseEntity.of(Optional.empty());
       }

@@ -4,7 +4,6 @@ import jp.co.info.ais.ops.helper.DateHelper;
 
 /**
  * 自家補連絡設定テーブル
- * @author ais-info
  */
 public class DetailTab {
 	private String customerno;       //お客様番号(半角英数字)
@@ -37,8 +36,9 @@ public class DetailTab {
 	private String adminusername;    //管理者名
 	private String adminmailaddress; //管理者メールアドレス
 	private String adminphoneno;     //管理者電話番号
-	private String loginuser;
+	private String loginuser;        //ログインユーザー
     private String interusername;    //社内展開ユーザー名称
+
 
 	public String getCustomerno() {
 		return customerno;
@@ -235,7 +235,7 @@ public class DetailTab {
 
 	@Override
 	public String toString() {
-		return "Setting [customerno=" + customerno +
+		return "DetailTab [customerno=" + customerno +
 				", customer=" + customer +
 				", sitecd="+ sitecd +
 				", jdgsw="+ jdgsw +

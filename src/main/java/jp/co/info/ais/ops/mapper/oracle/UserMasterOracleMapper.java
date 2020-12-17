@@ -15,7 +15,7 @@ public interface UserMasterOracleMapper {
 
 
 	/**
-	 *　詳細設定ユーザー選択用
+	 * 詳細設定ユーザー選択
 	 *
 	 * @return
 	 * @throws Exception

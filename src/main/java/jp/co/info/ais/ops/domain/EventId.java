@@ -1,6 +1,7 @@
 package jp.co.info.ais.ops.domain;
 
 public class EventId {
+
 	private String fromDateTime;
 	private String toDateTime;
 	private String chkStatus0;
@@ -10,6 +11,7 @@ public class EventId {
 	private String chkKind2;
 	private String chkKind3;
 	private String flag;
+
 	public String getFromDateTime() {
 		return fromDateTime;
 	}

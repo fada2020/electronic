@@ -22,7 +22,6 @@ public class EventList {
 	private String mailcc;
 	private String comments;
 
-
 	public String getComments() {
 		return comments;
 	}
@@ -61,16 +60,6 @@ public class EventList {
 	}
 	public String getMailid() {
 		return mailid;
-	}
-	@Override
-	public String toString() {
-		return "EventList [occurtime=" + occurtime
-				+ ", eventname=" + eventname + ", eventid=" + eventid + ", eventkind=" + eventkind
-				+ ", customerno=" + customerno
-				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
-				+ ", mailkind=" + mailkind + ", maildatetime=" + maildatetime + ", mailsubject=" + mailsubject
-				+ ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc=" + mailcc
-				+ ", comments=" + comments + ", upoatime=" + upoatime + ", mailtext=\" + mailtext + \"]";
 	}
 
 	public void setMailid(String mailid) {
@@ -148,5 +137,14 @@ public class EventList {
 	public void setMailcc(String mailcc) {
 		this.mailcc = mailcc;
 	}
-
+	@Override
+	public String toString() {
+		return "EventList [occurtime=" + occurtime
+				+ ", eventname=" + eventname + ", eventid=" + eventid + ", eventkind=" + eventkind
+				+ ", customerno=" + customerno
+				+ ", customer=" + customer + ", status=" + status + ", mailid=" + mailid + ", upoaid=" + upoaid
+				+ ", mailkind=" + mailkind + ", maildatetime=" + maildatetime + ", mailsubject=" + mailsubject
+				+ ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc=" + mailcc
+				+ ", comments=" + comments + ", upoatime=" + upoatime + ", mailtext=\" + mailtext + \"]";
+	}
 }

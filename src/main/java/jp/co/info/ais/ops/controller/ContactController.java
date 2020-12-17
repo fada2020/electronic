@@ -38,33 +38,27 @@ public class ContactController {
 	private static final Logger logger = LogManager.getLogger(ContactController.class);
 
 	/**
-	 * 設定一覧画面出力
+	 * 連絡先マスタ画面出力
 	 * @param model
-	 * @return String　画面名
+	 * @return String 画面名
 	 */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String ContactList(Model model) {
-		try {
-			logger.debug("contact List Start");
-		}catch (Exception e) {
-			logger.debug(e.getMessage());
-		}
 		//戻り値
 		return "contact_list";
 	}
 
     /**
-     * Contactをリストに表示する.
+     * 連絡先をリストに表示する.
      * @param なし
-     * @return JSONArray　jArray
+     * @return JSONArray jArray
      */
     @ResponseBody
     @PostMapping("/getContactListAuto")
     public JSONArray ajaxGetList() throws JsonMappingException, IOException  {
-    	logger.debug("ajaxGetList Start===========");
     	/*sessionのenable取得*/
 		String enable = (String)session.getAttribute("enable");
-    	/*settingリスト生成*/
+    	/*連絡先リスト生成*/
     	List<Contact> list = new ArrayList<Contact>();
 		/*jsonオブジェクト生成*/
     	JSONObject obj = new JSONObject();
@@ -93,68 +87,64 @@ public class ContactController {
 			logger.error(e.getMessage());
 		}
 
-    	//戻る値
+    	//戻り値
     	return jArray;
     }
 
     /**
-     * Contactを編集する.
+     * 連絡先を編集する.
      * @param Contact contact
      * @return int result
      */
     @ResponseBody
     @PostMapping("/updateContact")
     public int updateContact(@RequestBody Contact contact) throws Exception   {
-
-    	logger.debug("Contact update Start===========");
-    	/*settingリスト生成*/
+    	/*連絡先リスト生成*/
     	int result=0;
 		try {
 			result = contactService.updateContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-    	//戻る値
+    	//戻り値
     	return result;
     }
 
     /**
-     * Contactを新規で作成する.
+     * 連絡先を新規作成する.
      * @param Contact contact
      * @return int result
      */
     @ResponseBody
     @PostMapping("/addContact")
     public int addContact(@RequestBody Contact contact) throws Exception   {
-    	logger.debug("Contact add Start===========");
-    	/*settingリスト生成*/
+    	/*連絡先リスト生成*/
     	int result=0;
 		try {
 			result = contactService.addContact(contact);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-    	//戻る値
+    	//戻り値
     	return result;
     }
 
     /**
-     * Contactを削除する.
+     * 連絡先を削除する.
      * @param int contactcd
      * @return int result
      */
     @ResponseBody
     @PostMapping("/deleteContact")
     public int deleteContact(@RequestBody int contactcd) throws Exception   {
-    	logger.debug("Contact delete Start===========");
-    	/*settingリスト生成*/
+    	/*連絡先リスト生成*/
     	int result=0;
 		try {
 			result = contactService.deleteContact(contactcd);
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-    	//戻る値
+    	//戻り値
     	return result;
     }
 }

@@ -27,7 +27,6 @@ public class UserGrantService {
 	}
 
 	public List<UserMaster> usermasterList()  throws Exception {
-		logger.debug("MasterListService START");
 		List<UserMaster>userMasterList = null;
 		List<UserMaster> enableList = null;
 		/*ユーザーのリスト*/
@@ -47,11 +46,10 @@ public class UserGrantService {
 		return userMasterList;
 	}
 
-
 	/**
 	 * 詳細設定ユーザー選択
 	 *
-	 * @return
+	 * @return List<UserMaster>
 	 * @throws Exception
 	 */
 	public List<UserMaster> getUserList()  throws Exception {
@@ -62,28 +60,19 @@ public class UserGrantService {
 	}
 
 	public int saveEnable(UserMaster master)throws Exception {
-
 		return userGrantMapper.saveEnable(master);
 
 	}
 
 	public List<String> enableList() throws Exception {
-		// TODO 自動生成されたメソッド・スタブ
 		return userGrantMapper.enableList();
 	}
 
 	public int updateEnable(UserMaster master)throws Exception {
-
 		return userGrantMapper.updateEnable(master);
-
-
 	}
 
 	public int allSaveEnable(List<UserMaster> list) throws Exception {
-
-		// TODO 自動生成されたメソッド・スタブ
 		return userGrantMapper.allSaveEnable(list);
 	}
-
-
 }

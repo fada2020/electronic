@@ -19,13 +19,12 @@ public class EventService {
 	EventMapper eventMapper;
 
 	/**
-	 *　Eventリスト取得を依頼
+	 * イベントリスト取得を依頼
 	 * @param HaspMap
-	 * @return　List
+	 * @return List
 	 * @throws Exception
 	 */
 	public List<EventList> selectEventList(Map<String, Object> params) throws Exception {
-		logger.debug("EventService START");
 		return eventMapper.selectEventList(params);
 	}
 

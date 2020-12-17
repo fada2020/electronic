@@ -4,6 +4,15 @@ public class EventAndId {
 
 	private String eventid;
 	private String eventkind;
+	private String eventname;
+	private String occurtime;
+	private String customerno;
+	private String customer;
+	private String status;
+	private String mailid;
+	private String upoaid;
+	private String upoaname;
+	private String upoatime;
 	public String getEventid() {
 		return eventid;
 	}
@@ -15,13 +24,6 @@ public class EventAndId {
 	}
 	public void setEventkind(String eventkind) {
 		this.eventkind = eventkind;
-	}
-	@Override
-	public String toString() {
-		return "EventAndId [eventid=" + eventid + ", eventkind=" + eventkind + ", eventname=" + eventname
-				+ ", occurtime=" + occurtime + ", customerno=" + customerno + ", customer=" + customer + ", status="
-				+ status + ", mailid=" + mailid + ", upoaid=" + upoaid + ", upoaname=" + upoaname + ", upoatime="
-				+ upoatime + "]";
 	}
 	public String getEventname() {
 		return eventname;
@@ -77,15 +79,13 @@ public class EventAndId {
 	public void setUpoatime(String upoatime) {
 		this.upoatime = upoatime;
 	}
-	private String eventname;
-	private String occurtime;
-	private String customerno;
-	private String customer;
-	private String status;
-	private String mailid;
-	private String upoaid;
-	private String upoaname;
-	private String upoatime;
 
+	@Override
+	public String toString() {
+		return "EventAndId [eventid=" + eventid + ", eventkind=" + eventkind + ", eventname=" + eventname
+				+ ", occurtime=" + occurtime + ", customerno=" + customerno + ", customer=" + customer + ", status="
+				+ status + ", mailid=" + mailid + ", upoaid=" + upoaid + ", upoaname=" + upoaname + ", upoatime="
+				+ upoatime + "]";
+	}
 
 }
