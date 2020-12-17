@@ -16,11 +16,12 @@
 	<!--リスト表示  -->
 	<select id="getUserList" resultType="jp.co.info.ais.ops.domain.UserMaster">
 		SELECT
-			  loginuser
-			  ,username
-			  ,mailaddr
-			  ,mobiletel
-		 FROM sys_user
+			  su.loginuser AS loginuser
+			  ,su.username AS username
+			  ,su.mailaddr AS mailaddr
+			  ,su.mobiletel AS mobiletel
+			  ,sm.mailgroupname AS mailgroupname
+		 FROM sys_user su　JOIN SYS_MAILGROUP sm ON (su.mailgroupcd = sm.mailgroupcd)
 	</select>
 
  </mapper>
