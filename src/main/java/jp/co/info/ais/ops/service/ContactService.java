@@ -17,33 +17,28 @@ public class ContactService {
 	@Autowired
 	ContactMapper contactMapper;
 
-	/*contactリス表示*/
+	/*連絡先リスト表示*/
 	public List<Contact> contactList() throws Exception {
-		logger.debug("ContactListService START");
 		return contactMapper.contactList();
 	}
 
-	/*contactオブジェクト編集*/
+	/*連絡先リストオブジェクト編集*/
 	public int updateContact(Contact contact) throws Exception{
-		logger.debug("ContactupdateService START");
 		return contactMapper.updateContact(contact);
 	}
 
-	/*contactオブジェクト新規*/
+	/*連絡先リストオブジェクト新規*/
 	public int addContact(Contact contact) throws Exception{
-		logger.debug("ContactaddService START");
 		return contactMapper.addContact(contact);
 	}
 
-	/*contactオブジェクト削除*/
+	/*連絡先リストオブジェクト削除*/
 	public int deleteContact(int contactcd) throws Exception{
-		logger.debug("ContactdeleteService START");
 		return contactMapper.deleteContact(contactcd);
 	}
 
-	/*contactリス表示(詳細設定)*/
+	/*連絡先リスト表示(詳細設定)*/
 	public List<Contact> contactAllList() throws Exception {
-		logger.debug("ContactListService START");
 		return contactMapper.contactAllList();
 	}
 

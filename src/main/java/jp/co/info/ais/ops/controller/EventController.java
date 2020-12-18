@@ -81,9 +81,6 @@ public class EventController {
 	 */
 	@RequestMapping(value = "", method = { RequestMethod.GET })
 	public String index(Model model, HttpServletRequest request) throws Exception  {
-
-		logger.debug("イベント一覧画面===開始");
-
 		try {
 			//パラメータ設定
 			String fromDate = null;
@@ -110,7 +107,7 @@ public class EventController {
 				}
 			}
 
-			//戻る値設定
+			//戻り値設定
 			model.addAttribute("fromDate", fromDate);
 			model.addAttribute("toDate", toDate);
 			model.addAttribute("list", list);
@@ -140,8 +137,6 @@ public class EventController {
 	 */
 	@RequestMapping(value = "", method = { RequestMethod.POST })
 	public String search(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception  {
-
-		logger.debug("イベント一覧画面===開始");
 		try {
 			List<String> statusList = new ArrayList<>();
 			List<String> arrayKind = new ArrayList<>();
@@ -224,8 +219,6 @@ public class EventController {
 				ExcelDown(list, response);
 			}
 
-
-
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
@@ -244,7 +237,7 @@ public class EventController {
 	private void ExcelDown(List<EventList> list, HttpServletResponse response) throws Exception  {
 		try {
 
-			// ワークブック生成
+			//ワークブック生成
 		    Workbook wb = new HSSFWorkbook();
 		    org.apache.poi.ss.usermodel.Sheet sheet = wb.createSheet("メールリスト");
 		    Row row = null;
@@ -252,10 +245,10 @@ public class EventController {
 		    int rowNo = 0;
 
 
-		    // テブルヘッダースタイル
+		    //ヘッダースタイル
 		    CellStyle headStyle = wb.createCellStyle();
 
-		    //セールの幅
+		    //セルの幅
 		    sheet.setColumnWidth(0, 5000);
 		    sheet.setColumnWidth(1, 7500);
 		    sheet.setColumnWidth(2, 9000);
@@ -263,27 +256,27 @@ public class EventController {
 		    sheet.setColumnWidth(4, 2500);
 		    sheet.setColumnWidth(5, 6500);
 
-		    // 細いセール指定
+		    //細いセル指定
 		    headStyle.setBorderTop(BorderStyle.THIN);
 		    headStyle.setBorderBottom(BorderStyle.THIN);
 		    headStyle.setBorderLeft(BorderStyle.THIN);
 		    headStyle.setBorderRight(BorderStyle.THIN);
 
-		    // 背景色
+		    //背景色
 		    headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
 		    headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-		    // データセンター移動
+		    //データ位置をセンター
 		    headStyle.setAlignment(HorizontalAlignment.CENTER);
 
-		    // データ用セールスタイルの枠線指定
+		    //データ用セルスタイルの枠線指定
 		    CellStyle bodyStyle = wb.createCellStyle();
 		    bodyStyle.setBorderTop(BorderStyle.THIN);
 		    bodyStyle.setBorderBottom(BorderStyle.THIN);
 		    bodyStyle.setBorderLeft(BorderStyle.THIN);
 		    bodyStyle.setBorderRight(BorderStyle.THIN);
 
-		    // ヘッダー生成
+		    //ヘッダー生成
 		    row = sheet.createRow(rowNo++);
 		    cell = row.createCell(0);
 		    cell.setCellStyle(headStyle);
@@ -304,7 +297,7 @@ public class EventController {
 		    cell.setCellStyle(headStyle);
 		    cell.setCellValue("補足");
 
-		    // データ生成
+		    //データ生成
 		    for(EventList eventlist : list) {
 		        row = ((org.apache.poi.ss.usermodel.Sheet) sheet).createRow(rowNo++);
 		        cell = row.createCell(0);
@@ -346,7 +339,7 @@ public class EventController {
 		        cell.setCellValue(eventlist.getComments());
 		    }
 
-		    // コンテンツタイプとファイル名指定
+		    //コンテンツタイプとファイル名指定
 		    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
 		    Date nowdate = new Date();
 		    String dateString = formatter.format(nowdate);
@@ -355,37 +348,32 @@ public class EventController {
 		    response.setHeader("Content-Disposition", "attachment;filename=mail_list_"+dateString+".xls");
 
 
-		    // excel 出力
+		    //excel 出力
 		    wb.write(response.getOutputStream());
 		    wb.close();
 		    response.getOutputStream().close();
 
 
 		}catch (Exception e) {
-			logger.debug(e.getMessage());
+			logger.error(e.getMessage());
 		}
 	}
 
     /**
-     * 新規のTODOを追加する.
-     * @param todo 新規投稿TODO
-     * @return 更新の反映されたTODO
+     * イベントリスト初期表示
+     * @param EventId eventid
+     * @return List<EventList> list
      */
     @ResponseBody
     @PostMapping("/getListAuto")
     public List<EventList> ajaxGetList(@RequestBody EventId eventid) throws JsonMappingException, IOException  {
-
-    	logger.debug("ajaxGetList Start===========");
 		List<EventList> list = new ArrayList<EventList>();
 
 		try {
-			System.out.println(eventid);
-			System.out.println("1");
 			List<String> statusList = new ArrayList<>();
 			List<String> arrayKind = new ArrayList<>();
-			System.out.println("2");
-			//パラメータ設定
 
+			//パラメータ設定
 			String fromDate = eventid.getFromDateTime();
 			String toDate = eventid.getToDateTime();
 			String chkStatus0 = eventid.getChkStatus0();
@@ -394,7 +382,7 @@ public class EventController {
 			String chkKind1 = eventid.getChkKind1();
 			String chkKind2 = eventid.getChkKind2();
 			String chkKind3 = eventid.getChkKind3();
-			System.out.println(fromDate+toDate);
+
 			if(!chkStatus0.isEmpty()) {
 				statusList.add(chkStatus0);
 			}
@@ -413,7 +401,7 @@ public class EventController {
 			if(!chkKind3.isEmpty()) {
 				arrayKind.add(chkKind3);
 			}
-			System.out.println("3");
+
 			//パラメータ格納
 			Map<String, Object> paraMap = new HashMap<>();
 			paraMap.put("fromDate", fromDate);
@@ -428,11 +416,10 @@ public class EventController {
 			}else {
 				paraMap.put("kinds", null);
 			}
-			System.out.println(paraMap);
-			System.out.println("4");
+
 			//一覧データ取得（全データ）
 			list = eventService.selectEventList(paraMap);
-			System.out.println(list);
+
 			//一覧の施設名とイベント名称の文字数制限
 			for (EventList lengthcheck : list) {
 				if(lengthcheck.getCustomer().length()>29) {
@@ -446,7 +433,7 @@ public class EventController {
 		}catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-    	//戻る値
+    	//戻り値
     	return list;
     }
 

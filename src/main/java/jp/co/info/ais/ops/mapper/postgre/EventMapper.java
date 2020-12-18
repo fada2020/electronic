@@ -14,9 +14,9 @@ import jp.co.info.ais.ops.domain.Setting;
 public interface EventMapper {
 
 	/**
-	 * Event一覧を取得を行う
+	 * イベントリストの取得を行う
 	 * @param paraMap
-	 * @return
+	 * @return List<EventList>
 	 * @throws Exception
 	 */
 	List<EventList> selectEventList(Map<String, Object> paraMap) throws Exception;

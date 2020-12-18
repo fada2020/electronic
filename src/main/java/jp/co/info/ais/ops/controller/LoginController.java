@@ -50,7 +50,7 @@ public class LoginController {
 	}
 
 	/**
-	 * IDとパスワード認証処理
+	 * アカウントとパスワード認証処理
 	 * @param loginuser
 	 * @param Passwd
 	 * @param model
@@ -62,7 +62,7 @@ public class LoginController {
 		int result = 0;
 		logger.info("LOGIN PROCESS START : " + login.getLoginuser());
 		try {
-			//ID存在チェック
+			//アカウント存在チェック
 			if (loginService.selectLoginId(login.getLoginuser()) < 1) {
 				result = 1;
 			} else {
@@ -73,25 +73,22 @@ public class LoginController {
 				} else {
 					result = 9;
 					String enable = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
-					logger.debug("Enable------->"+enable);
 					session.setAttribute("id", user.getLoginuser());
 					session.setAttribute("name", user.getUsername());
 					session.setAttribute("enable", enable);
 				}
 			}
 		} catch (Exception e) {
-			System.out.println(e.toString());
-
-			//logger.error(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		return result;
 	}
 
 
 	/**
-	 * ログアウト処理を行う。
+	 * ログアウト処理を行う
 	 *
-	 * @return　String インデックス
+	 * @return String インデックス
 	 */
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String Logout() {
@@ -100,7 +97,6 @@ public class LoginController {
 			//Session終了
 			session.invalidate();
 		} catch (Exception e) {
-			//エラーメッセージを送る
 			logger.error("ログアウト処理エラーが発生 :" + e.toString());
 		}
 		return "redirect:/";

@@ -2,7 +2,6 @@ package jp.co.info.ais.ops.domain;
 
 /**
  * 自家補連絡設定サンプルテーブル
- * @author ais-info
  */
 public class DetailTabSample {
 
@@ -45,7 +44,7 @@ public class DetailTabSample {
 
 	@Override
 	public String toString() {
-		return "Setting [samplekind=" + samplekind +
+		return "DetailTabSample [samplekind=" + samplekind +
 				", voicecycl=" + voicecycl +
 				", voicecnt="+ voicecnt +
 				", subject="+ subject +

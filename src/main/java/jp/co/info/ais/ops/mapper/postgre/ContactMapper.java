@@ -11,19 +11,19 @@ import jp.co.info.ais.ops.domain.Contact;
 @Mapper
 public interface ContactMapper {
 
-	/*リスト表示*/
+	/*連絡先リスト表示*/
 	public List<Contact> contactList() throws Exception;
 
-	/*contact編集*/
+	/*連絡先リスト編集*/
 	public int updateContact(Contact contact)throws Exception;
 
-	/*contact新規*/
+	/*連絡先リスト新規*/
 	public int addContact(Contact contact)throws Exception;
 
-	/*contact削除*/
+	/*連絡先リスト削除*/
 	public int deleteContact(int contactcd)throws Exception;
 
-	/*リスト表示(詳細)*/
+	/*連絡先リスト表示(詳細)*/
 	public List<Contact> contactAllList() throws Exception;
 
 

@@ -9,7 +9,7 @@ public class UserMaster {
 	private String mailaddr;   //MAILADDR
 	private String pcmailaddr; //PCMAILADDR
 	private String mobiletel;  //MOBILETEL
-	private String mailgroupname;
+	private String mailgroupname;//MAILGROUPNAME
 
 	public String getMailgroupname() {
 		return mailgroupname;
@@ -65,7 +65,4 @@ public class UserMaster {
 				+ ", usernamekana=" + usernamekana + ", mailaddr=" + mailaddr + ", pcmailaddr=" + pcmailaddr
 				+ ", mobiletel=" + mobiletel + ", mailgroupname=" + mailgroupname + "]";
 	}
-
-
-
 }

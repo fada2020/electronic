@@ -64,24 +64,22 @@ public class SettingController {
 	private static final String MUKO_TXT = "-";
 	private static final String NULL_TXT = "-";
 	private static final String CALENDAR_TXT = "-";
+
 	/**
 	 * 設定一覧画面出力
 	 *
 	 * @param model
-	 * @return String　画面名
+	 * @return String 画面名
 	 */
 	@RequestMapping(value = "", method = RequestMethod.GET)
 	public String SettingList(Model model, HttpServletRequest request) throws Exception {
-
-		logger.debug("設定一覧画面===開始");
 		try {
-			logger.debug("setting List Start");
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
 		    Date nowdate = new Date();
 		    String dateString = formatter.format(nowdate);
 		    model.addAttribute("date",dateString+" 現在");
 		} catch (Exception e) {
-			logger.debug(e.getMessage());
+			logger.error(e.getMessage());
 		}
 		//戻り値
 		return "setting";
@@ -90,18 +88,15 @@ public class SettingController {
 	 * 設定一覧画面出力
 	 *
 	 * @param model
-	 * @return String　画面名
+	 * @return String 画面名
 	 */
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String excelExport(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
-		logger.debug("設定一覧画面===開始");
 		try {
 			String flag = request.getParameter("flag");
-			logger.debug("setting List Start");
 			//パラメータ格納
 			List<Setting> list = null;
-			//Excelファイル出力
+			//Excel出力
 			if(flag.equals(EXCEL_FLAG)) {
 				list = settingService.settingList();
 				excelDown(list, response);
@@ -113,19 +108,16 @@ public class SettingController {
 		return "setting";
 	}
 
-
-
 	/**
-	 * 新規のTODOを追加する.
-	 * @param todo 新規投稿TODO
-	 * @return 更新の反映されたTODO
+	 * 設定一覧初期表示
+	 * @param todo Model model
+	 * @return SONArray jArray
 	 */
 	@ResponseBody
 	@PostMapping("/getListAuto")
 	public JSONArray ajaxGetList(Model model) throws JsonMappingException, IOException {
 		/*sessionのenable取得*/
 		String enable = (String)session.getAttribute("enable");
-		logger.debug("ajaxGetList Start===========");
 		/*settingリスト生成*/
 		List<Setting> list = new ArrayList<Setting>();
 		/*jsonオブジェクト生成*/
@@ -151,66 +143,53 @@ public class SettingController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		//戻る値
+		//戻り値
 		return jArray;
 	}
 
 	/**
-	 * 新規のTODOを追加する.
-	 * @param todo 新規投稿TODO
-	 * @return 更新の反映されたTODO
+	 * 設定一覧削除
+	 * @param String customerno
+	 * @return int result
 	 */
 	@ResponseBody
 	@PostMapping("/delete")
 	public int delete(@RequestBody String customerno) throws Exception {
-
-		logger.debug("customerno delete Start===========");
-		/*settingリスト生成*/
 		int result = 0;
-
 		try {
-
 			result = settingService.deleteCustomerno(customerno);
-
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-
-		//戻る値
+		//戻り値
 		return result;
 	}
 
 	/**
-	 * 新規のTODOを追加する.
-	 * @param todo 新規投稿TODO
-	 * @return 更新の反映されたTODO
+	 * 設定一覧編集
+	 * @param String customerno, Model model
+	 * @return String 画面名
 	 */
 	@ResponseBody
 	@PostMapping("/update")
 	public String update(@RequestBody String customerno, Model model) throws Exception {
-
-		logger.debug("customerno delete Start===========");
-
 		try {
 			model.addAttribute("customerno", customerno);
-
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		//戻る値
+		//戻り値
 		return "detail";
 	}
 
 	/**
-	 * 新規のTODOを追加する.
-	 * @param todo 新規投稿TODO
-	 * @return 更新の反映されたTODO
+	 * 現況変更・終了判定切替
+	 * @param Setting setting
+	 * @return int result
 	 */
 	@ResponseBody
 	@PostMapping("/updateStatus")
 	public int updateStatus(@RequestBody Setting setting) throws Exception {
-
-		logger.debug("customerno delete Start===========");
 		int result = 0;
 		String upoaname = "";
 		String upoaid = "";
@@ -230,10 +209,9 @@ public class SettingController {
 		} catch (Exception e) {
 			logger.error(e.getMessage());
 		}
-		//戻る値
+		//戻り値
 		return result;
 	}
-
 
 	/**
 	 * Excelファイル出力
@@ -246,7 +224,7 @@ public class SettingController {
 
 		try {
 
-			// ワークブック生成
+			//ワークブック生成
 		    Workbook wb = new HSSFWorkbook();
 		    org.apache.poi.ss.usermodel.Sheet sheet = wb.createSheet("自家補連絡設定一覧");
 		    Row row = null;
@@ -254,10 +232,10 @@ public class SettingController {
 		    int rowNo = 0;
 		    String time = "";
 
-		    // テブルヘッダースタイル
+		    //ヘッダースタイル
 		    CellStyle headStyle = wb.createCellStyle();
 
-		    //セールの幅
+		    //セルの幅
 		    sheet.setColumnWidth(0, 2000);//No
 		    sheet.setColumnWidth(1, 2500);//現況
 		    sheet.setColumnWidth(2, 2500);//終了判定
@@ -268,27 +246,27 @@ public class SettingController {
 		    sheet.setColumnWidth(7, 8000);//サイトID
 		    sheet.setColumnWidth(8, 10000);//サイト名
 
-		    // 細いセール指定
+		    //細いセル指定
 		    headStyle.setBorderTop(BorderStyle.THIN);
 		    headStyle.setBorderBottom(BorderStyle.THIN);
 		    headStyle.setBorderLeft(BorderStyle.THIN);
 		    headStyle.setBorderRight(BorderStyle.THIN);
 
-		    // 背景色
+		    //背景色
 		    headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
 		    headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-		    // データセンター移動
+		    //データをセンター
 		    headStyle.setAlignment(HorizontalAlignment.CENTER);
 
-		    // データ用セールスタイルの枠線指定
+		    //データ用セールスタイルの枠線指定
 		    CellStyle bodyStyle = wb.createCellStyle();
 		    bodyStyle.setBorderTop(BorderStyle.THIN);
 		    bodyStyle.setBorderBottom(BorderStyle.THIN);
 		    bodyStyle.setBorderLeft(BorderStyle.THIN);
 		    bodyStyle.setBorderRight(BorderStyle.THIN);
 
-		    // ヘッダー生成
+		    //ヘッダー生成
 		    row = sheet.createRow(rowNo++);
 		    cell = row.createCell(0);
 		    cell.setCellStyle(headStyle);
@@ -318,7 +296,7 @@ public class SettingController {
 		    cell.setCellStyle(headStyle);
 		    cell.setCellValue("サイト名");
 
-		    // データ生成
+		    //データ生成
 		    for(Setting setting : list) {
 		        row = ((org.apache.poi.ss.usermodel.Sheet) sheet).createRow(rowNo++);
 
@@ -393,7 +371,7 @@ public class SettingController {
 		        }
 		    }
 
-		    // コンテンツタイプとファイル名指定
+		    //コンテンツタイプとファイル名指定
 		    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
 		    Date nowdate = new Date();
 		    String dateString = formatter.format(nowdate);
@@ -404,13 +382,9 @@ public class SettingController {
 		    wb.write(response.getOutputStream());
 		    wb.close();
 		    response.getOutputStream().close();
-
 		}catch (Exception e) {
-
-			logger.debug(e.getMessage());
+			logger.error(e.getMessage());
 
 		}
-
 	}
-
 }

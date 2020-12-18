@@ -6,8 +6,8 @@ public class Contact {
 	private String contactname;//連絡先名称
 	private String contactphoneno;//連絡先電話番号
 	private String contactmailaddress;//連絡先メールアドレス
-	private int startcontactcd;//更新Start時点
-	private int endcontactcd;//更新End時点
+	private int startcontactcd;//開始連絡先
+	private int endcontactcd;//終了連絡先
 	public int getRownum() {
 		return rownum;
 	}

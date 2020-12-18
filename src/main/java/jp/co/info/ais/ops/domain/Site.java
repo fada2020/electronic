@@ -1,7 +1,7 @@
 package jp.co.info.ais.ops.domain;
 
 /*
- * Oracle用TBL＿SITE
+ * Oracle用TBL_SITE
  */
 public class Site {
 
@@ -31,6 +31,4 @@ public class Site {
 	public String toString() {
 		return "Site [sitecd=" + sitecd + ", sitename=" + sitename + ", sitenamekana=" + sitenamekana + "]";
 	}
-
-
 }

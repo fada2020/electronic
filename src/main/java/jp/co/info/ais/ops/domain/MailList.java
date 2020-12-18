@@ -7,6 +7,10 @@ public class MailList {
 	private String maildatetime;
 	private String mailsubject;
 	private String mailfrom;
+	private String mailto;
+	private String mailcc;
+	private String mailtext;
+
 	public String getMailid() {
 		return mailid;
 	}
@@ -21,12 +25,6 @@ public class MailList {
 	}
 	public String getMaildatetime() {
 		return maildatetime;
-	}
-	@Override
-	public String toString() {
-		return "MailList [mailid=" + mailid + ", mailkind=" + mailkind + ", maildatetime=" + maildatetime
-				+ ", mailsubject=" + mailsubject + ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc="
-				+ mailcc + ", mailtext=" + mailtext + "]";
 	}
 	public void setMaildatetime(String maildatetime) {
 		this.maildatetime = maildatetime;
@@ -61,8 +59,10 @@ public class MailList {
 	public void setMailtext(String mailtext) {
 		this.mailtext = mailtext;
 	}
-	private String mailto;
-	private String mailcc;
-	private String mailtext;
-
+	@Override
+	public String toString() {
+		return "MailList [mailid=" + mailid + ", mailkind=" + mailkind + ", maildatetime=" + maildatetime
+				+ ", mailsubject=" + mailsubject + ", mailfrom=" + mailfrom + ", mailto=" + mailto + ", mailcc="
+				+ mailcc + ", mailtext=" + mailtext + "]";
+	}
 }
