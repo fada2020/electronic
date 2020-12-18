@@ -6,22 +6,24 @@
 	<!--リスト表示  -->
 	<select id="contactList" resultType="jp.co.info.ais.ops.domain.Contact">
 
-	select (ROW_NUMBER() OVER()) AS rownum,
+		select distinct (ROW_NUMBER() OVER()) AS rownum,
 		    contactcd,
 			contactname,
 			contactphoneno,
 			contactmailaddress,
-			startcontactcd,
-			endcontactcd
+			result
 	from (
-			SELECT
+			SELECT distinct
 			cm.contactcd as contactcd,
 			cm.contactname as contactname,
 			cm.contactphoneno as contactphoneno,
 			cm.contactmailaddress as contactmailaddress,
-			rs.startcontactcd as startcontactcd,
-			rs.endcontactcd as endcontactcd
-		FROM tbl_jikahocontactmaster cm LEFT OUTER JOIN tbl_jikahorenrakusettei rs
+				CASE
+			WHEN (rs.startcontactcd != 0 ) THEN '1'
+			WHEN (rs.endcontactcd != 0 ) THEN '1'
+	        ELSE '0'
+			END AS result
+		FROM tbl_jikahocontactmaster cm left outer JOIN tbl_jikahorenrakusettei rs
         ON cm.contactcd = rs.startcontactcd or cm.contactcd = rs.endcontactcd
          order by cm.contactcd asc
         ) foo ;
