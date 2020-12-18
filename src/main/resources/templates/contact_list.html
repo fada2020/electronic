@@ -265,9 +265,8 @@
 	    	{targets:[4],
 	    		data: "description_u",
 	            render: function ( data, type, row, meta ) {
-
 	            	if(row.enable=='3'){
-	            		if(!row.startcontactcd&&!row.endcontactcd){
+	            		if(row.result=='0'){
 	                	    return '<input type="hidden"class="hidden" id="hidden" name="hidden"value="'+row.contactcd+'"><button type="button" class="btn btn-sm btn-primary updateButton margin-left" data-toggle="modal" data-target="#updateModal"><i class="fa fa-edit"></i>編集</button>'
 	                        +'<button type="button" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal" ><i class="fa fa-eraser"></i> 削除</button>';
 	                	}else{
@@ -328,7 +327,7 @@
 		    }
 
 	    //電話番号の桁数検査
-	 　　 if($("#contactphoneno").val().length>phoneLength){
+	  if($("#contactphoneno").val().length>phoneLength){
 	    	$("#errMessage").html("電話番号は"+phoneLength+errLength);
 	    	$("#errMessage")[0].hidden = false;
 	        $("#contactphoneno").focus();
