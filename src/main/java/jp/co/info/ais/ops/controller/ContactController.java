@@ -75,8 +75,6 @@ public class ContactController {
 				sObject.put("contactname", list.get(i).getContactname());
 				sObject.put("enable", enable);
 				sObject.put("result", list.get(i).getResult());
-				sObject.put("startcontactcd", list.get(i).getStartcontactcd());
-				sObject.put("endcontactcd", list.get(i).getEndcontactcd());
 				sObject.put("contactphoneno", list.get(i).getContactphoneno());
 				sObject.put("contactmailaddress", list.get(i).getContactmailaddress());
 				jArray.add(sObject);
