@@ -35,12 +35,14 @@
 			<set>
 			<if test="status != null and !status.equals('')">
 				status=#{status},
-				starttime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
 				upoatime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
 				upoaid=#{upoaid},
 				upoaname=#{upoaname},
 				<if test="status == @jp.co.info.ais.ops.domain.Setting@STOP">
 					endjdgsw=#{status},
+				</if>
+				<if test="status == @jp.co.info.ais.ops.domain.Setting@START">
+					starttime=TO_TIMESTAMP(#{starttime}, 'YYYY/MM/DD HH24:MI:SS'),
 				</if>
 			</if>
 

@@ -17,7 +17,7 @@
 	<!-- datetimepicker -->
 	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
 	<!-- dataTable -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+    <link rel="stylesheet" href="../static/vendors/DataTables/datatables.css">
 </head>
 
 <body>
@@ -129,7 +129,7 @@
     <script src="../static/assets/js/datetimepicker/jquery.js"></script>
     <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- dataTable -->
-	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+    <script src="../static/vendors/DataTables/datatables.min.js"></script>
 
 <script>
 $(function(){
@@ -147,8 +147,28 @@ $(function(){
  	    searching: false,
  	    lengthMenu: [ 50, 100, 500 ],
         language: {
-            "url": "//cdn.datatables.net/plug-ins/1.10.16/i18n/Japanese.json"
-        }
+			"sEmptyTable":     "テーブルにデータがありません",
+			"sInfo":           " _TOTAL_ 件中 _START_ から _END_ まで表示",
+			"sInfoEmpty":      " 0 件中 0 から 0 まで表示",
+			"sInfoFiltered":   "（全 _MAX_ 件より抽出）",
+			"sInfoPostFix":    "",
+			"sInfoThousands":  ",",
+			"sLengthMenu":     "_MENU_ 件表示",
+			"sLoadingRecords": "読み込み中...",
+			"sProcessing":     "処理中...",
+			"sSearch":         "検索:",
+			"sZeroRecords":    "一致するレコードがありません",
+			"oPaginate": {
+			  "sFirst":    "先頭",
+			  "sLast":     "最終",
+			  "sNext":     "次",
+			  "sPrevious": "前"
+			},
+			"oAria": {
+			  "sSortAscending":  ": 列を昇順に並べ替えるにはアクティブにする",
+			  "sSortDescending": ": 列を降順に並べ替えるにはアクティブにする"
+			}
+		}
  	} );
 });
 
