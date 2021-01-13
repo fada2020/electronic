@@ -33,11 +33,11 @@
                         <a href="/ops/history" th:href="@{/history/}"> <i class="menu-icon fa fa-tasks"></i>操作履歴一覧 </a>
                     </li>
                      -->
-                    <li class="">
+                    <li class="" th:if="${session.enable == '3'}">
                         <a href="/ops/master" th:if="${session.id != null}" th:href="@{/master/}"> <i class="menu-icon fa fa-group"></i>権限設定 </a>
                          <a href="/ops/master" th:if="${session.id == null}" th:href="@{/}"> <i class="menu-icon fa fa-group"></i>権限設定 </a>
                     </li>
-                    <li class="">
+                    <li class="" th:if="${session.enable == '3'}">
                         <a href="/ops/master" th:if="${session.id != null}" th:href="@{/contact/}"> <i class="menu-icon fa fa-group"></i>連絡先マスタ </a>
                          <a href="/ops/master" th:if="${session.id == null}" th:href="@{/}"> <i class="menu-icon fa fa-group"></i>連絡先マスタ </a>
                     </li>

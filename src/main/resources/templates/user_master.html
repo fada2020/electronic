@@ -64,18 +64,11 @@ tr,td {
                          <div class="col-7" style="float: left; text-align: left;">
                         <div class="form-group form-inline" style="margin-bottom:0px;">
 
-                            <div class="input-group">
-                                <label style="font-size:15px; margin-right:15px; margin-left:20px;" >
-                                アカウント
-                                </label>
-                                <input class="form-control input-sm" id="account" name="account"type="text"
-                                maxlength="15;" style="margin-right:15px; width:150px;  "/>
-                            </div>
        						<div class="input-group">
                                 <label style="font-size:15px; margin-right:15px; margin-left:20px;" >
-                                ユーザー名称
+                                ユーザーカナ
                                 </label>
-                                <input class="form-control input-sm" type="text"  style="margin-right:50px; width:150px;" id ="username" name = "username" />
+                                <input class="form-control input-sm" type="text"  style="margin-right:50px; width:150px;" id ="userkana" name = "userkana" />
                             </div>
                             <button type="button" class="btn btn-sm btn-primary searchButton" id="searchButton" name="searchButton"><i class="fa fa-search"></i> 検索</button>
                         </div>
@@ -119,9 +112,10 @@ tr,td {
     <script th:src="@{/static/assets/js/datetimepicker/jquery.datetimepicker.full.js}"></script>
 	<!-- dataTable -->
     <script src="../static/vendors/DataTables/datatables.min.js"></script>
+
 <script>
 
-$('.searchButton').on('click', function() {
+/* $('.searchButton').on('click', function() {
 	var keywordAccount = $('#account').val();
 	var keywordName = $('#username').val();
 	 $("#masterList tr").each(function(index) {
@@ -141,8 +135,32 @@ $('.searchButton').on('click', function() {
      		        }
         }
     });
-});
+}); */
 
+$('.searchButton').on('click', function() {
+	var keyword = $('#userkana').val();
+	if(keyword == ''){
+        $("#masterList tr").each(function(index) {
+            if (index != 0) {
+                $row = $(this);
+                $(this).show();
+            }
+        });
+	}else{
+        $("#masterList tr").each(function(index) {
+            if (index != 0) {
+                $row = $(this);
+                var id = $row.find('td:eq(2)').text();
+                if (id.indexOf(keyword) !== -1) {
+                    $(this).show();
+                }else {
+                    $(this).hide();
+                }
+            }
+        });
+	}
+
+});
 $('.cancelButton').click(function(){
 	location.href="/ops/master/";
 });
@@ -190,6 +208,7 @@ var myDataTables = $("#masterList").DataTable({
 	   contentType : "application/json; charset=UTF-8",
 	   dataSrc: ''
     },
+
     /*順番通りカラムに設定する*/
     columnDefs:[
     	{ className:"enable", targets:[0], data: "enable",
@@ -202,6 +221,7 @@ var myDataTables = $("#masterList").DataTable({
     	{className:"finduser", targets:[3], data: "loginuser"}
 
     ],
+    order: [ 2, "asc" ],
     rowCallback: function( row, data, dataIndex ) {
         if(data.enable=='0'){
 

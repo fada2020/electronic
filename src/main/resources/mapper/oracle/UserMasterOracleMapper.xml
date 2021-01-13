@@ -19,9 +19,12 @@
 			  su.loginuser AS loginuser
 			  ,su.username AS username
 			  ,su.mailaddr AS mailaddr
+			  ,su.usernamekana AS usernamekana
+			  ,su.pcmailaddr AS pcmailaddr
 			  ,su.mobiletel AS mobiletel
 			  ,sm.mailgroupname AS mailgroupname
-		 FROM sys_user su　JOIN SYS_MAILGROUP sm ON (su.mailgroupcd = sm.mailgroupcd)
+		 FROM sys_user su JOIN SYS_MAILGROUP sm ON (su.mailgroupcd = sm.mailgroupcd)
+		 order by su.usernamekana asc
 	</select>
 
  </mapper>
