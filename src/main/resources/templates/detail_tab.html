@@ -20,7 +20,8 @@
 	<!-- datetimepicker -->
 	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
 	<!-- dataTable -->
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.css"/>
+	<link rel="stylesheet" href="../static/vendors/DataTables/datatables.css">
+
     <link href='../static/vendors/Select-1.3.1/css/select.dataTables.css' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800' rel='stylesheet' type='text/css'>
 <style>
@@ -96,12 +97,12 @@ td{
 	        </div>
         </div>
 
-		<form th:action="@{/detail/insert}" name="mainFrom" id="mainFrom" method="post">
-		<input type="hidden" id="statusFlg" name="statusFlg" value="0">
-		<input type="hidden" id="viewFlag" name="viewFlag" th:value="${viewFlag}">
-		<input type="hidden" id="upUserId" name="upUserId" th:value="${session.id}">
-		<input type="hidden" id="upUserName" name="upUserName" th:value="${session.name}">
-		<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
+<form th:action="@{/detail/insert}" name="mainFrom" id="mainFrom" method="post">
+<input type="hidden" id="statusFlg" name="statusFlg" value="0">
+<input type="hidden" id="viewFlag" name="viewFlag" th:value="${viewFlag}">
+<input type="hidden" id="upUserId" name="upUserId" th:value="${session.id}">
+<input type="hidden" id="upUserName" name="upUserName" th:value="${session.name}">
+<input type="hidden" id="jdgsw" name="jdgsw" th:value="${detailTab.jdgsw}">
 
         <div class="content mt-3">
             <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -235,7 +236,7 @@ td{
                     <div class="col-6">
                         <h5>開始連絡</h5>
                         <div class="card card-body">
-                            <!-- 開始連絡 -->
+                            <!-- 開始連絡　-->
                             <div class="row form-group form-group-sm">
                                 <div class="col-3" style="font-size: 15px;">
                                     連絡先
@@ -1451,8 +1452,12 @@ td{
     <script src="../static/vendors/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="../static/assets/js/main.js"></script>
 	<!-- dataTable -->
+	<!--
 	<script type="text/javascript" src="https://cdn.datatables.net/v/bs4/dt-1.10.22/datatables.min.js"></script>
+	 -->
+    <script src="../static/vendors/DataTables/datatables.js"></script>
 	<script type="text/javascript" src="../static/vendors/Select-1.3.1/js/dataTables.select.js"></script>
+
 
 <script th:inline="javascript">
 /*<![CDATA[*/
@@ -1469,7 +1474,6 @@ jQuery(document).ready(function($) {
 		    event.preventDefault();
 		  };
 		}, true);
-
 $("#startFileName").on('change',function(){
 	if(window.FileReader){
 		var filename = $(this)[0].files[0].name;

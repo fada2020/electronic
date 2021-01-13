@@ -2,6 +2,7 @@ package jp.co.info.ais.ops.domain;
 
 public class Setting {
 	public static final String STOP = "0";
+	public static final String START = "1";
 	private int rownum;				//No
 	private String customerno;		//お客様番号
 	private String customer;		//施設名
