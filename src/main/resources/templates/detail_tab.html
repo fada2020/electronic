@@ -161,14 +161,14 @@ td{
                         <h5>メール送付先</h5>
                         <div class="card card-body">
                             <div class="row form-group form-group-sm">
-                                <div class="col-3" style="font-size: 15px;">社内展開ユーザー名称<br>
+                                <div class="col-3" style="font-size: 15px;">社内ユーザー<br>
                                     <button type="button" id="userMOkBtn" class="btn btn-primary btn-sm btn_m_user" data-toggle="modal" data-target="#userSelectModal" style="display:none; margin-top: 10px;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                     <button type="button" id="userMNgBtn" class="btn btn-secondary btn-sm btn_m_user" style="margin-top:10px;"><i class="fa fa-users"></i>&nbsp; ユーザー選択</button>
                                 </div>
                                 <div class="col-9">
                                     <input type="hidden" id="loginuser" name="loginuser" th:value="${detailTab.loginuser}">
-                                    <input type="hidden" id="intermailaddr" name="intermailaddr" th:value="${detailTab.intermailaddr}">
-                                    <input type="text" id="interusername" name="interusername" class="form-control input-sm required" style="background-color:#fffacd !important; color: #000000;" readonly th:value="${detailTab.interusername}">
+                                    <input type="text" class="form-control input-sm required" id="intermailaddr" name="intermailaddr" th:value="${detailTab.intermailaddr}" style="background-color:#fffacd !important; color: #000000;" readonly>
+                                    <input type="hidden" id="interusername" name="interusername"  th:value="${detailTab.interusername}">
                                 </div>
                             </div>
                             <div class="row form-group form-group-sm">
@@ -790,7 +790,7 @@ td{
                     <div class="card">
                         <div class="card-header">
                             <div class="form-group form-inline">
-                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">キーワード</label>
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">ユーザーカナ</label>
                                 <input type="text" id="adminKeyword" placeholder="" class="form-control input-sm">
                                 <button type="button" class="btn btn-primary btn_admin_search"><i class="fa fa-search"></i> 検索</button>
                             </div><!--/.form-group -->
@@ -815,6 +815,7 @@ td{
                                         <th></th>
                                         <th></th>
                                         <th ></th>
+                                        <th style="display:none;"></th>
 										<th style="display: none;"></th>
                                     </tr>
                                 </thead>
@@ -822,8 +823,9 @@ td{
 <tr th:each="admin : ${userList}" style="width: 100%;">
     <td style="width: 20%; font-size: 12px; text-align:center;" th:text="${admin.username}"></td>
     <td style="width: 20%; font-size: 12px; text-align:center;" th:text="${admin.mailgroupname}"></td>
-    <td style="width: 40%; font-size: 12px;" th:text="${admin.mailaddr}"></td>
+    <td style="width: 40%; font-size: 12px;" th:text="${admin.pcmailaddr}"></td>
     <td style="width: 20%; font-size: 12px;" th:text="${admin.mobiletel}"></td>
+    <td style="display: none; width: 0%;" th:text="${admin.usernamekana}"></td>
 	<td style="display: none; width: 0%;" th:text="${admin.loginuser}"></td>
 </tr>
                                 </tbody>
@@ -857,7 +859,7 @@ td{
                     <div class="card">
                         <div class="card-header">
                             <div class="form-group form-inline">
-                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">キーワード</label>
+                                <label class=" form-control-label" style="font-size: 14px; margin-right: 10px;">ユーザーカナ</label>
                                 <input type="text" id="userKeyword" placeholder="" class="form-control input-sm">
                                 <button type="button" class="btn btn-primary btn_user_search"><i class="fa fa-search"></i> 検索</button>
                             </div><!--/.form-group -->
@@ -883,6 +885,7 @@ td{
                                         <th ></th>
                                         <th ></th>
                                         <th style="display:none;"></th>
+                                        <th style="display:none;"></th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -892,7 +895,8 @@ td{
 	</td>
     <td style="width: 30%; font-size: 12px;"th:text="${user.username}"></td>
     <td style="width: 20%; font-size: 12px;"th:text="${user.mailgroupname}"></td>
-    <td style="width: 40%; font-size: 12px;"th:text="${user.mailaddr}"></td>
+    <td style="width: 40%; font-size: 12px;"th:text="${user.pcmailaddr}"></td>
+    <td style="width: 0%; font-size: 12px; display:none;"th:text="${user.usernamekana}"></td>
     <td style="width: 0%; font-size: 12px; display:none;"th:text="${user.loginuser}"></td>
 </tr>
                                 </tbody>
@@ -1934,7 +1938,7 @@ jQuery(function($){
             $("#adminList tr").each(function(index) {
                 if (index != 0) {
                     $row = $(this);
-                    var admin = $row.find('td:eq(0)').text();
+                    var admin = $row.find('td:eq(4)').text();
                     if (admin.indexOf(adminKeyword) !== -1) {
                         $(this).show();
                     }else {
@@ -1959,7 +1963,7 @@ jQuery(function($){
             $("#userList tr").each(function(index) {
                 if (index != 0) {
                     $row = $(this);
-                    var user = $row.find('td:eq(1)').text();
+                    var user = $row.find('td:eq(4)').text();
                     if (user.indexOf(userKeyword) !== -1) {
                         $(this).show();
                     }else {
