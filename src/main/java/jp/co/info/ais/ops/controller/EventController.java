@@ -44,7 +44,6 @@ public class EventController {
 
 	//エラーを表すための宣言
 	private static final Logger logger = LoggerFactory.getLogger(EventController.class);
-	private static final String SEARCH_FLAG = "search";
 	private static final String EXCEL_FLAG = "excel";
 	private static final String FIXED_EVENTKIND_MAIL = "1";
 	private static final String FIXED_EVENTKIND_MAIL_TXT = "メール";
@@ -60,6 +59,7 @@ public class EventController {
 	private static final String FIXED_STATUS_OK_TXT = "正常終了";
 	private static final String FIXED_STATUS_NG = "2";
 	private static final String FIXED_STATUS_NG_TXT = "失敗";
+	private static final int FIXED_EXCEL_RECORD_CNT = 1000;
 
 	@Autowired
 	HttpSession session;
@@ -200,6 +200,8 @@ public class EventController {
 			}else {
 				paraMap.put("kinds", null);
 			}
+			paraMap.put("autoFlag", 'N');
+
 			//データ取得
 			List<EventList> list = null;
 			list = eventService.selectEventList(paraMap);
@@ -216,7 +218,12 @@ public class EventController {
 
 			//Excelファイル出力
 			if(flag.equals(EXCEL_FLAG)) {
-				ExcelDown(list, response);
+				boolean ref = ExcelDown(list, response);
+				if(!ref) {
+					model.addAttribute("excel_download_error", true);
+				}else {
+					model.addAttribute("excel_download_error", false);
+				}
 			}
 
 		}catch (Exception e) {
@@ -234,129 +241,134 @@ public class EventController {
 	 * @param response
 	 * @throws Exception
 	 */
-	private void ExcelDown(List<EventList> list, HttpServletResponse response) throws Exception  {
+	private boolean ExcelDown(List<EventList> list, HttpServletResponse response) throws Exception  {
+
 		try {
 
-			//ワークブック生成
-		    Workbook wb = new HSSFWorkbook();
-		    org.apache.poi.ss.usermodel.Sheet sheet = wb.createSheet("メールリスト");
-		    Row row = null;
-		    Cell cell = null;
-		    int rowNo = 0;
+			if(list.size() > FIXED_EXCEL_RECORD_CNT) {
+				System.out.println("1000 OVER CHECK NG");
+				return false;
+			}else {
+				//ワークブック生成
+			    Workbook wb = new HSSFWorkbook();
+			    org.apache.poi.ss.usermodel.Sheet sheet = wb.createSheet("メールリスト");
+			    Row row = null;
+			    Cell cell = null;
+			    int rowNo = 0;
 
 
-		    //ヘッダースタイル
-		    CellStyle headStyle = wb.createCellStyle();
+			    //ヘッダースタイル
+			    CellStyle headStyle = wb.createCellStyle();
 
-		    //セルの幅
-		    sheet.setColumnWidth(0, 5000);
-		    sheet.setColumnWidth(1, 7500);
-		    sheet.setColumnWidth(2, 9000);
-		    sheet.setColumnWidth(3, 2000);
-		    sheet.setColumnWidth(4, 2500);
-		    sheet.setColumnWidth(5, 6500);
+			    //セルの幅
+			    sheet.setColumnWidth(0, 5000);
+			    sheet.setColumnWidth(1, 7500);
+			    sheet.setColumnWidth(2, 9000);
+			    sheet.setColumnWidth(3, 2000);
+			    sheet.setColumnWidth(4, 2500);
+			    sheet.setColumnWidth(5, 6500);
 
-		    //細いセル指定
-		    headStyle.setBorderTop(BorderStyle.THIN);
-		    headStyle.setBorderBottom(BorderStyle.THIN);
-		    headStyle.setBorderLeft(BorderStyle.THIN);
-		    headStyle.setBorderRight(BorderStyle.THIN);
+			    //細いセル指定
+			    headStyle.setBorderTop(BorderStyle.THIN);
+			    headStyle.setBorderBottom(BorderStyle.THIN);
+			    headStyle.setBorderLeft(BorderStyle.THIN);
+			    headStyle.setBorderRight(BorderStyle.THIN);
 
-		    //背景色
-		    headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
-		    headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+			    //背景色
+			    headStyle.setFillForegroundColor(HSSFColorPredefined.YELLOW.getIndex());
+			    headStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 
-		    //データ位置をセンター
-		    headStyle.setAlignment(HorizontalAlignment.CENTER);
+			    //データ位置をセンター
+			    headStyle.setAlignment(HorizontalAlignment.CENTER);
 
-		    //データ用セルスタイルの枠線指定
-		    CellStyle bodyStyle = wb.createCellStyle();
-		    bodyStyle.setBorderTop(BorderStyle.THIN);
-		    bodyStyle.setBorderBottom(BorderStyle.THIN);
-		    bodyStyle.setBorderLeft(BorderStyle.THIN);
-		    bodyStyle.setBorderRight(BorderStyle.THIN);
+			    //データ用セルスタイルの枠線指定
+			    CellStyle bodyStyle = wb.createCellStyle();
+			    bodyStyle.setBorderTop(BorderStyle.THIN);
+			    bodyStyle.setBorderBottom(BorderStyle.THIN);
+			    bodyStyle.setBorderLeft(BorderStyle.THIN);
+			    bodyStyle.setBorderRight(BorderStyle.THIN);
 
-		    //ヘッダー生成
-		    row = sheet.createRow(rowNo++);
-		    cell = row.createCell(0);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("発生時刻");
-		    cell = row.createCell(1);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("施設名");
-		    cell = row.createCell(2);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("イベント名称");
-		    cell = row.createCell(3);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("区分");
-		    cell = row.createCell(4);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("状態");
-		    cell = row.createCell(5);
-		    cell.setCellStyle(headStyle);
-		    cell.setCellValue("補足");
+			    //ヘッダー生成
+			    row = sheet.createRow(rowNo++);
+			    cell = row.createCell(0);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("発生時刻");
+			    cell = row.createCell(1);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("施設名");
+			    cell = row.createCell(2);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("イベント名称");
+			    cell = row.createCell(3);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("区分");
+			    cell = row.createCell(4);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("状態");
+			    cell = row.createCell(5);
+			    cell.setCellStyle(headStyle);
+			    cell.setCellValue("補足");
 
-		    //データ生成
-		    for(EventList eventlist : list) {
-		        row = ((org.apache.poi.ss.usermodel.Sheet) sheet).createRow(rowNo++);
-		        cell = row.createCell(0);
-		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getOccurtime());
-		        cell = row.createCell(1);
-		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getCustomer());
-		        cell = row.createCell(2);
-		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getEventname());
-		        cell = row.createCell(3);
-		        cell.setCellStyle(bodyStyle);
-		        if(eventlist.getEventkind().equals(FIXED_EVENTKIND_MAIL)) {
-			        cell.setCellValue(FIXED_EVENTKIND_MAIL_TXT);
-		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CALL)) {
-			        cell.setCellValue(FIXED_EVENTKIND_CALL_TXT);
-		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_DECIDE)) {
-			        cell.setCellValue(FIXED_EVENTKIND_DECIDE_TXT);
-		        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CONTROL)) {
-		        	cell.setCellValue(FIXED_EVENTKIND_CONTROL_TXT);
-		        }else {
-			        cell.setCellValue('-');
-		        }
-		        cell = row.createCell(4);
-		        cell.setCellStyle(bodyStyle);
-		        if(eventlist.getStatus().equals(FIXED_STATUS_NON)) {
-			        cell.setCellValue(FIXED_STATUS_NON_TXT);
-		        }else if(eventlist.getStatus().equals(FIXED_STATUS_OK)) {
-			        cell.setCellValue(FIXED_STATUS_OK_TXT);
-		        }else if(eventlist.getStatus().equals(FIXED_STATUS_NG)) {
-			        cell.setCellValue(FIXED_STATUS_NG_TXT);
-		        }else {
-			        cell.setCellValue('-');
-		        }
-		        //補足:comments
-		        cell = row.createCell(5);
-		        cell.setCellStyle(bodyStyle);
-		        cell.setCellValue(eventlist.getComments());
-		    }
+			    //データ生成
+			    for(EventList eventlist : list) {
+			        row = ((org.apache.poi.ss.usermodel.Sheet) sheet).createRow(rowNo++);
+			        cell = row.createCell(0);
+			        cell.setCellStyle(bodyStyle);
+			        cell.setCellValue(eventlist.getOccurtime());
+			        cell = row.createCell(1);
+			        cell.setCellStyle(bodyStyle);
+			        cell.setCellValue(eventlist.getCustomer());
+			        cell = row.createCell(2);
+			        cell.setCellStyle(bodyStyle);
+			        cell.setCellValue(eventlist.getEventname());
+			        cell = row.createCell(3);
+			        cell.setCellStyle(bodyStyle);
+			        if(eventlist.getEventkind().equals(FIXED_EVENTKIND_MAIL)) {
+				        cell.setCellValue(FIXED_EVENTKIND_MAIL_TXT);
+			        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CALL)) {
+				        cell.setCellValue(FIXED_EVENTKIND_CALL_TXT);
+			        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_DECIDE)) {
+				        cell.setCellValue(FIXED_EVENTKIND_DECIDE_TXT);
+			        }else if(eventlist.getEventkind().equals(FIXED_EVENTKIND_CONTROL)) {
+			        	cell.setCellValue(FIXED_EVENTKIND_CONTROL_TXT);
+			        }else {
+				        cell.setCellValue('-');
+			        }
+			        cell = row.createCell(4);
+			        cell.setCellStyle(bodyStyle);
+			        if(eventlist.getStatus().equals(FIXED_STATUS_NON)) {
+				        cell.setCellValue(FIXED_STATUS_NON_TXT);
+			        }else if(eventlist.getStatus().equals(FIXED_STATUS_OK)) {
+				        cell.setCellValue(FIXED_STATUS_OK_TXT);
+			        }else if(eventlist.getStatus().equals(FIXED_STATUS_NG)) {
+				        cell.setCellValue(FIXED_STATUS_NG_TXT);
+			        }else {
+				        cell.setCellValue('-');
+			        }
+			        //補足:comments
+			        cell = row.createCell(5);
+			        cell.setCellStyle(bodyStyle);
+			        cell.setCellValue(eventlist.getComments());
+			    }
 
-		    //コンテンツタイプとファイル名指定
-		    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
-		    Date nowdate = new Date();
-		    String dateString = formatter.format(nowdate);
+			    //コンテンツタイプとファイル名指定
+			    SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMddHHmm");
+			    Date nowdate = new Date();
+			    String dateString = formatter.format(nowdate);
 
-		    response.setContentType("ms-vnd/excel");
-		    response.setHeader("Content-Disposition", "attachment;filename=mail_list_"+dateString+".xls");
+			    response.setContentType("ms-vnd/excel");
+			    response.setHeader("Content-Disposition", "attachment;filename=mail_list_"+dateString+".xls");
 
-
-		    //excel 出力
-		    wb.write(response.getOutputStream());
-		    wb.close();
-		    response.getOutputStream().close();
-
-
+			    //excel 出力
+			    wb.write(response.getOutputStream());
+			    wb.close();
+			    response.getOutputStream().close();
+			}
 		}catch (Exception e) {
 			logger.error(e.getMessage());
+			return false;
 		}
+		return true;
 	}
 
     /**
@@ -416,6 +428,7 @@ public class EventController {
 			}else {
 				paraMap.put("kinds", null);
 			}
+			paraMap.put("autoFlag", 'Y');
 
 			//一覧データ取得（全データ）
 			list = eventService.selectEventList(paraMap);

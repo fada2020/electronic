@@ -50,7 +50,12 @@
 		     AND te.eventkind IN
 				<foreach item="item" index="index" collection="kinds" open="(" separator="," close=")">#{item}</foreach>
 		  </if>
-		ORDER BY tl.occurtime DESC
+		  ORDER BY tl.occurtime DESC
+		  <if test="(autoFlag != null and autoFlag == 'Y')">
+		  LIMIT 15
+		  </if>
+
+
 	</select>
 
 	<select id="eventKind"  parameterType="jp.co.info.ais.ops.domain.Setting" resultType="jp.co.info.ais.ops.domain.Setting">
