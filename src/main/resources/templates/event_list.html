@@ -6,7 +6,9 @@
     <title>OPS:Event</title>
     <meta name="description" content="OPS">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="favicon.ico">
+	<meta http-equiv="Cache-Control" content="no-cache"/>
+	<meta http-equiv="Expires" content="-1"/>
+	<meta http-equiv="Pragma" content="no-cache"/>
 
     <link rel="stylesheet" href="../static/vendors/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="../static/vendors/font-awesome/css/font-awesome.min.css">
@@ -18,7 +20,7 @@
 	<!-- datetimepicker -->
 	<link rel="stylesheet" href="../static/assets/css/datetimepicker/jquery.datetimepicker.css">
 	<!-- dataTable -->
-    <link rel="stylesheet" href="../static/assets/css/datatables.css">
+    <link rel="stylesheet" href="../static/vendors/DataTables/datatables.css">
 
 <style>
 	.alignCenter{
@@ -194,7 +196,7 @@
     <script src="../static/assets/js/datetimepicker/jquery.js"></script>
     <script src="../static/assets/js/datetimepicker/jquery.datetimepicker.full.js"></script>
 	<!-- dataTable -->
-    <script src="../static/assets/js/datatables.js"></script>
+    <script src="../static/vendors/DataTables/datatables.js"></script>
 
 <form th:action="@{/event/}" name="hidSearchForm" id="hidSearchForm" method="post">
 	<input type="hidden" id="flag" name="flag">
@@ -209,273 +211,279 @@
 </form>
 
 <script>
-
-/*画面初期*/
-var table = $('#eventList').DataTable({
-		autoWidth: true,
-	    fixedHeader: true,
-	    searching: false,
-	    scrollY: 450,
-	    scrollerCollapse: true,
-	    lengthMenu: [ 15, 30, 50 ],
-	    order: [ 0, "DESC" ],
-	    fnStandingRedraw: true,
-	    bStateSave: true,
-	    language: {
-			"sEmptyTable":     "テーブルにデータがありません",
-	    	"sInfo":           " _TOTAL_ 件中 _START_ から _END_ まで表示",
-　　　　　　　　	"sInfoEmpty":      " 0 件中 0 から 0 まで表示",
-	    	"sInfoFiltered":   "（全 _MAX_ 件より抽出）",
-	    	"sInfoPostFix":    "",
-	    	"sInfoThousands":  ",",
-	    	"sLengthMenu":     "_MENU_ 件表示",
-	    	"sLoadingRecords": "読み込み中...",
-	    	"sProcessing":     "処理中...",
-	    	"sSearch":         "検索:",
-	    	"sZeroRecords":    "一致するレコードがありません",
-	    	"oPaginate": {
-	    		"sFirst":    "先頭",
-	    		"sLast":     "最終",
-	    		"sNext":     "次",
-	    		"sPrevious": "前"
-	    	},
-	    	"oAria": {
-    			"sSortAscending":  ": 列を昇順に並べ替えるにはアクティブにする",
-    			"sSortDescending": ": 列を降順に並べ替えるにはアクティブにする"
-    		}
-	    },
-        ajax:{
-    	  url:  /*[[@{/getListAuto}]]*/ 'getListAuto',
-    	  type: "POST",
-    	  data: function ( d ) {
-	    		  d.fromDateTime=$("#fromDateTime").val();
-	    		  d.toDateTime=$("#toDateTime").val();
-	    		  d.chkStatus0=$("#chkStatus0").val();
-	    		  d.chkStatus1=$("#chkStatus1").val();
-	    		  d.chkStatus2=$("#chkStatus2").val();
-	    		  d.chkKind1=$("#chkKind1").val();
-	    		  d.chkKind2=$("#chkKind2").val();
-	    		  d.chkKind3=$("#chkKind3").val();
-                  return JSON.stringify(d);
-              },
-    	  dataType: "json",
-    	  contentType : "application/json; charset=UTF-8",
-    	  cache: false,
-    	  dataSrc: ''
-    	  },
-    	  columnDefs:[
-    	   		{className:"alignCenter", targets: [0], data: "occurtime"},
-    	        {targets: [1], data: "customer"},
-    	        {targets: [2], data: "eventname"},
-    	        {className:"alignCenter", targets: [3], data:  function ( d ) {
-    	        	 switch (d.eventkind) {
-		    	        case "1":
-		   			    	  return 'メール';
-		   			  		  break;
-		   			    case "2":
-		   			    	  return '電話';
-		   					  break;
-		   			    case "3":
-		   			    	　　return '判定';
-		   					  break;
-		   			  	case "4":
-					    	　　return '操作';
-							  break;
-		   				default:
-		   					  return '-';
-		   					  break;
-	    	        }
-    	        }},
-    	   	   	{className:"alignCenter", targets: [4], data: function ( d ) {
-    	   		  switch (d.status) {
-    			    case "0":
-    			    	  return '-';
-    			  		  break;
-    			    case "1":
-    			    	  return '正常終了';
-    					  break;
-    			    case "2":
-    			    	　　return '失敗';
-    					  break;
-
-    				default:
-    					  return '-';
-    					  break;
-    	   		  }
-    	   	   	}},
-    	    	{targets: [5], data: function ( d ) {
-    	           	if(d.comments === null || d.comment === '') {
-    	           		return '';
-    	           	} else {
-    	           		return d.comments;
-    	           	}
-    	        }},
-    	    	/*renderを利用してボタンを生成*/
-    			{targets: [6],
-    	    		data: "description_u",
-    	               render: function ( data, type, row, meta ) {
-    	               	if(row.eventkind=='1'){
-    	               	   return "<button type='button' class='btn btn-sm btn-success btn_emailview'"
-    	                   +"data-toggle='modal' data-target='#exampleModalScrollable'"
-    	                   +"data-mailid='"+row.mailid
-    	                   +"'data-maildate='"+row.maildatetime
-    	                   +"'date-mailfrom='"+row.mailfrom
-    	                   +"'date-subject='"+row.mailsubject
-    	                   +"'date-mailto='"+row.mailto
-    	                   +"'date-mailcc='"+row.mailcc
-    	                   +"'date-mailtext='"+row.mailtext+"'>"
-    	     			   +"<i class='fa fa-envelope'></i>メール内容確認</button>";
-    	               	}else{
-    	               		 return "<button type='button' class='btn btn-sm btn-secondary' disabled>"
-    		    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
-    	               	}
-    	               }
-    			}
-    	    ],
-    	    rowCallback: function( row, data, dataIndex ) {
-    	    	  switch (data.eventkind) {
-    			    case "1":
-    			          $(row).find('td:eq(3)').css('color','red');
-    	         		 break;
-    			    case "2":
-    			    	 $(row).find('td:eq(2)').css('color','blue');
-    			    	 $(row).find('td:eq(3)').css('color','blue');
-    			    	break;
-    			    case "3":
-    			    	break;
-    			    case "4":
-    			    	   $(row).find('td:eq(2)').css('color','red');
-    			    	break;
-    	    	  }
-    	    }
-    });
-
-//メール内容確認
-$('#eventList').on('click','.btn_emailview', function() {
-	  var mail_id = $(this).attr('data-mailid');
-	  var mail_datetime = $(this).attr('data-maildate');
-	  var mail_from = $(this).attr('date-mailfrom');
-	  var mail_subject = $(this).attr('date-subject');
-	  var mail_to = $(this).attr('date-mailto');
-	  var mail_cc = $(this).attr('date-mailcc').replaceAll(" ", "\n");
-	  var mail_text = $(this).attr('date-mailtext');
-	  $('#mMailId').text(mail_id);
-	  $('#mMailDatetime').text(mail_datetime);
-	  $('#mMailFrom').text(mail_from);
-	  $('#mMailSubject').text(mail_subject);
-	  $('#mMailTo').text(mail_to);
-	  $('#mMailCc').text(mail_cc);
-	  $("#mMailText").val(mail_text); //textarea改行処理
-});
-
 jQuery(document).ready(function($) {
-    $.datetimepicker.setLocale("ja");
+	/*画面初期*/
+	var table = $('#eventList').DataTable({
+			autoWidth: true,
+		    fixedHeader: true,
+		    searching: false,
+		    scrollY: 450,
+		    scrollerCollapse: true,
+		    lengthMenu: [ 15, 30, 50 ],
+		    order: [],
+		    fnStandingRedraw: true,
+		    bStateSave: true,
+		    language: {
+				"sEmptyTable":     "テーブルにデータがありません",
+		    	"sInfo":           " _TOTAL_ 件中 _START_ から _END_ まで表示",
+	　　　　　　　　	"sInfoEmpty":      " 0 件中 0 から 0 まで表示",
+		    	"sInfoFiltered":   "（全 _MAX_ 件より抽出）",
+		    	"sInfoPostFix":    "",
+		    	"sInfoThousands":  ",",
+		    	"sLengthMenu":     "_MENU_ 件表示",
+		    	"sLoadingRecords": "読み込み中...",
+		    	"sProcessing":     "処理中...",
+		    	"sSearch":         "検索:",
+		    	"sZeroRecords":    "一致するレコードがありません",
+		    	"oPaginate": {
+		    		"sFirst":    "先頭",
+		    		"sLast":     "最終",
+		    		"sNext":     "次",
+		    		"sPrevious": "前"
+		    	},
+		    	"oAria": {
+	    			"sSortAscending":  ": 列を昇順に並べ替えるにはアクティブにする",
+	    			"sSortDescending": ": 列を降順に並べ替えるにはアクティブにする"
+	    		}
+		    },
+	        ajax:{
+	    	  url:  /*[[@{/getListAuto}]]*/ 'getListAuto',
+	    	  type: "POST",
+	    	  data: function ( d ) {
+		    		  d.fromDateTime=$("#fromDateTime").val();
+		    		  d.toDateTime=$("#toDateTime").val();
+		    		  d.chkStatus0=$("#chkStatus0").val();
+		    		  d.chkStatus1=$("#chkStatus1").val();
+		    		  d.chkStatus2=$("#chkStatus2").val();
+		    		  d.chkKind1=$("#chkKind1").val();
+		    		  d.chkKind2=$("#chkKind2").val();
+		    		  d.chkKind3=$("#chkKind3").val();
+	                  return JSON.stringify(d);
+	              },
+	    	  dataType: "json",
+	    	  contentType : "application/json; charset=UTF-8",
+	    	  cache: false,
+	    	  dataSrc: ''
+	    	  },
+	    	  columnDefs:[
+	    	   		{className:"alignCenter", targets: [0], data: "occurtime"},
+	    	        {targets: [1], data: "customer"},
+	    	        {targets: [2], data: "eventname"},
+	    	        {className:"alignCenter", targets: [3], data:  function ( d ) {
+	    	        	 switch (d.eventkind) {
+			    	        case "1":
+			   			    	  return 'メール';
+			   			  		  break;
+			   			    case "2":
+			   			    	  return '電話';
+			   					  break;
+			   			    case "3":
+			   			    	　　return '判定';
+			   					  break;
+			   			  	case "4":
+						    	　　return '操作';
+								  break;
+			   				default:
+			   					  return '-';
+			   					  break;
+		    	        }
+	    	        }},
+	    	   	   	{className:"alignCenter", targets: [4], data: function ( d ) {
+	    	   		  switch (d.status) {
+	    			    case "0":
+	    			    	  return '-';
+	    			  		  break;
+	    			    case "1":
+	    			    	  return '正常終了';
+	    					  break;
+	    			    case "2":
+	    			    	　　return '失敗';
+	    					  break;
+
+	    				default:
+	    					  return '-';
+	    					  break;
+	    	   		  }
+	    	   	   	}},
+	    	    	{targets: [5], data: function ( d ) {
+	    	           	if(d.comments === null || d.comment === '') {
+	    	           		return '';
+	    	           	} else {
+	    	           		return d.comments;
+	    	           	}
+	    	        }},
+	    	    	/*renderを利用してボタンを生成*/
+	    			{targets: [6],
+	    	    		data: "description_u",
+	    	               render: function ( data, type, row, meta ) {
+	    	               	if(row.eventkind=='1'){
+	    	               	   return "<button type='button' class='btn btn-sm btn-success btn_emailview'"
+	    	                   +"data-toggle='modal' data-target='#exampleModalScrollable'"
+	    	                   +"data-mailid='"+row.mailid
+	    	                   +"'data-maildate='"+row.maildatetime
+	    	                   +"'date-mailfrom='"+row.mailfrom
+	    	                   +"'date-subject='"+row.mailsubject
+	    	                   +"'date-mailto='"+row.mailto
+	    	                   +"'date-mailcc='"+row.mailcc
+	    	                   +"'date-mailtext='"+row.mailtext+"'>"
+	    	     			   +"<i class='fa fa-envelope'></i>メール内容確認</button>";
+	    	               	}else{
+	    	               		 return "<button type='button' class='btn btn-sm btn-secondary' disabled>"
+	    		    			  +"<i class='fa fa-envelope'></i>メール内容確認</button>";
+	    	               	}
+	    	               }
+	    			}
+	    	    ],
+	    	    order:[],
+	    	    rowCallback: function( row, data, dataIndex ) {
+	    	    	  switch (data.eventkind) {
+	    			    case "1":
+	    			          $(row).find('td:eq(3)').css('color','red');
+	    	         		 break;
+	    			    case "2":
+	    			    	 $(row).find('td:eq(2)').css('color','blue');
+	    			    	 $(row).find('td:eq(3)').css('color','blue');
+	    			    	break;
+	    			    case "3":
+	    			    	break;
+	    			    case "4":
+	    			    	   $(row).find('td:eq(2)').css('color','red');
+	    			    	break;
+	    	    	  }
+	    	    }
+	});
+	//項目ソートを設定
+	table.column('0:visible').order('DESC').draw();
+
+	//メール内容確認
+	$('#eventList').on('click','.btn_emailview', function() {
+		  var mail_id = $(this).attr('data-mailid');
+		  var mail_datetime = $(this).attr('data-maildate');
+		  var mail_from = $(this).attr('date-mailfrom');
+		  var mail_subject = $(this).attr('date-subject');
+		  var mail_to = $(this).attr('date-mailto');
+		  var mail_cc = $(this).attr('date-mailcc').replaceAll(" ", "\n");
+		  var mail_text = $(this).attr('date-mailtext');
+		  $('#mMailId').text(mail_id);
+		  $('#mMailDatetime').text(mail_datetime);
+		  $('#mMailFrom').text(mail_from);
+		  $('#mMailSubject').text(mail_subject);
+		  $('#mMailTo').text(mail_to);
+		  $('#mMailCc').text(mail_cc);
+		  $("#mMailText").val(mail_text); //textarea改行処理
+	});
+
+	$.datetimepicker.setLocale("ja");
  	$('#fromDate').datetimepicker({
  	    lang:'ja'
  	});
  	$('#toDate').datetimepicker({
  	    lang:'ja'
  	});
-});
 
-//検索処理を行う。
-$('#searchBtn').on('click', function() {
-	 var fDateTime = $('#fromDate').val();
- 	 var tDateTime = $('#toDate').val();
+	//検索処理を行う。
+	$('#searchBtn').on('click', function() {
+		 var fDateTime = $('#fromDate').val();
+	 	 var tDateTime = $('#toDate').val();
 
- 	 if(tDateTime != '' && fDateTime != ''){
- 	 	 if(tDateTime < fDateTime){
- 	 		 alert('開始日が終了日を超えています。');
- 	 		 return false;
- 	 	 }
- 	 }
- 	 setFormData();
- 	 $('#flag').val('search');
+	 	 if(tDateTime != '' && fDateTime != ''){
+	 	 	 if(tDateTime < fDateTime){
+	 	 		 alert('開始日が終了日を超えています。');
+	 	 		 return false;
+	 	 	 }
+	 	 }
+	 	 setFormData();
+	 	 $('#flag').val('search');
+	 	 $('#eventList').DataTable().ajax.reload();
+	});
+	//チェックボックス処理を行う。
+	$('.checkbox-input').on('change', function() {
+		 var fDateTime = $('#fromDate').val();
+	 	 var tDateTime = $('#toDate').val();
 
- 	$('#eventList').DataTable().ajax.reload();
-});
-//チェックボックス処理を行う。
-$('.checkbox-input').on('change', function() {
-	 var fDateTime = $('#fromDate').val();
- 	 var tDateTime = $('#toDate').val();
+	 	 if(tDateTime != '' && fDateTime != ''){
+	 	 	 if(tDateTime < fDateTime){
+				 return false;
+	 	 	 }
+	 	 }
+	 	 setFormData();
+	 	 $('#flag').val('search');
+	 	$('#eventList').DataTable().ajax.reload();
+	});
+	//チェックボックス処理が間違ったときinput条件
+	$('.form-control').keyup(function() {
+		 var fDateTime = $('#fromDate').val();
+	 	 var tDateTime = $('#toDate').val();
 
- 	 if(tDateTime != '' && fDateTime != ''){
- 	 	 if(tDateTime < fDateTime){
-			 return false;
- 	 	 }
- 	 }
- 	 setFormData();
- 	 $('#flag').val('search');
- 	$('#eventList').DataTable().ajax.reload();
-});
-//チェックボックス処理が間違ったときinput条件
-$('.form-control').keyup(function() {
-	 var fDateTime = $('#fromDate').val();
- 	 var tDateTime = $('#toDate').val();
+	 	if(tDateTime != '' && fDateTime != ''){
+	 	 	 if(tDateTime < fDateTime){
+				$('.checkbox-input').prop("disabled",true);
+				return false;
+			}
+	 	 	 if(tDateTime > fDateTime){
+	 	 		$('.checkbox-input').prop("disabled",false);
+			}
+	 	}
+	 		if(tDateTime != '' || fDateTime != ''){
+	 			$('.checkbox-input').prop("disabled",false);
+	 		}
+	});
+	//チェックボックス処理が間違ったときcheck条件
+	$('.form-control').change(function() {
+		 var fDateTime = $('#fromDate').val();
+	 	 var tDateTime = $('#toDate').val();
 
- 	if(tDateTime != '' && fDateTime != ''){
- 	 	 if(tDateTime < fDateTime){
-			$('.checkbox-input').prop("disabled",true);
-			return false;
-		}
- 	 	 if(tDateTime > fDateTime){
- 	 		$('.checkbox-input').prop("disabled",false);
-		}
- 	}
- 		if(tDateTime != '' || fDateTime != ''){
- 			$('.checkbox-input').prop("disabled",false);
- 		}
-});
-//チェックボックス処理が間違ったときcheck条件
-$('.form-control').change(function() {
-	 var fDateTime = $('#fromDate').val();
- 	 var tDateTime = $('#toDate').val();
+	 	if(tDateTime != '' && fDateTime != ''){
+	 	 	 if(tDateTime < fDateTime){
+	 	 		$('.checkbox-input').prop("disabled",true);
+				return false;
+	 	 	}
+	 	 	 if(tDateTime > fDateTime){
+	 	 		$('.checkbox-input').prop("disabled",false);
+			}
+	 	}
+	 		if(tDateTime != '' || fDateTime != ''){
+	 	 		$('.checkbox-input').prop("disabled",false);
+	 	 	}
+	});
 
- 	if(tDateTime != '' && fDateTime != ''){
- 	 	 if(tDateTime < fDateTime){
- 	 		$('.checkbox-input').prop("disabled",true);
-			return false;
- 	 	}
- 	 	 if(tDateTime > fDateTime){
- 	 		$('.checkbox-input').prop("disabled",false);
-		}
- 	}
- 		if(tDateTime != '' || fDateTime != ''){
- 	 		$('.checkbox-input').prop("disabled",false);
- 	 	}
-});
+	//エクセルファイル出力処理を行う。
+	$('#excelBtn').on('click', function() {
+		  setFormData();
+		  $('#flag').val('excel');
+		  $('#hidSearchForm').submit();
+	});
+	//自動実行処理を行う。
+	$('#autoexecuteBtn').on('click', function() {
+		//発生日時（開始日時・終了日時）をクリア
+		$('#fromDate').val('');
+		$('#toDate').val('');
+		//自動更新中は１ページに15行のみ表示する。
+		table.page.len(15).draw();
+	    //自動更新中にもチェックボックスは外せるようにする。
+	 	//$('.checkbox-input').prop("disabled",true);
+		$('.disabled-text').prop("disabled",true);
+		$('#autoexecuteBtn').hide();
+		$('#excelBtn').hide();
+		$('#searchBtn').hide();
+		$('#executeStopBtn').show();
+		$('#excelStopBtn').show();
+		$('#searchStopBtn').show();
+		startAutoRenew();
+	});
 
-//エクセルファイル出力処理を行う。
-$('#excelBtn').on('click', function() {
-	  setFormData();
-	  $('#flag').val('excel');
-	  $('#hidSearchForm').submit();
-});
-//自動実行処理を行う。
-$('#autoexecuteBtn').on('click', function() {
-	$('.checkbox-input').prop("disabled",true);
-	$('.disabled-text').prop("disabled",true);
-	$('#autoexecuteBtn').hide();
-	$('#excelBtn').hide();
-	$('#searchBtn').hide();
-	$('#executeStopBtn').show();
-	$('#excelStopBtn').show();
-	$('#searchStopBtn').show();
-	startAutoRenew();
-
-});
-
-//自動実行処理を止まる。
-$('#executeStopBtn').on('click', function() {
-	$('.checkbox-input').prop("disabled", false);
-	$('.disabled-text').prop("disabled", false);
-	$('#executeStopBtn').hide();
-	$('#excelStopBtn').hide();
-	$('#searchStopBtn').hide();
-	$('#autoexecuteBtn').show();
-	$('#excelBtn').show();
-	$('#searchBtn').show();
-	stopAutoRenew();
+	//自動実行処理を止まる。
+	$('#executeStopBtn').on('click', function() {
+		//$('.checkbox-input').prop("disabled", false);
+		$('.disabled-text').prop("disabled", false);
+		$('#executeStopBtn').hide();
+		$('#excelStopBtn').hide();
+		$('#searchStopBtn').hide();
+		$('#autoexecuteBtn').show();
+		$('#excelBtn').show();
+		$('#searchBtn').show();
+		stopAutoRenew();
+	});
 });
 
 /*繰り返しスタート*/
@@ -485,8 +493,8 @@ function startAutoRenew() {
 }
 /*繰り返しストップ*/
 function stopAutoRenew() {
-  	   setFormData();
-  		clearInterval(timerID);
+  	setFormData();
+	clearInterval(timerID);
 }
 
 /*繰り返しデータ*/
