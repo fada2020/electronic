@@ -42,7 +42,7 @@ public class UserMasterController {
 	 * @param model
 	 * @return String 画面名
 	 */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "", method = RequestMethod.POST)
     public String userMasterList(Model model) {
 
 		//戻り値
