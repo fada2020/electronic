@@ -428,7 +428,7 @@ function submitDelete() {
 	    		data : customerno
 	    	}).success(function(result) {
 	    		if(result>0){
-	    			location.href = '/ops/setting/';
+	    			location.reload(true);
 	    	}else{
 	    		alert('削除失敗');
 	    		}
@@ -593,7 +593,7 @@ function endjdgswChange(){
 		data : jsonData
 	}).success(function(result) {
 		if(result>0){
-			location.href = '/ops/setting/';
+			location.reload(true);
 	}else{
 		alert('現況変更失敗');
 		}
@@ -633,7 +633,7 @@ function genkyoChange(){
 		data : jsonData
 	}).success(function(result) {
 		if(result>0){
-			location.href = '/ops/setting/';
+			location.reload(true);
 	}else{
 		alert('現況変更失敗');
 		}

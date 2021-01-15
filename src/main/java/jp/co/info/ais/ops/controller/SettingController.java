@@ -65,25 +65,7 @@ public class SettingController {
 	private static final String NULL_TXT = "-";
 	private static final String CALENDAR_TXT = "-";
 
-	/**
-	 * 設定一覧画面出力
-	 *
-	 * @param model
-	 * @return String 画面名
-	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String SettingList(Model model, HttpServletRequest request) throws Exception {
-		try {
-			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
-		    Date nowdate = new Date();
-		    String dateString = formatter.format(nowdate);
-		    model.addAttribute("date",dateString+" 現在");
-		} catch (Exception e) {
-			logger.error(e.getMessage());
-		}
-		//戻り値
-		return "setting";
-	}
+
 	/**
 	 * 設定一覧画面出力
 	 *
@@ -93,6 +75,10 @@ public class SettingController {
 	@RequestMapping(value = "", method = RequestMethod.POST)
 	public String excelExport(Model model, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy/MM/dd HH:mm");
+		    Date nowdate = new Date();
+		    String dateString = formatter.format(nowdate);
+		    model.addAttribute("date",dateString+" 現在");
 			String flag = request.getParameter("flag");
 			//パラメータ格納
 			List<Setting> list = null;

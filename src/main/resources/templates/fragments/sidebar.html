@@ -14,36 +14,49 @@
                 <a class="navbar-brand" style="line-height: 150%; top: 8px; padding: 10px; right: 20px;">自家発補給電力使用<br>自動連絡システム</a>
                 <a class="navbar-brand hidden"></a>
             </div>
-
             <div id="main-menu" class="main-menu collapse navbar-collapse"style="padding-top: 20px !important;">
                 <ul class="nav navbar-nav">
                     <li class="">
-	                    <a href="/ops/event" th:if="${session.id != null}" th:href="@{/event/}"><i class="menu-icon fa fa-calendar"></i>イベント一覧</a>
-	                      <a href="/ops/event" th:if="${session.id == null}" th:href="@{/}"><i class="menu-icon fa fa-calendar"></i>イベント一覧</a>
+                    	<a href="javascript:menuSelect(1);" th:if="${session.id != null}"><i class="menu-icon fa fa-calendar"></i>イベント一覧</a>
                     </li>
                     <li class="">
-	                    <a href="/ops/setting" th:if="${session.id != null}" th:href="@{/setting/}"><i class="menu-icon fa fa-cogs"></i>設定一覧</a>
-	                     <a href="/ops/setting" th:if="${session.id == null}" th:href="@{/}"><i class="menu-icon fa fa-cogs"></i>設定一覧</a>
-                    </li>
-                    <!--
-                    <li class="">
-	                    <a href="/ops/tab" th:href="@{/detail/}"><i class="menu-icon fa fa-gear"></i>自家補設定 </a>
-                    </li>
-                    <li class="">
-                        <a href="/ops/history" th:href="@{/history/}"> <i class="menu-icon fa fa-tasks"></i>操作履歴一覧 </a>
-                    </li>
-                     -->
-                    <li class="" th:if="${session.enable == '3'}">
-                        <a href="/ops/master" th:if="${session.id != null}" th:href="@{/master/}"> <i class="menu-icon fa fa-group"></i>権限設定 </a>
-                         <a href="/ops/master" th:if="${session.id == null}" th:href="@{/}"> <i class="menu-icon fa fa-group"></i>権限設定 </a>
+	                    <a href="javascript:menuSelect(2);" th:if="${session.id != null}"><i class="menu-icon fa fa-cogs"></i>設定一覧</a>
                     </li>
                     <li class="" th:if="${session.enable == '3'}">
-                        <a href="/ops/master" th:if="${session.id != null}" th:href="@{/contact/}"> <i class="menu-icon fa fa-group"></i>連絡先マスタ </a>
-                         <a href="/ops/master" th:if="${session.id == null}" th:href="@{/}"> <i class="menu-icon fa fa-group"></i>連絡先マスタ </a>
+                        <a href="javascript:menuSelect(3);" th:if="${session.id != null}"> <i class="menu-icon fa fa-group"></i>権限設定</a>
+                    </li>
+                    <li class="" th:if="${session.enable == '3'}">
+                        <a href="javascript:menuSelect(4);" th:if="${session.id != null}"> <i class="menu-icon fa fa-group"></i>連絡先マスタ</a>
                     </li>
                 </ul>
+                <form id="menuHidden" action="1" method="post"></form>
             </div><!-- /.navbar-collapse -->
         </nav>
+    <script th:src="@{/static/vendors/jquery/dist/jquery.min.js}"></script>
+    <script>
+		function menuSelect(menu){
+
+			switch(menu){
+			case 1:
+				$("#menuHidden").attr("action","/ops/event/");
+				break;
+			case 2:
+				$("#menuHidden").attr("action","/ops/setting/");
+				break;
+			case 3:
+				$("#menuHidden").attr("action","/ops/master/");
+				break;
+			case 4:
+				$("#menuHidden").attr("action","/ops/contact/");
+				break;
+			default:
+				$("#menuHidden").attr("action","/ops/");
+				break;
+			}
+			$("#menuHidden").submit();
+
+		}
+	</script>
     </aside><!-- /#left-panel -->
 <!-- /.sidebar -->
   </body>

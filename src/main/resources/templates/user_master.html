@@ -162,7 +162,7 @@ $('.searchButton').on('click', function() {
 
 });
 $('.cancelButton').click(function(){
-	location.href="/ops/master/";
+	location.reload(true);
 });
 
 var html = '<select class="enableFind" name="enable"><option value="-1"></option>'
@@ -268,7 +268,7 @@ $('.saveButton').on('click', function() {
 		data : JSON.stringify(param)
 	}).success(function(result) {
 		if(result>0){
-			location.href = '/ops/master/';
+			location.reload(true);
 		}else{
 			alert('保存出来ません。');
 		}

@@ -99,7 +99,7 @@ public class LoginController {
 		} catch (Exception e) {
 			logger.error("ログアウト処理エラーが発生 :" + e.toString());
 		}
-		return "login.html";
+		return "redirect:/";
 	}
 
 }

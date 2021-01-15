@@ -42,11 +42,13 @@ public class ContactController {
 	 * @param model
 	 * @return String 画面名
 	 */
-	@RequestMapping(value = "", method = RequestMethod.GET)
-	public String ContactList(Model model) {
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	public String ContactList(Model model,HttpServletRequest request) {
+
 		//戻り値
 		return "contact_list";
 	}
+
 
 	/**
 	 * 連絡先をリストに表示する.

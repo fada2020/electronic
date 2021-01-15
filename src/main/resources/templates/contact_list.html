@@ -369,7 +369,7 @@
 				data : jsonData
 			}).success(function(result) {
 				if(result>0){
-					location.href = '/ops/contact/';
+					location.reload(true);
 			}else{
 				alert('編集失敗');
 				}
@@ -442,7 +442,7 @@
 			data : jsonData
 		}).success(function(result) {
 			if(result>0){
-				location.href = '/ops/contact/';
+				location.reload(true);
 		}else{
 			alert('編集失敗');
 			}
@@ -469,7 +469,7 @@
 			data : contactcd
 		}).success(function(result) {
 			if(result>0){
-				location.href = '/ops/contact/';
+				location.reload(true);
 		}else{
 			alert('編集失敗');
 			}
