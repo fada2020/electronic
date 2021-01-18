@@ -363,41 +363,51 @@ var myDataTables = $("#setList").DataTable({
 		{targets: [9],
     		data: "description_u",
                render: function ( data, type, row, meta ) {
-               	if(row.enable=='3'){
-               	   return '<button type="button" name="changeButton" class="btn btn-sm btn-primary updateButton margin-left"><i class="fa fa-edit"></i>編集</button>'
-                      +'<button type="button" name="deleteButton" class="btn btn-sm btn-danger deleteButton margin-left" data-toggle="modal" data-target="#subDeleteModal"><i class="fa fa-eraser"></i>削除</button>'
-                      +'<button type="button" class="btn btn-sm btn-info btn_change_genkyo margin-left" data-toggle="modal" data-target="#ChangeGenkyo"><i class="fa fa-refresh"></i>現況変更</button>'
-                      +'<button type="button" class="btn btn-sm btn-info btn_change_end_judg margin-left" data-toggle="modal" data-target="#ChangeEndJudg"><i class="fa fa-refresh"></i>終了判定切替</button>';
-               	}else{
-               		 return '<button type="button" name="changeButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-edit"></i>編集</button>'
-                        +'<button type="button" name="deleteButton" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-eraser"></i>削除</button>'
-                        +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>現況変更</button>'
-                        +'<button type="button" class="btn btn-sm btn-secondary  margin-left" disabled><i class="fa fa-refresh" ></i>終了判定切替</button>';
-               	}
+               	   return '<button type="button" name="changeButton" class="btn btn-sm btn-secondary updateButton margin-left"disabled><i class="fa fa-edit"></i>編集</button>'
+                      +'<button type="button" name="deleteButton" class="btn btn-sm btn-secondary deleteButton margin-left"  data-toggle="modal" data-target="#subDeleteModal" disabled><i class="fa fa-eraser"></i>削除</button>'
+                      +'<button type="button" class="btn btn-sm btn-secondary btn_change_genkyo margin-left"  data-toggle="modal" data-target="#ChangeGenkyo" disabled><i class="fa fa-refresh"></i>現況変更</button>'
+                      +'<button type="button" class="btn btn-sm btn-secondary btn_change_end_judg margin-left"  data-toggle="modal" data-target="#ChangeEndJudg" disabled><i class="fa fa-refresh"></i>終了判定切替</button>';
+
                }
 		}
     ],
 	    rowCallback: function( row, data, dataIndex ) {
-	        if ( data.status == '1') {
-	          $(row).find('td:eq(1)').css('color','red');
 
-	          $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
-	          $(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
-	          $(row).find('.btn_change_end_judg').attr('disabled',false);
-	          if(data.starttime!=null){
-	        	  $(row).find('td:eq(3)').css('color','red');
-	          }
-	        } else {
-	          $(row).find('td:eq(1)').css('color','black');
-	          $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
-	          $(row).find('.btn_change_end_judg').attr('data-target','');
-	          $(row).find('.btn_change_end_judg').attr('disabled',true);
+	        switch(data.enable){
+	        case '3':
+	        	$(row).find('button').attr("disabled", false);
+	        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
+		        $(row).find('.deleteButton').removeClass('btn-secondary').addClass('btn-danger');
+		        $(row).find('.btn_change_genkyo').removeClass('btn-secondary').addClass('btn-info');
+		        $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
+		        if ( data.status == '1') {
+			          $(row).find('td:eq(1)').css('color','red');
+			          $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
+			          $(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
+			          $(row).find('.btn_change_end_judg').attr('disabled',false);
+			          if(data.starttime!=null){
+			        	  $(row).find('td:eq(3)').css('color','red');
+			          }
+			        } else {
+			          $(row).find('td:eq(1)').css('color','black');
+			          $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
+			          $(row).find('.btn_change_end_judg').attr('data-target','');
+			          $(row).find('.btn_change_end_judg').attr('disabled',true);
+			        }
+			        if ( data.endjdgsw == '1') {
+				          $(row).find('td:eq(2)').css('color','red');
+				        } else {
+				          $(row).find('td:eq(2)').css('color','black');
+				        }
+	        	break;
+	        case '1':
+	        	$(row).find('.updateButton').attr("disabled", false);
+	        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
+	        	break;
+	        default:
+	        	break;
 	        }
-	        if ( data.endjdgsw == '1') {
-		          $(row).find('td:eq(2)').css('color','red');
-		        } else {
-		          $(row).find('td:eq(2)').css('color','black');
-		        }
+
 
 	    }
 	});
