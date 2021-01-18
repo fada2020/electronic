@@ -11,21 +11,24 @@
     </select>
 	<!--認証処理エラーが発生   -->
   <select id="selectLogin" resultType="jp.co.info.ais.ops.domain.Login">
-    SELECT
-    	 loginuser
-		,passwd
-		,UserName
-		,UserNameKana
-		,UserGroupCd
-		,MailGroupCd
-		,SecretFlg
-		,MobileTel
-		,MailAddr
-		,SendMailFlg
-    FROM Sys_User
-    WHERE
-    LoginUser =#{id}
-    AND
-    PassWd = #{pass}
-     </select>
+	  SELECT
+	  	 su.loginuser AS loginuser
+	  	,sp.syuuseitime AS syuuseitime
+		,su.passwd AS passwd
+		,su.username AS username
+		,su.usernamekana AS usernamekana
+		,su.usergroupcd AS usergroupcd
+		,su.mailgroupcd AS mailgroupcd
+		,su.secretflg AS secretflg
+		,su.mobiletel AS mobiletel
+		,su.mailaddr AS mailaddr
+		,su.sendmailflg AS sendmailflg
+		,(SELECT PWDMAXAGE FROM SYS_PASSWORDPOLICY) AS pwdmaxage
+	  FROM Sys_User su, Sys_Password sp
+	  WHERE su.loginuser = #{id}
+	  AND su.passwd = #{pass}
+	  AND su.loginuser = sp.loginuser
+	  AND ROWNUM = 1
+	  ORDER BY sp.revno DESC
+    </select>
  </mapper>

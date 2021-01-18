@@ -60,6 +60,8 @@
 					id="pwdErr" hidden="true">パスワードが一致しません。</div>
 				<div class="alert alert-danger alert-dismissable text-left"
 					id="sysErr" hidden="true">認証処理中にシステム障害が発生しました。</div>
+				<div class="alert alert-danger alert-dismissable text-left"
+					id="overErr" hidden="true">パスワードの有効期間が超過しました。</div>
 
 				<div class="login-form">
 					<form id="hiddenLogin"action="" method="post">
@@ -71,7 +73,7 @@
 							<label>パスワード</label> <input type="password" class="form-control"
 								placeholder="Password" id="passkey" name="passkey" required>
 						</div>
-					</form>		
+					</form>
 					<button id="loginBtn"
 						class="btn btn-success btn-flat m-b-30 m-t-30"
 						onclick="candoit();">ログイン</button>
@@ -108,12 +110,15 @@
 				$("#idErr")[0].hidden = true;
 				$("#pwdErr")[0].hidden = true;
 				$("#sysErr")[0].hidden = true;
+				$("#overErr")[0].hidden = true;
 				if (d == 0) {
 					$("#sysErr")[0].hidden = false;
 				} else if (d == 1) {
 					$("#idErr")[0].hidden = false;
 				} else if (d == 2) {
 					$("#pwdErr")[0].hidden = false;
+				} else if (d == 3) {
+					$("#overErr")[0].hidden = false;
 				} else {
 					$("#hiddenLogin").attr("action","/ops/event/");
 					$("#hiddenLogin").submit();

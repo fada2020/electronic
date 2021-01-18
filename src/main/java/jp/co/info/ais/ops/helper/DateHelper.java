@@ -20,6 +20,12 @@ public class DateHelper {
         return sdf.format(dt).toString();
     }
 
+    public static String getNowDate() {
+        java.util.Date dt = new java.util.Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd", Locale.JAPAN);
+        return sdf.format(dt).toString();
+    }
+
     public static Date convStrToDate(String tDate) {
         SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
         Date date = null;
@@ -30,6 +36,7 @@ public class DateHelper {
 		}
     	return date;
     }
+
 
     public static String getTimeStampFormat(Date dt) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd",Locale.JAPAN);
@@ -52,7 +59,6 @@ public class DateHelper {
 	 	return  result;
 	}
 
-
     /**
      * 現在のタイムスタンプを返す
      */
@@ -70,26 +76,36 @@ public class DateHelper {
      * @return フォーマット後の日付文字列
      */
     public static String getDateFormat(String sDate) throws Throwable {
-    	System.out.println("sDate:"+sDate);
         StringBuffer strDate = new StringBuffer();
         if (!sDate.trim().equals("")) {
             strDate.append(sDate.substring(0, 4)).append("年");
             strDate.append(sDate.substring(4, 6)).append("月");
             strDate.append(sDate.substring(6, 8)).append("日");;
         }
-    	System.out.println("sDate1:"+strDate.toString());
         return strDate.toString();
     }
 
     public static String getDateFormat1(String sDate) throws Throwable {
-    	System.out.println("sDate:"+sDate);
         StringBuffer strDate = new StringBuffer();
         if (!sDate.trim().equals("")) {
             strDate.append(sDate.substring(0, 4)).append("/");
             strDate.append(sDate.substring(4, 6)).append("/");
             strDate.append(sDate.substring(6, 8));
         }
-    	System.out.println("sDate1:"+strDate.toString());
+        return strDate.toString();
+    }
+
+    public static String getDateFormatYMD(String sDate) throws Throwable {
+        StringBuffer strDate = new StringBuffer();
+		try {
+	        if (!sDate.trim().equals("")) {
+	            strDate.append(sDate.substring(0, 4));
+	            strDate.append(sDate.substring(4, 6));
+	            strDate.append(sDate.substring(6, 8));
+	        }
+		} catch (Throwable e) {
+			e.printStackTrace();
+		}
         return strDate.toString();
     }
 

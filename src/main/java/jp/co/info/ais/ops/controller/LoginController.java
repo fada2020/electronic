@@ -1,5 +1,9 @@
 package jp.co.info.ais.ops.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.apache.logging.log4j.LogManager;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import jp.co.info.ais.ops.domain.Login;
+import jp.co.info.ais.ops.helper.DateHelper;
 import jp.co.info.ais.ops.service.LoginService;
 import jp.co.info.ais.ops.service.UserGrantService;
 
@@ -55,10 +60,11 @@ public class LoginController {
 	 * @param Passwd
 	 * @param model
 	 * @return int login画面
+	 * @throws Throwable
 	 */
     @PostMapping("/loginprocess")
 	@ResponseBody
-	public int loginProcess(@RequestBody Login login, Model model) {
+	public int loginProcess(@RequestBody Login login, Model model) throws Throwable {
 		int result = 0;
 		logger.info("LOGIN PROCESS START : " + login.getLoginuser());
 		try {
@@ -67,15 +73,37 @@ public class LoginController {
 				result = 1;
 			} else {
 				Login user = loginService.selectLogin(login.getLoginuser(), login.getPasswd());
+
 				//パスワード有効性チェック
 				if (user == null) {
 					result = 2;
 				} else {
-					result = 9;
-					String enable = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
-					session.setAttribute("id", user.getLoginuser());
-					session.setAttribute("name", user.getUsername());
-					session.setAttribute("enable", enable);
+					//障害・不具合 #1950:パスワード有効期限チェック
+					SimpleDateFormat df = new SimpleDateFormat("yyyyMMdd");
+					//現在の日付を取得
+					String currentDate = DateHelper.getNowDate();
+					//パスワード最終修正日取得
+					String syuuseiDate = DateHelper.getDateFormatYMD(user.getSyuuseitime());
+					//パスワード有効期限取得
+					int maxAge = user.getPwdmaxage();
+					Date cDate = df.parse(currentDate);
+					Date sDate = df.parse(DateHelper.getDateFormatYMD(syuuseiDate));
+					Calendar cCalendar = Calendar.getInstance();
+					Calendar sCalendar = Calendar.getInstance();
+					cCalendar.setTime(cDate);
+					sCalendar.setTime(sDate);
+					sCalendar.add(Calendar.DATE, maxAge);
+
+					if(cCalendar.after(sCalendar)) {
+						//パスワード有効期限超過
+						result = 3;
+					}else {
+						result = 9;
+						String enable = (String) userGrantservice.selectGrantInfo(user.getLoginuser());
+						session.setAttribute("id", user.getLoginuser());
+						session.setAttribute("name", user.getUsername());
+						session.setAttribute("enable", enable);
+					}
 				}
 			}
 		} catch (Exception e) {
