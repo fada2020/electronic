@@ -372,41 +372,47 @@ var myDataTables = $("#setList").DataTable({
 		}
     ],
 	    rowCallback: function( row, data, dataIndex ) {
-
-	        switch(data.enable){
-	        case '3':
-	        	$(row).find('button').attr("disabled", false);
-	        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
-		        $(row).find('.deleteButton').removeClass('btn-secondary').addClass('btn-danger');
-		        $(row).find('.btn_change_genkyo').removeClass('btn-secondary').addClass('btn-info');
-		        $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
-		        if ( data.status == '1') {
-			          $(row).find('td:eq(1)').css('color','red');
-			          $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
-			          $(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
-			          $(row).find('.btn_change_end_judg').attr('disabled',false);
-			          if(data.starttime!=null){
-			        	  $(row).find('td:eq(3)').css('color','red');
-			          }
-			        } else {
-			          $(row).find('td:eq(1)').css('color','black');
-			          $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
-			          $(row).find('.btn_change_end_judg').attr('data-target','');
-			          $(row).find('.btn_change_end_judg').attr('disabled',true);
+	    	  switch(data.enable){
+		        case '3':
+		        	$(row).find('button').attr("disabled", false);
+		        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
+			        $(row).find('.deleteButton').removeClass('btn-secondary').addClass('btn-danger');
+			        $(row).find('.btn_change_genkyo').removeClass('btn-secondary').addClass('btn-info');
+			        $(row).find('.btn_change_end_judg').removeClass('btn-secondary').addClass('btn-info');
+			        if ( data.status == '1') {
+			        	$(row).find('.btn_change_end_judg').attr('data-target','#ChangeEndJudg');
+				          $(row).find('.btn_change_end_judg').attr('disabled',false);
+			        }else{
+			        	 $(row).find('.btn_change_end_judg').removeClass('btn-info').addClass('btn-secondary');
+				          $(row).find('.btn_change_end_judg').attr('data-target','');
+				          $(row).find('.btn_change_end_judg').attr('disabled',true);
 			        }
-			        if ( data.endjdgsw == '1') {
-				          $(row).find('td:eq(2)').css('color','red');
-				        } else {
-				          $(row).find('td:eq(2)').css('color','black');
-				        }
-	        	break;
-	        case '1':
-	        	$(row).find('.updateButton').attr("disabled", false);
-	        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
-	        	break;
-	        default:
-	        	break;
+		        	break;
+		        case '1':
+
+		        	$(row).find('.updateButton').attr("disabled", false);
+		        	$(row).find('.updateButton').removeClass('btn-secondary').addClass('btn-primary');
+		        	break;
+		        default:
+		        	break;
 	        }
+	    	if ( data.status == '1') {
+		          $(row).find('td:eq(1)').css('color','red');
+		          if(data.starttime!=null){
+		        	  $(row).find('td:eq(3)').css('color','red');
+		          }
+	        } else {
+	          $(row).find('td:eq(1)').css('color','black');
+
+	        }
+	        if ( data.endjdgsw == '1') {
+		          $(row).find('td:eq(2)').css('color','red');
+	        } else {
+	          $(row).find('td:eq(2)').css('color','black');
+	        }
+
+
+
 
 
 	    }
