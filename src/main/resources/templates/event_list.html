@@ -199,7 +199,7 @@
     <script src="../static/vendors/DataTables/datatables.js"></script>
 
 <form th:action="@{/event/}" name="hidSearchForm" id="hidSearchForm" method="post">
-	<input type="hidden" id="flag" name="flag">
+	<input type="hidden" id="flag" name="flag" th:value="${flag}">
 	<input type="hidden" id="fromDateTime" name="fromDateTime">
 	<input type="hidden" id="toDateTime" name="toDateTime">
 	<input type="hidden" id="chkStatus0" name="chkStatus0">
@@ -210,8 +210,24 @@
 	<input type="hidden" id="chkKind3" name="chkKind3">
 </form>
 
-<script>
+<script th:inline="javascript">
+/*<![CDATA[*/
+var result = /*[[${excel_download_error}]]*/ '';
+function checkExcelDown(){
+	if(result == "success"){
+		alert("ファイルダウンロードが完了しました。");
+	}
+	if(result == "over"){
+		alert("対象件数が1000件を超過しました。");
+	}
+}
+</script>
+
+<script type="text/javascript">
 jQuery(document).ready(function($) {
+	//EXCEL Download Message View
+	checkExcelDown();
+
 	/*画面初期*/
 	var table = $('#eventList').DataTable({
 			autoWidth: true,
@@ -250,6 +266,7 @@ jQuery(document).ready(function($) {
 	    	  url:  /*[[@{/getListAuto}]]*/ 'getListAuto',
 	    	  type: "POST",
 	    	  data: function ( d ) {
+	    		  	  d.flag=$("#flag").val();
 		    		  d.fromDateTime=$("#fromDateTime").val();
 		    		  d.toDateTime=$("#toDateTime").val();
 		    		  d.chkStatus0=$("#chkStatus0").val();
@@ -455,6 +472,8 @@ jQuery(document).ready(function($) {
 	});
 	//自動実行処理を行う。
 	$('#autoexecuteBtn').on('click', function() {
+		//自動更新フラグ設定
+		$('#flag').val('auto');
 		//発生日時（開始日時・終了日時）をクリア
 		$('#fromDate').val('');
 		$('#toDate').val('');
@@ -474,6 +493,8 @@ jQuery(document).ready(function($) {
 
 	//自動実行処理を止まる。
 	$('#executeStopBtn').on('click', function() {
+		//自動更新フラグ設定
+		$('#flag').val('search');
 		//$('.checkbox-input').prop("disabled", false);
 		$('.disabled-text').prop("disabled", false);
 		$('#executeStopBtn').hide();
@@ -488,7 +509,6 @@ jQuery(document).ready(function($) {
 
 /*繰り返しスタート*/
 function startAutoRenew() {
-	  $('#flag').val('search');
 	  timerID = setInterval("callAjaxList()", 5000);
 }
 /*繰り返しストップ*/
@@ -538,6 +558,7 @@ function setFormData(){
 		 $('#chkStatus0').attr('value', '');
 	 }
 }
+
 </script>
 </body>
 </html>
